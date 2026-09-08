@@ -135,26 +135,72 @@ export function processPatientMessage(
     }
   }
 
-  // 3. Triangulación con Base de Conocimiento (PDFs / RAG)
+  // 3. Detección especial de CONVENIO TORRE CARACAS (Remisión a Caracas)
+  const isCaracasRequest = matchedExams.some(e => e.isCaracasConvenio) ||
+    ['caracas', 'torre caracas', 'convenio caracas', 'rast', 'alergias alimentos', 'panel rast', 'zonulina', 'borrelia', 'lyme', 'babesia', 'anaplasma', 'subclases igg', 'caseina', 'leche de bufala', 'leche de cabra', 'leche de oveja', 'homocisteina', 'iga saliva'].some(term => normUser.includes(term));
+
+  if (isCaracasRequest) {
+    const caracasDoc = knowledgeDocs.find(d => d.category === 'CONVENIO_CARACAS');
+    const matchedDocs = caracasDoc ? [caracasDoc] : [];
+
+    let caracasReply = '📌 *CONVENIO TORRE CARACAS — GONZALEZ-PRATO LABORATORIO*\n\n';
+    caracasReply += 'Estimado paciente, con respecto a su solicitud de estudios especializados:\n\n';
+    caracasReply += '📢 *"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad."*\n\n';
+
+    if (matchedExams.length > 0) {
+      caracasReply += '🔬 *Pruebas identificadas en convenio:*\n';
+      matchedExams.forEach(e => {
+        caracasReply += '• *' + e.name + '* (' + e.fastingHours + ')\n';
+      });
+      caracasReply += '\n';
+    }
+
+    if (isOutOfHours) {
+      caracasReply += '⏰ He transferido su caso con prioridad alta a nuestra secretaría. Al reanudar operaciones (' + scheduleStatus.nextOpening + '), nuestro equipo se comunicará para brindarle cotización exacta y coordinar el envío de su muestra a Caracas.';
+      return {
+        replyText: caracasReply,
+        matchedExams,
+        matchedKnowledgeDocs: matchedDocs,
+        totalUsd: 0,
+        totalBs: 0,
+        shouldEscalate: true,
+        isOutOfHours: true,
+        escalationStatus: 'ESCALADO_FUERA_HORARIO',
+        escalationReason: 'Solicitud Convenio Torre Caracas fuera de horario (Derivado a secretaría)'
+      };
+    } else {
+      caracasReply += '🔔 He notificado de inmediato a nuestra secretaría para cotizarle estos paneles especializados y coordinar la recepción de sus muestras. Un operador humano le atenderá en breves momentos en este mismo chat.';
+      return {
+        replyText: caracasReply,
+        matchedExams,
+        matchedKnowledgeDocs: matchedDocs,
+        totalUsd: 0,
+        totalBs: 0,
+        shouldEscalate: true,
+        isOutOfHours: false,
+        escalationStatus: 'ESCALADO_HUMANO',
+        escalationReason: 'Solicitud Convenio Torre Caracas (Remisión externa a secretaría)'
+      };
+    }
+  }
+
+  // 4. Triangulación con Base de Conocimiento (PDFs / RAG)
   const matchedKnowledge: KnowledgeDocument[] = [];
   for (const doc of knowledgeDocs) {
     const hasTopicMatch = doc.keyTopics.some(topic => normUser.includes(normalizeText(topic)));
     const hasSnippetMatch = normalizeText(doc.contentSnippet).includes(normUser) || (normUser.length > 4 && normalizeText(doc.title).includes(normUser));
 
     // Categorías específicas
-    if (doc.category === 'SEGUROS' && (normUser.includes('pago') || normUser.includes('seguro') || normUser.includes('zelle') || normUser.includes('pago movil') || normUser.includes('efectivo') || normUser.includes('bcv') || normUser.includes('transferencia'))) {
+    if (doc.category === 'SEGUROS' && (normUser.includes('pago') || normUser.includes('seguro') || normUser.includes('zelle') || normUser.includes('pago movil') || normUser.includes('efectivo') || normUser.includes('bcv') || normUser.includes('transferencia') || normUser.includes('binance') || normUser.includes('tarjeta'))) {
       matchedKnowledge.push(doc);
     } else if (doc.category === 'DOMICILIOS' && (normUser.includes('domicilio') || normUser.includes('casa') || normUser.includes('encamado') || normUser.includes('a domicilio'))) {
       matchedKnowledge.push(doc);
     } else if (doc.category === 'MICROBIOLOGIA' && (
-      normUser.includes('urocultivo') || normUser.includes('orina') || normUser.includes('chorro medio') ||
-      normUser.includes('coprocultivo') || normUser.includes('heces') || normUser.includes('fecal') || normUser.includes('panal') ||
-      normUser.includes('exudado') || normUser.includes('faringeo') || normUser.includes('garganta') ||
-      normUser.includes('esputo') || normUser.includes('desgarro') || normUser.includes('expectoracion') ||
-      normUser.includes('herida') || normUser.includes('ulcera') || normUser.includes('absceso') ||
-      normUser.includes('otico') || normUser.includes('ocular') || normUser.includes('conjuntival') || normUser.includes('nasal') ||
-      normUser.includes('lcr') || normUser.includes('liquido') || normUser.includes('pleural') || normUser.includes('ascitico') ||
-      normUser.includes('hemocultivo') || normUser.includes('antibiograma') || normUser.includes('antibiotico') || normUser.includes('cultivo')
+      normUser.includes('urocultivo') || normUser.includes('cultivo') || normUser.includes('antibiograma') ||
+      normUser.includes('coprocultivo') || normUser.includes('exudado') || normUser.includes('faringeo') ||
+      normUser.includes('esputo') || normUser.includes('herida') || normUser.includes('ulcera') || normUser.includes('absceso') ||
+      normUser.includes('hemocultivo') || normUser.includes('broncoalveolar') || normUser.includes('espermocultivo') || normUser.includes('4 vasos') ||
+      normUser.includes('antibiotico')
     )) {
       matchedKnowledge.push(doc);
     } else if (doc.category === 'MICOLOGIA' && (
@@ -165,17 +211,26 @@ export function processPatientMessage(
       normUser.includes('esmalte') || normUser.includes('pie de atleta')
     )) {
       matchedKnowledge.push(doc);
-    } else if (doc.category === 'PREANALITICA' && (
-      normUser.includes('ayuno') || normUser.includes('agua') || normUser.includes('cafe') || normUser.includes('chicle') ||
-      normUser.includes('biotina') || normUser.includes('levotiroxina') || normUser.includes('tiroides') ||
-      normUser.includes('cortisol') || normUser.includes('prolactina') || normUser.includes('lh') || normUser.includes('fsh') ||
-      normUser.includes('progesterona') || normUser.includes('estradiol') || normUser.includes('dhea') ||
-      normUser.includes('insulina') || normUser.includes('glicemia') || normUser.includes('lipidico') || normUser.includes('colesterol') ||
-      normUser.includes('trigliceridos') || normUser.includes('acido urico') || normUser.includes('urea') || normUser.includes('creatinina') ||
+    } else if (doc.category === 'URO_COPRO' && (
+      normUser.includes('orina') || normUser.includes('24 horas') || normUser.includes('depuracion') ||
+      normUser.includes('microalbuminuria') || normUser.includes('proteinuria') || normUser.includes('relaciones urinarias') ||
+      normUser.includes('heces') || normUser.includes('coproanalisis') || normUser.includes('parasito') || normUser.includes('leucograma') ||
+      normUser.includes('sudan') || normUser.includes('graham') || normUser.includes('calprotectina') ||
+      normUser.includes('esteatocrito') || normUser.includes('sangre oculta') || normUser.includes('disbiosis') ||
+      normUser.includes('probiotico') || normUser.includes('yogurt')
+    )) {
+      matchedKnowledge.push(doc);
+    } else if (doc.category === 'QUIMICA_HORMONAS' && (
+      normUser.includes('ayuno') || normUser.includes('glicemia') || normUser.includes('glucosa') || normUser.includes('postprandial') ||
+      normUser.includes('colesterol') || normUser.includes('trigliceridos') || normUser.includes('lipidico') || normUser.includes('lipidograma') ||
+      normUser.includes('acido urico') || normUser.includes('urea') || normUser.includes('creatinina') ||
       normUser.includes('transaminasas') || normUser.includes('tgo') || normUser.includes('tgp') || normUser.includes('ggt') ||
-      normUser.includes('rhogam') || normUser.includes('coagulacion') || normUser.includes('pt') || normUser.includes('tpt') || normUser.includes('fibrinogeno') ||
-      normUser.includes('anticoagulante') || normUser.includes('warfarina') || normUser.includes('aspirina') || normUser.includes('plaquetas') ||
-      normUser.includes('testosterona') || normUser.includes('preparacion') || normUser.includes('requisito') || normUser.includes('condicion')
+      normUser.includes('bilirrubina') || normUser.includes('perfil 20') || normUser.includes('ferritina') || normUser.includes('hierro') ||
+      normUser.includes('vitamina b12') || normUser.includes('vitamina d') || normUser.includes('acido folico') ||
+      normUser.includes('tiroides') || normUser.includes('tsh') || normUser.includes('t4') || normUser.includes('t3') || normUser.includes('biotina') || normUser.includes('levotiroxina') ||
+      normUser.includes('cortisol') || normUser.includes('prolactina') || normUser.includes('lh') || normUser.includes('fsh') ||
+      normUser.includes('estradiol') || normUser.includes('progesterona') || normUser.includes('testosterona') || normUser.includes('insulina') ||
+      normUser.includes('psa') || normUser.includes('ca-125') || normUser.includes('ca125') || normUser.includes('ca 15-3') || normUser.includes('ca 19-9') || normUser.includes('cea') || normUser.includes('afp')
     )) {
       matchedKnowledge.push(doc);
     } else if (hasTopicMatch || hasSnippetMatch) {
@@ -183,10 +238,10 @@ export function processPatientMessage(
     }
   }
 
-  // 4. Saludos
+  // 5. Saludos
   const isGreeting = ['hola', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos', 'que tal'].some(g => normUser.includes(g));
   if (matchedExams.length === 0 && matchedKnowledge.length === 0 && isGreeting) {
-    let greetingReply = '¡Hola! Bienvenido a *GONZALEZ-PRATO Laboratorio* 🧪 (Dirección Técnica: Luisa Carolina González Ramírez).\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de exámenes.\n• ⏱️ Requisitos de ayuno y preparación de muestras.\n• 🔬 Protocolos para Urocultivos, Coprocultivos y Estudios Micológicos.\n• 📋 Formas de pago (Tasa BCV oficial, Pago Móvil, Zelle).\n\n';
+    let greetingReply = '¡Hola! Bienvenido a *GONZALEZ-PRATO Laboratorio* 🧪 (Dirección Técnica: Luisa Carolina González Ramírez).\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de más de 80 exámenes.\n• ⏱️ Requisitos de ayuno y preparación de muestras.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especiales remitidas a Caracas).\n• 📋 Formas de pago (Tasa BCV oficial en vivo, Pago Móvil, Zelle, Efectivo).\n\n';
     if (isOutOfHours) {
       greetingReply += '*(Nota: Nuestra sede física se encuentra en receso fuera de horario, pero puedo cotizarle y orientarle de inmediato).*\\n\\n¿Qué prueba médica desea consultar hoy?';
     } else {
@@ -207,7 +262,7 @@ export function processPatientMessage(
   // Sin coincidencia
   if (matchedExams.length === 0 && matchedKnowledge.length === 0) {
     return {
-      replyText: 'Disculpe, no logré identificar con exactitud el examen o procedimiento en su mensaje.\n\nEn *GONZALEZ-PRATO Laboratorio* disponemos de áreas de Hematología, Química Sanguínea, Hormonas, Microbiología Automatizada, Estudios Micológicos y Marcadores Tumorales.\n\nPor favor indíqueme el nombre exacto de la prueba médica o envíenos su orden médica.\n' + (isOutOfHours ? '*(Nuestra sede abrirá el ' + scheduleStatus.nextOpening + ' para atención humana y toma de muestras).*' : '*(O si lo prefiere, escriba "secretaria" para hablar con un asesor).*'),
+      replyText: 'Disculpe, no logré identificar con exactitud el examen o procedimiento en su mensaje.\n\nEn *GONZALEZ-PRATO Laboratorio* disponemos de áreas de Hematología, Química Sanguínea, Hormonas, Microbiología Automatizada, Uroanálisis, Coproanálisis, Estudios Micológicos, Marcadores Tumorales y Convenio Torre Caracas para pruebas especiales.\n\nPor favor indíqueme el nombre exacto de la prueba médica o envíenos una foto de su orden médica.\n' + (isOutOfHours ? '*(Nuestra sede abrirá el ' + scheduleStatus.nextOpening + ' para atención humana y toma de muestras).*' : '*(O si lo prefiere, escriba "secretaria" para hablar con un asesor).*'),
       matchedExams: [],
       matchedKnowledgeDocs: [],
       totalUsd: 0,
@@ -218,7 +273,7 @@ export function processPatientMessage(
     };
   }
 
-  // Calcular totales
+  // Calcular totales (excluyendo exámenes de convenio con precio 0 que cotiza secretaría)
   const totalUsd = matchedExams.reduce((acc, curr) => acc + curr.priceUsd, 0);
   const totalBs = totalUsd * exchangeRate;
 
@@ -228,7 +283,11 @@ export function processPatientMessage(
     matchedExams.forEach((exam, idx) => {
       const examBs = (exam.priceUsd * exchangeRate).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       reply += '*' + (idx + 1) + '. ' + exam.name + '*\n';
-      reply += '   💵 *Precio:* $' + exam.priceUsd.toFixed(2) + ' USD (Bs. ' + examBs + ')\n';
+      if (exam.priceUsd > 0) {
+        reply += '   💵 *Precio:* $' + exam.priceUsd.toFixed(2) + ' USD (Bs. ' + examBs + ')\n';
+      } else {
+        reply += '   💵 *Precio:* Cotización por Secretaría (Convenio Caracas)\n';
+      }
       reply += '   🩸 *Tipo de muestra:* ' + exam.sampleType + '\n';
       reply += '   ⌛ *Ayuno / Preparación:* ' + exam.fastingHours + '\n';
       if (exam.notes) {
@@ -236,9 +295,11 @@ export function processPatientMessage(
       }
       reply += '   ⏱️ *Tiempo de entrega:* ' + exam.turnaround + '\n\n';
     });
-    reply += '──────────────────────────\n';
-    reply += '💰 *TOTAL A CANCELAR:* **$' + totalUsd.toFixed(2) + ' USD** / **Bs. ' + totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '**\n';
-    reply += '*(Calculado a Tasa Oficial BCV: Bs. ' + exchangeRate.toFixed(2) + ' / USD)*\n\n';
+    if (totalUsd > 0) {
+      reply += '──────────────────────────\n';
+      reply += '💰 *TOTAL A CANCELAR:* **$' + totalUsd.toFixed(2) + ' USD** / **Bs. ' + totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '**\n';
+      reply += '*(Calculado a Tasa Oficial BCV: Bs. ' + exchangeRate.toFixed(2) + ' / USD)*\n\n';
+    }
   }
 
   if (matchedKnowledge.length > 0) {

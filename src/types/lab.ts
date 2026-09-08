@@ -12,12 +12,13 @@ export interface LabExam {
   turnaround: string;
   active: boolean;
   notes?: string;
+  isCaracasConvenio?: boolean;
 }
 
 export interface KnowledgeDocument {
   id: string;
   title: string;
-  category: 'PROTOCOLOS' | 'PREANALITICA' | 'MICROBIOLOGIA' | 'MICOLOGIA' | 'DOMICILIOS' | 'SEGUROS' | 'FAQ_MEDICAS';
+  category: 'PROTOCOLOS' | 'PREANALITICA' | 'MICROBIOLOGIA' | 'MICOLOGIA' | 'DOMICILIOS' | 'SEGUROS' | 'CONVENIO_CARACAS' | 'QUIMICA_HORMONAS' | 'URO_COPRO' | 'FAQ_MEDICAS';
   fileName: string;
   fileSize: string;
   uploadedAt: string;
