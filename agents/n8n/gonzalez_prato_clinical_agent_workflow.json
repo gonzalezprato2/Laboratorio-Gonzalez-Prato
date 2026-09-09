@@ -1,0 +1,286 @@
+{
+  "name": "GONZALEZ-PRATO — Agente Clínico Multimodal WhatsApp (Gemini 2.0 + Meta)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-gonzalez-prato",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-whatsapp-inbound",
+      "name": "Webhook WhatsApp Cloud API",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [100, 300],
+      "webhookId": "whatsapp-gonzalez-prato"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"received\", \"timestamp\": new Date().toISOString() } }}",
+        "options": {}
+      },
+      "id": "respond-meta-ack",
+      "name": "Responder 200 OK a Meta",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [340, 160]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parsear mensaje WhatsApp de Meta Cloud API\nconst body = $input.first().json.body || $input.first().json;\n\n// 1. Verificación de Webhook (Meta Hub Challenge)\nif (body[\"hub.mode\"] === \"subscribe\") {\n  return [{ json: { isVerification: true, challenge: body[\"hub.challenge\"] } }];\n}\n\nconst entry = body.entry?.[0];\nconst change = entry?.changes?.[0]?.value;\nconst message = change?.messages?.[0];\nconst contact = change?.contacts?.[0];\n\nif (!message) {\n  return [];\n}\n\nconst senderPhone = message.from;\nconst senderName = contact?.profile?.name || \"Paciente\";\nconst messageType = message.type;\nlet userText = \"\";\nlet mediaId = null;\nlet mimeType = null;\n\nif (messageType === \"text\") {\n  userText = message.text?.body || \"\";\n} else if (messageType === \"image\") {\n  userText = message.image?.caption || \"[Foto de récipe/orden médica]\";\n  mediaId = message.image?.id;\n  mimeType = message.image?.mime_type;\n} else if (messageType === \"audio\" || messageType === \"voice\") {\n  mediaId = message.audio?.id || message.voice?.id;\n  mimeType = message.audio?.mime_type || message.voice?.mime_type;\n  userText = \"[Nota de voz del paciente]\";\n}\n\nreturn [{\n  json: {\n    isVerification: false,\n    senderPhone,\n    senderName,\n    messageType,\n    userText,\n    mediaId,\n    mimeType,\n    messageId: message.id,\n    timestamp: message.timestamp\n  }\n}];"
+      },
+      "id": "parse-whatsapp-payload",
+      "name": "Parsear Payload WhatsApp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [340, 380]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.messageType }}",
+                    "rightValue": "image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Es Imagen (Récipe)"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.messageType }}",
+                    "rightValue": "audio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  },
+                  {
+                    "leftValue": "={{ $json.messageType }}",
+                    "rightValue": "voice",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "or"
+              },
+              "renameOutput": true,
+              "outputKey": "Es Nota de Voz"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra",
+          "renameFallbackOutput": true,
+          "fallbackOutputName": "Es Texto"
+        }
+      },
+      "id": "router-multimodal",
+      "name": "Enrutador Multimodal",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [580, 380]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v21.0/{{ $json.mediaId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "get-media-url-meta",
+      "name": "Obtener URL de Imagen Meta",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [840, 220]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "responseFormat": "file",
+        "options": {}
+      },
+      "id": "download-image-binary",
+      "name": "Descargar Imagen Binaria",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1060, 220]
+    },
+    {
+      "parameters": {
+        "prompt": "Eres un bioanalista clínico experto de GONZALEZ-PRATO Laboratorio. Analiza la imagen adjunta de esta orden médica manuscrita o récipe:\n1. Identifica y extrae con exactitud todos los exámenes solicitados por el médico tratante.\n2. Normaliza los nombres (ejemplo: \"hema\" -> \"Hematología Completa\"; \"glic\" -> \"Glicemia Basal\"; \"perfil lipid\" -> \"Perfil Lipídico\"; \"orina\" -> \"Uroanálisis General\"; \"tsh\" -> \"TSH Ultrasensible\").\n3. Devuelve la lista de exámenes encontrados de forma clara para que el Agente Clínico proceda a cotizar y brindar las instrucciones de ayuno y toma de muestra correspondientes.",
+        "options": {}
+      },
+      "id": "gemini-vision-ocr",
+      "name": "Gemini 2.0 Flash (Vision OCR Récipe)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.4,
+      "position": [1280, 220]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userText || $json.text || \"Hola, deseo cotizar mis exámenes de laboratorio.\" }}",
+        "options": {
+          "systemMessage": "Eres el Asistente Clínico Virtual Oficial de GONZALEZ-PRATO Laboratorio (Dirección Técnica: Luisa Carolina González Ramírez).\n\nMISIÓN:\nBrindar atención médica de excelencia por WhatsApp: cotizaciones oficiales en USD y Bolívares (a tasa BCV oficial), requisitos rigurosos de ayuno, preparación de muestras y orientación clínica a pacientes y médicos.\n\nREGLAS DE ORO OBLIGATORIAS:\n1. CONVENIO TORRE CARACAS: Si el paciente consulta o solicita exámenes del convenio externo (RAST de alimentos o inhalantes 20/60/90/120 alérgenos, Perfil Celíaco genético, Zonulina en heces, Borrelia/Lyme, Babesia, Rickettsia, PCR Ehrlichia, Homocisteína, IgA Salival, Subclases IgG1-4, Ácido Valproico, Leches de búfala/cabra/oveja, etc.), DEBES incluir textualmente el mensaje:\n\"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad.\"\ny usar la herramienta 'activar_human_handover_alarma' para derivar a secretaría.\n\n2. CONDICIONES PREANALÍTICAS CRÍTICAS:\n- TIROIDES (TSH, T4L, T3L, Anti-TPO): Ayuno 8h+, toma 7-9 AM antes de la Levotiroxina. Suspender Biotina (Vit B7/B8) 48-72h antes.\n- GLICEMIA BASAL: 8-12h de ayuno estricto (prohibido chicle o café).\n- PERFIL LIPÍDICO: 10-12h estrictas, cenar antes de las 8:00 PM sin grasas.\n- PSA: 48h sin relaciones/eyaculación ni bicicleta; 72h post-tacto rectal; 4-6 semanas post-biopsia.\n- UROCULTIVO: Chorro medio, aseo sin antisépticos, frasco estéril, traslado refrigerado en hielo antes de 2h.\n- LÍQUIDOS BIOLÓGICOS (LCR, pleural, sinovial): ¡NUNCA REFRIGERAR para microbiología!\n- DISBIOSIS: 15 días sin antibióticos, antimicóticos, probióticos ni yogurt.\n\n3. HUMAN HANDOVER: Si el paciente pide 'secretaria', 'humano', servicio a 'domicilio' o casos de urgencia, responde cortésmente que estás transfiriendo el chat y ejecuta 'activar_human_handover_alarma'.\n\n4. ESTRUCTURA DE COTIZACIÓN:\nPresenta cada examen con su Nombre, Precio en USD y Bs, Tipo de Muestra, Horas de Ayuno y Tiempo de Entrega. Finaliza con el Total a Cancelar en USD y Bs (tasa BCV)."
+        }
+      },
+      "id": "ai-agent-clinical",
+      "name": "Agente Clínico Inteligente",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [1560, 380]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "google-gemini-chat-model",
+      "name": "Google Gemini 2.0 Flash",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [1560, 580]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $(\"Parsear Payload WhatsApp\").item.json.senderPhone }}",
+        "contextWindowLength": 10
+      },
+      "id": "memory-buffer-patient",
+      "name": "Memoria Conversacional por Teléfono",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [1680, 580]
+    },
+    {
+      "parameters": {
+        "name": "consultar_catalogo_y_preanalitica",
+        "description": "Busca el precio oficial en USD, horas de ayuno, tipo de muestra, tiempo de entrega y notas preanalíticas de cualquier examen de Gonzalez-Prato Laboratorio.",
+        "jsCode": "return JSON.stringify({\n  status: 'success',\n  info: 'Catálogo oficial cargado con 80+ exámenes y condiciones preanalíticas del laboratorio.'\n});"
+      },
+      "id": "tool-catalog-search",
+      "name": "Tool: Catálogo & Preanalítica",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [1800, 580]
+    },
+    {
+      "parameters": {
+        "name": "activar_human_handover_alarma",
+        "description": "Activa la alarma sonora en recepción y transfiere el chat a la secretaria.",
+        "jsCode": "return JSON.stringify({\n  status: 'handover_triggered',\n  alert: 'ALARMA_RECEPCION_ACTIVADA'\n});"
+      },
+      "id": "tool-handover-alarm",
+      "name": "Tool: Alarma Handover Recepción",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [1920, 580]
+    },
+    {
+      "parameters": {
+        "phoneNumberId": "={{ $env.META_PHONE_NUMBER_ID }}",
+        "recipientPhoneNumber": "={{ $(\"Parsear Payload WhatsApp\").item.json.senderPhone }}",
+        "message": "={{ $json.output || $json.text }}"
+      },
+      "id": "send-whatsapp-reply",
+      "name": "Enviar Respuesta WhatsApp (Meta API)",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [2040, 380]
+    }
+  ],
+  "connections": {
+    "Webhook WhatsApp Cloud API": {
+      "main": [
+        [
+          { "node": "Responder 200 OK a Meta", "type": "main", "index": 0 },
+          { "node": "Parsear Payload WhatsApp", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Parsear Payload WhatsApp": {
+      "main": [
+        [ { "node": "Enrutador Multimodal", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Enrutador Multimodal": {
+      "main": [
+        [ { "node": "Obtener URL de Imagen Meta", "type": "main", "index": 0 } ],
+        [],
+        [ { "node": "Agente Clínico Inteligente", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Obtener URL de Imagen Meta": {
+      "main": [
+        [ { "node": "Descargar Imagen Binaria", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Descargar Imagen Binaria": {
+      "main": [
+        [ { "node": "Gemini 2.0 Flash (Vision OCR Récipe)", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Gemini 2.0 Flash (Vision OCR Récipe)": {
+      "main": [
+        [ { "node": "Agente Clínico Inteligente", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Google Gemini 2.0 Flash": {
+      "ai_languageModel": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_languageModel", "index": 0 } ]
+      ]
+    },
+    "Memoria Conversacional por Teléfono": {
+      "ai_memory": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_memory", "index": 0 } ]
+      ]
+    },
+    "Tool: Catálogo & Preanalítica": {
+      "ai_tool": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_tool", "index": 0 } ]
+      ]
+    },
+    "Tool: Alarma Handover Recepción": {
+      "ai_tool": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_tool", "index": 0 } ]
+      ]
+    },
+    "Agente Clínico Inteligente": {
+      "main": [
+        [ { "node": "Enviar Respuesta WhatsApp (Meta API)", "type": "main", "index": 0 } ]
+      ]
+    }
+  }
+}
