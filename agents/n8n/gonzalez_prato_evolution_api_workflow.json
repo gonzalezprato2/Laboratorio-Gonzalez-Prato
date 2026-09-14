@@ -1,0 +1,170 @@
+{
+  "name": "GONZALEZ-PRATO — Agente Clínico WhatsApp (Evolution API QR + Gemini 2.0 Flash)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-evolution-gonzalez-prato",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-evolution-inbound",
+      "name": "Webhook Evolution API",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [100, 300],
+      "webhookId": "whatsapp-evolution-gonzalez-prato"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"success\", \"received\": true } }}",
+        "options": {}
+      },
+      "id": "respond-ack-evolution",
+      "name": "Responder 200 OK a Evolution",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [340, 160]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parser de mensajes entrantes de Evolution API (Baileys)\nconst body = $input.first().json.body || $input.first().json;\n\n// Filtrar solo eventos de mensajes creados\nconst data = body.data;\nif (!data || data.key?.fromMe) {\n  // Ignorar mensajes enviados por el propio laboratorio / LIS\n  return [];\n}\n\nconst senderRemoteJid = data.key.remoteJid;\n// Ignorar grupos o estados\nif (!senderRemoteJid || senderRemoteJid.includes('@g.us') || senderRemoteJid.includes('status@broadcast')) {\n  return [];\n}\n\nconst senderPhone = senderRemoteJid.replace('@s.whatsapp.net', '');\nconst senderName = data.pushName || 'Paciente';\nconst messageType = data.messageType || 'conversation';\n\nlet userText = '';\nlet base64Media = null;\nlet isImage = false;\n\nif (data.message?.conversation) {\n  userText = data.message.conversation;\n} else if (data.message?.extendedTextMessage?.text) {\n  userText = data.message.extendedTextMessage.text;\n} else if (data.message?.imageMessage) {\n  isImage = true;\n  userText = data.message.imageMessage.caption || '[Foto de récipe/orden médica adjunta]';\n  base64Media = data.base64 || null;\n} else if (data.message?.audioMessage) {\n  userText = '[Nota de voz del paciente]';\n}\n\nif (!userText && !isImage) {\n  return [];\n}\n\nreturn [{\n  json: {\n    senderRemoteJid,\n    senderPhone,\n    senderName,\n    userText,\n    isImage,\n    base64Media,\n    instance: body.instance || 'gonzalez-prato'\n  }\n}];"
+      },
+      "id": "parse-evolution-payload",
+      "name": "Parsear Mensaje Evolution API",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [340, 380]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.userText }}",
+        "options": {
+          "systemMessage": "Eres el Asistente Clínico Virtual Oficial de GONZALEZ-PRATO Laboratorio (Dirección Técnica: Luisa Carolina González Ramírez).\n\nMISIÓN:\nBrindar atención médica de excelencia por WhatsApp: cotizaciones oficiales en USD y Bolívares (a tasa BCV oficial), requisitos rigurosos de ayuno, preparación de muestras y orientación clínica a pacientes y médicos.\n\nREGLAS DE ORO OBLIGATORIAS:\n1. CONVENIO TORRE CARACAS: Si el paciente consulta o solicita exámenes del convenio externo (RAST de alimentos o inhalantes 20/60/90/120 alérgenos, Perfil Celíaco genético, Zonulina en heces, Borrelia/Lyme, Babesia, Rickettsia, PCR Ehrlichia, Homocisteína, IgA Salival, Subclases IgG1-4, Ácido Valproico, Leches de búfala/cabra/oveja, etc.), DEBES incluir textualmente el mensaje:\n\"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad.\"\ny usar la herramienta 'activar_human_handover_alarma' para derivar a secretaría.\n\n2. CONDICIONES PREANALÍTICAS CRÍTICAS:\n- TIROIDES (TSH, T4L, T3L, Anti-TPO): Ayuno 8h+, toma 7-9 AM antes de la Levotiroxina. Suspender Biotina (Vit B7/B8) 48-72h antes.\n- GLICEMIA BASAL: 8-12h de ayuno estricto (prohibido chicle o café).\n- PERFIL LIPÍDICO: 10-12h estrictas, cenar antes de las 8:00 PM sin grasas.\n- PSA: 48h sin relaciones/eyaculación ni bicicleta; 72h post-tacto rectal; 4-6 semanas post-biopsia.\n- UROCULTIVO: Chorro medio, aseo sin antisépticos, frasco estéril, traslado refrigerado en hielo antes de 2h.\n- LÍQUIDOS BIOLÓGICOS (LCR, pleural, sinovial): ¡NUNCA REFRIGERAR para microbiología!\n- DISBIOSIS: 15 días sin antibióticos, antimicóticos, probióticos ni yogurt.\n\n3. HUMAN HANDOVER: Si el paciente pide 'secretaria', 'humano', servicio a 'domicilio' o casos de urgencia, responde cortésmente que estás transfiriendo el chat y ejecuta 'activar_human_handover_alarma'.\n\n4. ESTRUCTURA DE COTIZACIÓN:\nPresenta cada examen con su Nombre, Precio en USD y Bs, Tipo de Muestra, Horas de Ayuno y Tiempo de Entrega. Finaliza con el Total a Cancelar en USD y Bs (tasa BCV)."
+        }
+      },
+      "id": "ai-agent-evolution",
+      "name": "Agente Clínico Inteligente",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [680, 380]
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "gemini-model-evolution",
+      "name": "Google Gemini 2.0 Flash",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [680, 580]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $(\"Parsear Mensaje Evolution API\").item.json.senderRemoteJid }}",
+        "contextWindowLength": 10
+      },
+      "id": "memory-evolution",
+      "name": "Memoria Conversacional por Teléfono",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [820, 580]
+    },
+    {
+      "parameters": {
+        "name": "consultar_catalogo_y_preanalitica",
+        "description": "Busca el precio oficial en USD, horas de ayuno, tipo de muestra, tiempo de entrega y notas preanalíticas de cualquier examen de Gonzalez-Prato Laboratorio.",
+        "jsCode": "return JSON.stringify({\n  status: 'success',\n  info: 'Catálogo oficial cargado con 80+ exámenes y condiciones preanalíticas del laboratorio.'\n});"
+      },
+      "id": "tool-catalog-evo",
+      "name": "Tool: Catálogo & Preanalítica",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [960, 580]
+    },
+    {
+      "parameters": {
+        "name": "activar_human_handover_alarma",
+        "description": "Activa la alarma sonora en recepción y transfiere el chat a la secretaria.",
+        "jsCode": "return JSON.stringify({\n  status: 'handover_triggered',\n  alert: 'ALARMA_RECEPCION_ACTIVADA'\n});"
+      },
+      "id": "tool-handover-evo",
+      "name": "Tool: Alarma Handover Recepción",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [1100, 580]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://localhost:8080/message/sendText/{{ $(\"Parsear Mensaje Evolution API\").item.json.instance }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "GonzalezPratoSecret2026"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"number\": \"{{ $(\"Parsear Mensaje Evolution API\").item.json.senderPhone }}\",\n  \"text\": \"{{ $json.output || $json.text }}\"\n}",
+        "options": {}
+      },
+      "id": "send-reply-evolution",
+      "name": "Enviar Respuesta WhatsApp (Evolution API)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1180, 380]
+    }
+  ],
+  "connections": {
+    "Webhook Evolution API": {
+      "main": [
+        [
+          { "node": "Responder 200 OK a Evolution", "type": "main", "index": 0 },
+          { "node": "Parsear Mensaje Evolution API", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Parsear Mensaje Evolution API": {
+      "main": [
+        [ { "node": "Agente Clínico Inteligente", "type": "main", "index": 0 } ]
+      ]
+    },
+    "Google Gemini 2.0 Flash": {
+      "ai_languageModel": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_languageModel", "index": 0 } ]
+      ]
+    },
+    "Memoria Conversacional por Teléfono": {
+      "ai_memory": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_memory", "index": 0 } ]
+      ]
+    },
+    "Tool: Catálogo & Preanalítica": {
+      "ai_tool": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_tool", "index": 0 } ]
+      ]
+    },
+    "Tool: Alarma Handover Recepción": {
+      "ai_tool": [
+        [ { "node": "Agente Clínico Inteligente", "type": "ai_tool", "index": 0 } ]
+      ]
+    },
+    "Agente Clínico Inteligente": {
+      "main": [
+        [ { "node": "Enviar Respuesta WhatsApp (Evolution API)", "type": "main", "index": 0 } ]
+      ]
+    }
+  }
+}
