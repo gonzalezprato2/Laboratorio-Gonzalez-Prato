@@ -228,8 +228,8 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
     fileName: 'Convenios_Seguros_y_Metodos_Pago_2026.pdf',
     fileSize: '1.2 MB',
     uploadedAt: '08/09/2026',
-    contentSnippet: 'Aceptamos pagos en Bolívares (Pago Móvil, Transferencia bancaria a la tasa oficial del Banco Central de Venezuela BCV en el momento de la emisión), Divisas en efectivo (USD / Euros en buen estado), Zelle, Binance Pay (USDT) y tarjetas de débito/crédito internacionales. Aceptamos cartas de garantía de aseguradoras nacionales con clave de validación previa coordinada por secretaría.',
-    keyTopics: ['Pago Móvil', 'Tasa oficial BCV en vivo', 'Zelle', 'Efectivo USD Euros', 'Binance Pay USDT', 'Cartas de garantía seguros'],
+    contentSnippet: 'Aceptamos pagos en Divisas en efectivo (USD / Euros en buen estado), Zelle, Pago Móvil, Binance Pay (USDT) y tarjetas de débito/crédito internacionales. Todos nuestros precios y cotizaciones se manejan en Dólares ($ USD). Aceptamos cartas de garantía de aseguradoras nacionales con clave de validación previa coordinada por secretaría.',
+    keyTopics: ['Pago Móvil', 'Precios en USD', 'Zelle', 'Efectivo USD Euros', 'Binance Pay USDT', 'Cartas de garantía seguros'],
     active: true
   }
 ];

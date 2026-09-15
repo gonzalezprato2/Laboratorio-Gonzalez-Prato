@@ -7,12 +7,10 @@ import { PatientsCRM } from './components/PatientsCRM';
 import { MetricsDashboard } from './components/MetricsDashboard';
 import { SettingsView } from './components/SettingsView';
 import { WhatsAppSimulator } from './components/WhatsAppSimulator';
-import { AdminAuthModal } from './components/AdminAuthModal';
 import { storageService } from './services/storageService';
 import { audioAlarm } from './services/audioAlarmService';
 import { processPatientMessage } from './services/clinicalAiEngine';
-import { fetchLiveBcvRate } from './services/bcvService';
-import { LabExam, PatientLead, SystemConfig, BcvRateInfo } from './types/lab';
+import { LabExam, PatientLead, SystemConfig } from './types/lab';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'inbox' | 'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator'>('inbox');
@@ -20,18 +18,6 @@ export default function App() {
   const [leads, setLeads] = useState<PatientLead[]>([]);
   const [config, setConfig] = useState<SystemConfig>(storageService.getConfig());
   const [activeLeadId, setActiveLeadId] = useState<string | null>(null);
-  const [isRefreshingBcv, setIsRefreshingBcv] = useState(false);
-
-  // Admin Role Authentication State (Default: Secretary Mode / Inbox)
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
-    try {
-      return sessionStorage.getItem('gp_lab_admin_auth') === 'true';
-    } catch {
-      return false;
-    }
-  });
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [pendingTab, setPendingTab] = useState<'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator' | null>(null);
 
   useEffect(() => {
     setExams(storageService.getExams());
@@ -40,26 +26,7 @@ export default function App() {
     if (initialLeads.length > 0) {
       setActiveLeadId(initialLeads[0].id);
     }
-    handleSyncBcvRate();
   }, []);
-
-  const handleSyncBcvRate = async () => {
-    setIsRefreshingBcv(true);
-    try {
-      const bcvInfo = await fetchLiveBcvRate();
-      const newCfg: SystemConfig = {
-        ...config,
-        exchangeRateBsPerUsd: bcvInfo.rate,
-        bcvRateInfo: bcvInfo
-      };
-      setConfig(newCfg);
-      storageService.saveConfig(newCfg);
-    } catch (e) {
-      console.error('Error sincronizando tasa BCV:', e);
-    } finally {
-      setIsRefreshingBcv(false);
-    }
-  };
 
   const hasUrgentEscalated = leads.some(l => l.status === 'ESCALADO_HUMANO');
 
@@ -93,40 +60,7 @@ export default function App() {
   };
 
   const handleSelectTab = (tab: 'inbox' | 'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator') => {
-    if (tab === 'inbox') {
-      setActiveTab('inbox');
-      return;
-    }
-    if (isAdminAuthenticated) {
-      setActiveTab(tab);
-    } else {
-      setPendingTab(tab);
-      setShowAuthModal(true);
-    }
-  };
-
-  const handleAdminAuthSuccess = () => {
-    setIsAdminAuthenticated(true);
-    try {
-      sessionStorage.setItem('gp_lab_admin_auth', 'true');
-    } catch {}
-    const target = pendingTab || 'pricing';
-    setActiveTab(target);
-    setShowAuthModal(false);
-    setPendingTab(null);
-  };
-
-  const handleLockAdmin = () => {
-    setIsAdminAuthenticated(false);
-    try {
-      sessionStorage.removeItem('gp_lab_admin_auth');
-    } catch {}
-    setActiveTab('inbox');
-  };
-
-  const handleOpenAdminAuth = (targetTab?: any) => {
-    setPendingTab(targetTab || 'pricing');
-    setShowAuthModal(true);
+    setActiveTab(tab);
   };
 
   const handleSendMessage = (leadId: string, text: string, sender: 'SECRETARIA' | 'BOT') => {
@@ -159,7 +93,7 @@ export default function App() {
   };
 
   const handleNewPatientMessage = (messageText: string, isWeekendSimulated?: boolean) => {
-    const analysis = processPatientMessage(messageText, exams, config.exchangeRateBsPerUsd, config.scheduleConfig, isWeekendSimulated);
+    const analysis = processPatientMessage(messageText, exams, undefined, config.scheduleConfig, isWeekendSimulated);
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     const targetLeadId = activeLeadId || 'lead-1';
@@ -202,22 +136,6 @@ export default function App() {
     storageService.saveLeads(updatedLeads);
   };
 
-  const currentBcvInfo: BcvRateInfo = config.bcvRateInfo || {
-    rate: config.exchangeRateBsPerUsd || 61.20,
-    lastUpdated: 'Tasa BCV Oficial',
-    source: 'BCV DolarApi Oficial',
-    isAutoSynced: true
-  };
-
-  const tabNames: Record<string, string> = {
-    pricing: 'el Tarifario & Ayunos',
-    knowledge: 'la Base de Datos',
-    patients: 'el CRM de Pacientes',
-    metrics: 'la Analítica',
-    settings: 'la Configuración',
-    simulator: 'el Simulador WhatsApp'
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col">
       <Header 
@@ -226,12 +144,6 @@ export default function App() {
         hasEscalated={hasUrgentEscalated} 
         soundEnabled={config.soundAlarmEnabled} 
         toggleSound={handleToggleSound} 
-        bcvRateInfo={currentBcvInfo} 
-        onRefreshBcv={handleSyncBcvRate} 
-        isRefreshingBcv={isRefreshingBcv}
-        isAdminAuthenticated={isAdminAuthenticated}
-        onLockAdmin={handleLockAdmin}
-        onOpenAdminAuth={handleOpenAdminAuth}
       />
       <main className="flex-1 p-4 lg:p-6 max-w-7xl w-full mx-auto">
         {activeTab === "inbox" && (
@@ -241,58 +153,43 @@ export default function App() {
             setActiveLeadId={setActiveLeadId} 
             onSendMessage={handleSendMessage} 
             onResolveHandover={handleResolveHandover} 
-            exchangeRate={config.exchangeRateBsPerUsd} 
           />
         )}
-        {activeTab === "pricing" && isAdminAuthenticated && (
+        {activeTab === "pricing" && (
           <PricingManager 
             exams={exams} 
             onUpdateExams={handleUpdateExams} 
-            bcvRateInfo={currentBcvInfo} 
-            onRefreshBcv={handleSyncBcvRate} 
-            isRefreshingBcv={isRefreshingBcv} 
           />
         )}
-        {activeTab === "knowledge" && isAdminAuthenticated && (
+        {activeTab === "knowledge" && (
           <KnowledgeBase />
         )}
-        {activeTab === "patients" && isAdminAuthenticated && (
+        {activeTab === "patients" && (
           <PatientsCRM 
             leads={leads} 
             onSelectLead={(id) => { setActiveLeadId(id); setActiveTab("inbox"); }} 
-            exchangeRate={config.exchangeRateBsPerUsd} 
           />
         )}
-        {activeTab === "metrics" && isAdminAuthenticated && (
+        {activeTab === "metrics" && (
           <MetricsDashboard 
             leads={leads} 
             exams={exams} 
-            exchangeRate={config.exchangeRateBsPerUsd} 
           />
         )}
-        {activeTab === "settings" && isAdminAuthenticated && (
+        {activeTab === "settings" && (
           <SettingsView 
             config={config} 
             onSaveConfig={handleSaveConfig} 
           />
         )}
-        {activeTab === "simulator" && isAdminAuthenticated && (
+        {activeTab === "simulator" && (
           <WhatsAppSimulator 
             catalog={exams} 
-            exchangeRate={config.exchangeRateBsPerUsd} 
             scheduleConfig={config.scheduleConfig} 
             onNewPatientMessage={handleNewPatientMessage} 
           />
         )}
       </main>
-
-      <AdminAuthModal
-        isOpen={showAuthModal}
-        onClose={() => { setShowAuthModal(false); setPendingTab(null); }}
-        onSuccess={handleAdminAuthSuccess}
-        expectedPin={config.adminPin || '1000'}
-        targetTabName={pendingTab ? tabNames[pendingTab] : 'esta sección'}
-      />
     </div>
   );
 }

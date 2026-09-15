@@ -22,7 +22,7 @@ export const INITIAL_LEADS: PatientLead[] = [
       {
         id: 'm-2',
         sender: 'BOT',
-        text: '¡Buenos días! Es un placer atenderle en *GONZALEZ-PRATO Laboratorio* 🧪.\n\nHe preparado su cotización:\n\n• *Hematología Completa*: $7.50 (Ayuno: 4 a 8 horas)\n• *Glicemia en ayunas*: $4.50 (Ayuno: 8 a 12 horas estrictas)\n• *Urocultivo Automatizado con Antibiograma*: $35.00 (Primera orina, retención 4h)\n\n💰 *Total Presupuesto:* $47.00 USD (Aprox. Bs 2,820.00)\n\n¿Desea conocer los requisitos exactos de toma de muestra o requiere coordinar una cita?',
+        text: '¡Buenos días! Es un placer atenderle en *GONZALEZ-PRATO Laboratorio* 🧪.\n\nHe preparado su cotización:\n\n• *Hematología Completa*: $7.50 (Ayuno: 4 a 8 horas)\n• *Glicemia en ayunas*: $4.50 (Ayuno: 8 a 12 horas estrictas)\n• *Urocultivo Automatizado con Antibiograma*: $35.00 (Primera orina, retención 4h)\n\n💰 *Total Presupuesto:* $47.00 USD\n\n¿Desea conocer los requisitos exactos de toma de muestra o requiere coordinar una cita?',
         timestamp: '10:06 AM',
         quotedExams: ['Hematología Completa', 'Glicemia en ayunas', 'Urocultivo Automatizado con Antibiograma'],
         totalUsd: 47.0

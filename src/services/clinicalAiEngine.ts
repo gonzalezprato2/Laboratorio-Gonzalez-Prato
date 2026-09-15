@@ -6,7 +6,6 @@ export interface AgentAnalysisResult {
   matchedExams: LabExam[];
   matchedKnowledgeDocs: KnowledgeDocument[];
   totalUsd: number;
-  totalBs: number;
   shouldEscalate: boolean;
   isOutOfHours: boolean;
   escalationStatus: 'BOT_ACTIVO' | 'ESCALADO_HUMANO' | 'ESCALADO_FUERA_HORARIO';
@@ -75,7 +74,7 @@ export function isCurrentlyInWorkingHours(schedule?: WorkingScheduleConfig): { i
 export function processPatientMessage(
   userText: string,
   catalog: LabExam[],
-  exchangeRate: number,
+  exchangeRate?: number,
   scheduleConfig?: WorkingScheduleConfig,
   forceWeekendMode?: boolean
 ): AgentAnalysisResult {
@@ -96,7 +95,6 @@ export function processPatientMessage(
         matchedExams: [],
         matchedKnowledgeDocs: [],
         totalUsd: 0,
-        totalBs: 0,
         shouldEscalate: true,
         isOutOfHours: true,
         escalationStatus: 'ESCALADO_FUERA_HORARIO',
@@ -108,7 +106,6 @@ export function processPatientMessage(
         matchedExams: [],
         matchedKnowledgeDocs: [],
         totalUsd: 0,
-        totalBs: 0,
         shouldEscalate: true,
         isOutOfHours: false,
         escalationStatus: 'ESCALADO_HUMANO',
@@ -162,7 +159,6 @@ export function processPatientMessage(
         matchedExams,
         matchedKnowledgeDocs: matchedDocs,
         totalUsd: 0,
-        totalBs: 0,
         shouldEscalate: true,
         isOutOfHours: true,
         escalationStatus: 'ESCALADO_FUERA_HORARIO',
@@ -175,7 +171,6 @@ export function processPatientMessage(
         matchedExams,
         matchedKnowledgeDocs: matchedDocs,
         totalUsd: 0,
-        totalBs: 0,
         shouldEscalate: true,
         isOutOfHours: false,
         escalationStatus: 'ESCALADO_HUMANO',
@@ -191,7 +186,7 @@ export function processPatientMessage(
     const hasSnippetMatch = normalizeText(doc.contentSnippet).includes(normUser) || (normUser.length > 4 && normalizeText(doc.title).includes(normUser));
 
     // Categorías específicas
-    if (doc.category === 'SEGUROS' && (normUser.includes('pago') || normUser.includes('seguro') || normUser.includes('zelle') || normUser.includes('pago movil') || normUser.includes('efectivo') || normUser.includes('bcv') || normUser.includes('transferencia') || normUser.includes('binance') || normUser.includes('tarjeta'))) {
+    if (doc.category === 'SEGUROS' && (normUser.includes('pago') || normUser.includes('seguro') || normUser.includes('zelle') || normUser.includes('pago movil') || normUser.includes('efectivo') || normUser.includes('dolar') || normUser.includes('transferencia') || normUser.includes('binance') || normUser.includes('tarjeta'))) {
       matchedKnowledge.push(doc);
     } else if (doc.category === 'DOMICILIOS' && (normUser.includes('domicilio') || normUser.includes('casa') || normUser.includes('encamado') || normUser.includes('a domicilio'))) {
       matchedKnowledge.push(doc);
@@ -241,7 +236,7 @@ export function processPatientMessage(
   // 5. Saludos
   const isGreeting = ['hola', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos', 'que tal'].some(g => normUser.includes(g));
   if (matchedExams.length === 0 && matchedKnowledge.length === 0 && isGreeting) {
-    let greetingReply = '¡Hola! Bienvenido a *GONZALEZ-PRATO Laboratorio* 🧪 (Dirección Técnica: Luisa Carolina González Ramírez).\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de más de 80 exámenes.\n• ⏱️ Requisitos de ayuno y preparación de muestras.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especiales remitidas a Caracas).\n• 📋 Formas de pago (Tasa BCV oficial en vivo, Pago Móvil, Zelle, Efectivo).\n\n';
+    let greetingReply = '¡Hola! Bienvenido a *GONZALEZ-PRATO Laboratorio* 🧪 (Dirección Técnica: Luisa Carolina González Ramírez).\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de más de 80 exámenes en USD ($).\n• ⏱️ Requisitos de ayuno y preparación de muestras.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especiales remitidas a Caracas).\n• 📋 Formas de pago (Divisas en efectivo, Zelle, Pago Móvil, Binance Pay y Tarjetas).\n\n';
     if (isOutOfHours) {
       greetingReply += '*(Nota: Nuestra sede física se encuentra en receso fuera de horario, pero puedo cotizarle y orientarle de inmediato).*\\n\\n¿Qué prueba médica desea consultar hoy?';
     } else {
@@ -252,7 +247,6 @@ export function processPatientMessage(
       matchedExams: [],
       matchedKnowledgeDocs: [],
       totalUsd: 0,
-      totalBs: 0,
       shouldEscalate: false,
       isOutOfHours,
       escalationStatus: 'BOT_ACTIVO'
@@ -266,7 +260,6 @@ export function processPatientMessage(
       matchedExams: [],
       matchedKnowledgeDocs: [],
       totalUsd: 0,
-      totalBs: 0,
       shouldEscalate: false,
       isOutOfHours,
       escalationStatus: 'BOT_ACTIVO'
@@ -275,16 +268,14 @@ export function processPatientMessage(
 
   // Calcular totales (excluyendo exámenes de convenio con precio 0 que cotiza secretaría)
   const totalUsd = matchedExams.reduce((acc, curr) => acc + curr.priceUsd, 0);
-  const totalBs = totalUsd * exchangeRate;
 
   let reply = 'Con gusto le presento la información oficial de *GONZALEZ-PRATO Laboratorio* 🧪:\n\n';
   if (matchedExams.length > 0) {
     reply += '📋 *COTIZACIÓN OFICIAL Y PREPARACIÓN:*\n';
     matchedExams.forEach((exam, idx) => {
-      const examBs = (exam.priceUsd * exchangeRate).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       reply += '*' + (idx + 1) + '. ' + exam.name + '*\n';
       if (exam.priceUsd > 0) {
-        reply += '   💵 *Precio:* $' + exam.priceUsd.toFixed(2) + ' USD (Bs. ' + examBs + ')\n';
+        reply += '   💵 *Precio:* $' + exam.priceUsd.toFixed(2) + ' USD\n';
       } else {
         reply += '   💵 *Precio:* Cotización por Secretaría (Convenio Caracas)\n';
       }
@@ -297,8 +288,7 @@ export function processPatientMessage(
     });
     if (totalUsd > 0) {
       reply += '──────────────────────────\n';
-      reply += '💰 *TOTAL A CANCELAR:* **$' + totalUsd.toFixed(2) + ' USD** / **Bs. ' + totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '**\n';
-      reply += '*(Calculado a Tasa Oficial BCV: Bs. ' + exchangeRate.toFixed(2) + ' / USD)*\n\n';
+      reply += '💰 *TOTAL A CANCELAR:* **$' + totalUsd.toFixed(2) + ' USD**\n\n';
     }
   }
 
@@ -323,7 +313,6 @@ export function processPatientMessage(
     matchedExams,
     matchedKnowledgeDocs: matchedKnowledge,
     totalUsd,
-    totalBs,
     shouldEscalate: false,
     isOutOfHours,
     escalationStatus: 'BOT_ACTIVO'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { LabExam, WorkingScheduleConfig } from '../types/lab';
 import { processPatientMessage } from '../services/clinicalAiEngine';
 import { 
@@ -14,14 +14,12 @@ import {
 
 interface WhatsAppSimulatorProps {
   catalog: LabExam[];
-  exchangeRate: number;
   scheduleConfig?: WorkingScheduleConfig;
   onNewPatientMessage: (messageText: string, isWeekendSimulated?: boolean) => void;
 }
 
 export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({ 
   catalog, 
-  exchangeRate,
   scheduleConfig,
   onNewPatientMessage 
 }) => {
@@ -35,6 +33,11 @@ export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({
   ]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const simMessagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    simMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isTyping]);
 
   const quickPrompts = [
     'Hola, qué precio tiene la hematología completa y la glicemia?',
@@ -42,7 +45,7 @@ export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({
     'Precio de TSH, T4 libre y qué ayuno necesito',
     'Cultivo de orina con antibiograma y requisitos',
     'Quiero hablar con la secretaria para toma a domicilio urgente',
-    'Aceptan pago móvil y tasa oficial BCV?'
+    'Cuáles son los métodos de pago aceptados?'
   ];
 
   const handleSend = (textToSend?: string) => {
@@ -57,7 +60,7 @@ export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({
     onNewPatientMessage(text, simulateWeekend);
 
     setTimeout(() => {
-      const result = processPatientMessage(text, catalog, exchangeRate, scheduleConfig, simulateWeekend);
+      const result = processPatientMessage(text, catalog, undefined, scheduleConfig, simulateWeekend);
       setMessages(prev => [...prev, { sender: 'bot', text: result.replyText, time: timeNow }]);
       setIsTyping(false);
     }, 650);
@@ -131,6 +134,7 @@ export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({
                   <span className="w-2 h-2 bg-[#00A8B5] rounded-full animate-ping"></span>Escribiendo cotización...
                 </div>
               )}
+              <div ref={simMessagesEndRef} />
             </div>
 
             <div className="bg-[#F0F2F5] p-2.5 rounded-b-[28px] flex items-center gap-2">

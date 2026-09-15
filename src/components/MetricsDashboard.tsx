@@ -5,10 +5,9 @@ import { PatientLead, LabExam } from '../types/lab';
 interface MetricsDashboardProps {
   leads: PatientLead[];
   exams: LabExam[];
-  exchangeRate: number;
 }
 
-export const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ leads, exams, exchangeRate }) => {
+export const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ leads, exams }) => {
   const totalLeads = leads.length;
   const botHandled = leads.filter(l => l.status === 'BOT_ACTIVO').length;
   const resolutionRate = totalLeads > 0 ? ((botHandled / totalLeads) * 100).toFixed(1) : '100.0';
@@ -17,7 +16,7 @@ export const MetricsDashboard: React.FC<MetricsDashboardProps> = ({ leads, exams
   const kpis = [
     { title: 'Consultas Recibidas', value: '428', subtitle: '+18% vs semana previa', icon: MessageSquare, color: 'text-[#00A8B5]', bg: 'bg-teal-50' },
     { title: 'Tasa de Resolución IA', value: resolutionRate + '%', subtitle: 'Sin requerir intervención humana', icon: CheckCircle2, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-    { title: 'Volumen Cotizado (Semana)', value: '$' + totalQuotedUsd.toFixed(0) + ' USD', subtitle: 'Bs. ' + (totalQuotedUsd * exchangeRate).toLocaleString('es-VE'), icon: TrendingUp, color: 'text-[#0E4D58]', bg: 'bg-sky-50' },
+    { title: 'Volumen Cotizado (Semana)', value: '$' + totalQuotedUsd.toFixed(0) + ' USD', subtitle: 'Presupuestos acumulados en USD', icon: TrendingUp, color: 'text-[#0E4D58]', bg: 'bg-sky-50' },
     { title: 'Tiempo Promedio de Respuesta', value: '< 1.8 seg', subtitle: 'Vía Meta WhatsApp Cloud API', icon: Clock, color: 'text-purple-600', bg: 'bg-purple-50' }
   ];
 

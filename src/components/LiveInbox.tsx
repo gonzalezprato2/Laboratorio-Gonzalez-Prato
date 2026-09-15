@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PatientLead, ChatMessage } from '../types/lab';
 import { 
   Search, 
@@ -21,7 +21,6 @@ interface LiveInboxProps {
   setActiveLeadId: (id: string) => void;
   onSendMessage: (leadId: string, text: string, sender: 'SECRETARIA' | 'BOT') => void;
   onResolveHandover: (leadId: string) => void;
-  exchangeRate: number;
 }
 
 export const LiveInbox: React.FC<LiveInboxProps> = ({ 
@@ -29,12 +28,12 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
   activeLeadId, 
   setActiveLeadId, 
   onSendMessage, 
-  onResolveHandover, 
-  exchangeRate 
+  onResolveHandover
 }) => {
   const [filterText, setFilterText] = useState('');
   const [operatorInput, setOperatorInput] = useState('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'ESCALADO_HUMANO' | 'ESCALADO_FUERA_HORARIO' | 'BOT_ACTIVO'>('ALL');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const filteredLeads = leads.filter(lead => {
     const matchesQuery = lead.name.toLowerCase().includes(filterText.toLowerCase()) || 
@@ -45,6 +44,10 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
   });
 
   const activeLead = leads.find(l => l.id === activeLeadId) || leads[0];
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [activeLead?.id, activeLead?.messages]);
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
@@ -209,7 +212,7 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
                 </div>
                 {activeLead.totalQuotedUsd > 0 && (
                   <span className="font-bold text-slate-900 font-mono text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">
-                    Total: USD ${activeLead.totalQuotedUsd.toFixed(2)} (Bs. {(activeLead.totalQuotedUsd * exchangeRate).toLocaleString('es-VE')})
+                    Total: USD ${activeLead.totalQuotedUsd.toFixed(2)}
                   </span>
                 )}
               </div>
@@ -239,6 +242,7 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
                   </div>
                 );
               })}
+              <div ref={messagesEndRef} />
             </div>
 
             <form onSubmit={handleSend} className="p-3 border-t border-slate-200 bg-white flex gap-2">

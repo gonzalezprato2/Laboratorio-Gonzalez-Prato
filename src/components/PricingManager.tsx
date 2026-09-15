@@ -1,40 +1,32 @@
 import React, { useState } from 'react';
-import { LabExam, BcvRateInfo } from '../types/lab';
+import { LabExam } from '../types/lab';
 import { 
   Search, 
   Save, 
   Check, 
   DollarSign, 
   Clock, 
-  Sparkles,
-  Filter,
-  Edit3,
-  RefreshCw,
-  X,
-  AlertCircle
+  Sparkles, 
+  Filter, 
+  Edit3, 
+  X, 
+  AlertCircle 
 } from 'lucide-react';
 
 interface PricingManagerProps {
   exams: LabExam[];
   onUpdateExams: (updated: LabExam[]) => void;
-  bcvRateInfo: BcvRateInfo;
-  onRefreshBcv: () => void;
-  isRefreshingBcv: boolean;
 }
 
 export const PricingManager: React.FC<PricingManagerProps> = ({
   exams,
-  onUpdateExams,
-  bcvRateInfo,
-  onRefreshBcv,
-  isRefreshingBcv
+  onUpdateExams
 }) => {
   const [searchFilter, setSearchFilter] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [savedNotification, setSavedNotification] = useState(false);
   const [editingExam, setEditingExam] = useState<LabExam | null>(null);
 
-  const exchangeRate = bcvRateInfo.rate;
   const categories = ['ALL', ...Array.from(new Set(exams.map(e => e.category)))];
 
   const handlePriceChange = (id: string, newPrice: number) => {
@@ -74,34 +66,25 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
 
   return (
     <div className="space-y-5">
-      {/* TOP CONFIG BAR: TASA BCV EN VIVO Y CÁLCULO AUTOMÁTICO */}
+      {/* TOP CONFIG BAR */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <h2 className="text-base font-bold text-slate-900">Tarifario Oficial & Requisitos Preanalíticos</h2>
           <p className="text-xs text-slate-500">
-            Sincronización directa con el Agente Clínico. Los precios en Bolívares se calculan automáticamente con la tasa del BCV.
+            Sincronización directa con el Agente Clínico. Todas las cotizaciones y tarifas se manejan en Dólares ($ USD).
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          {/* Tarjeta de Tasa BCV Oficial */}
-          <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3.5 py-2 rounded-xl text-xs">
+          <div className="flex items-center gap-2 bg-teal-50 border border-teal-200 px-3.5 py-2 rounded-xl text-xs">
             <div>
-              <span className="text-[10px] text-emerald-800 font-bold uppercase block tracking-wide">
-                Tasa Oficial BCV ({bcvRateInfo.source})
+              <span className="text-[10px] text-teal-800 font-bold uppercase block tracking-wide">
+                Moneda Base
               </span>
-              <span className="text-sm font-black text-emerald-950 font-mono">
-                1 USD = Bs. {exchangeRate.toFixed(2)}
+              <span className="text-sm font-black text-[#0E4D58] font-mono flex items-center gap-1">
+                <DollarSign className="w-3.5 h-3.5" /> USD ($)
               </span>
             </div>
-            <button 
-              onClick={onRefreshBcv}
-              disabled={isRefreshingBcv}
-              title="Consultar API del Banco Central de Venezuela"
-              className="p-1.5 bg-white hover:bg-emerald-100 text-emerald-700 rounded-lg border border-emerald-300 transition-all shadow-sm"
-            >
-              <RefreshCw className={"w-3.5 h-3.5 " + (isRefreshingBcv ? "animate-spin text-emerald-600" : "")} />
-            </button>
           </div>
 
           {savedNotification && (
@@ -136,11 +119,11 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
           <div className="relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input 
-              type="text"
-              placeholder="Buscar examen, ayuno o sinónimo..."
-              value={searchFilter}
-              onChange={(e) => setSearchFilter(e.target.value)}
-              className="pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#00A8B5] w-full sm:w-64"
+              type="text" 
+              placeholder="Buscar examen, ayuno o sinónimo..." 
+              value={searchFilter} 
+              onChange={(e) => setSearchFilter(e.target.value)} 
+              className="pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#00A8B5] w-full sm:w-64" 
             />
           </div>
         </div>
@@ -154,7 +137,6 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                 <th className="py-3 px-3">EXAMEN / PRUEBA</th>
                 <th className="py-3 px-3">CATEGORÍA</th>
                 <th className="py-3 px-3">PRECIO ($ USD)</th>
-                <th className="py-3 px-3">PRECIO EN BS (BCV)</th>
                 <th className="py-3 px-3">REQUISITOS / AYUNO</th>
                 <th className="py-3 px-3">MUESTRA & TIEMPO</th>
                 <th className="py-3 px-3 text-right">EDICIÓN</th>
@@ -162,7 +144,6 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filteredExams.map(exam => {
-                const priceBs = (exam.priceUsd * exchangeRate).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 return (
                   <tr key={exam.id} className="hover:bg-slate-50/80 transition-colors">
                     {/* Active Toggle */}
@@ -206,11 +187,6 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                           className="w-20 border border-slate-200 rounded-lg px-2 py-1 font-bold text-[#0E4D58] focus:border-[#00A8B5] focus:outline-none bg-white"
                         />
                       </div>
-                    </td>
-
-                    {/* Price Bs Auto Calculated */}
-                    <td className="py-3 px-3 font-mono font-bold text-emerald-800 text-[11px] bg-emerald-50/40 rounded">
-                      Bs. {priceBs}
                     </td>
 
                     {/* Fasting & Requirements */}
@@ -274,9 +250,6 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
                     onChange={(e) => setEditingExam({ ...editingExam, priceUsd: parseFloat(e.target.value) || 0 })}
                     className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-[#0E4D58] focus:outline-none focus:border-[#00A8B5]"
                   />
-                  <span className="text-[10px] text-slate-400 mt-1 block">
-                    Equivalente: Bs. {(editingExam.priceUsd * exchangeRate).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
-                  </span>
                 </div>
 
                 <div>

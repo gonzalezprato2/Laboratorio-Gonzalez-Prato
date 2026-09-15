@@ -94,7 +94,7 @@ export const KnowledgeBase: React.FC = () => {
               1. Tarifario Dinámico
             </span>
             <p className="text-teal-100/80 text-[11px]">
-              Precios oficiales en USD y cálculo en Bs según la tasa del BCV en vivo.
+              Precios y cotizaciones oficiales calculados en Dólares ($ USD).
             </p>
           </div>
 

@@ -7,13 +7,6 @@ const LEADS_KEY = 'gp_lab_leads_v1';
 const CONFIG_KEY = 'gp_lab_config_v1';
 
 export const DEFAULT_CONFIG: SystemConfig = {
-  exchangeRateBsPerUsd: 61.20,
-  bcvRateInfo: {
-    rate: 61.20,
-    lastUpdated: 'Tasa BCV Oficial',
-    source: 'BCV Oficial (DolarApi)',
-    isAutoSynced: true
-  },
   soundAlarmEnabled: true,
   laboratoryName: 'GONZALEZ-PRATO Laboratorio',
   directorName: 'Luisa Carolina González Ramírez',
@@ -31,8 +24,7 @@ export const DEFAULT_CONFIG: SystemConfig = {
     sundayClose: '12:00',
     silenceAlarmsOutOfHours: true,
     outOfHoursCustomMessage: 'Estimado paciente, nuestra sede física se encuentra en receso fuera de horario laboral. He registrado su solicitud con prioridad alta para que nuestra secretaría le atienda a primera hora del siguiente día hábil.'
-  },
-  adminPin: '1000'
+  }
 };
 
 export const storageService = {

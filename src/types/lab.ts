@@ -6,7 +6,6 @@ export interface LabExam {
   name: string;
   synonyms: string[];
   priceUsd: number;
-  priceBs?: number;
   fastingHours: string;
   sampleType: string;
   turnaround: string;
@@ -34,7 +33,6 @@ export interface ChatMessage {
   timestamp: string;
   quotedExams?: string[];
   totalUsd?: number;
-  totalBs?: number;
   knowledgeReferences?: string[];
   isOutOfHours?: boolean;
 }
@@ -54,13 +52,6 @@ export interface PatientLead {
   isWeekendLead?: boolean;
 }
 
-export interface BcvRateInfo {
-  rate: number;
-  lastUpdated: string;
-  source: string;
-  isAutoSynced: boolean;
-}
-
 export interface WorkingScheduleConfig {
   weekdaysOpen: string;
   weekdaysClose: string;
@@ -75,8 +66,6 @@ export interface WorkingScheduleConfig {
 }
 
 export interface SystemConfig {
-  exchangeRateBsPerUsd: number;
-  bcvRateInfo: BcvRateInfo;
   soundAlarmEnabled: boolean;
   laboratoryName: string;
   directorName: string;
@@ -84,5 +73,4 @@ export interface SystemConfig {
   workingHours: string;
   address: string;
   scheduleConfig: WorkingScheduleConfig;
-  adminPin?: string;
 }

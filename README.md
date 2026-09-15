@@ -5,7 +5,7 @@ Plataforma integral omnicanal especializada para **GONZALEZ-PRATO Laboratorio** 
 1. **Centro de Mando Clínico (Frontend):**
    - **Bandeja de Entrada en Vivo (Live Inbox):** Monitorización de conversaciones WhatsApp con toma de control en vivo por la secretaria.
    - **Protocolo Human Handover & Alarma Sonora (Web Audio API):** Alerta sonora y visual continua en recepción cuando el paciente requiere asistencia personalizada o servicio a domicilio.
-   - **Gestor de Catálogo & Tarifario en Tiempo Real:** Edición instantánea de precios en USD y Bolívares (Bs con tasa de cambio configurable), así como parámetros preanalíticos y horas de ayuno.
+   - **Gestor de Catálogo & Tarifario en Tiempo Real:** Edición instantánea de precios en Dólares ($ USD), así como parámetros preanalíticos y horas de ayuno.
    - **Directorio de Pacientes (CRM):** Historial estructurado de leads, trazabilidad de exámenes cotizados y montos acumulados.
    - **Simulador Interactivo de WhatsApp:** Entorno de pruebas para evaluar respuestas clínicas del bot y disparadores de alarma.
    - **Telemetría y Analítica:** Indicadores de conversión, tasa de resolución automatizada y tiempos de respuesta.
