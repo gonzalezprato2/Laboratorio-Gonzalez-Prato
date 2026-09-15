@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { LabExam, WorkingScheduleConfig } from '../types/lab';
+import { LabExam, WorkingScheduleConfig, SystemConfig } from '../types/lab';
 import { processPatientMessage } from '../services/clinicalAiEngine';
 import { 
   Send, 
@@ -14,20 +14,25 @@ import {
 
 interface WhatsAppSimulatorProps {
   catalog: LabExam[];
+  config?: SystemConfig;
   scheduleConfig?: WorkingScheduleConfig;
   onNewPatientMessage: (messageText: string, isWeekendSimulated?: boolean) => void;
 }
 
 export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({ 
   catalog, 
+  config,
   scheduleConfig,
   onNewPatientMessage 
 }) => {
   const [simulateWeekend, setSimulateWeekend] = useState(false);
+  
+  const initialGreeting = config?.welcomeMessage || "¡Hola! Bienvenido a *GONZALEZ-PRATO Laboratorio* 🧪 (Dirección: Luisa Carolina González Ramírez).\n\nSoy su Asistente Clínico Virtual disponible 24/7. ¿Qué examen o perfil médico desea cotizar hoy?";
+
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'bot'; text: string; time: string }>>([
     { 
       sender: 'bot', 
-      text: "¡Hola! Bienvenido a *GONZALEZ-PRATO Laboratorio* 🧪 (Dirección: Luisa Carolina González Ramírez).\n\nSoy su Asistente Clínico Virtual disponible 24/7. ¿Qué examen o perfil médico desea cotizar hoy?", 
+      text: initialGreeting, 
       time: '12:00 PM' 
     }
   ]);
@@ -60,7 +65,7 @@ export const WhatsAppSimulator: React.FC<WhatsAppSimulatorProps> = ({
     onNewPatientMessage(text, simulateWeekend);
 
     setTimeout(() => {
-      const result = processPatientMessage(text, catalog, undefined, scheduleConfig, simulateWeekend);
+      const result = processPatientMessage(text, catalog, undefined, scheduleConfig || config?.scheduleConfig, simulateWeekend, config);
       setMessages(prev => [...prev, { sender: 'bot', text: result.replyText, time: timeNow }]);
       setIsTyping(false);
     }, 650);

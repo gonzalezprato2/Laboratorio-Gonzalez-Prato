@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SystemConfig, WorkingScheduleConfig } from '../types/lab';
+import { DEFAULT_CONFIG } from '../services/storageService';
 import { 
   Settings, 
   Clock, 
@@ -7,7 +8,10 @@ import {
   Check, 
   Building2, 
   Sun, 
-  Moon
+  Moon,
+  MessageSquare,
+  RotateCcw,
+  Sparkles
 } from 'lucide-react';
 
 interface SettingsViewProps {
@@ -16,7 +20,10 @@ interface SettingsViewProps {
 }
 
 export const SettingsView: React.FC<SettingsViewProps> = ({ config, onSaveConfig }) => {
-  const [form, setForm] = useState<SystemConfig>(config);
+  const [form, setForm] = useState<SystemConfig>({
+    ...config,
+    welcomeMessage: config.welcomeMessage || DEFAULT_CONFIG.welcomeMessage
+  });
   const [savedFlash, setSavedFlash] = useState(false);
 
   const handleScheduleChange = (key: keyof WorkingScheduleConfig, value: any) => {
@@ -26,6 +33,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onSaveConfig
         ...prev.scheduleConfig,
         [key]: value
       }
+    }));
+  };
+
+  const handleResetWelcome = () => {
+    setForm(prev => ({
+      ...prev,
+      welcomeMessage: DEFAULT_CONFIG.welcomeMessage
     }));
   };
 
@@ -45,7 +59,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onSaveConfig
           </div>
           <div>
             <h2 className="text-lg font-bold text-slate-900">Configuración del Centro de Control & Horarios</h2>
-            <p className="text-xs text-slate-500">Personaliza horarios de atención, reglas de guardia de fines de semana y datos institucionales.</p>
+            <p className="text-xs text-slate-500">Personaliza la identidad institucional, mensaje de bienvenida del bot y horarios de atención.</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -213,9 +227,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onSaveConfig
 
       {/* SECCIÓN 3: DATOS INSTITUCIONALES */}
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-4">
-        <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
-          <Building2 className="w-5 h-5 text-[#00A8B5]" />
-          <h3 className="text-sm font-bold text-slate-900">Identidad del Laboratorio</h3>
+        <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Building2 className="w-5 h-5 text-[#00A8B5]" />
+            <h3 className="text-sm font-bold text-slate-900">Identidad del Laboratorio</h3>
+          </div>
+          <span className="text-[10px] text-slate-400 font-medium">Información oficial reflejada en cotizaciones y reportes</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
           <div>
@@ -224,7 +241,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onSaveConfig
               type="text" 
               value={form.laboratoryName} 
               onChange={(e) => setForm({ ...form, laboratoryName: e.target.value })} 
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs" 
+              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#00A8B5] font-semibold text-slate-800" 
             />
           </div>
           <div>
@@ -233,7 +250,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onSaveConfig
               type="text" 
               value={form.directorName} 
               onChange={(e) => setForm({ ...form, directorName: e.target.value })} 
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs" 
+              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#00A8B5] font-semibold text-slate-800" 
             />
           </div>
           <div>
@@ -242,17 +259,64 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ config, onSaveConfig
               type="text" 
               value={form.receptionPhone} 
               onChange={(e) => setForm({ ...form, receptionPhone: e.target.value })} 
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs" 
+              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-[#00A8B5] text-slate-800 font-bold" 
             />
           </div>
           <div>
+            <label className="font-bold text-slate-700 block mb-1">Horario de Atención Informativo:</label>
+            <input 
+              type="text" 
+              value={form.workingHours} 
+              onChange={(e) => setForm({ ...form, workingHours: e.target.value })} 
+              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#00A8B5]" 
+            />
+          </div>
+          <div className="md:col-span-2">
             <label className="font-bold text-slate-700 block mb-1">Dirección de Sede:</label>
             <input 
               type="text" 
               value={form.address} 
               onChange={(e) => setForm({ ...form, address: e.target.value })} 
-              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs" 
+              className="w-full border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#00A8B5] text-slate-800" 
             />
+          </div>
+        </div>
+      </div>
+
+      {/* SECCIÓN 4: MENSAJE DE BIENVENIDA DEL ASISTENTE CLÍNICO */}
+      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="w-5 h-5 text-[#00A8B5]" />
+            <h3 className="text-sm font-bold text-slate-900">Personalización del Mensaje de Bienvenida (Saludo Inicial)</h3>
+          </div>
+          <button
+            type="button"
+            onClick={handleResetWelcome}
+            title="Restaurar saludo original"
+            className="text-[11px] font-bold text-teal-700 hover:text-[#0E4D58] flex items-center gap-1 bg-teal-50 hover:bg-teal-100 px-2.5 py-1 rounded-lg transition-all"
+          >
+            <RotateCcw className="w-3 h-3" />
+            <span>Restaurar Mensaje Original</span>
+          </button>
+        </div>
+        <div className="space-y-2 text-xs">
+          <p className="text-[11px] text-slate-500">
+            Este mensaje es enviado por el bot cuando un paciente inicia conversación saludando (ej. <em>"Hola"</em>, <em>"Buenos días"</em>) o al interactuar por primera vez:
+          </p>
+          <textarea
+            rows={8}
+            value={form.welcomeMessage || ''}
+            onChange={(e) => setForm({ ...form, welcomeMessage: e.target.value })}
+            placeholder="Escriba aquí el mensaje de saludo y bienvenida institucional..."
+            className="w-full border border-slate-200 rounded-2xl p-3.5 text-xs font-mono leading-relaxed focus:outline-none focus:border-[#00A8B5] text-slate-800 bg-slate-50/60 focus:bg-white"
+          />
+          <div className="flex items-center justify-between text-[11px] text-slate-400">
+            <span className="flex items-center gap-1 text-teal-700">
+              <Sparkles className="w-3.5 h-3.5" />
+              Soporta formato WhatsApp (*negrita*, _cursiva_, emojis y saltos de línea).
+            </span>
+            <span>{form.welcomeMessage?.length || 0} caracteres</span>
           </div>
         </div>
       </div>

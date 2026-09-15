@@ -93,7 +93,7 @@ export default function App() {
   };
 
   const handleNewPatientMessage = (messageText: string, isWeekendSimulated?: boolean) => {
-    const analysis = processPatientMessage(messageText, exams, undefined, config.scheduleConfig, isWeekendSimulated);
+    const analysis = processPatientMessage(messageText, exams, undefined, config.scheduleConfig, isWeekendSimulated, config);
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     const targetLeadId = activeLeadId || 'lead-1';
@@ -185,6 +185,7 @@ export default function App() {
         {activeTab === "simulator" && (
           <WhatsAppSimulator 
             catalog={exams} 
+            config={config}
             scheduleConfig={config.scheduleConfig} 
             onNewPatientMessage={handleNewPatientMessage} 
           />

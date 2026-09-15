@@ -1,4 +1,4 @@
-import { LabExam, KnowledgeDocument, WorkingScheduleConfig } from '../types/lab';
+import { LabExam, KnowledgeDocument, WorkingScheduleConfig, SystemConfig } from '../types/lab';
 import { knowledgeService } from './knowledgeService';
 
 export interface AgentAnalysisResult {
@@ -76,12 +76,14 @@ export function processPatientMessage(
   catalog: LabExam[],
   exchangeRate?: number,
   scheduleConfig?: WorkingScheduleConfig,
-  forceWeekendMode?: boolean
+  forceWeekendMode?: boolean,
+  systemConfig?: SystemConfig
 ): AgentAnalysisResult {
   const normUser = normalizeText(userText);
   const knowledgeDocs = knowledgeService.getDocs().filter(d => d.active);
 
-  const scheduleStatus = forceWeekendMode ? { isOpen: false, nextOpening: 'Lunes a las 7:00 AM' } : isCurrentlyInWorkingHours(scheduleConfig);
+  const effectiveSchedule = scheduleConfig || systemConfig?.scheduleConfig;
+  const scheduleStatus = forceWeekendMode ? { isOpen: false, nextOpening: 'Lunes a las 7:00 AM' } : isCurrentlyInWorkingHours(effectiveSchedule);
   const isOutOfHours = !scheduleStatus.isOpen;
 
   // 1. Detección de Handover Humano
@@ -89,7 +91,7 @@ export function processPatientMessage(
 
   if (needsHuman) {
     if (isOutOfHours) {
-      const customMsg = scheduleConfig?.outOfHoursCustomMessage || 'Estimado paciente, nuestra sede física se encuentra en receso fuera de horario laboral. He registrado su solicitud con prioridad alta.';
+      const customMsg = effectiveSchedule?.outOfHoursCustomMessage || 'Estimado paciente, nuestra sede física se encuentra en receso fuera de horario laboral. He registrado su solicitud con prioridad alta.';
       return {
         replyText: '📌 *ATENCIÓN DE RECEPCIÓN FUERA DE HORARIO*\n\n' + customMsg + '\n\n⏰ *Próxima apertura para atención humana:* ' + scheduleStatus.nextOpening + '.\n\n*(El Asistente Virtual sigue 100% disponible en este chat para cotizar exámenes y consultar ayunos).*',
         matchedExams: [],
@@ -101,8 +103,9 @@ export function processPatientMessage(
         escalationReason: 'Solicitud humana registrada fuera de horario (Pendiente de guardia)'
       };
     } else {
+      const labName = systemConfig?.laboratoryName || 'GONZALEZ-PRATO Laboratorio';
       return {
-        replyText: 'Comprendo perfectamente su solicitud. He notificado de inmediato al personal de recepción y secretaría de *GONZALEZ-PRATO Laboratorio* 🔔.\n\nUn operador humano se encuentra revisando este chat y le responderá directamente en breves momentos. Por favor permanezca en línea.',
+        replyText: 'Comprendo perfectamente su solicitud. He notificado de inmediato al personal de recepción y secretaría de *' + labName + '* 🔔.\n\nUn operador humano se encuentra revisando este chat y le responderá directamente en breves momentos. Por favor permanezca en línea.',
         matchedExams: [],
         matchedKnowledgeDocs: [],
         totalUsd: 0,
@@ -236,12 +239,19 @@ export function processPatientMessage(
   // 5. Saludos
   const isGreeting = ['hola', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos', 'que tal'].some(g => normUser.includes(g));
   if (matchedExams.length === 0 && matchedKnowledge.length === 0 && isGreeting) {
-    let greetingReply = '¡Hola! Bienvenido a *GONZALEZ-PRATO Laboratorio* 🧪 (Dirección Técnica: Luisa Carolina González Ramírez).\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de más de 80 exámenes en USD ($).\n• ⏱️ Requisitos de ayuno y preparación de muestras.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especiales remitidas a Caracas).\n• 📋 Formas de pago (Divisas en efectivo, Zelle, Pago Móvil, Binance Pay y Tarjetas).\n\n';
-    if (isOutOfHours) {
-      greetingReply += '*(Nota: Nuestra sede física se encuentra en receso fuera de horario, pero puedo cotizarle y orientarle de inmediato).*\\n\\n¿Qué prueba médica desea consultar hoy?';
-    } else {
-      greetingReply += '¿Qué prueba médica o perfil desea consultar hoy?\n*(En cualquier momento puede escribir "secretaria" para hablar con nuestro equipo).*';
+    let greetingReply = systemConfig?.welcomeMessage;
+    
+    if (!greetingReply) {
+      const labName = systemConfig?.laboratoryName || 'GONZALEZ-PRATO Laboratorio';
+      const director = systemConfig?.directorName || 'Luisa Carolina González Ramírez';
+      greetingReply = '¡Hola! Bienvenido a *' + labName + '* 🧪 (Dirección Técnica: ' + director + ').\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de más de 80 exámenes en USD ($).\n• ⏱️ Requisitos de ayuno y preparación de muestras.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especiales remitidas a Caracas).\n• 📋 Formas de pago (Divisas en efectivo, Zelle, Pago Móvil, Binance Pay y Tarjetas).\n\n';
+      if (isOutOfHours) {
+        greetingReply += '*(Nota: Nuestra sede física se encuentra en receso fuera de horario, pero puedo cotizarle y orientarle de inmediato).*\\n\\n¿Qué prueba médica desea consultar hoy?';
+      } else {
+        greetingReply += '¿Qué prueba médica o perfil desea consultar hoy?\n*(En cualquier momento puede escribir "secretaria" para hablar con nuestro equipo).*';
+      }
     }
+
     return {
       replyText: greetingReply,
       matchedExams: [],
