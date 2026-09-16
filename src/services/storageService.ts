@@ -3,7 +3,7 @@ import { INITIAL_EXAMS } from '../data/initialExams';
 import { INITIAL_LEADS } from '../data/mockLeads';
 
 const EXAMS_KEY = 'gp_lab_exams_v2';
-const LEADS_KEY = 'gp_lab_leads_v1';
+const LEADS_KEY = 'gp_lab_leads_v2'; // v2: reset demo data, producción limpia
 const CONFIG_KEY = 'gp_lab_config_v1';
 
 export const DEFAULT_CONFIG: SystemConfig = {
