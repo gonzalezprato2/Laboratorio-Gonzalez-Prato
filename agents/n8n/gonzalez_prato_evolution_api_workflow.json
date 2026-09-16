@@ -159,7 +159,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://petcqaixzetwsduscvtx.supabase.co/rest/v1/pacientes_leads",
+        "url": "https://petcqaixzetwsduscvtx.supabase.co/rest/v1/pacientes_leads?on_conflict=whatsapp_id",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
