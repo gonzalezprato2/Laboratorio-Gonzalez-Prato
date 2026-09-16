@@ -8,6 +8,7 @@ import { MetricsDashboard } from './components/MetricsDashboard';
 import { SettingsView } from './components/SettingsView';
 import { WhatsAppSimulator } from './components/WhatsAppSimulator';
 import { storageService } from './services/storageService';
+import { supabaseService } from './services/supabaseService';
 import { audioAlarm } from './services/audioAlarmService';
 import { processPatientMessage } from './services/clinicalAiEngine';
 import { LabExam, PatientLead, SystemConfig } from './types/lab';
@@ -19,13 +20,32 @@ export default function App() {
   const [config, setConfig] = useState<SystemConfig>(storageService.getConfig());
   const [activeLeadId, setActiveLeadId] = useState<string | null>(null);
 
+  // Carga inicial y suscripción Realtime a Supabase
   useEffect(() => {
     setExams(storageService.getExams());
-    const initialLeads = storageService.getLeads();
-    setLeads(initialLeads);
-    if (initialLeads.length > 0) {
-      setActiveLeadId(initialLeads[0].id);
-    }
+
+    const loadLeads = async () => {
+      const realLeads = await supabaseService.getLeads();
+      if (realLeads && realLeads.length > 0) {
+        setLeads(realLeads);
+        setActiveLeadId(prev => prev || realLeads[0].id);
+      } else {
+        const local = storageService.getLeads();
+        setLeads(local);
+        if (local.length > 0) setActiveLeadId(prev => prev || local[0].id);
+      }
+    };
+
+    loadLeads();
+
+    // Suscripción Realtime por WebSockets a Supabase
+    const unsubscribe = supabaseService.subscribeToLiveUpdates(() => {
+      loadLeads();
+    });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const hasUrgentEscalated = leads.some(l => l.status === 'ESCALADO_HUMANO');
@@ -63,7 +83,12 @@ export default function App() {
     setActiveTab(tab);
   };
 
-  const handleSendMessage = (leadId: string, text: string, sender: 'SECRETARIA' | 'BOT') => {
+  const handleSendMessage = async (leadId: string, text: string, sender: 'SECRETARIA' | 'BOT') => {
+    const targetLead = leads.find(l => l.id === leadId);
+    if (targetLead && sender === 'SECRETARIA') {
+      await supabaseService.sendSecretaryMessage(targetLead, text);
+    }
+
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const updatedLeads = leads.map(lead => {
       if (lead.id === leadId) {
@@ -86,7 +111,8 @@ export default function App() {
     storageService.saveLeads(updatedLeads);
   };
 
-  const handleResolveHandover = (leadId: string) => {
+  const handleResolveHandover = async (leadId: string) => {
+    await supabaseService.updateLeadStatus(leadId, 'BOT_ACTIVO');
     const updatedLeads = leads.map(l => l.id === leadId ? { ...l, status: 'BOT_ACTIVO' as const } : l);
     setLeads(updatedLeads);
     storageService.saveLeads(updatedLeads);
