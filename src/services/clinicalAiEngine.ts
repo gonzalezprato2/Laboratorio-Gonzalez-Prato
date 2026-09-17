@@ -148,6 +148,53 @@ export function processPatientMessage(
     };
   }
 
+  // 2.2. Detección y diferenciación clínica de EHRLICHIA (Sede Mérida vs Convenio Caracas)
+  if (normUser.includes('ehrlichia') || normUser.includes('erlichia')) {
+    const isExplicitlyCaracas = normUser.includes('pcr') || normUser.includes('caracas') || normUser.includes('molecular') || normUser.includes('serologia');
+    const isExplicitlyCapaBlanca = normUser.includes('capa blanca') || normUser.includes('frotis') || normUser.includes('sede') || normUser.includes('merida');
+
+    if (!isExplicitlyCaracas && (isExplicitlyCapaBlanca || !normUser.includes('pcr'))) {
+      const capaBlancaExam = catalog.find(e => normalizeText(e.name).includes('capa blanca')) || {
+        id: 'capa-blanca-ehrlichia',
+        name: 'Estudio de Ehrlichias (Capa Blanca / Frotis Sanguíneo)',
+        category: 'HEMATOLOGIA',
+        costUsd: 13.00,
+        fastingHours: 'Sin ayuno estricto',
+        sampleType: 'Sangre periférica / Capa leucocitaria (EDTA)',
+        deliveryTime: 'Mismo día',
+        notes: 'Idealmente tomar la muestra durante la fase febril aguda (pico febril) o con sintomatología activa.',
+        synonyms: ['erlichia', 'erlichias', 'frotis capa blanca', 'ehrlichia'],
+        active: true
+      };
+
+      let ehrlichiaReply = '🔬 *DIAGNÓSTICO DE EHRLICHIA EN GONZALEZ-PRATO LABORATORIO*\n\n';
+      ehrlichiaReply += 'Para el diagnóstico de **Ehrlichia (Erlichia)** disponemos de las siguientes modalidades:\n\n';
+      ehrlichiaReply += '1️⃣ *EN NUESTRA SEDE FÍSICA (MÉRIDA):*\n';
+      ehrlichiaReply += '• **Estudio de Ehrlichias (Capa Blanca / Frotis Sanguíneo)**: **$13.00 USD**\n';
+      ehrlichiaReply += '• *Muestra:* Sangre periférica / Capa leucocitaria.\n';
+      ehrlichiaReply += '• *Requisitos:* Sin ayuno estricto. Se recomienda tomar la muestra idealmente durante el pico o fase febril aguda para mayor sensibilidad diagnóstica.\n\n';
+      ehrlichiaReply += '2️⃣ *POR CONVENIO TORRE CARACAS (ESTUDIO MOLECULAR / SEROLOGÍA):*\n';
+      ehrlichiaReply += '• **PCR Molecular de Ehrlichia / Serología de Ehrlichia**\n';
+      ehrlichiaReply += '📢 *"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad."*\n\n';
+
+      if (isOutOfHours) {
+        ehrlichiaReply += '📍 *Horario de Toma de Muestras en Sede:* Lunes a Viernes de 7:00 AM a 11:30 AM | Sábados de 7:00 AM a 11:30 AM.\nPróxima apertura: ' + scheduleStatus.nextOpening + '.\n\n¿Desea realizarse el frotis de Capa Blanca en Mérida o requiere coordinar el envío de PCR a Caracas?';
+      } else {
+        ehrlichiaReply += '📍 *Horario de Toma de Muestras en Sede:* Lunes a Viernes de 7:00 AM a 11:30 AM | Sábados de 7:00 AM a 11:30 AM.\n\n¿Desea realizarse el frotis de Capa Blanca ($13 USD) en nuestra sede o requiere información de envío para el estudio molecular de Caracas?';
+      }
+
+      return {
+        replyText: ehrlichiaReply,
+        matchedExams: [capaBlancaExam as LabExam],
+        matchedKnowledgeDocs: knowledgeDocs.filter(d => d.category === 'PREANALITICA' || d.category === 'CONVENIO_CARACAS'),
+        totalUsd: 13.00,
+        shouldEscalate: false,
+        isOutOfHours,
+        escalationStatus: 'BOT_ACTIVO'
+      };
+    }
+  }
+
   // 3. Detección especial de CONVENIO TORRE CARACAS (Remisión a Caracas)
   const isCaracasRequest = matchedExams.some(e => e.isCaracasConvenio) ||
     ['caracas', 'torre caracas', 'convenio caracas', 'rast', 'alergias alimentos', 'panel rast', 'zonulina', 'borrelia', 'lyme', 'babesia', 'anaplasma', 'subclases igg', 'caseina', 'leche de bufala', 'leche de cabra', 'leche de oveja', 'homocisteina', 'iga saliva'].some(term => normUser.includes(term));
@@ -347,7 +394,7 @@ export function processPatientMessage(
     reply += '📍 *Próxima Apertura de Sede:* ' + scheduleStatus.nextOpening + ' (Toma de muestras matutina).\n';
     reply += 'Le esperamos en nuestra sede. Si desea dejar una orden agendada, puede indicarlo por aquí.';
   } else {
-    reply += '📍 *Horario de Toma de Muestras:* Lunes a Viernes de 7:00 AM a 11:30 AM (Atención administrativa hasta las 4:00 PM).\n';
+    reply += '📍 *Horario de Atención y Toma de Muestras:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 7:00 AM a 1:00 PM (Toma de muestras matutina de 7:00 AM a 11:30 AM).\n';
     reply += '¿Desea agendar su turno o requiere alguna orientación adicional?';
   }
 
