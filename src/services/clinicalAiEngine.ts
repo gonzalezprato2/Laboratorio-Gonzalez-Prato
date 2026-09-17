@@ -53,14 +53,14 @@ export function isCurrentlyInWorkingHours(schedule?: WorkingScheduleConfig): { i
       return { isOpen: false, nextOpening: 'Lunes a las ' + schedule.weekdaysOpen + ' AM' };
     }
     const [satOpenH, satOpenM] = (schedule.saturdayOpen || '07:00').split(':').map(Number);
-    const [satCloseH, satCloseM] = (schedule.saturdayClose || '12:00').split(':').map(Number);
+    const [satCloseH, satCloseM] = (schedule.saturdayClose || '13:00').split(':').map(Number);
     const isOpen = currentMinutes >= (satOpenH * 60 + satOpenM) && currentMinutes < (satCloseH * 60 + satCloseM);
     return { isOpen, nextOpening: 'Lunes a las ' + schedule.weekdaysOpen + ' AM' };
   }
 
   // Lunes a Viernes
   const [wOpenH, wOpenM] = (schedule.weekdaysOpen || '07:00').split(':').map(Number);
-  const [wCloseH, wCloseM] = (schedule.weekdaysClose || '16:00').split(':').map(Number);
+  const [wCloseH, wCloseM] = (schedule.weekdaysClose || '15:00').split(':').map(Number);
   const openMins = wOpenH * 60 + wOpenM;
   const closeMins = wCloseH * 60 + wCloseM;
   const isOpen = currentMinutes >= openMins && currentMinutes < closeMins;

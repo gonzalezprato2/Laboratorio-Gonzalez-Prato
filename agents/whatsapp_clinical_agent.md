@@ -104,6 +104,6 @@ Con gusto le presento la cotización oficial y preparación de muestras en *GONZ
 ──────────────────────────
 💰 *TOTAL A CANCELAR:* **$[Total] USD**
 
-📍 *Horario de Toma de Muestras:* Lunes a Viernes de 7:00 AM a 11:30 AM (Atención administrativa hasta las 4:00 PM).
+📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM (Toma de muestras hasta las 11:30 AM) | Sábados de 7:00 AM a 1:00 PM.
 ¿Desea agendar su turno o requiere alguna orientación adicional?
 ```
