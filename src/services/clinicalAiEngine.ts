@@ -294,7 +294,7 @@ export function processPatientMessage(
       if (exam.notes) {
         reply += '   ⚠️ *Condiciones Preanalíticas:* ' + exam.notes + '\n';
       }
-      reply += '   ⏱️ *Tiempo de entrega:* ' + exam.turnaround + '\n\n';
+      reply += '\n';
     });
     if (totalUsd > 0) {
       reply += '──────────────────────────\n';

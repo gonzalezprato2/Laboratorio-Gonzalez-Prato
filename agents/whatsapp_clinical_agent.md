@@ -98,12 +98,12 @@ Con gusto le presento la cotización oficial y preparación de muestras en *GONZ
    💵 *Precio:* $[Precio] USD
    🩸 *Tipo de muestra:* [Tipo_Muestra]
    ⌛ *Ayuno / Preparación:* [Requisitos_Ayuno]
-   ⚠️ *Condiciones Preanalíticas:* [Notas_Preanaliticas]
-   ⏱️ *Tiempo de entrega:* [Tiempo_Entrega]
+
+*(Nota: NO prometas ni menciones tiempos de entrega fijos. Si el paciente consulta expresamente por entrega, indícale que el tiempo se confirma en recepción al entregar su muestra).*
 
 ──────────────────────────
 💰 *TOTAL A CANCELAR:* **$[Total] USD**
 
 📍 *Horario de Toma de Muestras:* Lunes a Viernes de 7:00 AM a 11:30 AM (Atención administrativa hasta las 4:00 PM).
-¿Desea agendar su turno para la toma de muestra o requiere alguna orientación adicional?
+¿Desea agendar su turno o requiere alguna orientación adicional?
 ```
