@@ -1652,13 +1652,13 @@ export const INITIAL_EXAMS: LabExam[] = [
     id: 'cop-2',
     category: 'Coproanálisis',
     name: 'Concentrado Seriado de Heces (3 Muestras)',
-    synonyms: ['concentrado seriado de heces', 'heces seriadas', 'seriado de heces', 'concentrado de heces'],
-    priceUsd: 12.0,
+    synonyms: ['concentrado seriado de heces', 'heces seriadas', 'seriado de heces', 'concentrado de heces', 'concentrado seriado'],
+    priceUsd: 20.0,
     fastingHours: 'Sin ayuno',
-    sampleType: 'Frascos con solución fijadora especial suministrados por el laboratorio',
+    sampleType: 'Kit de recolección especial con líquido conservador suministrado por el laboratorio',
     turnaround: '24 a 48 horas',
     active: true,
-    notes: 'Acudir previamente al laboratorio a retirar el kit con material y líquido preservante. Cuidar de no derramar el líquido conservador.'
+    notes: '1. Acuda al laboratorio para adquirir el kit para la recolección de las muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado de la muestra. 2. Cuide no derramar ese líquido en el momento de trasladar el material entregado.'
   },
   {
     id: 'cop-3',
