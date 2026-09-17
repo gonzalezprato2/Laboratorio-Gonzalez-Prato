@@ -135,6 +135,19 @@ export function processPatientMessage(
     }
   }
 
+  // 2.1. Detección de exámenes NO realizados (Anti-alucinación explícita)
+  if (normUser.includes('espermograma') || normUser.includes('espermatograma') || normUser.includes('seminograma') || normUser.includes('espermiograma')) {
+    return {
+      replyText: 'Estimado paciente, le informamos que actualmente en *GONZALEZ-PRATO Laboratorio* **NO realizamos el examen de Espermograma / Seminograma**.\n\n*(Nota clínica: Disponemos de Espermocultivo para diagnóstico microbiológico de infecciones, pero no de análisis morfológico o recuento espermático).*',
+      matchedExams: [],
+      matchedKnowledgeDocs: [],
+      totalUsd: 0,
+      shouldEscalate: false,
+      isOutOfHours,
+      escalationStatus: 'BOT_ACTIVO'
+    };
+  }
+
   // 3. Detección especial de CONVENIO TORRE CARACAS (Remisión a Caracas)
   const isCaracasRequest = matchedExams.some(e => e.isCaracasConvenio) ||
     ['caracas', 'torre caracas', 'convenio caracas', 'rast', 'alergias alimentos', 'panel rast', 'zonulina', 'borrelia', 'lyme', 'babesia', 'anaplasma', 'subclases igg', 'caseina', 'leche de bufala', 'leche de cabra', 'leche de oveja', 'homocisteina', 'iga saliva'].some(term => normUser.includes(term));
@@ -308,6 +321,26 @@ export function processPatientMessage(
     uniqueDocs.slice(0, 2).forEach(doc => {
       reply += '• *' + doc.title + ':*\n' + doc.contentSnippet + '\n\n';
     });
+  }
+
+  const hasMycology = matchedExams.some(e => 
+    e.name.toLowerCase().includes('koh') || 
+    e.name.toLowerCase().includes('micol') || 
+    e.name.toLowerCase().includes('demodex')
+  );
+
+  if (hasMycology) {
+    reply += '\n⚠️ *IMPORTANTE — ESTUDIOS MICOLÓGICOS:* La toma de muestra para este examen se realiza **ESTRICTAMENTE CON PREVIA CITA**, ya que la especialista micóloga asiste en horarios pautados determinados.\n\n🔔 *He notificado a nuestra secretaría para que le asigne y coordine su cita directamente por este chat.*';
+    return {
+      replyText: reply,
+      matchedExams,
+      matchedKnowledgeDocs: matchedKnowledge,
+      totalUsd,
+      shouldEscalate: true,
+      isOutOfHours,
+      escalationStatus: isOutOfHours ? 'ESCALADO_FUERA_HORARIO' : 'ESCALADO_HUMANO',
+      escalationReason: 'Estudio micológico (Requiere cita previa con micóloga)'
+    };
   }
 
   if (isOutOfHours) {
