@@ -1,5 +1,5 @@
-﻿import { supabase } from './supabaseClient';
-import { PatientLead, ChatMessage, AttentionStatus } from '../types/lab';
+import { supabase } from './supabaseClient';
+import { PatientLead, ChatMessage, AttentionStatus, LabExam } from '../types/lab';
 
 export const supabaseService = {
   async getLeads(): Promise<PatientLead[]> {
@@ -105,6 +105,71 @@ export const supabaseService = {
     }
   },
 
+  async getExams(): Promise<LabExam[]> {
+    try {
+      const { data, error } = await supabase
+        .from('examenes')
+        .select('*')
+        .order('categoria', { ascending: true });
+
+      if (error || !data || data.length === 0) {
+        return [];
+      }
+
+      return data.map(item => ({
+        id: item.id,
+        category: item.categoria,
+        name: item.nombre_examen,
+        synonyms: item.sinonimos || [],
+        priceUsd: Number(item.costo_usd) || 0,
+        fastingHours: item.requisitos_preanaliticos || '',
+        sampleType: item.tipo_muestra || '',
+        turnaround: item.tiempo_entrega || '',
+        active: item.activo !== false,
+        notes: item.notas || undefined
+      }));
+    } catch (err) {
+      console.error('Error fetching exams from Supabase:', err);
+      return [];
+    }
+  },
+
+  async saveExams(exams: LabExam[]): Promise<boolean> {
+    try {
+      for (const exam of exams) {
+        if (exam.id && exam.id.includes('-') && exam.id.length > 20) {
+          // UUID update
+          await supabase.from('examenes').update({
+            categoria: exam.category,
+            nombre_examen: exam.name,
+            sinonimos: exam.synonyms,
+            costo_usd: exam.priceUsd,
+            requisitos_preanaliticos: exam.fastingHours,
+            tipo_muestra: exam.sampleType,
+            activo: exam.active,
+            updated_at: new Date().toISOString()
+          }).eq('id', exam.id);
+        } else {
+          // Insert or upsert by name
+          await supabase.from('examenes').upsert({
+            categoria: exam.category,
+            nombre_examen: exam.name,
+            sinonimos: exam.synonyms,
+            costo_usd: exam.priceUsd,
+            requisitos_preanaliticos: exam.fastingHours,
+            tipo_muestra: exam.sampleType,
+            activo: exam.active,
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'nombre_examen' });
+        }
+      }
+      return true;
+    } catch (err) {
+      console.error('Error saving exams to Supabase:', err);
+      return false;
+    }
+  },
+
   subscribeToLiveUpdates(onChange: () => void) {
     const channel = supabase
       .channel('gp_live_realtime')
@@ -112,6 +177,9 @@ export const supabaseService = {
         onChange();
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'mensajes_chat' }, () => {
+        onChange();
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'examenes' }, () => {
         onChange();
       })
       .subscribe();

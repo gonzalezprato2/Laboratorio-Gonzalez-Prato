@@ -22,7 +22,15 @@ export default function App() {
 
   // Carga inicial y suscripción Realtime a Supabase
   useEffect(() => {
-    setExams(storageService.getExams());
+    const loadExams = async () => {
+      const realExams = await supabaseService.getExams();
+      if (realExams && realExams.length > 0) {
+        setExams(realExams);
+      } else {
+        setExams(storageService.getExams());
+      }
+    };
+    loadExams();
 
     const loadLeads = async () => {
       const realLeads = await supabaseService.getLeads();
@@ -41,6 +49,7 @@ export default function App() {
     // Suscripción Realtime por WebSockets a Supabase
     const unsubscribe = supabaseService.subscribeToLiveUpdates(() => {
       loadLeads();
+      loadExams();
     });
 
     return () => {
@@ -69,9 +78,10 @@ export default function App() {
     audioAlarm.setMuted(!updated);
   };
 
-  const handleUpdateExams = (updated: LabExam[]) => {
+  const handleUpdateExams = async (updated: LabExam[]) => {
     setExams(updated);
     storageService.saveExams(updated);
+    await supabaseService.saveExams(updated);
   };
 
   const handleSaveConfig = (newConfig: SystemConfig) => {
