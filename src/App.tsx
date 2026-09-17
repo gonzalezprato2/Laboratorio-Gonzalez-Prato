@@ -11,7 +11,7 @@ import { storageService } from './services/storageService';
 import { supabaseService } from './services/supabaseService';
 import { audioAlarm } from './services/audioAlarmService';
 import { processPatientMessage } from './services/clinicalAiEngine';
-import { LabExam, PatientLead, SystemConfig } from './types/lab';
+import { LabExam, PatientLead, SystemConfig, AttentionStatus } from './types/lab';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'inbox' | 'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator'>('inbox');
@@ -110,6 +110,7 @@ export default function App() {
         };
         return {
           ...lead,
+          status: sender === 'SECRETARIA' ? ('ESCALADO_HUMANO' as const) : lead.status,
           lastMessage: text,
           timestamp: timeNow,
           messages: [...lead.messages, newMsg]
@@ -121,11 +122,15 @@ export default function App() {
     storageService.saveLeads(updatedLeads);
   };
 
-  const handleResolveHandover = async (leadId: string) => {
-    await supabaseService.updateLeadStatus(leadId, 'BOT_ACTIVO');
-    const updatedLeads = leads.map(l => l.id === leadId ? { ...l, status: 'BOT_ACTIVO' as const } : l);
+  const handleUpdateLeadStatus = async (leadId: string, status: AttentionStatus) => {
+    await supabaseService.updateLeadStatus(leadId, status);
+    const updatedLeads = leads.map(l => l.id === leadId ? { ...l, status } : l);
     setLeads(updatedLeads);
     storageService.saveLeads(updatedLeads);
+  };
+
+  const handleResolveHandover = async (leadId: string) => {
+    await handleUpdateLeadStatus(leadId, 'BOT_ACTIVO');
   };
 
   const handleNewPatientMessage = (messageText: string, isWeekendSimulated?: boolean) => {
@@ -189,6 +194,7 @@ export default function App() {
             setActiveLeadId={setActiveLeadId} 
             onSendMessage={handleSendMessage} 
             onResolveHandover={handleResolveHandover} 
+            onUpdateLeadStatus={handleUpdateLeadStatus}
           />
         )}
         {activeTab === "pricing" && (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { PatientLead, ChatMessage } from '../types/lab';
+import { PatientLead, ChatMessage, AttentionStatus } from '../types/lab';
 import { 
   Search, 
   Send, 
@@ -12,7 +12,11 @@ import {
   CheckCircle2, 
   Clock, 
   Sparkles,
-  Moon
+  Moon,
+  PauseCircle,
+  PlayCircle,
+  Archive,
+  Info
 } from 'lucide-react';
 
 interface LiveInboxProps {
@@ -21,6 +25,7 @@ interface LiveInboxProps {
   setActiveLeadId: (id: string) => void;
   onSendMessage: (leadId: string, text: string, sender: 'SECRETARIA' | 'BOT') => void;
   onResolveHandover: (leadId: string) => void;
+  onUpdateLeadStatus?: (leadId: string, status: AttentionStatus) => void;
 }
 
 export const LiveInbox: React.FC<LiveInboxProps> = ({ 
@@ -28,11 +33,12 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
   activeLeadId, 
   setActiveLeadId, 
   onSendMessage, 
-  onResolveHandover
+  onResolveHandover,
+  onUpdateLeadStatus
 }) => {
   const [filterText, setFilterText] = useState('');
   const [operatorInput, setOperatorInput] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'ALL' | 'ESCALADO_HUMANO' | 'ESCALADO_FUERA_HORARIO' | 'BOT_ACTIVO'>('ALL');
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'ESCALADO_HUMANO' | 'ESCALADO_FUERA_HORARIO' | 'BOT_ACTIVO' | 'FINALIZADO'>('ALL');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const filteredLeads = leads.filter(lead => {
@@ -56,14 +62,28 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
     setOperatorInput('');
   };
 
+  const handleStatusChange = (newStatus: AttentionStatus) => {
+    if (!activeLead) return;
+    if (onUpdateLeadStatus) {
+      onUpdateLeadStatus(activeLead.id, newStatus);
+    } else if (newStatus === 'BOT_ACTIVO') {
+      onResolveHandover(activeLead.id);
+    }
+  };
+
+  const isHumanHandling = activeLead?.status === 'ESCALADO_HUMANO' || activeLead?.status === 'ESCALADO_FUERA_HORARIO';
+  const isFinalized = activeLead?.status === 'FINALIZADO';
+  const isBotActive = activeLead?.status === 'BOT_ACTIVO';
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 h-[calc(100vh-140px)] min-h-[640px]">
+      {/* Columna Izquierda: Directorio de Conversaciones */}
       <div className="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
         <div className="p-4 border-b border-slate-100 bg-slate-50/80 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="font-bold text-xs text-slate-700 tracking-wider uppercase flex items-center gap-2">
               <span>Bandeja de Entrada en Vivo</span>
-              <span className="bg-teal-100 text-[#0E4D58] text-[10px] font-extrabold px-2 py-0.5 rounded-full">{leads.length} Leads</span>
+              <span className="bg-teal-100 text-[#0E4D58] text-[10px] font-extrabold px-2 py-0.5 rounded-full">{leads.length} Pacientes</span>
             </h2>
             <span className="text-[11px] font-semibold text-emerald-600 flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>Live Sync
@@ -93,20 +113,26 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
               className={"px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 transition-all " + (statusFilter === 'ESCALADO_HUMANO' ? 'bg-rose-600 text-white' : 'bg-rose-100 text-rose-700 hover:bg-rose-200')}
             >
               <AlertTriangle className="w-3 h-3" />
-              Urgente ({leads.filter(l => l.status === 'ESCALADO_HUMANO').length})
+              Atención Humana ({leads.filter(l => l.status === 'ESCALADO_HUMANO').length})
             </button>
             <button 
               onClick={() => setStatusFilter('ESCALADO_FUERA_HORARIO')} 
               className={"px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 transition-all " + (statusFilter === 'ESCALADO_FUERA_HORARIO' ? 'bg-indigo-600 text-white' : 'bg-indigo-100 text-indigo-800 hover:bg-indigo-200')}
             >
               <Moon className="w-3 h-3" />
-              Fin de Semana ({leads.filter(l => l.status === 'ESCALADO_FUERA_HORARIO').length})
+              Guardia ({leads.filter(l => l.status === 'ESCALADO_FUERA_HORARIO').length})
             </button>
             <button 
               onClick={() => setStatusFilter('BOT_ACTIVO')} 
               className={"px-2.5 py-1 rounded-lg font-semibold transition-all " + (statusFilter === 'BOT_ACTIVO' ? 'bg-teal-700 text-white' : 'bg-teal-50 text-teal-700 hover:bg-teal-100')}
             >
               Bot ({leads.filter(l => l.status === 'BOT_ACTIVO').length})
+            </button>
+            <button 
+              onClick={() => setStatusFilter('FINALIZADO')} 
+              className={"px-2.5 py-1 rounded-lg font-semibold transition-all " + (statusFilter === 'FINALIZADO' ? 'bg-slate-700 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200')}
+            >
+              Finalizados ({leads.filter(l => l.status === 'FINALIZADO').length})
             </button>
           </div>
         </div>
@@ -116,6 +142,7 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
             const isSelected = activeLead?.id === lead.id;
             const isUrgent = lead.status === 'ESCALADO_HUMANO';
             const isOutOfHours = lead.status === 'ESCALADO_FUERA_HORARIO';
+            const isLeadFinalized = lead.status === 'FINALIZADO';
 
             return (
               <div 
@@ -126,9 +153,11 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
                     ? 'bg-rose-50/70 border-rose-500 hover:bg-rose-50' 
                     : isOutOfHours
                       ? 'bg-indigo-50/60 border-indigo-500 hover:bg-indigo-50'
-                      : isSelected 
-                        ? 'bg-teal-50/50 border-[#00A8B5]' 
-                        : 'border-transparent hover:bg-slate-50'
+                      : isLeadFinalized
+                        ? 'bg-slate-50/70 border-slate-300 opacity-75 hover:bg-slate-100'
+                        : isSelected 
+                          ? 'bg-teal-50/50 border-[#00A8B5]' 
+                          : 'border-transparent hover:bg-slate-50'
                 )}
               >
                 <div className="flex items-center justify-between mb-1">
@@ -141,7 +170,7 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
                   
                   {isUrgent && (
                     <span className="bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded animate-pulse shadow-sm">
-                      🚨 INTERVENCIÓN REQUERIDA
+                      🚨 ATENCIÓN HUMANA
                     </span>
                   )}
                   {isOutOfHours && (
@@ -151,7 +180,12 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
                   )}
                   {lead.status === 'BOT_ACTIVO' && (
                     <span className="bg-teal-100 text-[#0E4D58] text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">
-                      <Bot className="w-3 h-3 text-[#00A8B5]" /> Bot Atendiendo
+                      <Bot className="w-3 h-3 text-[#00A8B5]" /> Bot Activo
+                    </span>
+                  )}
+                  {isLeadFinalized && (
+                    <span className="bg-slate-200 text-slate-700 text-[10px] font-semibold px-2 py-0.5 rounded flex items-center gap-1">
+                      <Archive className="w-3 h-3 text-slate-500" /> Finalizado
                     </span>
                   )}
                 </div>
@@ -161,9 +195,11 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
         </div>
       </div>
 
+      {/* Columna Derecha: Panel de Chat y Controles del Operador */}
       <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
         {activeLead ? (
           <>
+            {/* Header del Chat con Controles de Desactivación y Reactivación del Bot */}
             <div className="p-4 border-b border-slate-100 bg-slate-50 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#0E4D58] to-[#00A8B5] text-white font-bold flex items-center justify-center text-sm shadow">
@@ -185,22 +221,70 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                {(activeLead.status === 'ESCALADO_HUMANO' || activeLead.status === 'ESCALADO_FUERA_HORARIO') ? (
-                  <button 
-                    onClick={() => onResolveHandover(activeLead.id)} 
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all shadow flex items-center gap-1.5"
-                  >
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>{activeLead.status === 'ESCALADO_FUERA_HORARIO' ? 'Atender y Resolver Pendiente' : 'Resolver y Devolver al Bot'}</span>
-                  </button>
+              {/* Controles de Estado de la Conversación */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {isHumanHandling ? (
+                  <>
+                    <button 
+                      onClick={() => handleStatusChange('BOT_ACTIVO')} 
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow flex items-center gap-1.5"
+                      title="Reactivar el Asistente IA para que responda automáticamente al paciente"
+                    >
+                      <PlayCircle className="w-4 h-4" />
+                      <span>Resolver y Devolver al Bot</span>
+                    </button>
+                    <button 
+                      onClick={() => handleStatusChange('FINALIZADO')} 
+                      className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl transition-all flex items-center gap-1.5"
+                      title="Finalizar la conversación manteniendo el bot inactivo"
+                    >
+                      <Archive className="w-3.5 h-3.5" />
+                      <span>Finalizar</span>
+                    </button>
+                  </>
+                ) : isFinalized ? (
+                  <>
+                    <span className="text-xs bg-slate-100 text-slate-700 font-bold px-3 py-1.5 rounded-xl border border-slate-300 flex items-center gap-1.5">
+                      <Archive className="w-3.5 h-3.5 text-slate-500" />
+                      Chat Finalizado (Bot Inactivo)
+                    </span>
+                    <button 
+                      onClick={() => handleStatusChange('BOT_ACTIVO')} 
+                      className="bg-[#00A8B5] hover:bg-[#008f9a] text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow flex items-center gap-1.5"
+                    >
+                      <Bot className="w-4 h-4" />
+                      <span>Reactivar Bot</span>
+                    </button>
+                  </>
                 ) : (
-                  <span className="text-xs bg-teal-50 text-teal-800 font-bold px-3 py-1.5 rounded-xl border border-teal-200 flex items-center gap-1">
-                    <Bot className="w-3.5 h-3.5 text-[#00A8B5]" />Modo Autónomo IA
-                  </span>
+                  <>
+                    <span className="text-xs bg-teal-50 text-teal-800 font-bold px-3 py-1.5 rounded-xl border border-teal-200 flex items-center gap-1">
+                      <Bot className="w-3.5 h-3.5 text-[#00A8B5]" />Modo Autónomo IA
+                    </span>
+                    <button 
+                      onClick={() => handleStatusChange('ESCALADO_HUMANO')} 
+                      className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow flex items-center gap-1.5"
+                      title="Desactiva el bot para este paciente y permite atender manualmente sin interferencias"
+                    >
+                      <PauseCircle className="w-4 h-4" />
+                      <span>Pausar Bot / Atender</span>
+                    </button>
+                  </>
                 )}
               </div>
             </div>
+
+            {/* Banner Informativo cuando el Bot está Desactivado para este Paciente */}
+            {isHumanHandling && (
+              <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-between gap-2 text-xs text-amber-900">
+                <div className="flex items-center gap-2">
+                  <PauseCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                  <span>
+                    <strong>Bot desactivado para este chat:</strong> Puede responder como secretaría con tranquilidad. El bot no intervendrá hasta que pulse <em>'Resolver y Devolver al Bot'</em>.
+                  </span>
+                </div>
+              </div>
+            )}
 
             {activeLead.examsRequested.length > 0 && (
               <div className="bg-teal-50/70 border-b border-teal-100 px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs">
@@ -218,6 +302,7 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
               </div>
             )}
 
+            {/* Mensajes del Chat */}
             <div className="flex-1 p-4 bg-slate-50/40 overflow-y-auto space-y-3">
               {activeLead.messages.map(msg => {
                 const isPatient = msg.sender === 'PACIENTE';
@@ -245,10 +330,11 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
               <div ref={messagesEndRef} />
             </div>
 
+            {/* Input para Respuesta de Secretaría */}
             <form onSubmit={handleSend} className="p-3 border-t border-slate-200 bg-white flex gap-2">
               <input 
                 type="text" 
-                placeholder="Escriba un mensaje oficial como recepción o secretaría..." 
+                placeholder="Escriba un mensaje oficial como recepción o secretaría (pausa el bot automáticamente)..." 
                 value={operatorInput} 
                 onChange={(e) => setOperatorInput(e.target.value)} 
                 className="flex-1 border border-slate-200 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-[#00A8B5]" 

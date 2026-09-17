@@ -81,6 +81,7 @@ export const supabaseService = {
 
       await supabase.from('pacientes_leads').update({
         ultimo_mensaje: text,
+        estado_atencion: 'ESCALADO_HUMANO',
         updated_at: new Date().toISOString()
       }).eq('id', lead.id);
 
