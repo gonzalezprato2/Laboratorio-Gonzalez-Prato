@@ -19,32 +19,45 @@ export default function App() {
   const [leads, setLeads] = useState<PatientLead[]>([]);
   const [config, setConfig] = useState<SystemConfig>(storageService.getConfig());
   const [activeLeadId, setActiveLeadId] = useState<string | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Carga inicial y suscripción Realtime a Supabase
+  const loadExams = async () => {
+    const realExams = await supabaseService.getExams();
+    if (realExams && realExams.length > 0) {
+      setExams(realExams);
+    } else {
+      setExams(storageService.getExams());
+    }
+  };
+
+  const loadLeads = async () => {
+    const realLeads = await supabaseService.getLeads();
+    if (realLeads && realLeads.length > 0) {
+      setLeads(realLeads);
+      setActiveLeadId(prev => prev || realLeads[0].id);
+    } else {
+      const local = storageService.getLeads();
+      setLeads(local);
+      if (local.length > 0) setActiveLeadId(prev => prev || local[0].id);
+    }
+  };
+
+  const handleRefreshLeads = async () => {
+    setIsRefreshing(true);
+    await loadLeads();
+    await loadExams();
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
+
+  // Carga inicial, polling de respaldo y suscripción Realtime a Supabase
   useEffect(() => {
-    const loadExams = async () => {
-      const realExams = await supabaseService.getExams();
-      if (realExams && realExams.length > 0) {
-        setExams(realExams);
-      } else {
-        setExams(storageService.getExams());
-      }
-    };
     loadExams();
-
-    const loadLeads = async () => {
-      const realLeads = await supabaseService.getLeads();
-      if (realLeads && realLeads.length > 0) {
-        setLeads(realLeads);
-        setActiveLeadId(prev => prev || realLeads[0].id);
-      } else {
-        const local = storageService.getLeads();
-        setLeads(local);
-        if (local.length > 0) setActiveLeadId(prev => prev || local[0].id);
-      }
-    };
-
     loadLeads();
+
+    // Polling de respaldo cada 10 segundos para garantizar actualización constante
+    const pollInterval = setInterval(() => {
+      loadLeads();
+    }, 10000);
 
     // Suscripción Realtime por WebSockets a Supabase
     const unsubscribe = supabaseService.subscribeToLiveUpdates(() => {
@@ -53,6 +66,7 @@ export default function App() {
     });
 
     return () => {
+      clearInterval(pollInterval);
       unsubscribe();
     };
   }, []);
@@ -195,6 +209,8 @@ export default function App() {
             onSendMessage={handleSendMessage} 
             onResolveHandover={handleResolveHandover} 
             onUpdateLeadStatus={handleUpdateLeadStatus}
+            onRefresh={handleRefreshLeads}
+            isRefreshing={isRefreshing}
           />
         )}
         {activeTab === "pricing" && (

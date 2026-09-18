@@ -52,7 +52,7 @@ export function isCurrentlyInWorkingHours(schedule?: WorkingScheduleConfig): { i
     if (!schedule.saturdayEnabled) {
       return { isOpen: false, nextOpening: 'Lunes a las ' + schedule.weekdaysOpen + ' AM' };
     }
-    const [satOpenH, satOpenM] = (schedule.saturdayOpen || '07:00').split(':').map(Number);
+    const [satOpenH, satOpenM] = (schedule.saturdayOpen || '08:00').split(':').map(Number);
     const [satCloseH, satCloseM] = (schedule.saturdayClose || '13:00').split(':').map(Number);
     const isOpen = currentMinutes >= (satOpenH * 60 + satOpenM) && currentMinutes < (satCloseH * 60 + satCloseM);
     return { isOpen, nextOpening: 'Lunes a las ' + schedule.weekdaysOpen + ' AM' };
@@ -65,7 +65,7 @@ export function isCurrentlyInWorkingHours(schedule?: WorkingScheduleConfig): { i
   const closeMins = wCloseH * 60 + wCloseM;
   const isOpen = currentMinutes >= openMins && currentMinutes < closeMins;
   const nextOpening = day === 5 && currentMinutes >= closeMins
-    ? (schedule.saturdayEnabled ? 'Sábado a las ' + schedule.saturdayOpen + ' AM' : 'Lunes a las ' + schedule.weekdaysOpen + ' AM')
+    ? (schedule.saturdayEnabled ? 'Sábado a las ' + (schedule.saturdayOpen || '08:00') + ' AM' : 'Lunes a las ' + schedule.weekdaysOpen + ' AM')
     : 'Mañana a las ' + schedule.weekdaysOpen + ' AM';
 
   return { isOpen, nextOpening };
@@ -138,9 +138,38 @@ export function processPatientMessage(
   // 2.1. Detección de exámenes NO realizados (Anti-alucinación explícita)
   if (normUser.includes('espermograma') || normUser.includes('espermatograma') || normUser.includes('seminograma') || normUser.includes('espermiograma')) {
     return {
-      replyText: 'Estimado paciente, le informamos que actualmente en *GONZALEZ-PRATO Laboratorio* **NO realizamos el examen de Espermograma / Seminograma**.\n\n*(Nota clínica: Disponemos de Espermocultivo para diagnóstico microbiológico de infecciones, pero no de análisis morfológico o recuento espermático).*',
+      replyText: 'Estimado paciente, le informamos que actualmente en *GONZALEZ-PRATO Laboratorio* **NO realizamos el examen de Espermograma / Seminograma**.\n\n*(Nota clínica: Disponemos de Espermocultivo para diagnóstico microbiológico de infecciones bacterianas, pero no de análisis morfológico o recuento espermático).*',
       matchedExams: [],
       matchedKnowledgeDocs: [],
+      totalUsd: 0,
+      shouldEscalate: false,
+      isOutOfHours,
+      escalationStatus: 'BOT_ACTIVO'
+    };
+  }
+
+  // 2.1.1. Desambiguación de consultas genéricas de "CULTIVO"
+  const isGenericCultivo = (normUser === 'cultivo' || normUser === 'cultivos' || normUser === 'precio de cultivo' || normUser === 'precio de los cultivos' || normUser === 'cuanto cuesta un cultivo' || (normUser.includes('cultivo') && !normUser.includes('orina') && !normUser.includes('urocultivo') && !normUser.includes('heces') && !normUser.includes('coprocultivo') && !normUser.includes('faringeo') && !normUser.includes('garganta') && !normUser.includes('esputo') && !normUser.includes('secrecion') && !normUser.includes('herida') && !normUser.includes('absceso') && !normUser.includes('sangre') && !normUser.includes('hemocultivo') && !normUser.includes('semen') && !normUser.includes('espermocultivo') && !normUser.includes('micologico') && !normUser.includes('una') && !normUser.includes('unas') && !normUser.includes('piel') && !normUser.includes('hongo')));
+
+  if (isGenericCultivo) {
+    let cultivoReply = '🧫 *TARIFARIO DE CULTIVOS Y MICROBIOLOGÍA EN GONZALEZ-PRATO LABORATORIO*\n\n';
+    cultivoReply += 'Cada cultivo tiene un costo y preparación específica según el tipo de muestra:\n\n';
+    cultivoReply += '• **Urocultivo con Antibiograma (Orina):** **$35.00 USD** (Primera orina matutina o retención 3-4h, frasco estéril, en hielo).\n';
+    cultivoReply += '• **Coprocultivo (Heces):** **$42.00 USD** (Muestra fecal fresca sin antibióticos 48-72h).\n';
+    cultivoReply += '• **Exudado Faríngeo con Antibiograma (Garganta):** **$35.00 USD** (En ayunas, sin cepillarse los dientes ni enjuagues).\n';
+    cultivoReply += '• **Cultivo de Esputo (Expectoración profunda):** **$50.00 USD**.\n';
+    cultivoReply += '• **Cultivo de Secreciones (Óticas, Oculares, Nasales):** **$45.00 USD**.\n';
+    cultivoReply += '• **Cultivo de Heridas y Úlceras / Abscesos:** **$45.00 - $50.00 USD**.\n';
+    cultivoReply += '• **Hemocultivo Automatizado (Sangre):** **$48.00 USD** por botella.\n';
+    cultivoReply += '• **Espermocultivo (Prueba de 4 vasos):** **$45.00 USD**.\n';
+    cultivoReply += '• **Cultivo Micológico (Uñas, Piel, Cuero cabelludo):** **$38.00 USD** (Con previa cita con micóloga).\n\n';
+    cultivoReply += '📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n';
+    cultivoReply += '¿Cuál de estos cultivos requiere realizarse o qué muestra le indicó su médico?';
+
+    return {
+      replyText: cultivoReply,
+      matchedExams: [],
+      matchedKnowledgeDocs: knowledgeDocs.filter(d => d.category === 'MICROBIOLOGIA'),
       totalUsd: 0,
       shouldEscalate: false,
       isOutOfHours,
@@ -178,9 +207,9 @@ export function processPatientMessage(
       ehrlichiaReply += '📢 *"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad."*\n\n';
 
       if (isOutOfHours) {
-        ehrlichiaReply += '📍 *Horario de Toma de Muestras en Sede:* Lunes a Viernes de 7:00 AM a 11:30 AM | Sábados de 7:00 AM a 11:30 AM.\nPróxima apertura: ' + scheduleStatus.nextOpening + '.\n\n¿Desea realizarse el frotis de Capa Blanca en Mérida o requiere coordinar el envío de PCR a Caracas?';
+        ehrlichiaReply += '📍 *Horario de Atención en Sede:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\nPróxima apertura: ' + scheduleStatus.nextOpening + '.\n\n¿Desea realizarse el frotis de Capa Blanca en Mérida o requiere coordinar el envío de PCR a Caracas?';
       } else {
-        ehrlichiaReply += '📍 *Horario de Toma de Muestras en Sede:* Lunes a Viernes de 7:00 AM a 11:30 AM | Sábados de 7:00 AM a 11:30 AM.\n\n¿Desea realizarse el frotis de Capa Blanca ($13 USD) en nuestra sede o requiere información de envío para el estudio molecular de Caracas?';
+        ehrlichiaReply += '📍 *Horario de Atención en Sede:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n¿Desea realizarse el frotis de Capa Blanca ($13 USD) en nuestra sede o requiere información de envío para el estudio molecular de Caracas?';
       }
 
       return {
@@ -391,10 +420,10 @@ export function processPatientMessage(
   }
 
   if (isOutOfHours) {
-    reply += '📍 *Próxima Apertura de Sede:* ' + scheduleStatus.nextOpening + ' (Toma de muestras matutina).\n';
+    reply += '📍 *Próxima Apertura de Sede:* ' + scheduleStatus.nextOpening + '.\n';
     reply += 'Le esperamos en nuestra sede. Si desea dejar una orden agendada, puede indicarlo por aquí.';
   } else {
-    reply += '📍 *Horario de Atención y Toma de Muestras:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 7:00 AM a 1:00 PM (Toma de muestras matutina de 7:00 AM a 11:30 AM).\n';
+    reply += '📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n';
     reply += '¿Desea agendar su turno o requiere alguna orientación adicional?';
   }
 

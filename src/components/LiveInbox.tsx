@@ -16,7 +16,8 @@ import {
   PauseCircle,
   PlayCircle,
   Archive,
-  Info
+  Info,
+  RefreshCw
 } from 'lucide-react';
 
 interface LiveInboxProps {
@@ -26,6 +27,8 @@ interface LiveInboxProps {
   onSendMessage: (leadId: string, text: string, sender: 'SECRETARIA' | 'BOT') => void;
   onResolveHandover: (leadId: string) => void;
   onUpdateLeadStatus?: (leadId: string, status: AttentionStatus) => void;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
 }
 
 export const LiveInbox: React.FC<LiveInboxProps> = ({ 
@@ -34,7 +37,9 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
   setActiveLeadId, 
   onSendMessage, 
   onResolveHandover,
-  onUpdateLeadStatus
+  onUpdateLeadStatus,
+  onRefresh,
+  isRefreshing
 }) => {
   const [filterText, setFilterText] = useState('');
   const [operatorInput, setOperatorInput] = useState('');
@@ -85,9 +90,22 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
               <span>Bandeja de Entrada en Vivo</span>
               <span className="bg-teal-100 text-[#0E4D58] text-[10px] font-extrabold px-2 py-0.5 rounded-full">{leads.length} Pacientes</span>
             </h2>
-            <span className="text-[11px] font-semibold text-emerald-600 flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>Live Sync
-            </span>
+            <div className="flex items-center gap-3">
+              {onRefresh && (
+                <button
+                  onClick={onRefresh}
+                  disabled={isRefreshing}
+                  title="Actualizar mensajes ahora"
+                  className="flex items-center gap-1 text-[11px] font-medium text-slate-500 hover:text-[#0E4D58] bg-white px-2 py-1 rounded-lg border border-slate-200 hover:border-slate-300 shadow-2xs transition-all disabled:opacity-50"
+                >
+                  <RefreshCw className={"w-3 h-3 " + (isRefreshing ? 'animate-spin text-[#00A8B5]' : '')} />
+                  <span>{isRefreshing ? 'Actualizando...' : 'Actualizar'}</span>
+                </button>
+              )}
+              <span className="text-[11px] font-semibold text-emerald-600 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>Live Sync
+              </span>
+            </div>
           </div>
 
           <div className="relative">
