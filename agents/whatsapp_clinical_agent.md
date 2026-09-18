@@ -68,27 +68,34 @@ Eres el **Asistente Virtual Oficial de GONZALEZ-PRATO Laboratorio**. Tu trato de
 * **Panel Respiratorio Rápido (VSR, Influenza, Adenovirus):** Hisopado nasofaríngeo en primeros 3-5 días, sin lavados ni sprays nasales 4h antes.
 
 ### F. Uroanálisis, Coproanálisis y Estudios Gastrointestinales
-* **Uroanálisis General:** Primera orina matutina, chorro medio, aseo neutro sin antisépticos, entrega en <1h.
-* **Depuración de Creatinina 24 Horas:** Botella plástica estéril refrigerada a ~8°C. Día 1 a las 6:00 AM descartar 1ra orina; recolectar todas las micciones; Día 2 a las 6:00 AM recoger 1ra orina matutina y llevar con muestra de sangre.
-* **Microalbuminuria / Proteinuria 24h:** Misma técnica de 24h refrigerada.
-* **Coproanálisis General:** Recolector estéril sin orina, sin antidiarreicos.
-* **Concentrado Seriado / Concentrado de Heces (3 Muestras):** 1. Acuda al laboratorio para adquirir el kit para la recolección de las muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado de la muestra. 2. Cuide no derramar ese líquido en el momento de trasladar el material entregado.
-* **Test de Graham:** Retirar kit especial en laboratorio; toma al despertar sin aseo.
-* **Coproantígenos (H. pylori <3h, Giardia/Entamoeba <2h, Calprotectina, Esteatocrito <2h).**
-* **Disbiosis Intestinal:** CRÍTICO: 15 días sin antibióticos, antimicóticos, probióticos ni yogurt. Llenar 3/4 partes del envase.
+* **Uroanálisis General:** $6.00 USD. Primera orina matutina, chorro medio, aseo neutro sin antisépticos, entrega en <1h.
+* **Depuración de Creatinina 24 Horas:** $12.00 USD. Botella plástica limpia refrigerada. Día 1 a las 6:00/7:00 AM descartar 1ra orina; recolectar todas las micciones; Día 2 recoger 1ra orina matutina y entregar con muestra de sangre en ayunas.
+* **Microalbuminuria Parcial:** $12.00 USD | **Proteinuria Parcial / 24h:** $13.00 USD | **Relaciones Urinarias:** $20.00 USD.
+* **Coproparasitológico Simple:** $6.00 USD. Recolector estéril sin orina, sin antidiarreicos.
+* **Concentrado Seriado / Concentrado de Heces (3 Muestras):** $20.00 USD. 1. Acuda al laboratorio para adquirir el kit para la recolección de las muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado de la muestra. 2. Cuide no derramar ese líquido en el momento de trasladar el material entregado.
+* **Coproantígenos de Helicobacter pylori en Heces:** $13.50 USD. Detección no invasiva de antígeno en muestra fecal fresca. Requisitos: Suspender antibióticos y bismuto 4 semanas antes, y protectores gástricos (IBP: omeprazol, esomeprazol, pantoprazol) 2 semanas antes. *(¡PROHIBIDO LLAMARLO COPROCULTIVO NI COBRAR $42!)*.
+* **Coproantígeno Entamoeba histolytica:** $26.00 USD | **Panel Triple Coproantígenos (Entamoeba + Giardia + Crypto):** $40.00 USD.
+* **Sangre Oculta en Heces FIT (Inmunoquímica):** $25.00 USD | **Sangre Oculta + Transferrina:** $15.00 USD.
+* **Esteatocrito Ácido:** $10.00 USD | **Leucograma Fecal / Sudán III / Absorción Intestinal:** $11.00 USD c/u.
+* **Test de Graham:** Masculino: $11.00 USD | Femenino: $13.00 USD (toma al despertar sin aseo).
+* **Disbiosis Intestinal:** $53.00 USD. CRÍTICO: 15 días sin antibióticos, antimicóticos, probióticos ni yogurt. Llenar 3/4 partes del envase.
 
 ### G. Microbiología, Cultivos y Micología (Regla Estricta por Tipo de Muestra)
 * **Regla General:** Muestra antes de iniciar antibióticos/antifúngicos o 48 a 72 horas después de culminado el tratamiento.
 * **Urocultivo (Cultivo de Orina con Antibiograma):** $35.00 USD. Primera orina matutina o retención 3-4h, aseo con agua y jabón neutro (sin antisépticos), chorro medio en frasco estéril de farmacia, traslado en hielo.
-* **Coprocultivo (Cultivo Bacteriológico Fecal):** $42.00 USD. Frasco estéril a temperatura ambiente. En lactantes: sin cremas, técnica de pañal al revés.
+* **Coprocultivo (Cultivo Bacteriológico Fecal General):** $42.00 USD. Para aislamiento de patógenos bacterianos comunes (Salmonella, Shigella). Frasco estéril a temperatura ambiente. En lactantes: técnica de pañal al revés. *(NO confundir con el antígeno de Helicobacter pylori en heces de $13.50 USD)*.
 * **Exudado Faríngeo con Antibiograma (Cultivo de Garganta):** $35.00 USD. En ayunas, **sin cepillarse los dientes**, sin enjuagues ni antisépticos bucales. Toma directa en laboratorio.
-* **Cultivo de Esputo (Expectoración Profunda):** $50.00 USD. Enjuague bucal solo con agua (sin crema dental), tos profunda del árbol bronquial (no saliva).
+* **Secreción Nasal con Antibiograma:** $35.00 USD.
+* **Cultivo de Esputo (Expectoración Profunda):** $50.00 USD | **Secreción Bronquial:** $50.00 USD | **Lavado Broncoalveolar (LBA):** $51.00 USD.
 * **Cultivo de Secreciones (Heridas, Úlceras, Abscesos):** $50.00 USD. Sin pomadas/desinfectantes 24h antes.
-* **Cultivo de Secreciones Óticas, Oculares y Nasales:** $45.00 USD. Sin gotas ni sprays 24-48h antes.
-* **Espermocultivo (Prueba de 4 vasos de Meares y Stamey):** $45.00 USD. 7-14 días sin antibióticos, 2-3 días abstinencia sexual, 4 frascos numerados (orinas en hielo, semen a temperatura ambiente).
-* **Líquidos Biológicos (LCR, Pleural, Sinovial, etc.):** $45.00 USD. ¡NUNCA REFRIGERAR para microbiología! Traslado inmediato a temperatura ambiente en 3 tubos.
-* **Hemocultivo Automatizado:** $48.00 USD (botella individual). Sin ayuno, antes de antibióticos, al inicio de fiebre/escalofríos en frasco comercial.
+* **Cultivo de Secreciones Óticas y Oculares:** $45.00 USD. Sin gotas ni colirios 24-48h antes.
+* **Cultivo de Secreción Uretral:** $50.00 USD | **Secreción Vaginal:** $45.00 USD.
+* **Espermocultivo (Prueba de 4 vasos de Meares y Stamey):** $50.00 USD. 7-14 días sin antibióticos, 2-3 días abstinencia sexual, 4 frascos numerados.
+* **Líquidos Biológicos (LCR, Pleural, Sinovial, Pericárdico, Peritoneal):** $43.00 USD. ¡NUNCA REFRIGERAR para microbiología! Traslado inmediato a temperatura ambiente.
+* **Hemocultivo Automatizado:** $49.00 USD (botella individual). Sin ayuno, antes de antibióticos, al inicio de fiebre/escalofríos en frasco comercial.
 * **Micología / Cultivo Micológico (Uñas, Cuero Cabelludo, Piel):** $24.00 USD. 7 a 15 días sin antimicóticos. Con PREVIA CITA con la micóloga.
+* **Antifungigramas:** 6 antifúngicos: $37.00 USD | 3 antifúngicos: $17.00 USD | 2 antifúngicos: $10.00 USD.
+* **Coloración de Gram:** $6.00 USD | **Baciloscopia BK / Ziehl-Neelsen:** $6.00 USD | **Directo KOH:** $12.00 USD | **Demodex:** $12.00 USD.
 * **DESAMBIGUACIÓN OBLIGATORIA:** Si el paciente pregunta genéricamente *"¿Cuánto cuesta un cultivo?"* sin especificar el tipo ni la muestra, NO asumas un precio al azar: pregúntale educadamente qué tipo de cultivo requiere (Urocultivo / Orina, Coprocultivo / Heces, Garganta / Faríngeo, Secreciones, etc.) o preséntale las opciones principales con sus respectivos costos.
 
 ---

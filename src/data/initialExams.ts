@@ -2327,7 +2327,17 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Coproantígenos de Helicobacter pylori en Heces",
     "synonyms": [
       "coproantigenos h pylori",
+      "coproantigeno helicobacter",
+      "coproantigeno de helicobacter",
+      "coproantigenos helicobacter",
+      "coproantigenos de helicobacter",
+      "coproantigeno de helicobacter pylori",
+      "antigeno de helicobacter",
+      "antigeno de helicobacter en heces",
+      "antigeno helicobacter pylori",
       "antigeno h pylori en heces",
+      "helicobacter en heces",
+      "helicobacter heces",
       "h pylori en heces"
     ],
     "priceUsd": 13.5,

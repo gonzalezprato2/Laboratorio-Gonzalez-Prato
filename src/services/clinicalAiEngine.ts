@@ -27,6 +27,16 @@ function normalizeText(text: string): string {
     .trim();
 }
 
+function isWordMatch(text: string, pattern: string): boolean {
+  if (!text || !pattern) return false;
+  if (pattern.length <= 4) {
+    const escaped = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp('(?:^|\\s|[^a-z0-9])' + escaped + '(?:$|\\s|[^a-z0-9])', 'i');
+    return regex.test(text);
+  }
+  return text.includes(pattern);
+}
+
 export function isCurrentlyInWorkingHours(schedule?: WorkingScheduleConfig): { isOpen: boolean; nextOpening: string } {
   if (!schedule) return { isOpen: true, nextOpening: 'Horario Regular' };
 
@@ -122,13 +132,13 @@ export function processPatientMessage(
   for (const exam of catalog) {
     if (!exam.active) continue;
     const normName = normalizeText(exam.name);
-    if (normUser.includes(normName)) {
+    if (isWordMatch(normUser, normName)) {
       rawMatchedExams.push(exam);
       continue;
     }
     for (const syn of exam.synonyms) {
       const normSyn = normalizeText(syn);
-      if (normUser.includes(normSyn) && normSyn.length >= 3) {
+      if (isWordMatch(normUser, normSyn) && normSyn.length >= 2) {
         rawMatchedExams.push(exam);
         break;
       }
@@ -148,6 +158,14 @@ export function processPatientMessage(
     // Si solicitó citología nasal / moco nasal, NO incluir citología vaginal
     if (normUser.includes('moco nasal') || normUser.includes('citologia nasal') || normUser.includes('eosinofilos nasal')) {
       if (normalizeText(exam.name).includes('vaginal') || normalizeText(exam.name).includes('cuello uterino')) return false;
+    }
+    // Si solicitó coproantígeno o antígeno de Helicobacter en heces, NO incluir Coprocultivo
+    if ((normUser.includes('coproantigeno') || normUser.includes('antigeno en heces') || normUser.includes('antigeno helicobacter') || (normUser.includes('helicobacter') && normUser.includes('heces'))) && exam.id === 'mic-2') {
+      return false;
+    }
+    // Si solicitó coprocultivo explícito, NO incluir coproantígeno de Helicobacter a menos que lo pida
+    if (normUser.includes('coprocultivo') && !normUser.includes('helicobacter') && exam.id === 'cop-8') {
+      return false;
     }
     return true;
   });
