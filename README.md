@@ -2,6 +2,9 @@
 
 Plataforma integral omnicanal especializada para **GONZALEZ-PRATO Laboratorio** (Bajo la dirección técnica de Luisa Carolina González Ramírez), que combina:
 
+### 🌐 Acceso a la Plataforma en Producción:
+👉 **URL Oficial:** [https://laboratorio-gonzalez-prato-phi.vercel.app/](https://laboratorio-gonzalez-prato-phi.vercel.app/)
+
 1. **Centro de Mando Clínico (Frontend):**
    - **Bandeja de Entrada en Vivo (Live Inbox):** Monitorización de conversaciones WhatsApp con toma de control en vivo por la secretaria.
    - **Protocolo Human Handover & Alarma Sonora (Web Audio API):** Alerta sonora y visual continua en recepción cuando el paciente requiere asistencia personalizada o servicio a domicilio.
