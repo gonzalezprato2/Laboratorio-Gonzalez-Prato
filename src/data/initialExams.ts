@@ -598,11 +598,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "sepsis procalcitonina"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 4 horas",
+    "fastingHours": "Ayuno de 4 a 6 horas",
     "sampleType": "Suero",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Biomarcador específico de infecciones bacterianas graves y sepsis."
+    "notes": "Biomarcador específico para orientar sospecha de infección bacteriana sistémica grave y sepsis vs infección viral. Indicar contexto clínico."
   },
   {
     "id": "otr-3",
@@ -615,11 +615,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "anticuerpos sars-cov-2 igm/igg"
     ],
     "priceUsd": 20,
-    "fastingHours": "Sin ayuno estricto",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Detección serológica de respuesta inmunológica frente a COVID-19."
+    "notes": "Indicar fecha de inicio de síntomas o fecha de última exposición sospechosa. Informar historial de vacunas contra COVID-19 (tipo/plataforma y fecha de última dosis recibida)."
   },
   {
     "id": "otr-4",
@@ -648,11 +648,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "influenza y covid"
     ],
     "priceUsd": 42,
-    "fastingHours": "Sin condiciones especiales",
-    "sampleType": "Hisopado nasofaríngeo",
+    "fastingHours": "No requiere ayuno (toma en primeros 3 a 5 días de síntomas)",
+    "sampleType": "Hisopado nasofaríngeo estéril",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Detección simultánea de múltiples patógenos virales respiratorios."
+    "notes": "Muestra por hisopado en los primeros 3 a 5 días de síntomas. No aplicar gotas, lavados nasales ni sprays en las 4 horas previas."
   },
   {
     "id": "otr-6",
@@ -665,11 +665,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "ureaplasma"
     ],
     "priceUsd": 20,
-    "fastingHours": "Abstinencia sexual 48h, retención urinaria 4h o exudado genital",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Exudado uretral/vaginal o primer chorro de orina",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "Cultivo e identificación con perfil de susceptibilidad antibiótica."
+    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
   },
   {
     "id": "otr-7",
@@ -683,11 +683,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "treponema pallidum"
     ],
     "priceUsd": 16,
-    "fastingHours": "Ayuno de 4 horas",
+    "fastingHours": "Ayuno de 2 a 4 horas (no estricto)",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Prueba treponémica específica confirmatoria de sífilis."
+    "notes": "Prueba treponémica confirmatoria específica. Informar si ha recibido tratamiento antibiótico previo para sífilis (penicilina benzatínica) y fecha de culminación (estos anticuerpos suelen permanecer positivos de por vida como cicatriz serológica). Informar enfermedades autoinmunes (lupus, AR) o sospecha de Lyme."
   },
   {
     "id": "hor-1",
@@ -972,11 +972,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "vha igm"
     ],
     "priceUsd": 9.5,
-    "fastingHours": "Ayuno de 4 a 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Diagnóstico de infección aguda por virus de Hepatitis A."
+    "notes": "Informar días de síntomas y cuándo comenzó el malestar. Informar si le colocaron recientemente algún tipo de vacuna."
   },
   {
     "id": "inm-2",
@@ -989,11 +989,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "antigeno australia"
     ],
     "priceUsd": 7.5,
-    "fastingHours": "Ayuno de 4 a 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Detección de infección activa (aguda o crónica) por Hepatitis B."
+    "notes": "Marcador de infección activa por Hepatitis B. Informar si le colocaron recientemente la vacuna de Hepatitis B (posible reactividad transitoria) o si padece síntomas agudos."
   },
   {
     "id": "inm-3",
@@ -1006,11 +1006,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "anticuerpo core hepatitis b"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 a 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Marcador de exposición o contacto previo con virus de Hepatitis B."
+    "notes": "Marcador de contacto/infección previa o aguda por Hepatitis B. Informar días de síntomas y vacunas recientes."
   },
   {
     "id": "inm-4",
@@ -1023,11 +1023,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "vhc"
     ],
     "priceUsd": 8.5,
-    "fastingHours": "Ayuno de 4 a 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Tamizaje serológico de Hepatitis C."
+    "notes": "Informar obligatoriamente el uso de antivirales de acción directa o terapias inmunomoduladoras. Informar días de síntomas y vacunas recientes."
   },
   {
     "id": "inm-5",
@@ -1044,7 +1044,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Suero",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Reactante de fase aguda por aglutinación."
+    "notes": "Informar si ha tenido eventos inflamatorios agudos recientes (traumatismos, procedimientos dentales, infecciones virales elevan transitoriamente los valores), enfermedades crónicas, embarazo o ejercicio intenso en las últimas horas."
   },
   {
     "id": "inm-6",
@@ -1056,11 +1056,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "proteina c reactiva cuantitativa"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 4 a 8 horas",
+    "fastingHours": "Ayuno de 4 horas",
     "sampleType": "Suero",
     "turnaround": "4 a 6 horas",
     "active": true,
-    "notes": "Cuantificación turbidimétrica de alta precisión y evaluación de riesgo cardiovascular."
+    "notes": "Informar si ha tenido eventos inflamatorios agudos recientes (traumatismos, procedimientos dentales, infecciones virales elevan transitoriamente los valores), enfermedades crónicas, embarazo o ejercicio intenso en las últimas horas."
   },
   {
     "id": "inm-7",
@@ -1073,11 +1073,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "aso"
     ],
     "priceUsd": 7.5,
-    "fastingHours": "Ayuno de 4 horas",
+    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
     "sampleType": "Suero",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Anticuerpos frente a Estreptococo betahemolítico del grupo A."
+    "notes": "Indicar si el paciente está recibiendo tratamiento con antibióticos o corticoesteroides. Informar procesos inflamatorios o infecciosos estreptocócicos recientes."
   },
   {
     "id": "inm-8",
@@ -1089,11 +1089,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "aso cuantitativo"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 4 a 8 horas",
+    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
     "sampleType": "Suero",
     "turnaround": "6 a 12 horas",
     "active": true,
-    "notes": "Cuantificación turbidimétrica de títulos de antiestreptolisina O."
+    "notes": "Indicar si el paciente está recibiendo tratamiento con antibióticos o corticoesteroides. Informar procesos inflamatorios o infecciosos estreptocócicos recientes."
   },
   {
     "id": "inm-9",
@@ -1107,11 +1107,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "elisa vih"
     ],
     "priceUsd": 7,
-    "fastingHours": "Sin ayuno estricto",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Detección de anticuerpos IgG e IgM anti-VIH 1 y 2."
+    "notes": "Informar si recibe tratamiento antirretroviral, PrEP o PEP. Informar vacunas recientes (influenza, hepatitis B por reactividad cruzada transitoria). Indicar tiempo transcurrido desde la posible exposición (período de ventana)."
   },
   {
     "id": "inm-10",
@@ -1124,11 +1124,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "ag p24 vih"
     ],
     "priceUsd": 12,
-    "fastingHours": "Sin ayuno estricto",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "4 a 6 horas",
     "active": true,
-    "notes": "Detección simultánea del antígeno p24 y anticuerpos. Reduce período de ventana."
+    "notes": "Informar si recibe tratamiento antirretroviral, PrEP o PEP. Informar vacunas recientes (influenza, hepatitis B por reactividad cruzada transitoria). Indicar tiempo transcurrido desde la posible exposición (período de ventana)."
   },
   {
     "id": "inm-11",
@@ -1141,11 +1141,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "vdrl semicuantitativo"
     ],
     "priceUsd": 6.5,
-    "fastingHours": "Ayuno de 4 horas",
+    "fastingHours": "Ayuno de 4 a 8 horas (evitar lipemia)",
     "sampleType": "Suero",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Prueba no treponémica con determinación de títulos por diluciones."
+    "notes": "Prueba no treponémica semicuantitativa con titulación. No suspender medicamentos habituales pero informar antibióticos (penicilinas/macrólidos). Evitar alcohol 24h previas. Informar procesos infecciosos activos, lupus/autoinmunidad, embarazo o vacunas recientes (causas de falsos positivos biológicos)."
   },
   {
     "id": "inm-12",
@@ -1158,11 +1158,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "hcg cualitativa"
     ],
     "priceUsd": 6,
-    "fastingHours": "Sin ayuno",
+    "fastingHours": "Ayuno ligero de 2 a 4 horas",
     "sampleType": "Suero",
     "turnaround": "1 a 2 horas",
     "active": true,
-    "notes": "Resultado cualitativo Positivo / Negativo."
+    "notes": "Informar Fecha de Última Menstruación (FUM) y regularidad del ciclo. Realizar con al menos 1 a 2 días de retraso menstrual. Informar tratamientos de reproducción asistida o inductores con hCG."
   },
   {
     "id": "inm-13",
@@ -1174,11 +1174,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "mononucleosis igm"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Fase aguda de mononucleosis infecciosa."
+    "notes": "Informar días de evolución del cuadro clínico (fiebre, odinofagia, adenopatías). Informar si ha recibido transfusiones sanguíneas o hemoderivados en los últimos 3 a 6 meses."
   },
   {
     "id": "inm-14",
@@ -1190,11 +1190,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "mononucleosis igg"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Inmunidad o contacto pasado con virus de Epstein-Barr."
+    "notes": "Informar días de evolución del cuadro clínico (fiebre, odinofagia, adenopatías). Informar si ha recibido transfusiones sanguíneas o hemoderivados en los últimos 3 a 6 meses."
   },
   {
     "id": "inm-15",
@@ -1206,11 +1206,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "panel veb"
     ],
     "priceUsd": 24,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Panel serológico completo para infección aguda vs memoria inmunológica."
+    "notes": "Informar días de evolución del cuadro clínico (fiebre, odinofagia, adenopatías). Informar si ha recibido transfusiones sanguíneas o hemoderivados en los últimos 3 a 6 meses."
   },
   {
     "id": "inm-16",
@@ -1221,11 +1221,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citomegalovirus igm"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Infección activa o reactivación por Citomegalovirus."
+    "notes": "En mujeres embarazadas registrar semanas de gestación y si es control de rutina o sospecha ecográfica. Informar terapia inmunosupresora (trasplante, quimioterapia, corticoides) o estado de VIH."
   },
   {
     "id": "inm-17",
@@ -1236,11 +1236,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citomegalovirus igg"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 6 horas",
-    "sampleType": "Suero",
+    "fastingHours": "Ayuno de 4 horas o más",
+    "sampleType": "Primera orina matutina en frasco estéril",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Inmunidad o contacto pasado con CMV."
+    "notes": "En mujeres embarazadas registrar semanas de gestación y si es control de rutina o sospecha ecográfica. Informar terapia inmunosupresora (trasplante, quimioterapia, corticoides) o estado de VIH."
   },
   {
     "id": "inm-18",
@@ -1252,11 +1252,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "panel cmv"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Panel serológico completo CMV (TORCH)."
+    "notes": "En mujeres embarazadas registrar semanas de gestación y si es control de rutina o sospecha ecográfica. Informar terapia inmunosupresora (trasplante, quimioterapia, corticoides) o estado de VIH."
   },
   {
     "id": "inm-19",
@@ -1267,11 +1267,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "toxoplasmosis igm"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Infección aguda por Toxoplasma gondii. Vital en control prenatal."
+    "notes": "En pacientes embarazadas indicar obligatoriamente la edad gestacional (semanas) y si existe sospecha de primoinfección. Informar si convive con felinos (gatos), contacto con tierra/jardinería o ingesta de carnes crudas/poco cocidas."
   },
   {
     "id": "inm-20",
@@ -1282,11 +1282,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "toxoplasmosis igg"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Inmunidad de memoria frente a Toxoplasma gondii."
+    "notes": "En pacientes embarazadas indicar obligatoriamente la edad gestacional (semanas) y si existe sospecha de primoinfección. Informar si convive con felinos (gatos), contacto con tierra/jardinería o ingesta de carnes crudas/poco cocidas."
   },
   {
     "id": "inm-21",
@@ -1298,11 +1298,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "panel toxo"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Panel serológico completo de Toxoplasma (TORCH)."
+    "notes": "En pacientes embarazadas indicar obligatoriamente la edad gestacional (semanas) y si existe sospecha de primoinfección. Informar si convive con felinos (gatos), contacto con tierra/jardinería o ingesta de carnes crudas/poco cocidas."
   },
   {
     "id": "inm-22",
@@ -1313,11 +1313,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "clamidia neumoniae igm"
     ],
     "priceUsd": 19,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "48 horas",
     "active": true,
-    "notes": "Diagnóstico serológico de neumonía atípica aguda."
+    "notes": "Informar uso reciente de antibióticos (macrólidos, tetraciclinas, fluoroquinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
   },
   {
     "id": "inm-23",
@@ -1328,11 +1328,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "clamidia neumoniae igg"
     ],
     "priceUsd": 19,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "48 horas",
     "active": true,
-    "notes": "Memoria inmunológica frente a Chlamydia pneumoniae."
+    "notes": "Informar uso reciente de antibióticos (macrólidos, tetraciclinas, fluoroquinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
   },
   {
     "id": "inm-24",
@@ -1343,11 +1343,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "serologia chlamydia completa"
     ],
     "priceUsd": 38,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "48 horas",
     "active": true,
-    "notes": "Panel integral de anticuerpos frente a Chlamydia."
+    "notes": "Informar uso reciente de antibióticos (macrólidos, tetraciclinas, fluoroquinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
   },
   {
     "id": "inm-25",
@@ -1358,11 +1358,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "micoplasma neumoniae igm"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "48 horas",
     "active": true,
-    "notes": "Marcador agudo de infección respiratoria por Mycoplasma."
+    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
   },
   {
     "id": "inm-26",
@@ -1373,11 +1373,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "micoplasma neumoniae igg"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "48 horas",
     "active": true,
-    "notes": "Memoria inmunológica por Mycoplasma pneumoniae."
+    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
   },
   {
     "id": "inm-27",
@@ -1388,11 +1388,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "serologia mycoplasma completa"
     ],
     "priceUsd": 36,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "48 horas",
     "active": true,
-    "notes": "Panel serológico completo para Mycoplasma respiratorio."
+    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
   },
   {
     "id": "inm-28",
@@ -1404,11 +1404,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "anticuerpos h pylori igm"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Respuesta inmune reciente frente a Helicobacter pylori."
+    "notes": "Detección serológica en sangre. Informar si ha recibido tratamiento de erradicación previo (los anticuerpos IgG pueden permanecer positivos meses o años post-curación y no discriminan entre infección activa o pasada). Para control activo de erradicación se recomienda el Coproantígeno en Heces ($13.50 USD)."
   },
   {
     "id": "inm-29",
@@ -1420,11 +1420,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "anticuerpos h pylori igg"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Exposición crónica o memoria frente a Helicobacter pylori."
+    "notes": "Detección serológica en sangre. Informar si ha recibido tratamiento de erradicación previo (los anticuerpos IgG pueden permanecer positivos meses o años post-curación y no discriminan entre infección activa o pasada). Para control activo de erradicación se recomienda el Coproantígeno en Heces ($13.50 USD)."
   },
   {
     "id": "inm-30",
@@ -1435,11 +1435,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "serologia helicobacter pylori completa"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Evaluación serológica integral frente a H. pylori."
+    "notes": "Detección serológica en sangre. Informar si ha recibido tratamiento de erradicación previo (los anticuerpos IgG pueden permanecer positivos meses o años post-curación y no discriminan entre infección activa o pasada). Para control activo de erradicación se recomienda el Coproantígeno en Heces ($13.50 USD)."
   },
   {
     "id": "inm-31",
@@ -1451,11 +1451,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "anticuerpos dengue"
     ],
     "priceUsd": 16,
-    "fastingHours": "Sin ayuno estricto",
+    "fastingHours": "Ayuno de 2 a 4 horas (no estricto)",
     "sampleType": "Suero",
     "turnaround": "4 a 6 horas",
     "active": true,
-    "notes": "Detección de anticuerpos primarios y secundarios frente al virus del Dengue."
+    "notes": "Mandatorio informar días de evolución de fiebre: Días 1 a 5 de fiebre: Antígeno NS1 (viremia aguda); Día 6 en adelante: Anticuerpos IgM e IgG. Informar vacunas previas contra fiebre amarilla/dengue o flavivirus previos (Zika, Chikungunya)."
   },
   {
     "id": "inm-32",
@@ -1468,11 +1468,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "antigeno ns1 dengue"
     ],
     "priceUsd": 20,
-    "fastingHours": "Sin ayuno estricto",
+    "fastingHours": "Ayuno de 2 a 4 horas (no estricto)",
     "sampleType": "Suero",
     "turnaround": "2 a 4 horas",
     "active": true,
-    "notes": "Panel completo para Dengue desde el día 1 de fiebre (NS1) hasta fases posteriores (IgM/IgG)."
+    "notes": "Mandatorio informar días de evolución de fiebre: Días 1 a 5 de fiebre: Antígeno NS1 (viremia aguda); Día 6 en adelante: Anticuerpos IgM e IgG. Informar vacunas previas contra fiebre amarilla/dengue o flavivirus previos (Zika, Chikungunya)."
   },
   {
     "id": "inm-33",
@@ -1485,11 +1485,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "factor reumatoideo semicuantitativo"
     ],
     "priceUsd": 7,
-    "fastingHours": "Ayuno de 4 a 6 horas",
+    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
     "sampleType": "Suero",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Determinación de autoanticuerpos por aglutinación de látex."
+    "notes": "Indicar si el paciente recibe corticoesteroides o inmunosupresores. Informar procesos inflamatorios articulares o infecciones recientes."
   },
   {
     "id": "inm-34",
@@ -1501,11 +1501,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "ra test cuantitativo"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 6 horas",
+    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
     "sampleType": "Suero",
     "turnaround": "6 a 12 horas",
     "active": true,
-    "notes": "Cuantificación turbidimétrica de alta precisión de Factor Reumatoideo."
+    "notes": "Indicar si el paciente recibe corticoesteroides o inmunosupresores. Informar procesos inflamatorios articulares o infecciones recientes."
   },
   {
     "id": "ing-1",
@@ -1518,11 +1518,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "inmunoglobulina e total (ige)"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Evaluación de atopia, alergias y parasitosis tisulares."
+    "notes": "Informar enfermedades atópicas (asma, rinitis alérgica, dermatitis) o sospecha de parasitosis intestinal reciente. Informar si está bajo tratamiento con corticosteroides sistémicos, antihistamínicos o terapia biológica anti-IgE (omalizumab)."
   },
   {
     "id": "fer-1",
@@ -1584,11 +1584,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "urocultivo con antibiograma"
     ],
     "priceUsd": 35,
-    "fastingHours": "Sin ayuno. Primera orina de la mañana o retención de 3-4 horas.",
-    "sampleType": "Orina de chorro medio en frasco estéril (traslado en hielo)",
+    "fastingHours": "Primera orina de la mañana o retención de 3 a 4 horas. Suspender antibióticos 48-72h antes",
+    "sampleType": "Orina de chorro medio en frasco estéril de farmacia (traslado en hielo)",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "CRÍTICO: Muestra previa al inicio de antibióticos. Aseo riguroso de genitales con agua y jabón neutro sin antisépticos. Descartar primer chorro y recoger chorro medio. Refrigerar y trasladar en hielo."
+    "notes": "Aseo riguroso con agua y jabón neutro (PROHIBIDO usar antisépticos o desinfectantes). Descartar primer chorro y recoger chorro medio. Trasladar en cava con hielo. Muestra tomada antes de iniciar antibióticos o 48-72h después de culminados."
   },
   {
     "id": "mic-2",
@@ -1601,11 +1601,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "coprocultivo automatizado"
     ],
     "priceUsd": 42,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal en frasco estéril a temperatura ambiente",
+    "fastingHours": "Sin antibióticos 48-72h antes, sin antidiarreicos ni bismuto",
+    "sampleType": "Muestra fecal en frasco estéril (temperatura ambiente)",
     "turnaround": "72 horas",
     "active": true,
-    "notes": "Sin antibióticos 48-72h antes. Porción tamaño nuez. Lactantes: recoger con pañal al revés (plástico hacia adentro) sin cremas antipañalitis ni talcos."
+    "notes": "Cultivo bacteriológico para aislamiento de Salmonella, Shigella, E. coli patógena. NO es el antígeno de Helicobacter. En lactantes colocar pañal al revés (plástico hacia adentro) y recoger con espátula estéril."
   },
   {
     "id": "mic-3",
@@ -1618,11 +1618,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "exudado faringeo con antibiograma"
     ],
     "priceUsd": 35,
-    "fastingHours": "En ayunas, sin cepillarse los dientes, sin enjuagues ni antisépticos bucales",
-    "sampleType": "Hisopado faríngeo amigdalar tomado en laboratorio",
+    "fastingHours": "En ayunas, sin lavarse los dientes ni usar enjuagues bucales",
+    "sampleType": "Hisopado faríngeo directo en el laboratorio",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "Toma realizada directamente en el laboratorio por personal especializado."
+    "notes": "Acudir en ayunas, estricto SIN cepillarse los dientes, sin enjuagues ni colutorios antisépticos. Toma directa por profesional en la sede."
   },
   {
     "id": "mic-4",
@@ -1886,11 +1886,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "estudio de disbiosis intestinal"
     ],
     "priceUsd": 53,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal en frasco estéril (llenar 3/4 partes)",
+    "fastingHours": "Sin ayuno. CRÍTICO: 15 días sin antibióticos, antimicóticos, probióticos ni consumo de yogurt",
+    "sampleType": "Muestra fecal en recolector estéril (llenar 3/4 partes)",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "CRÍTICO: NO tomar antibióticos, antimicóticos, probióticos ni consumir yogurt durante al menos 15 días antes de recolectar la muestra."
+    "notes": "REQUISITO CRÍTICO: NO recibir antibióticos, antimicóticos, probióticos ni consumir yogurt durante al menos 15 días previos. Llenar 3/4 partes del envase estéril y trasladar de inmediato a temperatura ambiente."
   },
   {
     "id": "mic-20",
@@ -1971,11 +1971,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "micologico"
     ],
     "priceUsd": 24,
-    "fastingHours": "Sin antimicóticos tópicos u orales por 7 a 15 días previos",
-    "sampleType": "Raspado de uñas, escamas de piel o cabellos afectados",
+    "fastingHours": "7 a 15 días sin antimicóticos tópicos ni orales. 3 días sin cremas, talcos, perfumes ni esmaltes",
+    "sampleType": "Raspado de uñas / escamas de piel / cabello",
     "turnaround": "15 a 21 días (Examen directo KOH en 24h)",
     "active": true,
-    "notes": "NO aplicar cosméticos, cremas, talcos ni esmaltes. No cortarse las uñas la semana previa."
+    "notes": "Suspender tratamientos antimicóticos tópicos y orales 7 a 15 días antes. Uñas: sin cortar 1 semana, cepillado neutro 3 días, sin esmaltes. Piel: evitar ducha justo antes de la toma. Cuero cabelludo: 24h sin lavar. CON PREVIA CITA con la micóloga."
   },
   {
     "id": "mic-25",
@@ -1989,11 +1989,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "espermocultivo 4 vasos"
     ],
     "priceUsd": 50,
-    "fastingHours": "Abstinencia sexual de 2 a 3 días. Sin antibióticos 7-14 días.",
-    "sampleType": "4 frascos estériles numerados (orinas fraccionadas + semen)",
+    "fastingHours": "7 a 14 días sin antibióticos, 2-3 días abstinencia sexual, retención urinaria nocturna (o 4h)",
+    "sampleType": "4 frascos estériles numerados (F1, F2, F3, F4)",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "Técnica de Meares y Stamey para localización de infecciones urogenitales y prostatitis."
+    "notes": "PRUEBA DE LOS 4 VASOS DE MEARES Y STAMEY: Aseo genital neutro sin antisépticos. 4 frascos estériles: Frasco 1 (primeros 5-10 mL orina), Frasco 2 (chorro medio orina), Frasco 3 (eyaculado completo por masturbación, sin preservativo), Frasco 4 (primeros 5-10 mL orina post-eyaculación). Orinas en hielo y semen a temperatura ambiente (20-25°C)."
   },
   {
     "id": "mic-26",
@@ -2071,11 +2071,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "ego"
     ],
     "priceUsd": 6,
-    "fastingHours": "Primera orina de la mañana o retención mínima de 3-4 horas",
-    "sampleType": "Orina de chorro medio en frasco estéril de farmacia",
+    "fastingHours": "Primera orina de la mañana (chorro medio)",
+    "sampleType": "Orina de primera micción matutina en frasco estéril de farmacia",
     "turnaround": "2 a 4 horas",
     "active": true,
-    "notes": "Aseo genital previo con agua y jabón neutro. Descartar el primer chorro y recolectar el chorro medio. Trasladar en menos de 2 horas."
+    "notes": "Aseo genital previo con agua y jabón neutro (sin antisépticos). Descartar el primer chorro y recolectar el chorro medio en envase estéril con tapa de rosca. Entregar en menos de 1 hora al laboratorio. En lactantes cambiar la bolsa colectora cada 20-30 minutos."
   },
   {
     "id": "uri-2",
@@ -2088,11 +2088,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "aclaramiento de creatinina"
     ],
     "priceUsd": 12,
-    "fastingHours": "Requiere recolección de 24h + muestra de sangre en ayunas al entregar",
-    "sampleType": "Volumen completo de orina de 24 horas + Suero",
+    "fastingHours": "Recolección estricta de 24 horas refrigerada a ~8°C + Muestra de sangre en ayunas en el laboratorio",
+    "sampleType": "Totalidad de orina emitida en 24h refrigerada + Suero sanguíneo matutino",
     "turnaround": "6 a 12 horas",
     "active": true,
-    "notes": "Día 1 a las 7:00 am orinar y descartar en inodoro. A partir de allí recolectar TODA la orina durante el día y la noche en un botellón limpio hasta las 7:00 am del día 2 inclusive. Mantener en refrigeración."
+    "notes": "Protocolo de 24h: Día 1 a las 6:00/7:00 AM orinar en el inodoro (descartar 1ra orina) y anotar la hora exacta. Recolectar todas las micciones diurnas y nocturnas en botella plástica limpia manteniendo en nevera (~8°C, no congelar). Día 2 recoger la primera orina a la misma hora del Día 1 y cerrar la recolección. Acudir de inmediato al laboratorio en ayunas para la toma de sangre."
   },
   {
     "id": "uri-3",
@@ -2104,11 +2104,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "microalbuminuria parcial"
     ],
     "priceUsd": 12,
-    "fastingHours": "Primera orina de la mañana",
+    "fastingHours": "Primera orina de la mañana o según indicación médica",
     "sampleType": "Orina de chorro medio",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Detección precoz de daño glomerular renal en pacientes diabéticos e hipertensos."
+    "notes": "Evitar ejercicio físico extenuante 24 horas antes. Posponer en caso de fiebre aguda o infección urinaria sintomática."
   },
   {
     "id": "uri-4",
@@ -2136,11 +2136,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "proteinas en orina 24 horas"
     ],
     "priceUsd": 13,
-    "fastingHours": "Recolección completa de 24 horas",
+    "fastingHours": "Recolección de 24 horas refrigerada a ~8°C",
     "sampleType": "Orina de 24 horas refrigerada",
     "turnaround": "6 a 12 horas",
     "active": true,
-    "notes": "Cuantificación de excreción total de proteínas en 24 horas."
+    "notes": "Mismo protocolo de recolección de 24 horas refrigerada a ~8°C. Evitar ejercicio extenuante 24h antes."
   },
   {
     "id": "uri-6",
@@ -2152,11 +2152,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "indices urinarios"
     ],
     "priceUsd": 20,
-    "fastingHours": "Primera orina de la mañana o recolección según orden médica",
-    "sampleType": "Orina parcial o de 24h",
+    "fastingHours": "Segunda orina de la mañana en ayunas",
+    "sampleType": "Segunda orina de la mañana (descartando la primera al despertar)",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Evaluación de litiasis renal y desórdenes tubulares."
+    "notes": "Descartar la primera orina de la mañana al despertar y recolectar la SEGUNDA orina de la mañana en ayunas. Mantener dieta habitual los 3 días previos (sin variar ingesta de lácteos ni carnes). Entregar en <1 hora."
   },
   {
     "id": "uri-7",
@@ -2183,11 +2183,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "electrolitos en orina 24h"
     ],
     "priceUsd": 20,
-    "fastingHours": "Recolección estricta de 24 horas",
+    "fastingHours": "Recolección de 24 horas refrigerada a ~8°C",
     "sampleType": "Orina de 24 horas refrigerada",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Cuantificación de analitos y electrolitos excretados en 24 horas."
+    "notes": "Recolección completa de 24 horas refrigerada para cuantificación de analitos urinarios."
   },
   {
     "id": "uri-9",
@@ -2200,11 +2200,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "relacion albumina / cr"
     ],
     "priceUsd": 17,
-    "fastingHours": "Primera orina de la mañana",
-    "sampleType": "Orina de chorro medio",
+    "fastingHours": "Segunda orina de la mañana en ayunas",
+    "sampleType": "Segunda orina de la mañana (descartando la primera al despertar)",
     "turnaround": "4 a 6 horas",
     "active": true,
-    "notes": "Cálculo estandarizado que corrige la excreción de albúmina por concentración urinaria."
+    "notes": "Descartar la primera orina de la mañana al despertar y recolectar la SEGUNDA orina de la mañana en ayunas. Mantener dieta habitual los 3 días previos (sin variar ingesta de lácteos ni carnes). Entregar en <1 hora."
   },
   {
     "id": "cop-1",
@@ -2267,11 +2267,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "concentracion fecal"
     ],
     "priceUsd": 20,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal en recolector adecuado",
+    "fastingHours": "No requiere ayuno. Requiere adquirir kit de 3 frascos con conservante en el laboratorio",
+    "sampleType": "3 muestras fecales recolectadas en el kit especial provisto por el laboratorio",
     "turnaround": "6 a 12 horas",
     "active": true,
-    "notes": "Técnica de enriquecimiento para aumentar la sensibilidad en la detección de quistes y huevos de parásitos."
+    "notes": "1. Acuda al laboratorio para adquirir el kit de recolección de las 3 muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado. 2. Cuide no derramar el líquido preservante durante el traslado."
   },
   {
     "id": "cop-5",
@@ -2315,11 +2315,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "test de graham femenino"
     ],
     "priceUsd": 13,
-    "fastingHours": "Al despertar, sin aseo perianal ni vulvar previo",
-    "sampleType": "Cinta engomada perianal sobre lámina",
+    "fastingHours": "No requiere ayuno. Requiere adquirir kit de 3 frascos con conservante en el laboratorio",
+    "sampleType": "3 muestras fecales recolectadas en el kit especial provisto por el laboratorio",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Incluye evaluación de márgenes perianales y orificio vulvar."
+    "notes": "1. Acuda al laboratorio para adquirir el kit de recolección de las 3 muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado. 2. Cuide no derramar el líquido preservante durante el traslado."
   },
   {
     "id": "cop-8",
@@ -2341,11 +2341,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "h pylori en heces"
     ],
     "priceUsd": 13.5,
-    "fastingHours": "Sin ayuno. Suspender antibióticos y bismuto 4 semanas antes, y protectores gástricos (IBP) 2 semanas antes.",
-    "sampleType": "Muestra fecal en recolector estéril",
+    "fastingHours": "Sin ayuno. Suspender antibióticos y bismuto 4 semanas antes, e inhibidores de bomba de protones (IBP) 2 semanas antes",
+    "sampleType": "Muestra de heces fresca en frasco estéril de farmacia",
     "turnaround": "4 a 6 horas",
     "active": true,
-    "notes": "Prueba de elección no invasiva para diagnóstico y confirmación de erradicación de H. pylori."
+    "notes": "Prueba no invasiva de elección para detección de antígeno y confirmación de erradicación de Helicobacter pylori en heces. Entregar en <3 horas al laboratorio."
   },
   {
     "id": "cop-9",
@@ -2357,11 +2357,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "grasa fecal acida"
     ],
     "priceUsd": 10,
-    "fastingHours": "Sin ayuno. Dieta normal con grasas.",
-    "sampleType": "Muestra fecal fresca trasladada en < 2 horas",
+    "fastingHours": "Sin ayuno. CRÍTICO: 15 días sin antibióticos, antimicóticos, probióticos ni consumo de yogurt",
+    "sampleType": "Muestra fecal en recolector estéril (llenar 3/4 partes)",
     "turnaround": "6 horas",
     "active": true,
-    "notes": "Evitar supositorios, laxantes oleosos y cremas lubricantes."
+    "notes": "REQUISITO CRÍTICO: NO recibir antibióticos, antimicóticos, probióticos ni consumir yogurt durante al menos 15 días previos. Llenar 3/4 partes del envase estéril y trasladar de inmediato a temperatura ambiente."
   },
   {
     "id": "cop-10",
@@ -2507,11 +2507,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "antigeno prostatico especifico"
     ],
     "priceUsd": 14,
-    "fastingHours": "Ayuno de 8 horas. Abstinencia sexual estricta de 48h.",
+    "fastingHours": "Ayuno de 4 a 8 horas",
     "sampleType": "Suero no hemolizado",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "CRÍTICO: No haber tenido relaciones sexuales, eyaculación, tacto rectal ni montar bicicleta/moto en las 48 horas previas."
+    "notes": "CRÍTICO: Abstinencia sexual y eyaculación estricta de 48 horas previas. No montar bicicleta, moto ni realizar ejercicio pélvico 48h antes. Esperar 48-72h post-tacto rectal, 1-2 semanas post-sonda/cistoscopia, 4-6 semanas post-biopsia prostática o RTUP."
   },
   {
     "id": "mar-2",
@@ -2522,11 +2522,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "antigeno prostatico libre"
     ],
     "priceUsd": 14,
-    "fastingHours": "Ayuno de 8 horas. Abstinencia sexual de 48h.",
+    "fastingHours": "Ayuno de 4 a 8 horas",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Utilizado para calcular la relación PSA Libre / PSA Total en sospecha de patología prostática."
+    "notes": "CRÍTICO: Abstinencia sexual y eyaculación estricta de 48 horas previas. No montar bicicleta, moto ni realizar ejercicio pélvico 48h antes. Esperar 48-72h post-tacto rectal, 1-2 semanas post-sonda/cistoscopia, 4-6 semanas post-biopsia prostática o RTUP."
   },
   {
     "id": "mar-3",
@@ -2538,11 +2538,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "alfa fetoproteina"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Marcador tumoral hepático y gonadal germinal."
+    "notes": "Marcador tumoral gonadal y hepático. En control prenatal registrar edad gestacional ecográfica y peso materno."
   },
   {
     "id": "mar-4",
@@ -2553,11 +2553,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "antigeno carcinoembrionario"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 4 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Marcador tumoral gastrointestinal y colorrectal. Indicar hábito tabáquico."
+    "notes": "Marcador tumoral colorrectal y digestivo. Indicar obligatoriamente si el paciente es fumador activo (los niveles basales son mayores en fumadores)."
   },
   {
     "id": "mar-5",
@@ -2569,11 +2569,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "marcador ovario"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 8 a 12 horas",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Marcador tumoral ovárico. No tomar la muestra durante el período menstrual activo."
+    "notes": "Tomar la muestra al menos 5 días después de culminada la menstruación. Informar si está embarazada o padece endometriosis."
   },
   {
     "id": "mar-6",
@@ -2586,11 +2586,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "marcador mama"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 8 a 12 horas",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Monitoreo de cáncer de mama."
+    "notes": "Monitoreo de patología y neoplasia mamaria. Ayuno habitual de 8 a 12 horas."
   },
   {
     "id": "mar-7",
@@ -2603,11 +2603,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "marcador pancreas"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 8 a 12 horas",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Monitoreo de neoplasias pancreáticas y de vía biliar."
+    "notes": "Monitoreo de neoplasias pancreáticas y de vía biliar. Ayuno habitual de 8 a 12 horas."
   },
   {
     "id": "mar-8",
@@ -2620,11 +2620,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "anticuerpos anti ccp"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 4 a 8 horas",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Marcador altamente específico para diagnóstico temprano de Artritis Reumatoide."
+    "notes": "Marcador altamente específico para diagnóstico temprano de Artritis Reumatoide. Suspender suplementos con Biotina 48 horas antes."
   },
   {
     "id": "mar-9",
@@ -2668,11 +2668,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "gasometria venosa"
     ],
     "priceUsd": 68,
-    "fastingHours": "Sin ayuno estricto",
+    "fastingHours": "Sin ayuno estricto (según indicación médica). Para Gases Venosos Postprandiales: 1 hora post-desayuno (el paciente debe estar 20 minutos antes en el laboratorio para reposo)",
     "sampleType": "Sangre venosa en jeringa heparinizada anaeróbica (traslado en hielo)",
     "turnaround": "1 a 2 horas",
     "active": true,
-    "notes": "Toma anaeróbica estricta. Traslado inmediato con sellado hermético."
+    "notes": "Toma anaeróbica estricta. Para gases postprandiales, acudir 20 minutos antes para reposo previo."
   },
   {
     "id": "esp-2",
@@ -2683,11 +2683,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "gasometria arterial"
     ],
     "priceUsd": 68,
-    "fastingHours": "Sin ayuno estricto",
+    "fastingHours": "Sin ayuno estricto (reposo obligatorio de 15 minutos en el laboratorio previo a la punción)",
     "sampleType": "Sangre arterial en jeringa heparinizada (traslado en hielo)",
     "turnaround": "1 a 2 horas",
     "active": true,
-    "notes": "Punción de arteria radial / humeral / femoral con prueba de Allen previa."
+    "notes": "Punción de arteria radial / humeral / femoral con prueba de Allen previa. Reposo de 15 min en sala antes de la toma."
   },
   {
     "id": "esp-3",
@@ -2700,11 +2700,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "a1c"
     ],
     "priceUsd": 18,
-    "fastingHours": "Ayuno ligero de 4 a 8 horas",
+    "fastingHours": "No requiere ayuno estricto",
     "sampleType": "Sangre total (Tubo EDTA)",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Control metabólico glucémico promedio de los últimos 3 meses."
+    "notes": "Informar si padece anemias hemolíticas, hemoglobinopatías, si recibió transfusiones sanguíneas en los últimos 3 meses o si consume megadosis de vitamina C o E."
   },
   {
     "id": "esp-4",
@@ -2717,11 +2717,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "estudio de ehrlichia en capa blanca"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 4 horas",
+    "fastingHours": "Sin ayuno estricto (toma ideal durante el pico febril / fase aguda)",
     "sampleType": "Sangre total EDTA centrifugada (Capa leucocitaria / Buffy coat)",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Búsqueda microscópica de mórulas intracitoplasmáticas de Ehrlichia en leucocitos."
+    "notes": "Búsqueda microscópica directa de mórulas de Ehrlichia en leucocitos. Muestra ideal tomada durante el pico febril."
   },
   {
     "id": "esp-5",
@@ -2735,11 +2735,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "febriles"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 4 a 6 horas",
+    "fastingHours": "Ayuno de 8 a 12 horas",
     "sampleType": "Suero",
     "turnaround": "4 a 6 horas",
     "active": true,
-    "notes": "Aglutininas febriles para Tifoidea (Tífico O y H), Paratífico A y B, Brucella y Proteus OX19."
+    "notes": "Indicar obligatoriamente el día de inicio de la fiebre y tratamientos antibióticos previos. Incluye Tífico O y H, Paratífico A y B, Brucella y Proteus OX19."
   },
   {
     "id": "esp-6",
@@ -2753,11 +2753,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "pap"
     ],
     "priceUsd": 9,
-    "fastingHours": "Sin relaciones sexuales 48h. Sin duchas, óvulos ni menstruación 5 días antes.",
-    "sampleType": "Frotis endocervical y ectocervical fijado en alcohol al 95%",
+    "fastingHours": "No requiere ayuno (toma en los primeros 3 a 5 días de síntomas respiratorios)",
+    "sampleType": "Hisopado nasofaríngeo estéril",
     "turnaround": "3 a 5 días hábiles",
     "active": true,
-    "notes": "Toma realizada por especialista en ginecología o citólogo."
+    "notes": "Muestra por hisopado en los primeros 3-5 días de síntomas. No aplicar gotas, lavados nasales ni sprays en las 4 horas previas."
   },
   {
     "id": "esp-7",
@@ -2769,11 +2769,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citologia liquido cefalorraquideo"
     ],
     "priceUsd": 21,
-    "fastingHours": "Punción médica",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "LCR fresco en tubo EDTA",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Estudio de celularidad microscópica en líquido cefalorraquídeo."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "esp-8",
@@ -2801,11 +2801,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citologia de liquido sinovial"
     ],
     "priceUsd": 21,
-    "fastingHours": "Artrocentesis médica",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido sinovial fresco en tubo con EDTA",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Evaluación citomorfológica y de cristales."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "esp-10",
@@ -2816,11 +2816,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citologia de liquido pleural"
     ],
     "priceUsd": 21,
-    "fastingHours": "Toracocentesis médica",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido pleural en tubo con EDTA",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Búsqueda de células neoplásicas o mesoteliales."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "esp-11",
@@ -2831,11 +2831,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citologia de liquido pericardico"
     ],
     "priceUsd": 21,
-    "fastingHours": "Pericardiocentesis médica",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido pericárdico en tubo con EDTA",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Estudio de derrames pericárdicos."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "esp-12",
@@ -2847,11 +2847,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citologia de liquido peritoneal"
     ],
     "priceUsd": 21,
-    "fastingHours": "Paracentesis médica",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido ascítico/peritoneal en tubo con EDTA",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Evaluación de ascitis maligna vs reactiva."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "esp-13",
@@ -2865,11 +2865,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "gota gruesa paludismo"
     ],
     "priceUsd": 13,
-    "fastingHours": "Sin ayuno",
+    "fastingHours": "Sin ayuno estricto (toma obligatoria al momento del acceso febril / escalofríos)",
     "sampleType": "Sangre capilar o venosa al momento de los accesos febriles",
     "turnaround": "2 a 4 horas",
     "active": true,
-    "notes": "Búsqueda microscópica directa de trofozoítos y esquizontes de Plasmodium vivax / falciparum."
+    "notes": "Toma inmediata al presentarse el pico febril o escalofríos antes de iniciar fármacos antimaláricos."
   },
   {
     "id": "esp-14",
@@ -2882,11 +2882,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "cianocobalamina"
     ],
     "priceUsd": 23,
-    "fastingHours": "Ayuno estricto de 8 a 10 horas",
+    "fastingHours": "Ayuno estricto de 8 a 12 horas",
     "sampleType": "Suero protegido de la luz",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "Suspender suplementos vitamínicos del complejo B 48h antes."
+    "notes": "Suspender suplementos vitamínicos de complejo B / B12 de 48 a 72 horas antes. Proteger muestra de la luz. Informar uso prolongado de metformina o protectores gástricos (IBP)."
   },
   {
     "id": "esp-15",
@@ -2899,11 +2899,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "vitamina d total"
     ],
     "priceUsd": 20,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 8 horas o más",
     "sampleType": "Suero",
     "turnaround": "24 horas",
     "active": true,
-    "notes": "Evaluación del estado corporal de Vitamina D y metabolismo óseo."
+    "notes": "Tomar la muestra de sangre ANTES de ingerir la dosis diaria del suplemento de Vitamina D."
   },
   {
     "id": "esp-16",
@@ -2916,11 +2916,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "folato serico"
     ],
     "priceUsd": 23,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno estricto de 8 a 12 horas",
     "sampleType": "Suero protegido de la luz",
     "turnaround": "24 a 48 horas",
     "active": true,
-    "notes": "No ingerir suplementos de ácido fólico 24h antes."
+    "notes": "PROHIBICIÓN ABSOLUTA DE ALCOHOL durante las 24 horas previas. Suspender suplementos multivitamínicos 24 horas antes. Proteger muestra de la luz."
   },
   {
     "id": "cit-1",
@@ -2932,11 +2932,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico liquido cefalorraquideo"
     ],
     "priceUsd": 25,
-    "fastingHours": "No requiere ayuno estricto",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "LCR en 3 tubos + Sangre paralela",
     "turnaround": "4 a 6 horas",
     "active": true,
-    "notes": "Incluye proteínas, glucosa, recuento celular total y diferencial, y aspecto físico."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-2",
@@ -2948,11 +2948,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico de lcr + coloracion de gram"
     ],
     "priceUsd": 31,
-    "fastingHours": "No requiere ayuno",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "LCR en tubos estériles",
     "turnaround": "4 horas",
     "active": true,
-    "notes": "Análisis citoquímico completo más tinción rápida de Gram para detección bacteriana urgente."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-3",
@@ -2963,11 +2963,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico liquido sinovial"
     ],
     "priceUsd": 35,
-    "fastingHours": "No requiere ayuno",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido sinovial en tubo con heparina y tubo seco",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Evaluación de viscosidad, test de mucina, glucosa, proteínas y recuento leucocitario."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-4",
@@ -2978,11 +2978,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico sinovial mas gram"
     ],
     "priceUsd": 41,
-    "fastingHours": "No requiere ayuno",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido articular en tubos estériles",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Citoquímico articular completo con tinción de Gram para artritis séptica."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-5",
@@ -2994,11 +2994,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico de liquido pleural"
     ],
     "priceUsd": 27,
-    "fastingHours": "No requiere ayuno estricto",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido pleural + Muestra de sangre en suero",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Criterios de Light para diferenciación de trasudado vs exudado (Proteínas y LDH pleural/sérica)."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-6",
@@ -3010,11 +3010,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico de liquido pleural + coloracion de gram"
     ],
     "priceUsd": 32,
-    "fastingHours": "No requiere ayuno estricto",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido pleural en 3 tubos + Sangre",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Incluye tinción de Gram para investigación inmediata de empiema o bacterias."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-7",
@@ -3025,11 +3025,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico liquido pericardico"
     ],
     "priceUsd": 36,
-    "fastingHours": "No requiere ayuno estricto",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido pericárdico en tubos estériles + Suero",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Evaluación bioquímica y celular del derrame pericárdico."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-8",
@@ -3040,11 +3040,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico pericardico mas gram"
     ],
     "priceUsd": 42,
-    "fastingHours": "No requiere ayuno",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido pericárdico estéril + Suero",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Citoquímico pericárdico completo con tinción de Gram para pericarditis purulenta."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-9",
@@ -3056,11 +3056,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico ascitico"
     ],
     "priceUsd": 32,
-    "fastingHours": "No requiere ayuno estricto",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido ascítico en tubos estériles + Suero",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Gradiente de Albúmina Suero-Ascitis (GASA), recuento leucocitario y proteínas totales."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "cit-10",
@@ -3071,11 +3071,11 @@ export const INITIAL_EXAMS: LabExam[] = [
       "citoquimico peritoneal mas gram"
     ],
     "priceUsd": 41,
-    "fastingHours": "No requiere ayuno",
+    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
     "sampleType": "Líquido ascítico estéril + Suero",
     "turnaround": "12 a 24 horas",
     "active": true,
-    "notes": "Citoquímico ascítico completo con tinción de Gram para descartar peritonitis bacteriana espontánea."
+    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
   },
   {
     "id": "caracas-1",
@@ -3186,12 +3186,12 @@ export const INITIAL_EXAMS: LabExam[] = [
       "pcr erlichia"
     ],
     "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas",
+    "fastingHours": "Ayuno de 4 horas",
     "sampleType": "Suero / Sangre total",
     "turnaround": "10 a 15 días hábiles",
     "active": true,
     "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Panel especializado de coinfecciones por garrapatas y vectores. Remisión a Caracas."
+    "notes": "Informar si ha tenido eventos inflamatorios agudos recientes (traumatismos, procedimientos dentales, infecciones virales elevan transitoriamente los valores), enfermedades crónicas, embarazo o ejercicio intenso en las últimas horas."
   },
   {
     "id": "caracas-7",

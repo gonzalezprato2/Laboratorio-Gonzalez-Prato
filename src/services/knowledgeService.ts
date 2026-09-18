@@ -113,7 +113,7 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
     fileName: 'Condiciones_Inmunologia_Serologia.pdf',
     fileSize: '2.5 MB',
     uploadedAt: '08/09/2026',
-    contentSnippet: 'HEPATITIS (VHA IgM, HBsAg, Anti-HBc, Anti-VHC): Ayuno de 4h+, informar días de síntomas, vacunas recientes o antivirales. PCR (Proteína C Reactiva Semicuantitativa / Cuantitativa): Ayuno 4h, informar traumatismos, cirugías dentales, infecciones virales o ejercicio. ASLO Y RATES (Factor Reumatoideo): Ayuno 4-6h, notificar antibióticos o corticoides. VDRL: Ayuno 4-8h, evitar alcohol 24h, no suspender medicamentos pero informar antibióticos (penicilinas/macrólidos) y causas de falsos positivos (embarazo, autoinmunidad, vacunas). ANTI-TREPONEMA PALLIDUM: Ayuno 2h+ (confirmatoria sífilis). VIH 3RA Y 4TA GENERACIÓN (Combo p24): Ayuno 4h+. DENGUE: Días 1 a 5 con fiebre se realiza Antígeno NS1; a partir del día 6 se realizan anticuerpos IgM e IgG; notificar vacuna de fiebre amarilla. VEB (Epstein-Barr) Y CMV (Citomegalovirus): Ayuno 4h+, indicar días con fiebre/faringitis. TOXOPLASMA GONDII (IgM/IgG): Ayuno 4h+, indicar embarazo/semanas y convivencia con felinos/animales. CHLAMYDIA Y MYCOPLASMA PNEUMONIAE: Ayuno 4h+, suspender biotina. HELICOBACTER PYLORI SEROLOGÍA: Ayuno 4h+. IGE TOTAL: Ayuno 4h+, informar corticosteroides. PANEL RESPIRATORIO RÁPIDO (VSR, Influenza, Adenovirus, Mycoplasma): Hisopado nasofaríngeo en primeros 3-5 días de síntomas, sin lavados ni sprays nasales 4h antes. COVID-19: Ayuno 4h+.',
+    contentSnippet: 'HEPATITIS (VHA IgM, HBsAg, Anti-HBc, Anti-VHC): Ayuno de 4h+, informar días de síntomas, vacunas recientes o antivirales de acción directa / inmunomoduladores en VHC. PCR (Proteína C Reactiva Semicuantitativa / Cuantitativa): Ayuno 4h, informar traumatismos, procedimientos dentales, infecciones virales, patologías crónicas, embarazo o ejercicio intenso. ASLO Y RATES (Factor Reumatoideo): Ayuno 4-6h (no estricto), notificar antibióticos, corticoesteroides o procesos infecciosos recientes. VDRL: Ayuno 4-8h (evitar lipemia), evitar alcohol 24h, no suspender medicamentos pero informar antibióticos (penicilinas/macrólidos) y causas de falsos positivos (embarazo, autoinmunidad/lupus, vacunas). ANTI-TREPONEMA PALLIDUM (FTA-ABS, TPHA): Ayuno 2-4h (confirmatoria sífilis), informar tratamiento previo (penicilina benzatínica) y fecha de culminación (cicatriz serológica de por vida), autoinmunidad o Lyme. VIH 1/2 (3RA GEN) Y 4TA GENERACIÓN (Combo p24 + anticuerpos): Ayuno 4h+, informar antirretrovirales, PrEP, PEP, vacunas recientes (influenza, hepatitis B) o tiempo de ventana por exposición sospechosa. DENGUE: Días 1 a 5 con fiebre: Antígeno NS1 (fase de viremia aguda); A partir del día 6 con fiebre: Anticuerpos IgM e IgG (respuesta inmune); notificar vacuna de fiebre amarilla/dengue o infección previa por flavivirus. PRUEBA DE EMBARAZO EN SANGRE (hCG cualitativa / beta cuantitativa): Ayuno ligero 2-4h, indicar FUM, regularidad y 1-2 días de retraso menstrual, tratamientos de reproducción/hCG. PRUEBA DE EMBARAZO EN ORINA (hCG): Primera orina matutina o retención mínima 4h, evitar exceso de líquidos, indicar FUM y retraso. VEB (Epstein-Barr): Ayuno 4h+, días de fiebre/faringitis/adenopatías, transfusiones o hemoderivados en 3-6 meses. CMV (Citomegalovirus): Ayuno 4h+, en embarazadas semanas de gestación y si es rutina o hallazgo eco, informar inmunosupresión o VIH. TOXOPLASMA GONDII (IgM/IgG): Ayuno 4h+, edad gestacional en embarazadas, convivencia con gatos, contacto con tierra/jardinería o carnes crudas/poco cocidas. CHLAMYDIA Y MYCOPLASMA PNEUMONIAE (Sangre): Ayuno 4h+, uso reciente de antibióticos (macrólidos, quinolonas, tetraciclinas), suspender biotina 48h antes. HELICOBACTER PYLORI SEROLOGÍA EN SANGRE: Ayuno 4h+, advertir que IgG permanece positiva meses/años (no discrimina infección activa vs pasada; para control de erradicación solicitar Coproantígeno en Heces). IGE TOTAL: Ayuno 4h+, informar enfermedades atópicas (asma, rinitis, dermatitis), parasitosis o uso de corticoides/antihistamínicos/anti-IgE (omalizumab). ANTICUERPOS COVID (SARS-CoV-2): Ayuno 4h+, fecha de síntomas/contacto, vacunas y fecha de última dosis.',
     keyTopics: [
       'Hepatitis A B C y Anti-Core',
       'Proteína C Reactiva PCR cuantitativa',
@@ -121,12 +121,13 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
       'VDRL y Anti-Treponema FTA-ABS',
       'VIH 3ra y 4ta generacion combo p24',
       'Dengue ventana NS1 dias 1-5 e IgM IgG dia 6+',
+      'Prueba de Embarazo Sangre y Orina',
       'Epstein Barr VEB y Citomegalovirus CMV',
       'Toxoplasma gondii embarazo y animales',
       'Chlamydia y Mycoplasma serologia',
       'Helicobacter pylori en sangre',
-      'Panel Respiratorio hisopado nasal',
-      'IgE Total y alergias'
+      'IgE Total y alergias',
+      'Anticuerpos COVID SARS-CoV-2'
     ],
     active: true
   },
