@@ -118,22 +118,39 @@ export function processPatientMessage(
   }
 
   // 2. Búsqueda en Catálogo de Exámenes
-  const matchedExams: LabExam[] = [];
+  let rawMatchedExams: LabExam[] = [];
   for (const exam of catalog) {
     if (!exam.active) continue;
     const normName = normalizeText(exam.name);
     if (normUser.includes(normName)) {
-      matchedExams.push(exam);
+      rawMatchedExams.push(exam);
       continue;
     }
     for (const syn of exam.synonyms) {
       const normSyn = normalizeText(syn);
       if (normUser.includes(normSyn) && normSyn.length >= 3) {
-        matchedExams.push(exam);
+        rawMatchedExams.push(exam);
         break;
       }
     }
   }
+
+  // 2.0.1. Anti-Canibalización y Jerarquía Clínica (Componentes Unitarios vs Paneles)
+  // Deduplicar por ID primero
+  const uniqueMatched = Array.from(new Map(rawMatchedExams.map(e => [e.id, e])).values());
+
+  const matchedExams: LabExam[] = uniqueMatched.filter(exam => {
+    // Si solicitó plaquetas solas, NO incluir Hematología Completa a menos que haya pedido 'hematologia' o 'hemograma'
+    if (exam.id === 'hem-1' && (normUser.includes('plaqueta') || normUser.includes('plaquetas') || normUser.includes('trombocito'))) {
+      const wantsExplicitCBC = normUser.includes('hematologia') || normUser.includes('hemograma') || normUser.includes('biometria') || normUser.includes('formula');
+      if (!wantsExplicitCBC) return false;
+    }
+    // Si solicitó citología nasal / moco nasal, NO incluir citología vaginal
+    if (normUser.includes('moco nasal') || normUser.includes('citologia nasal') || normUser.includes('eosinofilos nasal')) {
+      if (normalizeText(exam.name).includes('vaginal') || normalizeText(exam.name).includes('cuello uterino')) return false;
+    }
+    return true;
+  });
 
   // 2.1. Detección de exámenes NO realizados (Anti-alucinación explícita)
   if (normUser.includes('espermograma') || normUser.includes('espermatograma') || normUser.includes('seminograma') || normUser.includes('espermiograma')) {

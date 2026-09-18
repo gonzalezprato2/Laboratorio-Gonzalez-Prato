@@ -137,31 +137,29 @@ export const supabaseService = {
 
   async saveExams(exams: LabExam[]): Promise<boolean> {
     try {
-      for (const exam of exams) {
-        if (exam.id && exam.id.includes('-') && exam.id.length > 20) {
-          // UUID update
-          await supabase.from('examenes').update({
-            categoria: exam.category,
-            nombre_examen: exam.name,
-            sinonimos: exam.synonyms,
-            costo_usd: exam.priceUsd,
-            requisitos_preanaliticos: exam.fastingHours,
-            tipo_muestra: exam.sampleType,
-            activo: exam.active,
-            updated_at: new Date().toISOString()
-          }).eq('id', exam.id);
-        } else {
-          // Insert or upsert by name
-          await supabase.from('examenes').upsert({
-            categoria: exam.category,
-            nombre_examen: exam.name,
-            sinonimos: exam.synonyms,
-            costo_usd: exam.priceUsd,
-            requisitos_preanaliticos: exam.fastingHours,
-            tipo_muestra: exam.sampleType,
-            activo: exam.active,
-            updated_at: new Date().toISOString()
-          }, { onConflict: 'nombre_examen' });
+      const records = exams.map(exam => ({
+        categoria: exam.category,
+        nombre_examen: exam.name,
+        sinonimos: exam.synonyms,
+        costo_usd: exam.priceUsd,
+        requisitos_preanaliticos: exam.fastingHours,
+        tipo_muestra: exam.sampleType,
+        tiempo_entrega: exam.turnaround,
+        activo: exam.active,
+        notas: exam.notes || null,
+        updated_at: new Date().toISOString()
+      }));
+
+      // Upsert por lotes de 50 para máxima velocidad
+      const CHUNK_SIZE = 50;
+      for (let i = 0; i < records.length; i += CHUNK_SIZE) {
+        const chunk = records.slice(i, i + CHUNK_SIZE);
+        const { error } = await supabase
+          .from('examenes')
+          .upsert(chunk, { onConflict: 'nombre_examen' });
+
+        if (error) {
+          console.warn('Batch upsert warning:', error);
         }
       }
       return true;
