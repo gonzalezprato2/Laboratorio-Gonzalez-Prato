@@ -140,20 +140,20 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
     fileName: 'Condiciones_Microbiologia_Cultivos.pdf',
     fileSize: '2.8 MB',
     uploadedAt: '08/09/2026',
-    contentSnippet: 'REGLA GENERAL MICROBIOLOGÍA: Muestra antes de iniciar antibióticos o 48 a 72 horas luego de finalizados (indicar antibiótico si no se suspende). UROCULTIVO: Primera orina de la mañana o retención de 3 a 4 horas. Aseo genital con agua y jabón neutro (PROHIBIDO usar antisépticos, geles o desinfectantes). Descartar primer chorro y recolectar chorro medio en frasco estéril de farmacia (no vidrio). Mantener en nevera y transportar con hielo al laboratorio. Bolsa pediátrica: cambio cada 30 min hasta obtener muestra. Sonda vesical: toma por recambio de sonda por personal de salud. COPROCULTIVO: Sin antibióticos 48-72h, sin antidiarreicos, bismuto ni aceites. Recipiente limpio no absorbente sin orina. Porción tamaño nuez con moco/sangre. Lactantes: sin talcos ni cremas antipañalitis, colocar pañal al revés (plástico adentro), recoger inmediatamente con espátula, transportar a temperatura ambiente. EXUDADO FARÍNGEO: En ayunas, sin cepillarse los dientes, sin enjuagues ni colutorios bucales. ESPUTO: Enjuague bucal solo con agua (sin pasta dental), primera hora de la mañana con esfuerzo de tos profunda del árbol bronquial (no saliva). SECRECIONES: Heridas/úlceras (sin cremas 24h, lavado con agua estéril); Óticas (sin gotas 48h); Oculares (sin colirios 12-24h, retirar lentes de contacto 12h, sin maquillaje); Nasales (sin sprays 12-24h); Abscesos (aspirado con jeringa). LÍQUIDOS BIOLÓGICOS (LCR, Pleural, Sinovial, Ascítico, Pericárdico): NUNCA REFRIGERAR para microbiología, trasladar en 30-60 min a 20-25°C. HEMOCULTIVO: Sin ayuno, al inicio de fiebre/escalofríos, venopunción periférica, frascos comerciales a temperatura ambiente. LAVADO BRONCOALVEOLAR / SECRECIÓN BRONQUIAL: Trampa de Lukens hermética enviada en <2 horas. ESPERMOCULTIVO (PRUEBA DE LOS 4 VASOS): 7-14 días sin antibióticos, abstinencia sexual 2-3 días, retención urinaria de toda la noche (o 4h). Higiene rigurosa con agua y jabón neutro sin antisépticos. 4 frascos estériles numerados: Frasco 1 (primeros mL orina), Frasco 2 (chorro medio orina), Frasco 3 (eyaculado completo por masturbación, sin coito ni preservativo), Frasco 4 (primeros mL orina post-eyaculación). Orinas en hielo y semen a temperatura ambiente (20-25°C).',
+    contentSnippet: 'REGLAS GENERALES MICROBIOLOGÍA: 1. Muestra antes de iniciar terapia antibiótica o antifúngica, o 48 a 72 horas luego de finalizado el tratamiento (indicar antibiótico si no se suspende). 2. Correspondencia inequívoca entre muestra y solicitud médica. UROCULTIVO (CHORRO MEDIO): 1ra orina matutina o retención de 3 a 4 horas. Lavado genital riguroso con agua y jabón neutro, enjuagar con abundante agua (PROHIBIDO usar antisépticos ni desinfectantes). Secar con toalla limpia. Descartar primer chorro y recolectar chorro medio en frasco estéril de farmacia (no vidrio). Mantener en nevera y transportar en envase con hielo al laboratorio. BOLSA PEDIÁTRICA: Aseo neutro sin antisépticos. Colocar bolsa sin manipular genitales; cambiar cada 30 minutos si no hay micción hasta obtenerla. PACIENTES CON SONDA: Muestra ideal obtenida por recambio de sonda realizado por personal de salud. COPROCULTIVO: Sin antidiarreicos, bismuto, antiácidos ni aceites minerales. Recipiente limpio no absorbente sin orina. Porción tamaño nuez (o 5-10 mL si líquida) con moco/sangre. LACTANTES: Sin talcos, cremas antipañalitis ni aceites; colocar pañal al revés (cara plástica hacia adentro); recoger de inmediato con espátula; trasladar a temperatura ambiente. HERIDAS Y ÚLCERAS: Incluye cultivo bacteriológico y micológico. Sin cremas tópicas, ungüentos ni antibióticos 24h previas. Lavado previo con agua estéril; traslado a temperatura ambiente en medio de transporte. EXUDADO FARÍNGEO: En ayunas, sin cepillarse los dientes, sin enjuagues ni antisépticos bucales. ESPUTO (Expectoración Profunda): Incluye cultivo bacteriológico y micológico. Enjuague bucal solo con agua (sin pasta dental ni enjuagues), primera hora de la mañana con tos profunda bronquial en recolector estéril (evitar saliva/secreción nasofaríngea). SECRECIONES NASALES: Suspender gotas/sprays con corticoides o descongestionantes 12-24h antes. SECRECIONES ÓTICAS: Incluye cultivo bacteriológico y micológico. Sin gotas óticas 48h antes. SECRECIONES OCULARES (Conjuntival): Incluye bacteriológico y micológico. Sin gotas/pomadas 12-24h, retirar lentes de contacto 12h antes, sin maquillaje/cremas perioculares. ABSCESOS: Incluye bacteriológico y micológico. Ideal por aspirado con jeringa; traslado inmediato. LÍQUIDOS BIOLÓGICOS (LCR, Pleural, Ascítico, Peritoneal, Pericárdico): Incluyen cultivo bacteriológico y micológico. NUNCA REFRIGERAR para microbiología; trasladar de inmediato a temperatura ambiente. Obtenidas estrictamente por personal médico. HEMOCULTIVO: Sin ayuno. Antes de antibióticos (o justo antes de la siguiente dosis). Extracción al inicio de fiebre/escalofríos por venopunción periférica. Retrocultivo simultáneo periférico + catéter si aplica. Solo frascos comerciales (adquirir en el laboratorio) a temperatura ambiente. LAVADO BRONCOALVEOLAR (LBA) Y SECRECIÓN BRONQUIAL: Incluyen cultivo bacteriológico y micológico. Obtenidas por médico especialista. Secreción bronquial sellada herméticamente en trampa de Lukens enviada en <2 horas a temperatura ambiente.',
     keyTopics: [
       'Antibióticos suspender 48-72h antes de cultivo',
-      'Urocultivo chorro medio y traslado en hielo',
+      'Urocultivo chorro medio traslado en hielo',
       'Aseo genital sin antisépticos',
       'Urocultivo pediátrico bolsa 30 min',
-      'Coprocultivo y técnica de pañal al revés',
-      'Exudado faríngeo sin lavarse los dientes',
-      'Esputo profundo no saliva',
-      'Secreciones heridas oticas oculares nasales',
+      'Coprocultivo y pañal al revés lactantes',
+      'Exudado faríngeo en ayunas sin cepillarse',
+      'Esputo profundo bacteriológico y micológico',
+      'Secreciones heridas oticas oculares y micológico',
       'Líquidos biológicos LCR NUNCA refrigerar',
-      'Hemocultivo al inicio de pico febril',
-      'Lavado broncoalveolar trampa de Lukens',
-      'Espermocultivo prueba de los 4 vasos Meares Stamey'
+      'Hemocultivo al inicio de fiebre y frascos comerciales',
+      'Trampa de Lukens secreción bronquial y LBA',
+      'Espermocultivo prueba de 4 vasos Meares Stamey'
     ],
     active: true
   },
@@ -189,7 +189,7 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
     fileName: 'Protocolos_Uroanalisis_Coproanalisis_Especiales.pdf',
     fileSize: '3.0 MB',
     uploadedAt: '08/09/2026',
-    contentSnippet: 'UROANÁLISIS GENERAL: Primera orina de la mañana con aseo neutro genital. Descartar primer chorro y recoger chorro medio en envase estéril con tapa de rosca. Entregar en <1h. Lactantes: bolsa pediátrica cambiada cada 20-30 min. DEPURACIÓN DE CREATININA EN ORINA DE 24 HORAS: Recolección estricta de 24h + muestra sanguínea matutina (medir talla y peso). Botella de agua mineral estéril. Cada micción debe ser refrigerada a ~8°C (no congelar). Día 1 a las 6:00 AM descartar 1ra orina y anotar hora. Recolectar todas las micciones diurnas y nocturnas. Día 2 a las 6:00 AM recoger la 1ra orina matutina y cerrar recolección. Llevar de inmediato. MICROALBUMINURIA Y PROTEINURIA 24H: Mismo protocolo de refrigeración; evitar ejercicio intenso 24h antes, posponer si hay fiebre o infección urinaria. RELACIONES URINARIAS (Ácido Úrico/Creat, Calcio/Creat, Fósforo/Creat): Segunda orina de la mañana en ayunas. Dieta habitual los 3 días previos (sin variar carnes/lácteos). Beber agua normal. Entregar en <1h. COPROANÁLISIS GENERAL (Heces, Leucograma, Sudan III, Kato Katz, Ziehl Neelsen): Sin antidiarreicos, bismuto ni aceites. Porción tamaño nuez en recolector estéril sin orina. CONCENTRADO SERIADO / CONCENTRADO DE HECES (3 Muestras - $20 USD): 1. Acuda al laboratorio para adquirir el kit para la recolección de las muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado de la muestra. 2. Cuide no derramar ese líquido en el momento de trasladar el material entregado. ABSORCIÓN INTESTINAL: Entrega estricta en menos de 30 minutos (en lactantes tomar en laboratorio). TEST DE GRAHAM: Retirar kit de lámina y cinta; toma al despertar sin aseo ni talcos. COPROANTÍGENO H. PYLORI: Entrega en <3h. CALPROTECTINA FECAL: Muestra fresca trasladada de inmediato. COPROANTÍGENOS GIARDIA / ENTAMOEBA / CRYPTOSPORIDIUM: Entrega en <2h. ESTEATOCRITO ÁCIDO: Entrega en <2h sin supositorios ni enemas. SANGRE OCULTA EN HECES: Método inmunoquímico (no requiere dieta restrictiva), sin supositorios ni sangrado hemorroidal/menstrual. DISBIOSIS INTESTINAL: CRÍTICO: NO recibir antibióticos, antimicóticos, probióticos ni consumir yogurt durante al menos 15 días previos. Llenar 3/4 partes del envase estéril y trasladar de inmediato.',
+    contentSnippet: 'UROANÁLISIS GENERAL: Primera orina de la mañana con aseo neutro genital. Descartar primer chorro y recoger chorro medio en envase estéril con tapa de rosca. Entregar en <1h. Lactantes: bolsa pediátrica cambiada cada 20-30 min. DEPURACIÓN DE CREATININA EN ORINA DE 24 HORAS: Recolección estricta de 24h + muestra sanguínea matutina (medir talla y peso). Botella de agua mineral estéril. Cada micción debe ser refrigerada a ~8°C (no congelar). Día 1 a las 6:00 AM descartar 1ra orina y anotar hora. Recolectar todas las micciones diurnas y nocturnas. Día 2 a las 6:00 AM recoger la 1ra orina matutina y cerrar recolección. Llevar de inmediato. MICROALBUMINURIA Y PROTEINURIA 24H: Mismo protocolo de refrigeración; evitar ejercicio intenso 24h antes, posponer si hay fiebre o infección urinaria. RELACIONES URINARIAS (Ácido Úrico/Creat, Calcio/Creat, Fósforo/Creat): Segunda orina de la mañana en ayunas. Dieta habitual los 3 días previos (sin variar carnes/lácteos). Beber agua normal. Entregar en <1h. COPROANÁLISIS GENERAL (Heces, Leucograma, Sudan III, Kato Katz, Ziehl Neelsen): Sin antidiarreicos, bismuto ni aceites. Porción tamaño nuez en recolector estéril sin orina. RECEPCIÓN DE HECES: Hasta las 2:30 PM (Lunes a Viernes) y Sábados hasta las 12:30 PM. CONCENTRADO SERIADO / CONCENTRADO DE HECES (3 Muestras - $20 USD): 1. Acuda al laboratorio para adquirir el kit para la recolección de las muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado de la muestra. 2. Cuide no derramar ese líquido en el momento de trasladar el material entregado. ABSORCIÓN INTESTINAL: Entrega estricta en menos de 30 minutos (en lactantes tomar en laboratorio). TEST DE GRAHAM: Retirar kit de lámina y cinta; toma al despertar sin aseo ni talcos. COPROANTÍGENO H. PYLORI: Entrega en <3h. CALPROTECTINA FECAL: Muestra fresca trasladada de inmediato. COPROANTÍGENOS GIARDIA / ENTAMOEBA / CRYPTOSPORIDIUM: Entrega en <2h. ESTEATOCRITO ÁCIDO: Entrega en <2h sin supositorios ni enemas. SANGRE OCULTA EN HECES: Método inmunoquímico (no requiere dieta restrictiva), sin supositorios ni sangrado hemorroidal/menstrual. DISBIOSIS INTESTINAL: CRÍTICO: NO recibir antibióticos, antimicóticos, probióticos ni consumir yogurt durante al menos 15 días previos. Llenar 3/4 partes del envase estéril y trasladar de inmediato.',
     keyTopics: [
       'Uroanálisis chorro medio entrega 1h',
       'Depuración de creatinina 24 horas refrigerada 8C',
@@ -197,6 +197,7 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
       'Microalbuminuria y Proteinuria 24h',
       'Relaciones Urinarias segunda orina ayunas',
       'Coproanálisis general y Leucograma fecal',
+      'Recepción heces 2:30pm y sábados 12:30pm',
       'Concentrado seriado 3 muestras kit',
       'Absorción intestinal entrega 30 min',
       'Test de Graham cinta adhesiva oxiuros',
@@ -210,7 +211,7 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
     active: true
   },
 
-  // 9. DOMICILIOS & SEGUROS
+  // 9. DOMICILIOS, SEGUROS Y FAQ INSTITUCIONAL OFICIAL
   {
     id: 'kb-domicilios',
     title: 'Protocolo de Servicio de Toma de Muestras a Domicilio',
@@ -218,19 +219,29 @@ export const INITIAL_KNOWLEDGE_DOCS: KnowledgeDocument[] = [
     fileName: 'Protocolo_Toma_Muestras_Domicilio_2026.pdf',
     fileSize: '1.8 MB',
     uploadedAt: '08/09/2026',
-    contentSnippet: 'El servicio de toma a domicilio está disponible de Lunes a Sábado a partir de las 6:30 AM. Requiere coordinación previa de al menos 24 horas con secretaría para pacientes encamados, tercera edad, postoperados o dificultad de traslado. Recargo de traslado varía según la zona geográfica ($5-$10 USD Zona Metropolitana). Se genera alerta inmediata para llamada de coordinación.',
-    keyTopics: ['Pacientes encamados', 'Coordinación 24h', 'Toma matutina 6:30 AM', 'Zonas de cobertura', 'Alerta recepcion'],
+    contentSnippet: 'SERVICIO A DOMICILIO OFICIAL: Disponible exclusivamente los días LUNES, MARTES Y JUEVES. Si el domicilio se encuentra dentro del Municipio Libertador, NO TIENE COSTO ADICIONAL (Servicio gratuito en Mcpio. Libertador). En caso de que la toma sea en un centro de salud / clínica / hospital, el familiar del paciente debe buscar a la asistente de laboratorio y acompañarla al mismo debido a las restricciones de ingreso a personal externo. Para coordinar fechas y agendar se contacta con la secretaría.',
+    keyTopics: ['Lunes Martes y Jueves', 'Municipio Libertador gratis sin costo', 'Centros de salud acompañar a asistente', 'Coordinación con secretaría'],
     active: true
   },
   {
-    id: 'kb-seguros',
-    title: 'Convenios, Seguros Médicos y Formas de Pago Aceptadas',
+    id: 'kb-seguros-faq',
+    title: 'Políticas de Seguros, Formas de Pago, Resultados y Preguntas Frecuentes',
     category: 'SEGUROS',
-    fileName: 'Convenios_Seguros_y_Metodos_Pago_2026.pdf',
-    fileSize: '1.2 MB',
+    fileName: 'Convenios_Seguros_FAQ_Institucional_2026.pdf',
+    fileSize: '1.4 MB',
     uploadedAt: '08/09/2026',
-    contentSnippet: 'Aceptamos pagos en Divisas en efectivo (USD / Euros en buen estado), Zelle, Pago Móvil, Binance Pay (USDT) y tarjetas de débito/crédito internacionales. Todos nuestros precios y cotizaciones se manejan en Dólares ($ USD). Aceptamos cartas de garantía de aseguradoras nacionales con clave de validación previa coordinada por secretaría.',
-    keyTopics: ['Pago Móvil', 'Precios en USD', 'Zelle', 'Efectivo USD Euros', 'Binance Pay USDT', 'Cartas de garantía seguros'],
+    contentSnippet: '1. SEGUROS: No poseemos convenios directos con compañías aseguradoras. El paciente efectúa el pago en el laboratorio y solicita el reembolso correspondiente a su seguro. 2. FORMAS DE PAGO: Punto de venta (tarjetas de débito/crédito), transferencias bancarias y efectivo (Bolívares / Divisas USD). Todos los precios oficiales se expresan en Dólares ($ USD). 3. ORDEN DE LLEGADA VS CITA: La atención es estrictamente por orden de llegada. ÚNICAMENTE los estudios micológicos (hongos) y Demodex requieren PREVIA CITA con la especialista micóloga. 4. ENTREGA DE RESULTADOS: Los exámenes de rutina, química, hematología, hormonas y serología se entregan el MISMO DÍA (salvo eventualidad mayor). Los cultivos bacteriológicos demoran entre un mínimo de 3 días y un máximo de 8 días. 5. NOTIFICACIÓN DIGITAL Y FÍSICA: Los resultados se notifican vía WhatsApp con un enlace web seguro y el documento PDF adjunto. REGLA OBLIGATORIA: El paciente NO debe tener activados los "Mensajes Temporales" en WhatsApp, ya que impiden que el sistema envíe la notificación. También pueden retirarse impresos en físico en la sede sin costo adicional. 6. RESULTADOS EXTRAVIADOS O NO RECIBIDOS: El paciente o familiar debe enviar el número de cédula de identidad (o la del representante si es menor de edad) y secretaría le reenviará el reporte a la brevedad. 7. NO INTERPRETACIÓN CLÍNICA: El laboratorio no está autorizado para interpretar ni diagnosticar resultados; el paciente debe remitirlos a su médico tratante. 8. UBICACIÓN Y SEDE ÚNICA: Urbanización El Encanto, Clínica del Niño, Sótano 2. Detrás de la Contraloría del Estado Mérida. No disponemos de otras sedes ni realizamos citas médicas de la clínica, ecografías, biopsias, radiografías ni ultrasonidos (somos exclusivamente laboratorio de análisis clínicos).',
+    keyTopics: [
+      'Seguros reembolso sin convenio directo',
+      'Formas de pago punto de venta transferencia efectivo',
+      'Orden de llegada y previa cita solo micología',
+      'Resultados mismo día y cultivos 3 a 8 días',
+      'WhatsApp PDF desactivar mensajes temporales',
+      'Resultados impresos en físico',
+      'No interpretación de resultados',
+      'Sede única Clínica del Niño Sótano 2 El Encanto Mérida',
+      'No realizamos ecografías biopsias ni radiografías'
+    ],
     active: true
   }
 ];

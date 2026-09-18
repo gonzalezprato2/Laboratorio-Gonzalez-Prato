@@ -1693,7 +1693,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Exudado de lecho ulceroso / hisopado profundo",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "Lavado previo del área con solución fisiológica estéril antes de recolectar la muestra de la base limpia."
+    "notes": "Incluye cultivo bacteriológico y micológico. Lavado previo del área con solución fisiológica estéril antes de recolectar la muestra de la base limpia."
   },
   {
     "id": "mic-8",
@@ -1743,7 +1743,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Líquido en trampa estéril de Lukens",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "Traslado inmediato en < 2 horas al laboratorio."
+    "notes": "Incluye cultivo bacteriológico y micológico. Traslado inmediato en < 2 horas al laboratorio."
   },
   {
     "id": "mic-11",
@@ -1759,7 +1759,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Aspirado traqueobronquial en frasco estéril sellado",
     "turnaround": "48 a 72 horas",
     "active": true,
-    "notes": "Mantener a temperatura ambiente y trasladar de inmediato."
+    "notes": "Incluye cultivo bacteriológico y micológico. Mantener a temperatura ambiente y trasladar de inmediato."
   },
   {
     "id": "mic-12",
@@ -1776,7 +1776,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Desgarro bronquial profundo matutino en frasco estéril (no saliva)",
     "turnaround": "72 horas",
     "active": true,
-    "notes": "Enjuague bucal únicamente con agua simple. Tos profunda desde los pulmones. Evitar saliva."
+    "notes": "Incluye cultivo bacteriológico y micológico. Enjuague bucal únicamente con agua simple. Tos profunda desde los pulmones. Evitar saliva."
   },
   {
     "id": "mic-13",
