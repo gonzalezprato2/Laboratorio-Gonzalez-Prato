@@ -17,7 +17,8 @@ import {
   PlayCircle,
   Archive,
   Info,
-  RefreshCw
+  RefreshCw,
+  Trash2
 } from 'lucide-react';
 
 interface LiveInboxProps {
@@ -27,6 +28,7 @@ interface LiveInboxProps {
   onSendMessage: (leadId: string, text: string, sender: 'SECRETARIA' | 'BOT') => void;
   onResolveHandover: (leadId: string) => void;
   onUpdateLeadStatus?: (leadId: string, status: AttentionStatus) => void;
+  onDeleteLead?: (leadId: string, whatsappId?: string) => void;
   onRefresh?: () => void;
   isRefreshing?: boolean;
 }
@@ -38,12 +40,14 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
   onSendMessage, 
   onResolveHandover,
   onUpdateLeadStatus,
+  onDeleteLead,
   onRefresh,
   isRefreshing
 }) => {
   const [filterText, setFilterText] = useState('');
   const [operatorInput, setOperatorInput] = useState('');
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'ESCALADO_HUMANO' | 'ESCALADO_FUERA_HORARIO' | 'BOT_ACTIVO' | 'FINALIZADO'>('ALL');
+  const [leadToDelete, setLeadToDelete] = useState<PatientLead | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const filteredLeads = leads.filter(lead => {
@@ -166,7 +170,7 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
               <div 
                 key={lead.id} 
                 onClick={() => setActiveLeadId(lead.id)} 
-                className={"p-3.5 cursor-pointer transition-all border-l-4 " + (
+                className={"group p-3.5 cursor-pointer transition-all border-l-4 relative " + (
                   isUrgent 
                     ? 'bg-rose-50/70 border-rose-500 hover:bg-rose-50' 
                     : isOutOfHours
@@ -180,7 +184,21 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-1.5">{lead.name}</span>
-                  <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1"><Clock className="w-3 h-3" /> {lead.timestamp}</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1"><Clock className="w-3 h-3" /> {lead.timestamp}</span>
+                    {onDeleteLead && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setLeadToDelete(lead);
+                        }}
+                        title="Eliminar conversación"
+                        className="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-all"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <p className="text-xs text-slate-600 line-clamp-1 mb-2">{lead.lastMessage}</p>
                 <div className="flex items-center justify-between text-[11px]">
@@ -289,6 +307,17 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
                     </button>
                   </>
                 )}
+
+                {onDeleteLead && (
+                  <button
+                    onClick={() => setLeadToDelete(activeLead)}
+                    className="bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold px-2.5 py-2 rounded-xl transition-all border border-rose-200 flex items-center gap-1 shadow-2xs"
+                    title="Eliminar permanentemente este chat y su historial"
+                  >
+                    <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                    <span className="hidden sm:inline">Eliminar Chat</span>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -371,6 +400,54 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
           </div>
         )}
       </div>
+
+      {/* Modal de Confirmación de Eliminación de Chat */}
+      {leadToDelete && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center flex-shrink-0">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-slate-900">¿Eliminar conversación?</h3>
+                <p className="text-xs text-slate-500">Esta acción no se puede deshacer.</p>
+              </div>
+            </div>
+
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1">
+              <div className="font-bold text-slate-800">{leadToDelete.name}</div>
+              <div className="text-slate-500 font-mono text-[11px]">{leadToDelete.whatsapp}</div>
+              <div className="text-[11px] text-slate-400 mt-1">
+                Se eliminarán permanentemente todos los mensajes del chat y el registro del paciente en el sistema.
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setLeadToDelete(null)}
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (onDeleteLead && leadToDelete) {
+                    onDeleteLead(leadToDelete.id, leadToDelete.whatsapp);
+                  }
+                  setLeadToDelete(null);
+                }}
+                className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 transition-colors shadow-sm flex items-center gap-1.5"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Sí, eliminar permanentemente</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

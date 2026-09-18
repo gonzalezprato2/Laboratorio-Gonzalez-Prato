@@ -106,6 +106,41 @@ export const supabaseService = {
     }
   },
 
+  async deleteLead(leadId: string, whatsappId?: string): Promise<boolean> {
+    try {
+      // 1. Eliminar mensajes asociados
+      if (whatsappId) {
+        await supabase
+          .from('mensajes_chat')
+          .delete()
+          .or(`lead_id.eq.${leadId},whatsapp_id.eq.${whatsappId}`);
+      } else {
+        await supabase
+          .from('mensajes_chat')
+          .delete()
+          .eq('lead_id', leadId);
+      }
+
+      // 2. Eliminar el lead del paciente
+      const { error } = await supabase
+        .from('pacientes_leads')
+        .delete()
+        .eq('id', leadId);
+
+      if (error && whatsappId) {
+        await supabase
+          .from('pacientes_leads')
+          .delete()
+          .eq('whatsapp_id', whatsappId);
+      }
+
+      return true;
+    } catch (err) {
+      console.error('Error in deleteLead:', err);
+      return false;
+    }
+  },
+
   async getExams(): Promise<LabExam[]> {
     try {
       const { data, error } = await supabase

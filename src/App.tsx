@@ -147,6 +147,16 @@ export default function App() {
     await handleUpdateLeadStatus(leadId, 'BOT_ACTIVO');
   };
 
+  const handleDeleteLead = async (leadId: string, whatsappId?: string) => {
+    await supabaseService.deleteLead(leadId, whatsappId);
+    const updatedLeads = leads.filter(l => l.id !== leadId && (whatsappId ? l.whatsapp !== whatsappId : true));
+    setLeads(updatedLeads);
+    storageService.saveLeads(updatedLeads);
+    if (activeLeadId === leadId) {
+      setActiveLeadId(updatedLeads.length > 0 ? updatedLeads[0].id : null);
+    }
+  };
+
   const handleNewPatientMessage = (messageText: string, isWeekendSimulated?: boolean) => {
     const analysis = processPatientMessage(messageText, exams, undefined, config.scheduleConfig, isWeekendSimulated, config);
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -209,6 +219,7 @@ export default function App() {
             onSendMessage={handleSendMessage} 
             onResolveHandover={handleResolveHandover} 
             onUpdateLeadStatus={handleUpdateLeadStatus}
+            onDeleteLead={handleDeleteLead}
             onRefresh={handleRefreshLeads}
             isRefreshing={isRefreshing}
           />
@@ -226,6 +237,7 @@ export default function App() {
           <PatientsCRM 
             leads={leads} 
             onSelectLead={(id) => { setActiveLeadId(id); setActiveTab("inbox"); }} 
+            onDeleteLead={handleDeleteLead}
           />
         )}
         {activeTab === "metrics" && (
