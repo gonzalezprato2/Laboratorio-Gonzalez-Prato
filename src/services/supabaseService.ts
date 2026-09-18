@@ -16,8 +16,9 @@ export const supabaseService = {
 
       const { data: messagesData, error: msgError } = await supabase
         .from('mensajes_chat')
-        .select('*')
-        .order('created_at', { ascending: true });
+        .select('id, lead_id, whatsapp_id, emisor, contenido, created_at')
+        .order('created_at', { ascending: true })
+        .limit(1500);
 
       if (msgError) {
         console.error('Error fetching messages from Supabase:', msgError);
@@ -26,6 +27,7 @@ export const supabaseService = {
       const messagesByLead: Record<string, ChatMessage[]> = {};
       (messagesData || []).forEach(msg => {
         const leadKey = msg.lead_id || msg.whatsapp_id;
+        if (!leadKey) return;
         if (!messagesByLead[leadKey]) {
           messagesByLead[leadKey] = [];
         }
@@ -204,21 +206,37 @@ export const supabaseService = {
     }
   },
 
-  subscribeToLiveUpdates(onChange: () => void) {
+  subscribeToLiveUpdates(
+    onLeadsOrMessagesChange: () => void,
+    onExamsChange?: () => void
+  ) {
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+    const debouncedNotify = () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        onLeadsOrMessagesChange();
+      }, 200);
+    };
+
     const channel = supabase
       .channel('gp_live_realtime')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'pacientes_leads' }, () => {
-        onChange();
+        debouncedNotify();
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'mensajes_chat' }, () => {
-        onChange();
+        debouncedNotify();
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'examenes' }, () => {
-        onChange();
+        if (onExamsChange) onExamsChange();
       })
-      .subscribe();
+      .subscribe((status) => {
+        if (status === 'SUBSCRIBED') {
+          console.log('[Supabase Realtime] Canal WebSockets activo');
+        }
+      });
 
     return () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
       supabase.removeChannel(channel);
     };
   }

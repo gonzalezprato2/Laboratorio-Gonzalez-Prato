@@ -31,14 +31,28 @@ export default function App() {
   };
 
   const loadLeads = async () => {
-    const realLeads = await supabaseService.getLeads();
-    if (realLeads && realLeads.length > 0) {
-      setLeads(realLeads);
-      setActiveLeadId(prev => prev || realLeads[0].id);
-    } else {
-      const local = storageService.getLeads();
-      setLeads(local);
-      if (local.length > 0) setActiveLeadId(prev => prev || local[0].id);
+    try {
+      const realLeads = await supabaseService.getLeads();
+      if (realLeads && realLeads.length > 0) {
+        setLeads(realLeads);
+        setActiveLeadId(prev => {
+          if (!prev) return realLeads[0].id;
+          const exists = realLeads.some(l => l.id === prev);
+          return exists ? prev : realLeads[0].id;
+        });
+      } else {
+        const local = storageService.getLeads();
+        setLeads(local);
+        if (local.length > 0) {
+          setActiveLeadId(prev => {
+            if (!prev) return local[0].id;
+            const exists = local.some(l => l.id === prev);
+            return exists ? prev : local[0].id;
+          });
+        }
+      }
+    } catch (e) {
+      console.error('Error loading leads:', e);
     }
   };
 
@@ -54,16 +68,20 @@ export default function App() {
     loadExams();
     loadLeads();
 
-    // Polling de respaldo cada 10 segundos para garantizar actualización constante
+    // Polling de respaldo cada 15 segundos para garantizar actualización constante ante fluctuaciones de red
     const pollInterval = setInterval(() => {
       loadLeads();
-    }, 10000);
+    }, 15000);
 
-    // Suscripción Realtime por WebSockets a Supabase
-    const unsubscribe = supabaseService.subscribeToLiveUpdates(() => {
-      loadLeads();
-      loadExams();
-    });
+    // Suscripción Realtime por WebSockets a Supabase optimizada y desacoplada
+    const unsubscribe = supabaseService.subscribeToLiveUpdates(
+      () => {
+        loadLeads();
+      },
+      () => {
+        loadExams();
+      }
+    );
 
     return () => {
       clearInterval(pollInterval);

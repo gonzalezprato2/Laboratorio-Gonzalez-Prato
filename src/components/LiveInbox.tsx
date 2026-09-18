@@ -60,9 +60,13 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
 
   const activeLead = leads.find(l => l.id === activeLeadId) || leads[0];
 
+  const lastMessageKey = activeLead?.messages?.length 
+    ? `${activeLead.messages.length}-${activeLead.messages[activeLead.messages.length - 1].id}` 
+    : 'none';
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [activeLead?.id, activeLead?.messages]);
+  }, [activeLead?.id, lastMessageKey]);
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
