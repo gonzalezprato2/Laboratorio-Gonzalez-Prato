@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { LiveInbox } from './components/LiveInbox';
 import { PricingManager } from './components/PricingManager';
-import { KnowledgeBase } from './components/KnowledgeBase';
 import { PatientsCRM } from './components/PatientsCRM';
 import { MetricsDashboard } from './components/MetricsDashboard';
 import { SettingsView } from './components/SettingsView';
@@ -14,7 +13,7 @@ import { processPatientMessage } from './services/clinicalAiEngine';
 import { LabExam, PatientLead, SystemConfig, AttentionStatus } from './types/lab';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'inbox' | 'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator'>('inbox');
+  const [activeTab, setActiveTab] = useState<'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator'>('inbox');
   const [exams, setExams] = useState<LabExam[]>([]);
   const [leads, setLeads] = useState<PatientLead[]>([]);
   const [config, setConfig] = useState<SystemConfig>(storageService.getConfig());
@@ -121,7 +120,7 @@ export default function App() {
     storageService.saveConfig(newConfig);
   };
 
-  const handleSelectTab = (tab: 'inbox' | 'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator') => {
+  const handleSelectTab = (tab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator') => {
     setActiveTab(tab);
   };
 
@@ -247,9 +246,6 @@ export default function App() {
             exams={exams} 
             onUpdateExams={handleUpdateExams} 
           />
-        )}
-        {activeTab === "knowledge" && (
-          <KnowledgeBase />
         )}
         {activeTab === "patients" && (
           <PatientsCRM 

@@ -384,7 +384,7 @@ export const INITIAL_EXAMS: LabExam[] = [
       "magnesio serico",
       "magnesemia"
     ],
-    "priceUsd": 6,
+    "priceUsd": 5.5,
     "fastingHours": "Ayuno de 8 horas",
     "sampleType": "Suero",
     "turnaround": "4 horas",
@@ -714,7 +714,7 @@ export const INITIAL_EXAMS: LabExam[] = [
       "insulina postprandial",
       "insulina pp"
     ],
-    "priceUsd": 14,
+    "priceUsd": 25,
     "fastingHours": "Toma a las 2 horas de iniciar el desayuno/comida",
     "sampleType": "Suero",
     "turnaround": "24 a 48 horas",
@@ -873,9 +873,11 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Progesterona",
     "synonyms": [
       "progesterona",
-      "prg"
+      "prg",
+      "prog",
+      "pg"
     ],
-    "priceUsd": 14,
+    "priceUsd": 12,
     "fastingHours": "Ayuno de 8 horas",
     "sampleType": "Suero",
     "turnaround": "24 horas",
@@ -2340,7 +2342,7 @@ export const INITIAL_EXAMS: LabExam[] = [
       "helicobacter heces",
       "h pylori en heces"
     ],
-    "priceUsd": 13.5,
+    "priceUsd": 13,
     "fastingHours": "Sin ayuno. Suspender antibióticos y bismuto 4 semanas antes, e inhibidores de bomba de protones (IBP) 2 semanas antes",
     "sampleType": "Muestra de heces fresca en frasco estéril de farmacia",
     "turnaround": "4 a 6 horas",
@@ -2881,7 +2883,7 @@ export const INITIAL_EXAMS: LabExam[] = [
       "cobalamina",
       "cianocobalamina"
     ],
-    "priceUsd": 23,
+    "priceUsd": 20,
     "fastingHours": "Ayuno estricto de 8 a 12 horas",
     "sampleType": "Suero protegido de la luz",
     "turnaround": "24 a 48 horas",

@@ -14,8 +14,8 @@ import {
 } from 'lucide-react';
 
 interface HeaderProps {
-  activeTab: 'inbox' | 'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator';
-  onSelectTab: (tab: 'inbox' | 'pricing' | 'knowledge' | 'patients' | 'metrics' | 'settings' | 'simulator') => void;
+  activeTab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator';
+  onSelectTab: (tab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator') => void;
   hasEscalated: boolean;
   soundEnabled: boolean;
   toggleSound: () => void;
@@ -31,7 +31,6 @@ export const Header: React.FC<HeaderProps> = ({
   const tabs = [
     { id: "inbox", label: "Bandeja en Vivo", icon: MessageSquare },
     { id: "pricing", label: "Tarifario & Ayunos", icon: DollarSign },
-    { id: "knowledge", label: "Base de Datos", icon: Database },
     { id: "patients", label: "Pacientes & CRM", icon: Users },
     { id: "metrics", label: "Analítica", icon: Activity },
     { id: "settings", label: "Configuración", icon: Settings },

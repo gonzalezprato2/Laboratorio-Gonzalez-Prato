@@ -1,10 +1,8 @@
-import { LabExam, KnowledgeDocument, WorkingScheduleConfig, SystemConfig } from '../types/lab';
-import { knowledgeService } from './knowledgeService';
+import { LabExam, WorkingScheduleConfig, SystemConfig } from '../types/lab';
 
 export interface AgentAnalysisResult {
   replyText: string;
   matchedExams: LabExam[];
-  matchedKnowledgeDocs: KnowledgeDocument[];
   totalUsd: number;
   shouldEscalate: boolean;
   isOutOfHours: boolean;
@@ -90,7 +88,6 @@ export function processPatientMessage(
   systemConfig?: SystemConfig
 ): AgentAnalysisResult {
   const normUser = normalizeText(userText);
-  const knowledgeDocs = knowledgeService.getDocs().filter(d => d.active);
 
   const effectiveSchedule = scheduleConfig || systemConfig?.scheduleConfig;
   const scheduleStatus = forceWeekendMode ? { isOpen: false, nextOpening: 'Lunes a las 7:00 AM' } : isCurrentlyInWorkingHours(effectiveSchedule);
@@ -105,7 +102,6 @@ export function processPatientMessage(
       return {
         replyText: '📌 *ATENCIÓN DE RECEPCIÓN FUERA DE HORARIO*\n\n' + customMsg + '\n\n⏰ *Próxima apertura para atención humana:* ' + scheduleStatus.nextOpening + '.\n\n*(El Asistente Virtual sigue 100% disponible en este chat para cotizar exámenes y consultar ayunos).*',
         matchedExams: [],
-        matchedKnowledgeDocs: [],
         totalUsd: 0,
         shouldEscalate: true,
         isOutOfHours: true,
@@ -117,7 +113,6 @@ export function processPatientMessage(
       return {
         replyText: 'Comprendo perfectamente su solicitud. He notificado de inmediato al personal de recepción y secretaría de *' + labName + '* 🔔.\n\nUn operador humano se encuentra revisando este chat y le responderá directamente en breves momentos. Por favor permanezca en línea.',
         matchedExams: [],
-        matchedKnowledgeDocs: [],
         totalUsd: 0,
         shouldEscalate: true,
         isOutOfHours: false,
@@ -175,7 +170,6 @@ export function processPatientMessage(
     return {
       replyText: 'Estimado paciente, le informamos que actualmente en *GONZALEZ-PRATO Laboratorio* **NO realizamos el examen de Espermograma / Seminograma**.\n\n*(Nota clínica: Disponemos de Espermocultivo para diagnóstico microbiológico de infecciones bacterianas, pero no de análisis morfológico o recuento espermático).*',
       matchedExams: [],
-      matchedKnowledgeDocs: [],
       totalUsd: 0,
       shouldEscalate: false,
       isOutOfHours,
@@ -204,7 +198,6 @@ export function processPatientMessage(
     return {
       replyText: cultivoReply,
       matchedExams: [],
-      matchedKnowledgeDocs: knowledgeDocs.filter(d => d.category === 'MICROBIOLOGIA'),
       totalUsd: 0,
       shouldEscalate: false,
       isOutOfHours,
@@ -250,7 +243,6 @@ export function processPatientMessage(
       return {
         replyText: ehrlichiaReply,
         matchedExams: [capaBlancaExam as LabExam],
-        matchedKnowledgeDocs: knowledgeDocs.filter(d => d.category === 'PREANALITICA' || d.category === 'CONVENIO_CARACAS'),
         totalUsd: 13.00,
         shouldEscalate: false,
         isOutOfHours,
@@ -264,9 +256,6 @@ export function processPatientMessage(
     ['caracas', 'torre caracas', 'convenio caracas', 'rast', 'alergias alimentos', 'panel rast', 'zonulina', 'borrelia', 'lyme', 'babesia', 'anaplasma', 'subclases igg', 'caseina', 'leche de bufala', 'leche de cabra', 'leche de oveja', 'homocisteina', 'iga saliva'].some(term => normUser.includes(term));
 
   if (isCaracasRequest) {
-    const caracasDoc = knowledgeDocs.find(d => d.category === 'CONVENIO_CARACAS');
-    const matchedDocs = caracasDoc ? [caracasDoc] : [];
-
     let caracasReply = '📌 *CONVENIO TORRE CARACAS — GONZALEZ-PRATO LABORATORIO*\n\n';
     caracasReply += 'Estimado paciente, con respecto a su solicitud de estudios especializados:\n\n';
     caracasReply += '📢 *"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad."*\n\n';
@@ -284,7 +273,6 @@ export function processPatientMessage(
       return {
         replyText: caracasReply,
         matchedExams,
-        matchedKnowledgeDocs: matchedDocs,
         totalUsd: 0,
         shouldEscalate: true,
         isOutOfHours: true,
@@ -296,7 +284,6 @@ export function processPatientMessage(
       return {
         replyText: caracasReply,
         matchedExams,
-        matchedKnowledgeDocs: matchedDocs,
         totalUsd: 0,
         shouldEscalate: true,
         isOutOfHours: false,
@@ -306,69 +293,36 @@ export function processPatientMessage(
     }
   }
 
-  // 4. Triangulación con Base de Conocimiento (PDFs / RAG)
-  const matchedKnowledge: KnowledgeDocument[] = [];
-  for (const doc of knowledgeDocs) {
-    const hasTopicMatch = doc.keyTopics.some(topic => normUser.includes(normalizeText(topic)));
-    const hasSnippetMatch = normalizeText(doc.contentSnippet).includes(normUser) || (normUser.length > 4 && normalizeText(doc.title).includes(normUser));
+  // 4. Preguntas Generales y Medios de Pago
+  const isPaymentQuery = normUser.includes('pago') || normUser.includes('precio dolar') || normUser.includes('tasa') || normUser.includes('bcv') || normUser.includes('pago movil') || normUser.includes('zelle') || normUser.includes('efectivo') || normUser.includes('transferencia') || normUser.includes('punto de venta') || normUser.includes('metodos de pago') || normUser.includes('formas de pago');
+  if (matchedExams.length === 0 && isPaymentQuery) {
+    let paymentReply = '💳 *MODALIDADES DE PAGO — GONZALEZ-PRATO LABORATORIO*\n\n';
+    paymentReply += 'Nuestros precios de catálogo están expresados en **Dólares ($ USD)** y aceptamos los siguientes métodos:\n\n';
+    paymentReply += '• 💵 **Dólares en efectivo:** Billetes en buen estado.\n';
+    paymentReply += '• 🇻🇪 **Bolívares (Bs.):** Aceptamos **Pago Móvil**, **Punto de Venta**, **Transferencia bancaria** y **Efectivo en Bs.**, calculados a la **tasa oficial del Banco Central de Venezuela (BCV)** del día de su atención.\n';
+    paymentReply += '• 🌐 **Pagos electrónicos internacionales:** Zelle y Binance Pay.\n\n';
+    paymentReply += '📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n';
+    paymentReply += '¿Desea cotizar algún examen o perfil en específico?';
 
-    // Categorías específicas
-    if (doc.category === 'SEGUROS' && (normUser.includes('pago') || normUser.includes('seguro') || normUser.includes('zelle') || normUser.includes('pago movil') || normUser.includes('efectivo') || normUser.includes('dolar') || normUser.includes('transferencia') || normUser.includes('binance') || normUser.includes('tarjeta'))) {
-      matchedKnowledge.push(doc);
-    } else if (doc.category === 'DOMICILIOS' && (normUser.includes('domicilio') || normUser.includes('casa') || normUser.includes('encamado') || normUser.includes('a domicilio'))) {
-      matchedKnowledge.push(doc);
-    } else if (doc.category === 'MICROBIOLOGIA' && (
-      normUser.includes('urocultivo') || normUser.includes('cultivo') || normUser.includes('antibiograma') ||
-      normUser.includes('coprocultivo') || normUser.includes('exudado') || normUser.includes('faringeo') ||
-      normUser.includes('esputo') || normUser.includes('herida') || normUser.includes('ulcera') || normUser.includes('absceso') ||
-      normUser.includes('hemocultivo') || normUser.includes('broncoalveolar') || normUser.includes('espermocultivo') || normUser.includes('4 vasos') ||
-      normUser.includes('antibiotico')
-    )) {
-      matchedKnowledge.push(doc);
-    } else if (doc.category === 'MICOLOGIA' && (
-      normUser.includes('micologico') || normUser.includes('hongo') || normUser.includes('hongos') ||
-      normUser.includes('onicomicosis') || normUser.includes('una') || normUser.includes('unas') ||
-      normUser.includes('cuero cabelludo') || normUser.includes('tinea') || normUser.includes('tina') ||
-      normUser.includes('pitiriasis') || normUser.includes('escama') || normUser.includes('antimicotico') ||
-      normUser.includes('esmalte') || normUser.includes('pie de atleta')
-    )) {
-      matchedKnowledge.push(doc);
-    } else if (doc.category === 'URO_COPRO' && (
-      normUser.includes('orina') || normUser.includes('24 horas') || normUser.includes('depuracion') ||
-      normUser.includes('microalbuminuria') || normUser.includes('proteinuria') || normUser.includes('relaciones urinarias') ||
-      normUser.includes('heces') || normUser.includes('coproanalisis') || normUser.includes('parasito') || normUser.includes('leucograma') ||
-      normUser.includes('sudan') || normUser.includes('graham') || normUser.includes('calprotectina') ||
-      normUser.includes('esteatocrito') || normUser.includes('sangre oculta') || normUser.includes('disbiosis') ||
-      normUser.includes('probiotico') || normUser.includes('yogurt')
-    )) {
-      matchedKnowledge.push(doc);
-    } else if (doc.category === 'QUIMICA_HORMONAS' && (
-      normUser.includes('ayuno') || normUser.includes('glicemia') || normUser.includes('glucosa') || normUser.includes('postprandial') ||
-      normUser.includes('colesterol') || normUser.includes('trigliceridos') || normUser.includes('lipidico') || normUser.includes('lipidograma') ||
-      normUser.includes('acido urico') || normUser.includes('urea') || normUser.includes('creatinina') ||
-      normUser.includes('transaminasas') || normUser.includes('tgo') || normUser.includes('tgp') || normUser.includes('ggt') ||
-      normUser.includes('bilirrubina') || normUser.includes('perfil 20') || normUser.includes('ferritina') || normUser.includes('hierro') ||
-      normUser.includes('vitamina b12') || normUser.includes('vitamina d') || normUser.includes('acido folico') ||
-      normUser.includes('tiroides') || normUser.includes('tsh') || normUser.includes('t4') || normUser.includes('t3') || normUser.includes('biotina') || normUser.includes('levotiroxina') ||
-      normUser.includes('cortisol') || normUser.includes('prolactina') || normUser.includes('lh') || normUser.includes('fsh') ||
-      normUser.includes('estradiol') || normUser.includes('progesterona') || normUser.includes('testosterona') || normUser.includes('insulina') ||
-      normUser.includes('psa') || normUser.includes('ca-125') || normUser.includes('ca125') || normUser.includes('ca 15-3') || normUser.includes('ca 19-9') || normUser.includes('cea') || normUser.includes('afp')
-    )) {
-      matchedKnowledge.push(doc);
-    } else if (hasTopicMatch || hasSnippetMatch) {
-      matchedKnowledge.push(doc);
-    }
+    return {
+      replyText: paymentReply,
+      matchedExams: [],
+      totalUsd: 0,
+      shouldEscalate: false,
+      isOutOfHours,
+      escalationStatus: 'BOT_ACTIVO'
+    };
   }
 
   // 5. Saludos
   const isGreeting = ['hola', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos', 'que tal'].some(g => normUser.includes(g));
-  if (matchedExams.length === 0 && matchedKnowledge.length === 0 && isGreeting) {
+  if (matchedExams.length === 0 && isGreeting) {
     let greetingReply = systemConfig?.welcomeMessage;
     
     if (!greetingReply) {
       const labName = systemConfig?.laboratoryName || 'GONZALEZ-PRATO Laboratorio';
       const director = systemConfig?.directorName || 'Luisa Carolina González Ramírez';
-      greetingReply = '¡Hola! Bienvenido a *' + labName + '* 🧪 (Dirección Técnica: ' + director + ').\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de más de 80 exámenes en USD ($).\n• ⏱️ Requisitos de ayuno y preparación de muestras.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especiales remitidas a Caracas).\n• 📋 Formas de pago (Divisas en efectivo, Zelle, Pago Móvil, Binance Pay y Tarjetas).\n\n';
+      greetingReply = '¡Hola! Bienvenido a *' + labName + '* 🧪 (Dirección Técnica: ' + director + ').\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de exámenes en USD ($).\n• ⏱️ Requisitos de ayuno y preparación preanalítica oficial.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especializadas).\n• 📋 Formas de pago (Dólares, Bolívares a tasa oficial BCV por Pago Móvil, Punto de Venta, Transferencia y Efectivo, además de Zelle y Binance).\n\n';
       if (isOutOfHours) {
         greetingReply += '*(Nota: Nuestra sede física se encuentra en receso fuera de horario, pero puedo cotizarle y orientarle de inmediato).*\\n\\n¿Qué prueba médica desea consultar hoy?';
       } else {
@@ -379,7 +333,6 @@ export function processPatientMessage(
     return {
       replyText: greetingReply,
       matchedExams: [],
-      matchedKnowledgeDocs: [],
       totalUsd: 0,
       shouldEscalate: false,
       isOutOfHours,
@@ -388,11 +341,10 @@ export function processPatientMessage(
   }
 
   // Sin coincidencia
-  if (matchedExams.length === 0 && matchedKnowledge.length === 0) {
+  if (matchedExams.length === 0) {
     return {
       replyText: 'Disculpe, no logré identificar con exactitud el examen o procedimiento en su mensaje.\n\nEn *GONZALEZ-PRATO Laboratorio* disponemos de áreas de Hematología, Química Sanguínea, Hormonas, Microbiología Automatizada, Uroanálisis, Coproanálisis, Estudios Micológicos, Marcadores Tumorales y Convenio Torre Caracas para pruebas especiales.\n\nPor favor indíqueme el nombre exacto de la prueba médica o envíenos una foto de su orden médica.\n' + (isOutOfHours ? '*(Nuestra sede abrirá el ' + scheduleStatus.nextOpening + ' para atención humana y toma de muestras).*' : '*(O si lo prefiere, escriba "secretaria" para hablar con un asesor).*'),
       matchedExams: [],
-      matchedKnowledgeDocs: [],
       totalUsd: 0,
       shouldEscalate: false,
       isOutOfHours,
@@ -426,14 +378,6 @@ export function processPatientMessage(
     }
   }
 
-  if (matchedKnowledge.length > 0) {
-    reply += 'ℹ️ *PROTOCOLO CLÍNICO & GUÍA PREANALÍTICA OFICIAL:*\n';
-    const uniqueDocs = Array.from(new Set(matchedKnowledge.map(d => d.id))).map(id => matchedKnowledge.find(d => d.id === id)!);
-    uniqueDocs.slice(0, 2).forEach(doc => {
-      reply += '• *' + doc.title + ':*\n' + doc.contentSnippet + '\n\n';
-    });
-  }
-
   const hasMycology = matchedExams.some(e => 
     e.name.toLowerCase().includes('koh') || 
     e.name.toLowerCase().includes('micol') || 
@@ -445,7 +389,6 @@ export function processPatientMessage(
     return {
       replyText: reply,
       matchedExams,
-      matchedKnowledgeDocs: matchedKnowledge,
       totalUsd,
       shouldEscalate: true,
       isOutOfHours,
@@ -465,7 +408,6 @@ export function processPatientMessage(
   return {
     replyText: reply,
     matchedExams,
-    matchedKnowledgeDocs: matchedKnowledge,
     totalUsd,
     shouldEscalate: false,
     isOutOfHours,
