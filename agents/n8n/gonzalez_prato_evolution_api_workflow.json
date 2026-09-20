@@ -1,5 +1,4 @@
 {
-  "name": "GONZALEZ-PRATO — Agente Clínico WhatsApp (Evolution API + Supabase Tool RAG)",
   "nodes": [
     {
       "parameters": {
@@ -8,13 +7,13 @@
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "05e8c8f8-2e4e-4ea2-8be8-ad0e4603bbbf",
+      "id": "61bff4c5-fa22-459d-8648-a824826e4cd5",
       "name": "Webhook Evolution API",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        13904,
-        3264
+        19760,
+        4096
       ],
       "webhookId": "whatsapp-evolution-gonzalez-prato"
     },
@@ -24,26 +23,26 @@
         "responseBody": "={{ { \"status\": \"success\", \"received\": true } }}",
         "options": {}
       },
-      "id": "177cb229-79e4-45e3-93ba-093e924ba1aa",
+      "id": "fbf76770-6f22-4453-9a99-88eafaa4c4f6",
       "name": "Responder 200 OK a Evolution",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        14144,
-        3072
+        20000,
+        3904
       ]
     },
     {
       "parameters": {
         "jsCode": "// Parser de mensajes entrantes de Evolution API\nconst item = $input.first();\nif (!item || !item.json) return [];\nconst body = item.json.body || item.json;\nconst data = body.data || body;\nif (!data) return [];\n\nconst SUPABASE_URL = 'https://petcqaixzetwsduscvtx.supabase.co';\nconst SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM';\n\nasync function httpReq(url, options = {}) {\n  const method = options.method || 'GET';\n  const headers = options.headers || {};\n  const reqBody = options.body;\n  if (typeof $httpRequest === 'function') {\n    return await $httpRequest({ method, url, headers, body: reqBody, json: true });\n  }\n  if (typeof fetch !== 'undefined') {\n    const res = await fetch(url, { method, headers, body: reqBody ? JSON.stringify(reqBody) : undefined });\n    try { return await res.json(); } catch { return null; }\n  }\n  return null;\n}\n\n// BLOQUE 1: Mensajes salientes de la Secretaría (fromMe = true)\nif (data.key && data.key.fromMe) {\n  const remoteJid = data.key.remoteJid || '';\n  if (remoteJid && !remoteJid.includes('@g.us') && !remoteJid.includes('status@broadcast')) {\n    const patientPhone = remoteJid.replace('@s.whatsapp.net', '');\n    let msgObj = data.message || {};\n    if (msgObj.viewOnceMessage && msgObj.viewOnceMessage.message) msgObj = msgObj.viewOnceMessage.message;\n    if (msgObj.ephemeralMessage && msgObj.ephemeralMessage.message) msgObj = msgObj.ephemeralMessage.message;\n    let secText = msgObj.conversation || (msgObj.extendedTextMessage && msgObj.extendedTextMessage.text) || '';\n    if (secText) {\n      try {\n        await httpReq(SUPABASE_URL + '/rest/v1/mensajes_chat', {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },\n          body: { whatsapp_id: patientPhone, emisor: 'SECRETARIA', contenido: secText }\n        });\n        await httpReq(SUPABASE_URL + '/rest/v1/pacientes_leads?whatsapp_id=eq.' + patientPhone, {\n          method: 'PATCH',\n          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },\n          body: { estado_atencion: 'ESCALADO_HUMANO', ultimo_mensaje: secText, updated_at: new Date().toISOString() }\n        });\n      } catch (err) {}\n    }\n  }\n  return [];\n}\n\n// BLOQUE 2: Parsear remitente\nconst senderRemoteJid = (data.key && data.key.remoteJid) || '';\nif (!senderRemoteJid || senderRemoteJid.includes('@g.us') || senderRemoteJid.includes('status@broadcast')) return [];\n\nconst senderPhone = senderRemoteJid.replace('@s.whatsapp.net', '');\nconst senderName = data.pushName || 'Paciente';\nconst instanceName = body.instance || 'gonzalez-prato';\n\n// BLOQUE 3: Extraer texto del mensaje\nlet msgObj = data.message || {};\nif (msgObj.viewOnceMessage && msgObj.viewOnceMessage.message) msgObj = msgObj.viewOnceMessage.message;\nif (msgObj.viewOnceMessageV2 && msgObj.viewOnceMessageV2.message) msgObj = msgObj.viewOnceMessageV2.message;\nif (msgObj.ephemeralMessage && msgObj.ephemeralMessage.message) msgObj = msgObj.ephemeralMessage.message;\nif (msgObj.documentWithCaptionMessage && msgObj.documentWithCaptionMessage.message) msgObj = msgObj.documentWithCaptionMessage.message;\n\nlet userText = '';\nif (msgObj.conversation) userText = msgObj.conversation;\nelse if (msgObj.extendedTextMessage && msgObj.extendedTextMessage.text) userText = msgObj.extendedTextMessage.text;\nelse if (msgObj.imageMessage) userText = msgObj.imageMessage.caption || '[Foto de orden médica adjunta]';\nelse if (msgObj.audioMessage) userText = '[Nota de voz del paciente]';\n\nif (!userText) return [];\n\n// BLOQUE 4: Estado del lead (¿bot activo o escalado?)\nlet leadStatus = 'BOT_ACTIVO';\ntry {\n  const leadRows = await httpReq(\n    SUPABASE_URL + '/rest/v1/pacientes_leads?whatsapp_id=eq.' + senderPhone + '&select=estado_atencion',\n    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }\n  );\n  if (Array.isArray(leadRows) && leadRows.length > 0 && leadRows[0].estado_atencion) {\n    leadStatus = leadRows[0].estado_atencion;\n  }\n} catch(e) {}\n\nconst botActive = (leadStatus !== 'ESCALADO_HUMANO' && leadStatus !== 'FINALIZADO');\n\n// BLOQUE 5: Horario laboral Venezuela (UTC-4)\nconst now = new Date();\nconst vzlaDate = new Date(now.toLocaleString('en-US', { timeZone: 'America/Caracas' }));\nconst dayOfWeek = vzlaDate.getDay();\nconst totalMinutes = vzlaDate.getHours() * 60 + vzlaDate.getMinutes();\n\nlet isOpen = false;\nlet nextOpening = 'Mañana a las 7:00 AM';\nif (dayOfWeek >= 1 && dayOfWeek <= 5) {\n  isOpen = totalMinutes >= 420 && totalMinutes < 900;\n  if (!isOpen) nextOpening = totalMinutes < 420 ? 'Hoy a las 7:00 AM' : (dayOfWeek === 5 ? 'Sábado a las 8:00 AM' : 'Mañana a las 7:00 AM');\n} else if (dayOfWeek === 6) {\n  isOpen = totalMinutes >= 480 && totalMinutes < 780;\n  if (!isOpen) nextOpening = totalMinutes < 480 ? 'Hoy a las 8:00 AM' : 'Lunes a las 7:00 AM';\n} else {\n  nextOpening = 'Lunes a las 7:00 AM';\n}\n\nconst dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];\nconst currentFormattedTime = vzlaDate.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit', hour12: true });\nconst scheduleContext = 'Hoy es ' + dayNames[dayOfWeek] + ', hora actual: ' + currentFormattedTime + '. Sede: ' + (isOpen ? 'ABIERTA' : 'CERRADA (próxima apertura: ' + nextOpening + ')');\n\nreturn [{\n  json: {\n    senderRemoteJid,\n    senderPhone,\n    senderName,\n    userText,\n    instance: instanceName,\n    leadStatus,\n    botActive,\n    scheduleContext\n  }\n}];"
       },
-      "id": "9029525a-030d-4041-ae2a-c4f75c03149f",
+      "id": "87f2de58-5c36-4357-83d7-a57c94b5e3a9",
       "name": "Parsear Mensaje Evolution API",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        14144,
-        3344
+        20000,
+        4176
       ]
     },
     {
@@ -71,13 +70,13 @@
         },
         "options": {}
       },
-      "id": "23e5fb4d-325d-4ac4-a2de-bc97d6269abf",
+      "id": "1ebc9d8e-6247-4fec-b8ed-cc1c4a3792b7",
       "name": "¿Bot Activo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        14368,
-        3344
+        20224,
+        4176
       ]
     },
     {
@@ -88,13 +87,13 @@
           "systemMessage": "Eres el Asistente Clínico Virtual Oficial 24/7 de GONZALEZ-PRATO Laboratorio (Directora Técnica: Lic. Luisa Carolina González Ramírez, Mérida, Venezuela).\n\nESTADO TEMPORAL: ={{ $json.scheduleContext || $(\"Parsear Mensaje Evolution API\").first().json.scheduleContext }}\n\n══════════════════════════════════════════\nDIRECTIVA ABSOLUTA — CERO ALUCINACIONES DE PRECIOS\n══════════════════════════════════════════\n❌ NO tienes precios ni tarifas en tu memoria. NUNCA inventes, estimes ni recuerdes precios.\n✅ ANTES de mencionar el precio de CUALQUIER examen, DEBES invocar \"consultar_tarifario_supabase\".\n✅ Si el paciente pide N exámenes, invoca la herramienta N veces (una por examen).\n✅ Si la herramienta devuelve múltiples variantes, usa el precio del registro más específico.\n✅ Si la herramienta devuelve \"No se encontraron resultados\" → responde: \"Actualmente no dispongo del precio de este examen en mi base de datos automatizada. Por favor, aguarde un momento para que un operador humano le asista.\" y ejecuta \"activar_human_handover_alarma\".\n❌ NUNCA digas que \"no realizamos\" un examen sin haber invocado primero \"consultar_tarifario_supabase\".\n\nSOBRE EL LABORATORIO:\n- Realizamos análisis clínicos en general: química sanguínea, hematología, hormonas, serología, microbiología, cultivos bacteriológicos, coproanálisis, uroanálisis, inmunología, citoquímicos de líquidos corporales, etc.\n- Convenio Torre Caracas: alergias IgE, genética, infecciones vectoriales (remisión a Caracas)\n- NO realizamos: Ecografías, radiografías, biopsias, endoscopias ni consultas médicas.\n\nCULTIVOS — MANEJO ESPECIAL:\nSi el paciente dice \"cultivo\" sin especificar tipo → invoca consultar_tarifario_supabase(\"cultivo\") → obtendrás múltiples opciones (urocultivo, coprocultivo, hemocultivo, secreciones, esputo, vaginal, ótico, ocular, etc.) → preséntala y pregunta cuál necesita.\n\nREGLAS ADICIONALES:\n- TORRE CARACAS ($0.00 en herramienta): informa que se remite a Caracas + ejecuta handover\n- MICOLOGÍA/DEMODEX: cita previa con micóloga → handover\n- DOMICILIO: disponible Lun/Mar/Jue, gratis en Municipio Libertador\n- ENTREGAS: rutina/química/hematología/hormonas/serología MISMO DÍA | cultivos 3-8 días\n- HECES: recepción hasta 2:30 PM (Lun-Vie) / 12:30 PM (Sáb)\n- ESCALADO: si pide \"secretaria\", \"humano\", reclama o pide domicilio → handover\n\nFORMATO OBLIGATORIO DE COTIZACIÓN:\n• [Nombre del Examen]\n  - Precio: $[dato exacto de herramienta] USD\n  - Muestra: [dato de herramienta]\n  - Requisitos: [dato de herramienta]\n──────────────────────────\nTotal a Cancelar: $[suma exacta] USD\n(Aceptamos Bs a tasa BCV, Pago Móvil, POS, Transferencia y Efectivo USD)\n\n📍 Urb. El Encanto, Clínica del Niño, Sótano 2, Mérida\n⏰ Lun-Vie 7:00 AM–3:00 PM | Sáb 8:00 AM–1:00 PM"
         }
       },
-      "id": "ace55b1c-1a81-44c6-9e89-c9d17fae9a83",
+      "id": "8c057579-5203-43d8-939a-f7c5b846a342",
       "name": "Agente Clínico Inteligente 24/7",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        14624,
-        3344
+        20480,
+        4176
       ]
     },
     {
@@ -104,13 +103,13 @@
           "temperature": 0
         }
       },
-      "id": "24923039-8711-4fc5-b9fa-0b0f8392da8d",
+      "id": "128b6b97-0082-4d10-bf0e-d8dd97b7bf68",
       "name": "Google Gemini Chat Model",
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        14624,
-        3536
+        20480,
+        4368
       ],
       "credentials": {
         "googlePalmApi": {
@@ -125,13 +124,13 @@
         "sessionKey": "={{ $(\"Parsear Mensaje Evolution API\").first().json.senderRemoteJid || $json.senderRemoteJid }}",
         "contextWindowLength": 4
       },
-      "id": "a1950dc0-1417-420b-892e-3cefffcadf2d",
+      "id": "6d7ff768-d1f0-4edb-8f1f-657c4aca7d19",
       "name": "Memoria Conversacional por Teléfono",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        14768,
-        3536
+        20624,
+        4368
       ]
     },
     {
@@ -140,13 +139,13 @@
         "description": "Activa la alarma en recepción ÚNICAMENTE cuando el paciente pide explícitamente hablar con una persona/secretaria, hace un reclamo, pide domicilio o agenda cita de micología. PROHIBIDO ejecutar si el paciente solo pregunta precios o exámenes.",
         "jsCode": "const senderPhone = $('Parsear Mensaje Evolution API').first().json.senderPhone || $json.senderPhone;\nconst scheduleCtx = $('Parsear Mensaje Evolution API').first().json.scheduleContext || {};\nconst estadoAtencion = (scheduleCtx && scheduleCtx.isOpen) ? 'ESCALADO_HUMANO' : 'ESCALADO_FUERA_HORARIO';\nconst KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM';\ntry {\n  await $httpRequest({\n    method: 'PATCH',\n    url: 'https://petcqaixzetwsduscvtx.supabase.co/rest/v1/pacientes_leads?whatsapp_id=eq.' + senderPhone,\n    headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },\n    body: { estado_atencion: estadoAtencion, updated_at: new Date().toISOString() },\n    json: true\n  });\n} catch (err) {}\nreturn JSON.stringify({\n  status: 'handover_triggered',\n  estado_registrado: estadoAtencion,\n  mensaje: estadoAtencion === 'ESCALADO_HUMANO' ? 'Alarma activada en recepción.' : 'Registrado. Atención a primera hora hábil.'\n});"
       },
-      "id": "272c802b-0015-4f49-9537-d8ca7739e466",
+      "id": "d702d780-50c9-47cf-ac85-c66a1a0ed211",
       "name": "Tool: Alarma Handover Recepción",
       "type": "@n8n/n8n-nodes-langchain.toolCode",
       "typeVersion": 1.1,
       "position": [
-        14912,
-        3536
+        20768,
+        4368
       ]
     },
     {
@@ -155,13 +154,13 @@
         "description": "Busca el precio oficial, muestra y requisitos preanalíticos de un examen en la base de datos oficial de GONZALEZ-PRATO Laboratorio. DEBES usar esta herramienta SIEMPRE antes de dar cualquier precio. Parámetro: nombre del examen (string). Funciona con términos genéricos: 'cultivo' devuelve TODOS los cultivos disponibles (urocultivo, coprocultivo, hemocultivo, etc.), 'glicemia' devuelve todas las variantes de glicemia, etc. Ejemplos válidos: 'cultivo', 'glicemia', 'prolactina', 'hematologia', 'orina', 'vdrl', 'perfil lipidico'.",
         "jsCode": "// ══════════════════════════════════════════════\n// HERRAMIENTA: consultar_tarifario_supabase\n// Consulta precios oficiales en Supabase de GONZALEZ-PRATO Laboratorio\n// ══════════════════════════════════════════════\n\n// 1. EXTRAER EL PARÁMETRO (el agente lo pasa como string simple)\nlet query = '';\n\n// n8n toolCode: el input del agente llega de múltiples formas posibles\ntry {\n  // Forma 1: string directo\n  if (typeof $input === 'string') {\n    query = $input;\n  }\n  // Forma 2: $input.first().json.input (más común en n8n langchain)\n  else if ($input && typeof $input.first === 'function') {\n    const first = $input.first();\n    if (first) {\n      const j = first.json || first;\n      query = j.input || j.query || j.termino || j.examen || j.term || j.nombre || j.text || '';\n      if (!query && typeof j === 'string') query = j;\n      if (!query && j.tool_input) query = j.tool_input;\n    }\n  }\n  // Forma 3: $input.item (contexto de item individual)\n  else if ($input && $input.item) {\n    const item = $input.item;\n    if (typeof item === 'string') query = item;\n    else if (item && item.json) {\n      const j = item.json;\n      query = j.input || j.query || j.termino || j.text || Object.values(j)[0] || '';\n    }\n    else if (item && typeof item === 'object') {\n      query = item.input || item.query || Object.values(item)[0] || '';\n    }\n  }\n  query = String(query || '').trim().toLowerCase();\n} catch(e) {\n  query = '';\n}\n\nif (!query || query === 'undefined' || query === 'null') {\n  return 'ERROR: No recibí el nombre del examen. Por favor envía el nombre como parámetro. Ejemplo: \"prolactina\", \"glicemia\", \"cultivo\", \"hematologia\".';\n}\n\n// 2. CONSTRUIR URL — SIN encodeURIComponent (no disponible en todos los sandboxes)\n// Reemplazar solo espacios y caracteres comunes problemáticos\nconst safeQuery = query\n  .replace(/ /g, '%20')\n  .replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i')\n  .replace(/ó/g, 'o').replace(/ú/g, 'u').replace(/ñ/g, 'n')\n;\n\nconst KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM';\nconst BASE = 'https://petcqaixzetwsduscvtx.supabase.co/rest/v1/examenes';\nconst url = BASE + '?activo=eq.true&nombre_examen=ilike.%25' + safeQuery + '%25&select=categoria,nombre_examen,sinonimos,costo_usd,requisitos_preanaliticos,tipo_muestra,notas&limit=6';\n\n// 3. HACER LA PETICIÓN HTTP — múltiples estrategias\nlet data = null;\nlet lastError = '';\n\n// Estrategia A: $httpRequest (disponible en n8n toolCode)\nif (!data) {\n  try {\n    const resp = await $httpRequest({\n      method: 'GET',\n      url: url,\n      headers: {\n        'apikey': KEY,\n        'Authorization': 'Bearer ' + KEY,\n        'Content-Type': 'application/json'\n      },\n      json: true\n    });\n    if (Array.isArray(resp)) {\n      data = resp;\n    } else if (resp && Array.isArray(resp.data)) {\n      data = resp.data;\n    } else if (resp && typeof resp === 'object') {\n      // Puede ser un objeto de error de Supabase\n      lastError = JSON.stringify(resp);\n    }\n  } catch(e) {\n    lastError = 'httpRequest: ' + (e.message || String(e));\n  }\n}\n\n// Estrategia B: fetch (disponible en algunos contextos de n8n)\nif (!data) {\n  try {\n    const res = await fetch(url, {\n      method: 'GET',\n      headers: {\n        'apikey': KEY,\n        'Authorization': 'Bearer ' + KEY\n      }\n    });\n    const json = await res.json();\n    if (Array.isArray(json)) {\n      data = json;\n    } else {\n      lastError = 'fetch: ' + JSON.stringify(json);\n    }\n  } catch(e) {\n    lastError = (lastError ? lastError + ' | ' : '') + 'fetch: ' + (e.message || String(e));\n  }\n}\n\n// 4. PROCESAR RESULTADOS\nif (!data || data.length === 0) {\n  // Si ambas estrategias fallaron con error técnico, reportar el error real\n  if (lastError && !lastError.includes('No se encontraron')) {\n    return 'ERROR_TECNICO: La consulta a Supabase falló técnicamente (' + lastError + '). Activa handover humano.';\n  }\n  return 'No se encontraron resultados en la base de datos oficial para: \"' + query + '\". Si el paciente insiste, activa el protocolo de handover humano.';\n}\n\n// Deduplicar por nombre_examen + costo_usd\nconst seen = new Set();\nconst unique = data.filter(e => {\n  const key = (e.nombre_examen || '') + '|' + e.costo_usd;\n  if (seen.has(key)) return false;\n  seen.add(key);\n  return true;\n});\n\n// Formatear respuesta para el agente\nreturn 'RESULTADOS OFICIALES DE SUPABASE (usa EXACTAMENTE estos datos):\\n' +\n  unique.map(e => {\n    const cost = parseFloat(e.costo_usd || 0);\n    const syn = (Array.isArray(e.sinonimos) && e.sinonimos.length > 0)\n      ? ' [también: ' + e.sinonimos.slice(0,3).join(', ') + ']'\n      : '';\n    const note = e.notas ? ' | NOTA: ' + e.notas : '';\n    return '• ' + (e.nombre_examen || 'Sin nombre') + syn +\n           ' → PRECIO: $' + cost.toFixed(2) + ' USD' +\n           ' | MUESTRA: ' + (e.tipo_muestra || 'Sangre venosa') +\n           ' | REQUISITOS: ' + (e.requisitos_preanaliticos || 'Sin requisitos especiales') +\n           note;\n  }).join('\\n');\n"
       },
-      "id": "new-tool-consultar-tarifario",
+      "id": "bc0ffd6a-8ada-419e-b99f-795316b2fb57",
       "name": "Tool: Consultar Tarifario Supabase",
       "type": "@n8n/n8n-nodes-langchain.toolCode",
       "typeVersion": 1.1,
       "position": [
-        15056,
-        3536
+        20912,
+        4368
       ]
     },
     {
@@ -182,13 +181,13 @@
         "jsonBody": "={{ JSON.stringify({ number: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone || $json.senderPhone, text: $(\"Agente Clínico Inteligente 24/7\").first().json.output || $json.output || $json.text || \"\" }) }}",
         "options": {}
       },
-      "id": "d78a3fcf-fdf8-4e63-83be-007e2ac964e2",
+      "id": "08f4209a-40df-4cc1-b5e0-e82865de3b53",
       "name": "Enviar Respuesta WhatsApp (Evolution API)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        15072,
-        3344
+        20928,
+        4176
       ]
     },
     {
@@ -217,13 +216,13 @@
         "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, nombre_completo: $(\"Parsear Mensaje Evolution API\").first().json.senderName, ultimo_mensaje: $(\"Parsear Mensaje Evolution API\").first().json.userText, updated_at: new Date().toISOString() }) }}",
         "options": {}
       },
-      "id": "2de2a697-d071-4900-a901-d4584c5be7d0",
+      "id": "445d0ccd-6107-405e-b2c4-f3e2514b73f3",
       "name": "Guardar Lead Paciente en Supabase",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        14624,
-        3152
+        20480,
+        3984
       ]
     },
     {
@@ -248,13 +247,13 @@
         "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, emisor: \"PACIENTE\", contenido: $(\"Parsear Mensaje Evolution API\").first().json.userText }) }}",
         "options": {}
       },
-      "id": "3aea231b-a37d-40ff-b946-62a2f380b32b",
+      "id": "118533a7-a054-4dc3-9106-d53fb35333cc",
       "name": "Guardar Mensaje Paciente en Supabase",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        14848,
-        3152
+        20704,
+        3984
       ]
     },
     {
@@ -279,13 +278,13 @@
         "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, emisor: \"BOT\", contenido: $(\"Agente Clínico Inteligente 24/7\").first().json.output || $(\"Agente Clínico Inteligente 24/7\").first().json.text || $json.output || $json.text || \"[Mensaje enviado]\" }) }}",
         "options": {}
       },
-      "id": "665f7772-2fcf-4721-82c6-5a4add20829b",
+      "id": "ca866bb5-6e37-43e8-a3dc-9c45201990ed",
       "name": "Guardar Respuesta Bot en Supabase",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        15296,
-        3344
+        21152,
+        4176
       ]
     }
   ],
@@ -413,7 +412,6 @@
   },
   "pinData": {},
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "adcb76f7bcf0303e12776533fc264ac24c6fe44d5407fb342e9fedf76edd7e10"
   }
 }
