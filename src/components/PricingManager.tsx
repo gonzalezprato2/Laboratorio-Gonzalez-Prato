@@ -76,6 +76,36 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={async () => {
+              showSavedFlash();
+              await onUpdateExams(exams);
+            }}
+            className="flex items-center gap-1.5 bg-[#00A8B5] hover:bg-[#0E4D58] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+          >
+            <Sparkles className="w-3.5 h-3.5" /> Sincronizar con Supabase
+          </button>
+
+          <button
+            onClick={() => {
+              const newBlankExam: LabExam = {
+                id: 'exam-' + Date.now(),
+                name: '',
+                category: selectedCategory === 'ALL' ? 'Química Sanguínea' : selectedCategory,
+                priceUsd: 0,
+                fastingHours: 'Ayuno de 8 a 12 horas.',
+                sampleType: 'Sangre venosa (Tubo Tapa Roja)',
+                turnaround: 'Mismo día',
+                synonyms: [],
+                active: true
+              };
+              setEditingExam(newBlankExam);
+            }}
+            className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+          >
+            + Agregar Examen
+          </button>
+
           <div className="flex items-center gap-2 bg-teal-50 border border-teal-200 px-3.5 py-2 rounded-xl text-xs">
             <div>
               <span className="text-[10px] text-teal-800 font-bold uppercase block tracking-wide">
@@ -89,7 +119,7 @@ export const PricingManager: React.FC<PricingManagerProps> = ({
 
           {savedNotification && (
             <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1 animate-pulse">
-              <Check className="w-3.5 h-3.5 text-emerald-600" /> Sincronizado con IA
+              <Check className="w-3.5 h-3.5 text-emerald-600" /> Sincronizado con Supabase
             </span>
           )}
         </div>
