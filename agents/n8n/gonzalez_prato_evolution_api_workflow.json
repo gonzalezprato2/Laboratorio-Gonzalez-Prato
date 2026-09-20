@@ -152,7 +152,7 @@
       "parameters": {
         "toolDescription": "Busca el precio oficial, muestra y requisitos de un examen en la base de datos oficial de GONZALEZ-PRATO Laboratorio. Pasa siempre el nombre del examen en minúsculas y sin tildes en el parámetro query (por ejemplo: prolactina, hematologia, glicemia, cultivo).",
         "method": "GET",
-        "url": "=https://petcqaixzetwsduscvtx.supabase.co/rest/v1/examenes?activo=eq.true&or=(nombre_examen.ilike.%25{{ $fromAI('query', 'Nombre del examen a consultar en minusculas y sin tildes, ej: prolactina, hematologia, glicemia, cultivo') }}%25,sinonimos.cs.{{ '{' + $fromAI('query', 'Nombre del examen a consultar en minusculas y sin tildes, ej: prolactina, hematologia, glicemia, cultivo') + '}' }})&select=categoria,nombre_examen,sinonimos,costo_usd,requisitos_preanaliticos,tipo_muestra,notas&limit=6",
+        "url": "=https://petcqaixzetwsduscvtx.supabase.co/rest/v1/examenes?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM&activo=eq.true&or=(nombre_examen.ilike.%25{{ $fromAI('query', 'Nombre del examen en minusculas y sin tildes, ej: prolactina, hematologia, glicemia, cultivo') }}%25,sinonimos.cs.{{ '{' + $fromAI('query', 'Nombre del examen en minusculas y sin tildes, ej: prolactina, hematologia, glicemia, cultivo') + '}' }})&select=categoria,nombre_examen,sinonimos,costo_usd,requisitos_preanaliticos,tipo_muestra,notas&limit=6",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -166,7 +166,19 @@
             }
           ]
         },
-        "options": {}
+        "options": {},
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "apikey",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM"
+            }
+          ]
+        }
       },
       "id": "bc0ffd6a-8ada-419e-b99f-795316b2fb57",
       "name": "consultar_tarifario_supabase",
