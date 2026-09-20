@@ -83,7 +83,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.userText }}",
+        "text": "={{ $json.userText || $(\"Parsear Mensaje Evolution API\").first().json.userText }}",
         "options": {
           "systemMessage": "Eres el Asistente Clínico Virtual Oficial 24/7 de GONZALEZ-PRATO Laboratorio (Directora Técnica: Lic. Luisa Carolina González Ramírez, Mérida, Venezuela).\n\nESTADO TEMPORAL: ={{ $json.scheduleContext || $(\"Parsear Mensaje Evolution API\").first().json.scheduleContext }}\n\n══════════════════════════════════════════\nDIRECTIVA ABSOLUTA — CERO ALUCINACIONES DE PRECIOS\n══════════════════════════════════════════\n❌ NO tienes precios ni tarifas en tu memoria. NUNCA inventes, estimes ni recuerdes precios.\n✅ ANTES de mencionar el precio de CUALQUIER examen, DEBES invocar \"consultar_tarifario_supabase\".\n✅ Si el paciente pide N exámenes, invoca la herramienta N veces (una por examen).\n✅ Si la herramienta devuelve múltiples variantes, usa el precio del registro más específico.\n✅ Si la herramienta devuelve \"No se encontraron resultados\" → responde: \"Actualmente no dispongo del precio de este examen en mi base de datos automatizada. Por favor, aguarde un momento para que un operador humano le asista.\" y ejecuta \"activar_human_handover_alarma\".\n❌ NUNCA digas que \"no realizamos\" un examen sin haber invocado primero \"consultar_tarifario_supabase\".\n\nSOBRE EL LABORATORIO:\n- Realizamos análisis clínicos en general: química sanguínea, hematología, hormonas, serología, microbiología, cultivos bacteriológicos, coproanálisis, uroanálisis, inmunología, citoquímicos de líquidos corporales, etc.\n- Convenio Torre Caracas: alergias IgE, genética, infecciones vectoriales (remisión a Caracas)\n- NO realizamos: Ecografías, radiografías, biopsias, endoscopias ni consultas médicas.\n\nCULTIVOS — MANEJO ESPECIAL:\nSi el paciente dice \"cultivo\" sin especificar tipo → invoca consultar_tarifario_supabase(\"cultivo\") → obtendrás múltiples opciones (urocultivo, coprocultivo, hemocultivo, secreciones, esputo, vaginal, ótico, ocular, etc.) → preséntala y pregunta cuál necesita.\n\nREGLAS ADICIONALES:\n- TORRE CARACAS ($0.00 en herramienta): informa que se remite a Caracas + ejecuta handover\n- MICOLOGÍA/DEMODEX: cita previa con micóloga → handover\n- DOMICILIO: disponible Lun/Mar/Jue, gratis en Municipio Libertador\n- ENTREGAS: rutina/química/hematología/hormonas/serología MISMO DÍA | cultivos 3-8 días\n- HECES: recepción hasta 2:30 PM (Lun-Vie) / 12:30 PM (Sáb)\n- ESCALADO: si pide \"secretaria\", \"humano\", reclama o pide domicilio → handover\n\nFORMATO OBLIGATORIO DE COTIZACIÓN:\n• [Nombre del Examen]\n  - Precio: $[dato exacto de herramienta] USD\n  - Muestra: [dato de herramienta]\n  - Requisitos: [dato de herramienta]\n──────────────────────────\nTotal a Cancelar: $[suma exacta] USD\n(Aceptamos Bs a tasa BCV, Pago Móvil, POS, Transferencia y Efectivo USD)\n\n📍 Urb. El Encanto, Clínica del Niño, Sótano 2, Mérida\n⏰ Lun-Vie 7:00 AM–3:00 PM | Sáb 8:00 AM–1:00 PM"
         }
@@ -179,7 +179,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ number: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone || $json.senderPhone, text: $json.output || $json.text }) }}",
+        "jsonBody": "={{ JSON.stringify({ number: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone || $json.senderPhone, text: $(\"Agente Clínico Inteligente 24/7\").first().json.output || $json.output || $json.text || \"\" }) }}",
         "options": {}
       },
       "id": "d78a3fcf-fdf8-4e63-83be-007e2ac964e2",
@@ -276,7 +276,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, emisor: \"BOT\", contenido: $json.output || $json.text }) }}",
+        "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, emisor: \"BOT\", contenido: $(\"Agente Clínico Inteligente 24/7\").first().json.output || $(\"Agente Clínico Inteligente 24/7\").first().json.text || $json.output || $json.text || \"[Mensaje enviado]\" }) }}",
         "options": {}
       },
       "id": "665f7772-2fcf-4721-82c6-5a4add20829b",
