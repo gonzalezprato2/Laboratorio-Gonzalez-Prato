@@ -2,13 +2,17 @@ import { LabExam, PatientLead, SystemConfig } from '../types/lab';
 import { INITIAL_EXAMS } from '../data/initialExams';
 import { INITIAL_LEADS } from '../data/mockLeads';
 
-const EXAMS_KEY = 'gp_lab_exams_v3';
-const LEADS_KEY = 'gp_lab_leads_v3'; // v3: catálogo maestro actualizado 187 pruebas
-const CONFIG_KEY = 'gp_lab_config_v3';
+const EXAMS_KEY = 'gp_lab_exams_v4';
+const LEADS_KEY = 'gp_lab_leads_v4'; // v4: catálogo maestro oficial 187 pruebas depurado
+const CONFIG_KEY = 'gp_lab_config_v4';
 
-// Purga automática de versiones anteriores de caché en el navegador del cliente
+// Purga automática de todas las versiones anteriores de caché en el navegador del cliente
 try {
-  const legacyKeys = ['gp_lab_exams', 'gp_lab_exams_v1', 'gp_lab_exams_v2', 'gp_lab_leads', 'gp_lab_leads_v1', 'gp_lab_leads_v2', 'gp_lab_config', 'gp_lab_config_v1', 'gp_lab_config_v2'];
+  const legacyKeys = [
+    'gp_lab_exams', 'gp_lab_exams_v1', 'gp_lab_exams_v2', 'gp_lab_exams_v3',
+    'gp_lab_leads', 'gp_lab_leads_v1', 'gp_lab_leads_v2', 'gp_lab_leads_v3',
+    'gp_lab_config', 'gp_lab_config_v1', 'gp_lab_config_v2', 'gp_lab_config_v3'
+  ];
   legacyKeys.forEach(k => localStorage.removeItem(k));
 } catch (e) {}
 
