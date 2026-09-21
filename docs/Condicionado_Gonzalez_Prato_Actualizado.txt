@@ -1,0 +1,295 @@
+MANUAL OFICIAL DE CONDICIONAMIENTO PREANALÍTICO Y GUÍA CLÍNICA
+Institución: GONZALEZ-PRATO Laboratorio Clínico
+Directora Técnica: Lic. Luisa Carolina González Ramírez
+Ubicación: Urb. El Encanto, Clínica del Niño, Sótano 2, Mérida, Venezuela
+Versión: 2.0 Oficial Consolidada (Condiciones + Ajustes Operativos y Clínicos)
+MANUAL OFICIAL DE CONDICIONAMIENTO PREANALÍTICO Y GUÍA CLÍNICA
+GONZALEZ-PRATO Laboratorio Clínico 
+Directora Técnica: Lic. Luisa Carolina González Ramírez 
+Ubicación: Urb. El Encanto, Clínica del Niño, Sótano 2, Mérida, Venezuela. 
+Fecha de Actualización: Septiembre 2026 | Versión 2.0 (Consolidada con Ajustes de Operación)
+
+1. GENERALIDADES Y PRINCIPIOS INSTITUCIONALES
+1.1 Atención y Citas
+·  Atención General: Por orden de llegada a partir de las 7:00 AM (Lunes a Viernes) y 8:00 AM (Sábados). 
+·  Estudios con Previa Cita Obligatoria: Únicamente los estudios micológicos (hongos en uñas, piel, cuero cabelludo) y examen microscópico de ácaros Demodex. 
+·  Servicio de Toma de Muestras a Domicilio: 
+·  Disponible exclusivamente los días Lunes, Martes y Jueves. 
+·  Municipio Libertador de Mérida: Servicio gratuito (sin costo adicional). 
+·  En clínicas u hospitales: El familiar debe buscar y acompañar a la asistente de laboratorio por normativas de acceso institucional. 
+1.2 Moneda, Facturación y Medios de Pago
+·  Moneda de Referencia: Todos los costos se expresan en Dólares Estadounidenses ($ USD). 
+·  Pago en Bolívares: Se aceptan pagos en Bolívares (Bs.) calculados a la tasa oficial del Banco Central de Venezuela (BCV) del día. 
+·  Modalidades de Pago: Punto de Venta (tarjetas de débito/crédito), Transferencia Bancaria y Efectivo (USD / Bs). 
+·  Seguros Médicos y Pólizas: No se manejan convenios directos con aseguradoras. El paciente realiza el pago en el laboratorio y se le entrega la factura legal detallada para su posterior reembolso ante la compañía de seguros. 
+1.3 Entrega de Resultados
+·  Exámenes de Rutina, Química, Hematología, Hormonas y Serología: Entrega el mismo día de la toma. 
+·  Cultivos Bacteriológicos y Micológicos: De 3 a 8 días hábiles dependiendo del desarrollo microbiano y antibiograma. 
+·  Canales de Entrega: 
+·  Digital (WhatsApp/Email): Enlace seguro y documento oficial en PDF. (Nota crítica: El paciente NO debe tener activados mensajes temporales en WhatsApp para garantizar la recepción del reporte). 
+·  Físico: Impresión inmediata en la recepción de la sede física. 
+·  Interpretación de Resultados: El laboratorio clínico emite reportes cuantitativos/cualitativos con valores de referencia. La valoración, diagnóstico y prescripción terapéutica corresponden de forma exclusiva al médico tratante. 
+·  Exclusiones de Servicio: El laboratorio NO realiza ecografías, ultrasonidos, radiografías, tomografías, biopsias de anatomía patológica, endoscopias ni consultas médicas especializadas. 
+
+2. HEMATOLOGÍA, COAGULACIÓN Y PRUEBAS HEMÁTICAS ESPECIALES
+2.1 Hematología Completa (Hemograma)
+·  Ayuno: La muestra ideal es en ayuno (4 a 8 horas). En situaciones de urgencia o emergencia médica se procesa en cualquier momento. 
+·  Actividad Física: Evitar ejercicio físico intenso o de alto impacto durante las 24 horas previas. 
+·  Hábitos: Evitar el consumo de tabaco y bebidas alcohólicas al menos 24 horas antes. 
+·  Medicamentos y Antecedentes: Notificar con precisión fármacos activos (anticoagulantes, antiagregantes plaquetarios, AINEs, antibióticos, suplementos con hierro), transfusiones sanguíneas en los últimos 3 meses y patologías agudas o crónicas. 
+·  Hidratación: Se permite la ingesta libre de agua simple. 
+2.2 Velocidad de Sedimentación Globular (VSG)
+·  Condiciones: Informar si cursa con fiebre, procesos infecciosos/inflamatorios agudos, embarazo o consumo de tratamientos farmacológicos. 
+2.3 Contaje de Plaquetas
+·  Condiciones: Indicar el uso de fármacos antiagregantes (Aspirina, Clopidogrel) o AINEs. Notificar patologías hematológicas, hepáticas o autoinmunes que afecten la producción plaquetaria. 
+2.4 Frotis de Sangre Periférica
+·  Condiciones: No requiere preparación física ni ayuno estricto.  
+2.5 Tiempos de Coagulación (TP/PT e INR, TPT/PTT, Fibrinógeno)
+·  Ayuno: Muestra ideal en ayuno o al menos 3 a 4 horas sin ingerir alimentos (salvo emergencias). 
+·  Medicamentos Mandatorios: Notificar el uso de anticoagulantes orales (Warfarina, Acenocumarol, Rivaroxabán, Apixabán) o Heparina, aspirina y AINEs. 
+·  Antecedentes: Informar patologías hepáticas agudas o crónicas. 
+2.6 Grupo Sanguíneo y Factor Rh
+·  Ayuno: Ayuno ligero de 4 a 6 horas (no estricto). 
+·  Antecedentes: Notificar transfusiones sanguíneas en los últimos 3 meses o administración reciente de inmunoglobulinas. En mujeres embarazadas, notificar la aplicación previa de inmunoglobulina anti-D (RhoGAM). 
+2.7 Hemoglobina Glicada (HbA1c) (anteriormente hemoglobina glicosilada)
+·  Ayuno: No requiere ayuno. 
+·  Interferencias: Informar cuadros de anemia hemolítica, pérdidas agudas de sangre, transfusiones recientes o consumo crónico de megadosis de vitamina C o E. 
+2.8 Gota Gruesa (Diagnóstico de Malaria / Hemoparásitos)
+·  Ayuno: No requiere ayuno. 
+·  Momento de Extracción: La muestra ideal se toma durante el pico febril o inmediatamente posterior a este (máxima parasitemia en sangre periférica). 
+·  Tratamiento: Tomar preferiblemente antes de iniciar antimaláricos. Si ya los consume, notificarlo en la ficha. 
+2.9 Capa Blanca para Ehrlichia
+·  Ayuno: No requiere ayuno. Tomar la muestra preferentemente durante la fase febril aguda de la enfermedad. 
+
+3. GASES SANGUÍNEOS (ARTERIALES Y VENOSOS)
+3.1 Gases Arteriales
+·  Toma y Manejo: Punción arterial en jeringa heparinizada estricta, libre de burbujas de aire. Traslado inmediato en baño de hielo (< 30 minutos). 
+3.2 Gases Venosos
+·  Condiciones: No requiere ayuno estricto. Recolección según indicación médica. 
+3.3 Gases Venosos Postprandial
+·  Condiciones: Recolección exacta a 1 hora posterior a la finalización del desayuno. El paciente debe presentarse en el laboratorio 20 minutos antes de cumplirse el tiempo. 
+
+4. QUÍMICA SANGUÍNEA Y METABOLISMO
+4.1 Glicemia Basal (Glucosa en Ayunas)
+·  Ayuno: Estricto de 8 a 12 horas exactas. 
+·  Restricciones: Prohibición absoluta de chicles, caramelos o café (incluso negro sin azúcar). 
+·  Medicamentos: Consultar con su médico si debe tomar su hipoglucemiante/insulina antes o después de la toma. 
+4.2 Glicemia Postprandial (2 Horas Post-Desayuno)
+·  Protocolo: Toma basal en ayunas -> Desayuno habitual inmediato -> Contar exactamente 2 horas desde el inicio del desayuno en reposo -> Regresar al laboratorio 20 minutos antes de cumplirse las 2 horas para la segunda extracción. 
+4.3 Curva de Tolerancia / Glicemia Post-Carga (Carga Glucosada)
+·  Protocolo: Toma basal -> Ingesta de solución glucosada estándar (suministrada en sede) -> Reposo estricto en sala de espera durante el tiempo indicado por el médico (ej. 2 horas) -> Informar si experimenta náuseas o mareos. 
+4.4 Lipidograma Completo (Colesterol Total, HDL, LDL, VLDL, Triglicéridos)
+·  Ayuno: Estricto de 10 a 12 horas. Cenar ligero antes de las 8:00 PM sin excesos de grasas. 
+·  Estabilidad: Posponer la prueba de 2 a 3 semanas tras infecciones agudas, traumatismos o cirugías mayores. 
+4.5 Ácido Úrico
+·  Ayuno: Mínimo 8 horas. Evitar dietas hiperproteicas, carnes rojas excesivas, mariscos y consumo de alcohol (especialmente cerveza) durante las 48 horas previas. 
+4.6 Urea y Creatinina
+·  Ayuno: 8 a 12 horas (salvo urgencias). 
+·  Restricciones: Evitar ingesta masiva de carne roja cocida, suplementos de creatina y ejercicio físico extenuante en las 24 horas previas. 
+4.7 Transaminasas (TGO/AST, TGP/ALT) y GGT
+·  Ayuno: 8 a 12 horas. Suspender ejercicio físico intenso y bebidas alcohólicas 48 horas antes. Notificar medicamentos hepatotóxicos o inductores enzimáticos. 
+4.8 Bilirrubina Total y Fraccionada
+·  Ayuno: 8 a 12 horas (no aplica para neonatos/lactantes).  
+4.9 Lactato Deshidrogenasa (LDH), Proteínas Totales y Fraccionadas, Calcio, Fósforo, Magnesio, Electrolitos
+·  Ayuno: 8 horas o más. Evitar ejercicio intenso. 
+
+5. ENDOCRINOLOGÍA, HORMONAS Y REPRODUCCIÓN
+5.1 Hormonas Tiroideas (TSH, T4 Libre, T3 Libre)
+·  Ayuno: 8 horas o más. Extracción ideal entre las 7:00 AM y 9:00 AM. 
+·  Levotiroxina: Si el paciente toma tratamiento para la tiroides, la extracción debe realizarse ANTES de ingerir la dosis diaria. 
+·  Interferencia Crítica por Biotina: Suspender suplementos multivitamínicos o estéticos con Biotina (Vitamina B7/B8) mínimo 48 a 72 horas antes de la extracción. 
+5.2 Anticuerpos Antitiroideos (Anti-TPO, Anti-TG)
+·  Ayuno: 8 horas o más. Suspender biotina 48 a 72 horas antes. 
+5.3 Prolactina (PRL)
+·  Ayuno: 8 horas o más. Toma matutina obligatoria antes de las 9:00 AM. 
+·  Protocolo de Reposo: El paciente debe permanecer en reposo sentado en sala de espera de 20 a 30 minutos antes de la punción. 
+·  Restricciones: Abstenerse de relaciones sexuales y estimulación mamaria durante 24 a 48 horas previas. Evitar ejercicio físico intenso y estrés el día anterior. 
+·  Medicamentos: Notificar psicofármacos, neurolépticos, antieméticos (metoclopramida) o anticonceptivos orales. 
+5.4 LH y FSH
+·  Ayuno: 8 horas o más. 
+·  Momento del Ciclo: Días 2 a 5 del ciclo menstrual (fase folicular temprana) para evaluación basal de fertilidad y reserva ovárica, o según indicación médica específica. Indicar Fecha de Última Menstruación (FUM). 
+5.5 Estradiol (E2)
+·  Ayuno: 8 horas o más. Evaluación basal: Días 2 a 4 del ciclo; Monitoreo de ovulación: Días 12 a 14 del ciclo o según indicación médica específica. Indicar fecha de la última menstruación y terapias hormonales. 
+5.6 Progesterona
+·  Ayuno: 8 horas o más. Recolección estándar el Día 21 de un ciclo de 28 días (o 7 días antes de la menstruación esperada / fase lútea media) o según indicación médica específica. 
+5.7 Testosterona Total y Testosterona Libre
+·  Ayuno: 8 horas o más (ideal extracción matutina). En mujeres, evaluar preferentemente en días 2 a 5 del ciclo o según indicación médica específica. Indicar si recibe terapia hormonal sustitutiva. 
+5.8 Cortisol Sérico (AM y PM)
+·  Cortisol AM (8:00 AM): Ayuno de 8 h. Llegar al laboratorio entre las 7:30 AM y 7:40 AM para cumplir 20 a 30 minutos de reposo previo absoluto. 
+·  Cortisol PM (4:00 PM): Ayuno ligero de 2 a 4 horas. Llegar entre las 3:30 PM y 3:40 PM para cumplir 20 a 30 minutos de reposo previo. 
+·  Condiciones: Evitar situaciones de estrés físico o emocional previo. 
+5.9 DHEA-SO4
+·  Ayuno: 8 horas o más. No requiere día específico del ciclo salvo indicación médica. 
+5.10 Insulina Basal, Postprandial y Post-Carga
+·  Insulina Basal: Ayuno estricto de 8 a 12 horas. Sin ejercicio el día previo. 
+·  Insulina Postprandial: Desayuno inmediato y toma a las 2 horas exactas con reposo. 
+·  Insulina Post-Carga: Toma basal, consumo de solución glucosada y toma a las 2 horas (o según curva solicitada). 
+
+6. MARCADORES TUMORALES
+6.1 PSA Total y PSA Libre (Antígeno Prostático Específico)
+·  Ayuno: Moderado de 4 a 8 horas. 
+·  Abstinencia Sexual: Estricta de al menos 48 horas previas (evitar eyaculación). 
+·  Actividad Física: Evitar montar en bicicleta, motocicleta o caballo 48 horas antes. 
+·  Procedimientos Urológicos: 
+·  Tacto rectal: Realizar la toma antes del examen o esperar de 48 a 72 horas. 
+·  Cistoscopia o sondaje vesical: Esperar de 1 a 2 semanas. 
+·  Biopsia prostática o resección transuretral (RTUP): Esperar de 4 a 6 semanas antes de realizar la prueba. 
+6.2 Beta-HCG Cuantitativa en Suero
+·  Muestra: Muestra estricta en Suero Sanguíneo. Ayuno ligero de 4 horas o más. Indicar fecha de la última regla. 
+6.3 Alfafetoproteína (AFP)
+·  Ayuno: 4 horas o más. En tamizaje prenatal, es obligatorio registrar: edad gestacional ecográfica (semanas/días), peso materno, tabaquismo y diabetes materna. 
+6.4 Antígeno Carcinoembrionario (CEA)
+·  Ayuno: 4 horas o más. Indicar obligatoriamente si el paciente es fumador activo. 
+6.5 CA 125
+·  Ayuno: 8 horas o más. Evitar realizar la toma durante la menstruación; tomar al menos 5 días después de finalizado el sangrado. Indicar embarazo, endometriosis o miomatosis. 
+6.6 CA 15-3 y CA 19-9
+·  Ayuno: 8 horas o más. Indicar si padece patologías hepáticas o biliares benignas. 
+
+7. VITAMINAS, FERROCINÉTICA Y PRUEBAS METABÓLICAS
+7.1 Vitamina B12 (Cobalamina)
+·  Ayuno: 8 a 12 horas. Omitir suplementos de complejo B o vitamina B12 de 48 a 72 horas antes. Reportar uso crónico de metformina u omeprazol. 
+7.2 Vitamina D (25-OH)
+·  Ayuno: 8 horas o más. Tomar la muestra antes de la dosis diaria de suplementos de vitamina D. 
+7.3 Ácido Fólico (Folato)
+·  Ayuno: 8 a 12 horas. Prohibición absoluta de bebidas alcohólicas 24 horas antes. Suspender multivitamínicos 24 horas antes. Reportar uso de antifolatos (metotrexato, trimetoprima). 
+7.4 Anti-CCP (Péptido Cíclico Citrulinado)
+·  Ayuno: 4 a 8 horas. Suspender suplementos con biotina 48 horas antes. 
+
+8. INMUNOLOGÍA, SEROLOGÍA Y DIAGNÓSTICO INFECCIOSO
+8.1 VDRL (Serología Luética para Sífilis)
+·  Ayuno: 4 a 8 horas (evitar comidas con grasa previa para impedir lipemia). 
+·  Alcohol: Evitar alcohol 24 horas antes (inestabilidad lipídica del suero). 
+·  Medicamentos: No suspender tratamientos, pero reportar antibióticos (penicilinas/macrólidos). 
+·  Causas de Falsos Positivos Biológicos: Notificar embarazo, vacunas recientes, infecciones virales agudas o autoinmunidad (Lupus). 
+8.2 Anti-Treponema pallidum 
+·  Ayuno: Ayuno leve de 2 horas o más. 
+·  Nota Clínica: Prueba treponémica más específica que el VDRL. Si el paciente tuvo sífilis previa y recibió tratamiento médico completo, debe informarlo, ya que la prueba permanece reactiva de por vida (cicatriz serológica) sin indicar infección activa. 
+8.3 Hepatitis A, B y C (Panel Viral, HBsAg, Anti-HBc)
+·  Ayuno: 4 horas o más. Informar tiempo de síntomas, vacunas recientes y tratamientos antivirales. 
+8.4 VIH 1/2 (3ra Generación) y VIH Combo 4ta Generación (Ag p24 + Anticuerpos)
+·  Ayuno: 4 horas o más. Notificar antirretrovirales, PrEP o PEP si aplica. 
+8.5 Virus del Dengue (Antígeno NS1, IgM, IgG)
+·  Ayuno: 4 horas o más. Registrar con precisión el día de inicio de los síntomas febriles: 
+·  Días 1 a 5 con fiebre: Prueba indicada -> Antígeno NS1. 
+·  Día 6 en adelante: Prueba indicada -> Anticuerpos IgM e IgG. 
+8.6 Virus Epstein-Barr (VEB), Citomegalovirus (CMV), Toxoplasma gondii
+·  Ayuno: 4 horas o más. Indicar días de sintomatología. En Toxoplasma y CMV en mujeres, registrar si está embarazada y las semanas de gestación. 
+8.7 Chlamydia y Mycoplasma (Serología Sérica)
+·  Ayuno: 4 horas o más. Suspender suplementos con biotina 48 horas antes. 
+8.8 Panel Respiratorio Rápido (VSR, Influenza A/B, Adenovirus, Mycoplasma)
+·  Muestra: Hisopado nasofaríngeo. No requiere ayuno. 
+·  Condiciones: Sin lavados nasales, gotas ni sprays 4 horas antes. Realizar en los primeros 3 a 5 días de síntomas. 
+8.9 PCR (Proteína C Reactiva Cualitativa / Semicuantitativa / Cuantitativa)
+·  Ayuno: 4 horas o más. Notificar traumatismos, cirugías dentales recientes, infecciones agudas o embarazo. 
+
+9. MICOLOGÍA Y ÁCAROS DEMODEX (CON PREVIA CITA OBLIGATORIA)
+9.1 Regla General para Estudios Micológicos
+·  Tratamientos: NO usar antimicóticos tópicos (cremas, lacas, lociones) ni orales durante 7 a 15 días previos. 
+·  Cosméticos: 3 días antes de la toma, no aplicar en la zona ningún cosmético, crema, talco, perfume ni antiséptico (yodo, alcohol, clorhexidina). 
+9.2 Cultivo Micológico de Uñas (Onicomicosis)
+·  No cortarse ni limpiarse las uñas durante la semana previa. 
+·  Lavar con agua y jabón neutro usando cepillo suave los 3 días previos. 
+·  Acudir sin esmalte ni endurecedor de uñas por lo menos 3 a 7 días antes. Calzado cerrado con medias limpias (sin restos de talco). 
+9.3 Cultivo Micológico de Cuero Cabelludo y Cabello (Tinea capitis)
+·  No lavar el cabello 24 horas antes de la toma. 
+·  No aplicar fijadores, lacas, tintes, aceites ni acondicionadores. Evitar cepillado agresivo. 
+9.4 Cultivo Micológico de Escamas de Piel (Pitiriasis versicolor, Tiñas corporales)
+·  Baño general con jabón neutro 24 horas antes (evitar ducharse inmediatamente antes de la toma para no desprender mecánicamente las escamas). 
+·  Zona completamente limpia y seca, sin cremas ni desodorantes durante 3 días. 
+9.5 Examen Microscópico de Ácaros Demodex (Demodex folliculorum)
+·  Cita: Obligatoriamente con previa cita con la micóloga. 
+·  Preparación: La mañana del examen NO lavarse el rostro. Acudir sin maquillaje, cremas hidratantes, bloqueadores solares ni tratamientos faciales tópicos durante al menos 24 horas. 
+
+10. MICROBIOLOGÍA Y CULTIVOS BACTERIOLÓGICOS
+10.1 Reglas Generales de Microbiología
+·  Antibióticos: Obtener la muestra antes de iniciar antibióticos o 48 a 72 horas luego de finalizado el tratamiento (salvo indicación médica contraria expresa). 
+·  Desambiguación: Si el paciente consulta genéricamente por un cultivo, se debe precisar el sitio anatómico y muestra requerida. 
+10.2 Urocultivo (Cultivo de Orina con Antibiograma)
+·  Chorro Medio: Primera orina matutina o retención urinaria de 3 a 4 horas. Aseo genital estricto con agua y jabón neutro (prohibido antisépticos/desinfectantes), secar con toalla limpia. Descartar el primer chorro y recoger el chorro medio en frasco estéril de farmacia (no vidrio). Mantener refrigerado y trasladar en envase con hielo al laboratorio. 
+·  Bolsa Pediátrica: Higiene genital previa. Revisar la bolsa cada 20-30 minutos; si transcurren 30 minutos sin micción, cambiar la bolsa por una nueva. 
+·  Pacientes con Sonda: Muestra obtenida por personal de salud mediante el recambio de la sonda vesical. 
+10.3 Coprocultivo (Cultivo Bacteriológico Fecal)
+·  Sin antidiarreicos, bismuto ni aceites minerales. Recolectar porción tamaño nuez con moco/sangre en envase estéril. En lactantes: colocar el pañal al revés (cara plástica hacia adentro) sin cremas antipañalitis y recoger con espátula estéril. Trasladar de inmediato a temperatura ambiente. (Nota: No confundir con el Coproantígeno de Helicobacter pylori). 
+10.4 Exudado Faríngeo (Cultivo de Garganta)
+·  Asistir al laboratorio en ayunas, sin cepillarse los dientes, sin enjuagues bucales ni caramelos antisépticos. Toma directa en sede. 
+10.5 Cultivo de Esputo (Expectoración Bronquial Profunda)
+·  Enjuague oral previo únicamente con agua simple (sin pasta dental ni colutorios). Tos profunda matutina en recolector estéril (evitar saliva o secreción nasal). Traslado inmediato a temperatura ambiente. Incluye evaluación bacteriológica y micológica. 
+10.6 Cultivo de Secreciones de Heridas y Úlceras
+·  Sin cremas tópicas, ungüentos ni antibióticos locales 24 horas antes. Limpieza estricta con solución fisiológica/agua estéril antes del hisopado. Traslado en medio de transporte a temperatura ambiente. 
+10.7 Cultivo de Secreciones Óticas y Oculares
+·  Óticas: Sin gotas óticas 48 horas antes. 
+·  Oculares: Sin colirios ni pomadas 12 a 24 horas antes. Retirar lentes de contacto 12 horas antes. Sin maquillaje periocular. 
+10.8 Cultivo de Secreción Vaginal
+·  48 a 72 horas de abstinencia sexual. Sin óvulos, cremas vaginales ni duchas vaginales 48 a 72 horas antes. No estar menstruando (acudir 2 a 3 días después de culminar el sangrado). 
+10.9 Cultivo de Secreción Uretral
+·  Retención urinaria matutina estricta de 4 a 6 horas (no orinar antes de la toma). Sin aseo genital inmediato previo para permitir el acúmulo de secreción en el meato. 
+10.10 Hemocultivo Automatizado
+·  No requiere ayuno. En cualquier momento, sin embargo, la extracción ideal al inicio del pico febril o escalofríos por venopunción periférica en frascos comerciales estériles (adquirirlos en el laboratorio). Transporte inmediato a temperatura ambiente. 
+10.11 Espermocultivo (Prueba de los 4 Vasos de Meares y Stamey)
+·  7 a 14 días sin antibióticos. Abstinencia sexual de 2 a 3 días. Retención urinaria mínima de 4 horas. Aseo con agua y jabón neutro. 
+·  Se utilizan 4 frascos estériles numerados: 
+·  Frasco 1: Primeros 10 mL de orina inicial (uretra). 
+·  Frasco 2: Orina de chorro medio (vejiga). 
+·  Frasco 3: Muestra de semen obtenida por masturbación completa. 
+·  Frasco 4: Primeros mL de orina post-eyaculación. 
+·  Orinas transportadas en hielo; semen a temperatura ambiente (20-25°C). 
+
+11. COPROANÁLISIS Y ESTUDIOS GASTROINTESTINALES
+11.1 Coproparasitológico Simple, Leucograma Fecal, Sudan III, Esteatocrito
+·  Recolectar en recipiente estéril limpio sin contacto con orina ni agua del inodoro. Sin antidiarreicos ni laxantes. Traslado a temperatura ambiente antes de 1 a 2 horas. 
+11.2 Coproantígeno de Helicobacter pylori en Heces
+·  Muestra: Muestra fecal fresca (traslado en < 3 horas). 
+·  Indicar si está recibiendo antibióticos, compuestos de bismuto, inhibidores de bomba de protones (IBP: Omeprazol, Pantoprazol, Esomeprazol, Lansoprazol) ni antiácidos fuertes. La suspensión de los mismos queda a criterio del médico tratante. 
+11.3 Coproantígenos (Entamoeba histolytica, Giardia lamblia, Cryptosporidium) y Calprotectina Fecal
+·  Recolectar porción representativa en frasco estéril (adquirido en la farmacia). Traslado antes de 2 horas. 
+11.4 Sangre Oculta en Heces 
+·  Técnica inmunoquímica específica para hemoglobina humana: No requiere restricciones dietéticas de carnes. Evitar ingesta de alcohol, aspirina o sangrado por hemorroides activas / menstruación. 
+11.5 Concentrado Seriado de Heces (3 Muestras)
+·  Acudir al laboratorio para retirar el kit de recolección con líquido preservante e instrucciones de manejo. 
+11.6 Disbiosis Intestinal
+·  Suspensión Estricta: 15 días continuos sin antibióticos, antimicóticos, probióticos ni consumo de yogurt. Llenar 3/4 partes del recolector estéril. 
+11.7 Test de Graham (Masculino y Femenino)
+·  Retirar kit de láminas con cinta transparente en el laboratorio. Toma matutina al despertar, antes de levantarse de la cama y sin aseo perianal previo. 
+
+12. UROANÁLISIS Y ESTUDIOS DE ORINA DE 24 HORAS
+12.1 Uroanálisis General (Examen de Orina)
+·  Primera orina matutina, chorro medio, previo aseo genital neutro. Envase estéril con tapa de rosca. Entrega en el laboratorio en un tiempo máximo de 1 hora o preservar en la nevera (8°C) hasta el momento de traslado al laboratorio. En mujeres: No recolectar durante el período menstrual. 
+12.2 Depuración de Creatinina y Proteínas en Orina de 24 Horas
+·  Recolección: 
+·  Día 1: A las 6:00 AM vaciar la vejiga en el inodoro (descartar esa primera orina). 
+·  A partir de ese momento, recolectar todas las micciones diurnas y nocturnas en un botellón limpio. Mantener el envase refrigerado (aprox. 8°C, no congelar). 
+·  Día 2: A las 6:00 AM recoger la primera orina del día y vaciarla en el botellón. 
+·  Muestra Sanguínea: Acudir al laboratorio en ayunas para la extracción de sangre venosa y debe indicar el peso y talla.. 
+12.3 Microalbuminuria y Relación Albúmina/Creatinina
+·  Primera orina matutina o muestra de 24 horas según indicación médica. Evitar ejercicio físico intenso 24 horas antes. 
+12.4 Relaciones Urinarias (Calcio/Creatinina, Ácido Úrico/Creatinina, Fósforo/Creatinina)
+·  Se procesa con la segunda orina de la mañana en ayunas. Mantener dieta habitual los 3 días previos. 
+
+13. LÍQUIDOS BIOLÓGICOS Y CITOQUÍMICOS (PUNCIÓN MÉDICA)
+13.1 Líquido Cefalorraquídeo (LCR)
+·  Punción lumbar efectuada exclusivamente por médico especialista. Recolección en 3 tubos estériles sin aditivos. NUNCA refrigerar para microbiología. Traslado inmediato (< 30-60 minutos) a temperatura ambiente. 
+13.2 Líquido Pleural, Sinovial, Ascítico (Peritoneal) y Pericárdico
+·  Punciones invasivas efectuadas por médico especialista. Muestra servida en 3 tubos: Tubo seco estéril (microbiología), Tubo con EDTA (conteo celular) y Tubo seco (bioquímica). 
+·  Muestra Sanguínea Simultánea: Debe tomarse al mismo tiempo una muestra de sangre venosa para el cálculo de coeficientes de Light y gradientes albúmina/proteínas/LDH. 
+
+14. CONVENIO TORRE CARACAS (EXÁMENES REMITIDOS A CARACAS)
+14.1 Alcance del Convenio
+Aplica para pruebas de alta especialidad remitidas a la sede central en Caracas:
+·  Paneles RAST de Alérgenos (Alimentos, Inhalantes, Específicos). 
+·  Perfil Celíaco Genético, Anti-gliadina, Anti-transglutaminasa, Zonulina en heces. 
+·  Serologías y PCR para Borrelia burgdorferi (Lyme), Babesia, Rickettsia, Anaplasma, PCR Ehrlichia. 
+·  Homocisteína, IgA Salival, Subclases de IgG (IgG1, IgG2, IgG3, IgG4), Ácido Valproico, entre otros. 
+14.2 Protocolo de Información al Paciente
+Estos exámenes son remitidos a un laboratorio de alta especialidad en Caracas, por lo tanto, González-Prato Laboratorio actúa como enlace para la recolección, acondicionamiento y envío seguro de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad.
+
+15. GUÍA RÁPIDA DE PREGUNTAS FRECUENTES INSTITUCIONALES (FAQ)
+| Pregunta | Respuesta Oficial |
+| :--- | :--- |
+| ¿Requiere cita previa? | Atención general por orden de llegada. Únicamente Micología y Demodex requieren cita previa. |
+| ¿Horarios de toma de muestra? | Lunes a Viernes a partir de las 7:00 AM | Sábados a partir de las 8:00 AM. |
+| ¿Servicio a domicilio? | Lunes, Martes y Jueves. Gratuito en el Municipio Libertador de Mérida. |
+| ¿Tiempo de entrega? | Rutinas, hormonas y serología: El mismo día. Cultivos: 3 a 8 días hábiles. |
+| ¿Seguros médicos? | Sin convenio directo. Se entrega factura para reembolso. |
+| ¿Hasta qué hora reciben heces? | Lunes a Viernes hasta las 2:30 PM | Sábados hasta las 12:30 PM. |
+| ¿Formas de pago? | Bolívares (Bs. a tasa oficial BCV) y Dólares ($ USD). Punto de Venta, Transferencia y Efectivo. |
+| ¿Ubicación física? | Urb. El Encanto, Clínica del Niño, Sótano 2 (detrás de la Contraloría del Estado Mérida). Sede única. |

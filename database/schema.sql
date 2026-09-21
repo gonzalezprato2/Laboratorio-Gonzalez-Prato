@@ -2,19 +2,19 @@
 -- GONZALEZ-PRATO LABORATORIO: ESQUEMA RELACIONAL SUPABASE/POSTGRESQL
 -- ==========================================================
 
--- 1. Catálogo Dinámico de Exámenes & Requisitos Preanalíticos
+-- 1. Catálogo Dinámico de Exámenes & Requisitos Preanalíticos (187 Pruebas)
 CREATE TABLE IF NOT EXISTS examenes (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    categoria VARCHAR(50) NOT NULL, -- Hematología, Hormonas, Química, Microbiología, Marcadores
-    nombre_examen VARCHAR(255) NOT NULL,
-    sinonimos TEXT[] DEFAULT '{}', -- Sinónimos y términos populares para el NLP
+    id VARCHAR(100) PRIMARY KEY, -- Slug único (ej: gp_001_hematologia_completa)
+    categoria VARCHAR(100) NOT NULL, -- Hematología, Química Sanguínea, Hormonas, etc.
+    nombre VARCHAR(255) NOT NULL,
+    sinonimos TEXT[] DEFAULT '{}', -- Sinónimos y términos populares para NLP / Búsqueda
     costo_usd NUMERIC(10,2) NOT NULL,
-    costo_bs NUMERIC(15,2),
-    tiempo_entrega VARCHAR(50) DEFAULT '24 horas',
-    requisitos_preanaliticos TEXT NOT NULL, -- Ej: Ayuno 8-12h, primera orina
-    tipo_muestra VARCHAR(100) NOT NULL,
+    horas_ayuno VARCHAR(100) NOT NULL,
+    tipo_muestra VARCHAR(150) NOT NULL,
+    tiempo_entrega VARCHAR(100) DEFAULT 'Mismo día (tarde)',
     activo BOOLEAN DEFAULT TRUE,
     notas TEXT,
+    es_convenio_caracas BOOLEAN DEFAULT FALSE,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

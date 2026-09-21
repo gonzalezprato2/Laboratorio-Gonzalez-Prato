@@ -189,8 +189,8 @@ export function processPatientMessage(
     cultivoReply += '• **Cultivo de Esputo (Expectoración profunda):** **$50.00 USD**.\n';
     cultivoReply += '• **Cultivo de Secreciones (Óticas, Oculares, Nasales):** **$45.00 USD**.\n';
     cultivoReply += '• **Cultivo de Heridas, Úlceras y Abscesos:** **$50.00 USD**.\n';
-    cultivoReply += '• **Hemocultivo Automatizado (Sangre):** **$48.00 USD** por botella.\n';
-    cultivoReply += '• **Espermocultivo (Prueba de 4 vasos):** **$45.00 USD**.\n';
+    cultivoReply += '• **Hemocultivo Automatizado (Sangre):** **$49.00 USD** por botella.\n';
+    cultivoReply += '• **Espermocultivo (Prueba de 4 vasos):** **$50.00 USD**.\n';
     cultivoReply += '• **Cultivo Micológico (Uñas, Piel, Cuero cabelludo):** **$24.00 USD** (Con previa cita con micóloga).\n\n';
     cultivoReply += '📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n';
     cultivoReply += '¿Cuál de estos cultivos requiere realizarse o qué muestra le indicó su médico?';

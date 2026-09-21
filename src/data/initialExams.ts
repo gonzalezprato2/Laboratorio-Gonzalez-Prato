@@ -1,3288 +1,3109 @@
 import { LabExam } from '../types/lab';
 
+/**
+ * Catálogo Oficial Maestro de Exámenes y Tarifario
+ * GONZALEZ-PRATO Laboratorio Clínico
+ * 
+ * Fuente: Lista de precios IA 20-09-2026.xlsx & Manual de Condicionamiento Preanalítico v2.0
+ * Total de pruebas registradas: 187
+ * Moneda oficial de referencia: USD ($)
+ */
 export const INITIAL_EXAMS: LabExam[] = [
   {
-    "id": "hem-1",
-    "category": "Hematología",
-    "name": "Hematología Completa",
+    "id": "gp_001_hematologia_completa",
+    "category": "HEMATOLOGÍA",
+    "name": "Hematología completa",
     "synonyms": [
+      "hematología completa",
+      "hematologia",
       "hemograma",
-      "recuento globular",
-      "formula leucocitaria",
-      "perfil hematologico",
-      "cuadro hematico",
       "biometria hematica",
-      "hematologia"
+      "cbp",
+      "cuadro hematico"
     ],
     "priceUsd": 7.5,
-    "fastingHours": "Ayuno ideal (en emergencias en cualquier momento)",
-    "sampleType": "Sangre total (Tubo EDTA Tapa Morada)",
-    "turnaround": "4 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Sangre total con EDTA",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "No realizar ejercicio físico intenso 24h antes. Evitar alcohol y tabaco. Notificar medicamentos anticoagulantes o hematológicos."
+    "notes": "Evitar ejercicio intenso y alcohol 24h antes. Notificar fármacos activos.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hem-2",
-    "category": "Hematología",
-    "name": "Contaje de Plaquetas",
+    "id": "gp_002_plaquetas",
+    "category": "HEMATOLOGÍA",
+    "name": "Plaquetas",
     "synonyms": [
-      "plaquetas",
-      "contaje de plaquetas",
-      "recuento de plaquetas",
-      "recuento plaquetario",
-      "plaquetas aisladas",
-      "trombocitos",
-      "contaje manual de plaquetas"
+      "plaquetas"
     ],
     "priceUsd": 4,
-    "fastingHours": "Ayuno ligero de 4 horas",
-    "sampleType": "Sangre total (Tubo EDTA)",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Sangre total con EDTA",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Contaje manual microscópico directo de plaquetas. Indicar antiagregantes plaquetarios (Aspirina, Clopidogrel)."
+    "notes": "Se procesa en cualquier momento. Para gota gruesa o ehrlichia, ideal durante pico febril.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hem-3",
-    "category": "Hematología",
-    "name": "Velocidad de Sedimentación Globular (VSG)",
+    "id": "gp_003_velocidad_de_sedimentacion_vsg",
+    "category": "HEMATOLOGÍA",
+    "name": "Velocidad de sedimentación (VSG)",
     "synonyms": [
-      "vsg",
-      "sedimentacion",
-      "velocidad de sedimentacion globular",
-      "velocidad de sedimentacion"
+      "velocidad de sedimentación",
+      "vsg"
     ],
     "priceUsd": 4,
-    "fastingHours": "4 horas de ayuno",
-    "sampleType": "Sangre total con citrato o EDTA",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Sangre total con EDTA",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar procesos febriles, inflamatorios, infecciosos o embarazo."
+    "notes": "Se procesa en cualquier momento. Para gota gruesa o ehrlichia, ideal durante pico febril.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hem-4",
-    "category": "Hematología",
-    "name": "Frotis de Sangre Periférica",
+    "id": "gp_004_frotis_de_sangre_periferica",
+    "category": "HEMATOLOGÍA",
+    "name": "Frotis de sangre periférica",
     "synonyms": [
-      "frotis",
-      "morfologia sanguinea",
-      "lamina periferica",
-      "frotis de sangre periferica"
+      "frotis de sangre periférica"
     ],
     "priceUsd": 6,
-    "fastingHours": "Sin condiciones especiales",
-    "sampleType": "Sangre capilar o EDTA",
-    "turnaround": "24 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Sangre total con EDTA",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación citomorfológica directa en lámina."
+    "notes": "Se procesa en cualquier momento. Para gota gruesa o ehrlichia, ideal durante pico febril.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hem-5",
-    "category": "Hematología",
-    "name": "Grupo Sanguíneo y Factor Rh",
+    "id": "gp_005_grupo_sanguineo_factor_rh",
+    "category": "HEMATOLOGÍA",
+    "name": "Grupo sanguíneo/Factor RH",
     "synonyms": [
-      "tipiaje",
-      "grupo sanguineo",
-      "factor rh",
-      "tipo de sangre",
-      "rh",
-      "grupo sanguineo / factor rh"
+      "grupo sanguíneo",
+      "factor rh"
     ],
     "priceUsd": 6,
-    "fastingHours": "Sin ayuno estricto",
-    "sampleType": "Sangre total EDTA o tubo seco",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno estricto",
+    "sampleType": "Sangre total con EDTA",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Determinación de grupo sanguíneo ABO y antígeno Rho(D)."
+    "notes": "Indicar transfusiones previas en los últimos 3 meses o RhoGAM en embarazadas.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hem-6",
-    "category": "Hematología",
-    "name": "Tiempo de Protrombina (TP) e INR",
+    "id": "gp_006_tiempo_de_protrombina_tp_e_inr",
+    "category": "HEMATOLOGÍA",
+    "name": "Tiempo de protrombina (TP) e INR",
     "synonyms": [
-      "tp",
-      "inr",
-      "tiempo de protrombina",
-      "tiempo de protrombina (tp) e inr"
+      "tiempo de protrombina  e inr",
+      "tp"
     ],
     "priceUsd": 7,
-    "fastingHours": "4 horas de ayuno",
-    "sampleType": "Plasma citratado (Tubo Tapa Azul)",
-    "turnaround": "4 horas",
+    "fastingHours": "3 - 4 horas",
+    "sampleType": "Plasma citratado",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Monitoreo de anticoagulación oral (Warfarina). Indicar hora exacta de última dosis tomada."
+    "notes": "Notificar si toma anticoagulantes (Warfarina, Heparina, Rivaroxabán) o aspirina.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hem-7",
-    "category": "Hematología",
-    "name": "Tiempo de Tromboplastina Parcial (TPT)",
+    "id": "gp_007_tiempo_de_tromboplastina_tpt",
+    "category": "HEMATOLOGÍA",
+    "name": "Tiempo de tromboplastina (TPT)",
     "synonyms": [
-      "tpt",
       "tiempo de tromboplastina",
-      "tiempo parcial de tromboplastina",
-      "tiempo de tromboplastina (tpt)"
+      "tpt"
     ],
     "priceUsd": 7,
-    "fastingHours": "4 horas de ayuno",
-    "sampleType": "Plasma citratado (Tubo Tapa Azul)",
-    "turnaround": "4 horas",
+    "fastingHours": "3 - 4 horas",
+    "sampleType": "Plasma citratado",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación de coagulación por vía intrínseca y monitoreo de Heparina."
+    "notes": "Notificar si toma anticoagulantes (Warfarina, Heparina, Rivaroxabán) o aspirina.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hem-8",
-    "category": "Hematología",
-    "name": "Eosinófilos en Moco Nasal",
+    "id": "gp_008_eosinofilos_moco_nasal",
+    "category": "HEMATOLOGÍA",
+    "name": "Eosinofilos moco nasal",
     "synonyms": [
-      "eosinofilos moco nasal",
-      "eosinofilos en moco nasal",
-      "citologia nasal"
+      "eosinofilos moco nasal"
     ],
     "priceUsd": 6,
-    "fastingHours": "Sin lavado nasal previo",
-    "sampleType": "Hisopado / impronta de mucosa nasal",
-    "turnaround": "24 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Secreción nasal en lámina portaobjeto",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Suspender gotas nasales y descongestionantes 24h antes."
+    "notes": "Sin lavados nasales ni medicamentos tópicos 4 horas antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-1",
-    "category": "Química Sanguínea",
-    "name": "Glicemia en Ayunas / Basal",
+    "id": "gp_009_glicemia_en_ayunas_o_glucosa_en_ayu",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Glicemia en ayunas o glucosa en ayunas o glicemia basal",
     "synonyms": [
-      "glicemia",
-      "glucosa",
       "glicemia en ayunas",
       "glucosa en ayunas",
-      "glicemia basal"
+      "glicemia basal",
+      "azucar",
+      "azucar en sangre",
+      "glicemia",
+      "glucosa"
     ],
     "priceUsd": 4.5,
-    "fastingHours": "Ayuno de 8 a 12 horas",
-    "sampleType": "Suero / Fluoruro",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Cena ligera previa sin exceso de carbohidratos simples."
+    "notes": "Ayuno estricto. Prohibido café, chicles o caramelos. Consultar toma de hipoglucemiantes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-2",
-    "category": "Química Sanguínea",
-    "name": "Glicemia Postprandial (PP)",
+    "id": "gp_010_glicemia_pp_o_glicemia_postprandial",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Glicemia PP o glicemia postprandial",
     "synonyms": [
-      "glicemia postprandial",
       "glicemia pp",
-      "glucosa postprandial",
-      "glucosa pp"
+      "glicemia postprandial"
     ],
     "priceUsd": 4.5,
-    "fastingHours": "Extracción exacta a las 2 horas de iniciar el desayuno/almuerzo",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "Protocolo especial (2h post-desayuno)",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Comida habitual indicada por médico. Reposo físico estricto durante las 2 horas."
+    "notes": "Toma basal en ayunas -> Desayuno habitual -> Contar 2h exactas en reposo -> Segunda extracción.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-3",
-    "category": "Química Sanguínea",
-    "name": "Glicemia Postcarga",
+    "id": "gp_011_glicemia_postcarga",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Glicemia postcarga",
     "synonyms": [
-      "glicemia postcarga",
-      "glucosa postcarga"
+      "glicemia postcarga"
     ],
     "priceUsd": 4.5,
-    "fastingHours": "Ayuno previo + ingesta de solución glucosada controlada",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "Protocolo especial (8h ayuno + carga glucosada)",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Permanecer en reposo en la sala de espera sin comer ni fumar."
+    "notes": "Toma basal + ingesta de solución glucosada en sede. Reposo estricto en sala de espera.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-4",
-    "category": "Química Sanguínea",
-    "name": "Carga Glucosada (Prueba de Tolerancia a la Glucosa)",
+    "id": "gp_012_carga_glucosada",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Carga glucosada",
     "synonyms": [
-      "carga glucosada",
-      "tolerancia a la glucosa",
-      "ptgo",
-      "curva de tolerancia a la glucosa"
+      "carga glucosada"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno estricto de 10 a 12 horas",
-    "sampleType": "Suero seriado",
-    "turnaround": "6 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Incluye toma basal e ingesta de 75g de glucosa anhidra con tomas pautadas."
+    "notes": "Ayuno estricto. Prohibido café, chicles o caramelos. Consultar toma de hipoglucemiantes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-5",
-    "category": "Química Sanguínea",
-    "name": "Urea / BUN",
+    "id": "gp_013_urea_o_bun",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Urea o BUN",
     "synonyms": [
       "urea",
-      "bun",
-      "nitrogeno ureico",
-      "urea o bun"
+      "bun"
     ],
     "priceUsd": 4.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación del metabolismo proteico y función renal."
+    "notes": "Evitar suplementos de creatina y ejercicio extenuante 24h previas.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-6",
-    "category": "Química Sanguínea",
-    "name": "Creatinina Sérica",
+    "id": "gp_014_cretinina_o_cr",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Cretinina o cr",
     "synonyms": [
-      "creatinina",
-      "creatinina serica"
+      "cretinina",
+      "cr"
     ],
     "priceUsd": 4.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evitar ingesta masiva de carnes rojas y suplementos de creatina 24h antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-7",
-    "category": "Química Sanguínea",
-    "name": "Ácido Úrico",
+    "id": "gp_015_acido_urico_o_au",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Ácido úrico o AU",
     "synonyms": [
-      "acido urico",
-      "uratos"
+      "ácido úrico",
+      "au"
     ],
     "priceUsd": 4.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evitar alcohol, mariscos y vísceras el día previo."
+    "notes": "Evitar carnes rojas excesivas, mariscos y cerveza 48h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-8",
-    "category": "Química Sanguínea",
-    "name": "Lipidograma / Perfil Lipídico Completo",
+    "id": "gp_016_lipidograma_perfil_lipidico_coleste",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Lipidograma; perfil lipídico; colesterol total y fraccionado",
     "synonyms": [
       "lipidograma",
-      "perfil lipidico",
+      "perfil lipídico",
       "colesterol total y fraccionado",
-      "perfil de lipidos"
+      "perfil lipidico",
+      "colesterol y trigliceridos",
+      "grasas en sangre"
     ],
     "priceUsd": 17,
-    "fastingHours": "Ayuno estricto de 12 a 14 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "10 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Incluye Colesterol Total, HDL, LDL, VLDL y Triglicéridos. Sin alcohol 48h antes."
+    "notes": "Cenar ligero sin grasas antes de las 8:00 PM. Sin alcohol 48h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-9",
-    "category": "Química Sanguínea",
-    "name": "Colesterol Total",
+    "id": "gp_017_colesterol_total",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Colesterol total",
     "synonyms": [
-      "colesterol",
       "colesterol total"
     ],
     "priceUsd": 5,
-    "fastingHours": "Ayuno de 12 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "10 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Determinación cuantitativa de colesterol sérico total."
+    "notes": "Cenar ligero sin grasas antes de las 8:00 PM. Sin alcohol 48h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-10",
-    "category": "Química Sanguínea",
-    "name": "HDL Colesterol",
+    "id": "gp_018_hdl_colesterol",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "HDL colesterol",
     "synonyms": [
-      "hdl",
-      "hdl colesterol",
-      "colesterol bueno",
-      "colesterol hdl"
+      "hdl colesterol"
     ],
     "priceUsd": 7,
-    "fastingHours": "Ayuno de 12 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "10 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Lipoproteína de alta densidad con efecto protector cardiovascular."
+    "notes": "Cenar ligero sin grasas antes de las 8:00 PM. Sin alcohol 48h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-11",
-    "category": "Química Sanguínea",
-    "name": "Triglicéridos",
+    "id": "gp_019_trigliceridos",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Trigliceridos",
     "synonyms": [
-      "trigliceridos",
-      "trigliceridos sericos"
+      "trigliceridos"
     ],
     "priceUsd": 5.5,
-    "fastingHours": "Ayuno estricto de 12 a 14 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "10 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evitar alcohol y comidas grasas la noche anterior."
+    "notes": "Cenar ligero sin grasas antes de las 8:00 PM. Sin alcohol 48h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-12",
-    "category": "Química Sanguínea",
-    "name": "Transaminasas TGO (AST) y TGP (ALT)",
+    "id": "gp_020_tgo_ast_transaminasas_glutamico_oxa",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "TGO/AST (Transaminasas glutamico-oxalacética o aspartato aminotransferasa) y TGP/ALT (Transaminasa glutámico pirúvica o alanino transferasa)",
     "synonyms": [
-      "transaminasas",
-      "tgo y tgp",
-      "tgo/ast y tgp/alt",
       "tgo",
-      "tgp",
-      "ast",
-      "alt",
-      "transaminasas glutamico oxalacetica y piruvica"
+      "ast (transaminasas glutamico-oxalacética",
+      "aspartato aminotransferasa) y tgp",
+      "alt (transaminasa glutámico pirúvica",
+      "alanino transferasa)"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación enzimática de daño hepatocelular y muscular."
+    "notes": "Evitar ejercicio físico intenso y alcohol 48h previas.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-13",
-    "category": "Química Sanguínea",
-    "name": "Fósforo Sérico",
+    "id": "gp_021_fosforo_o_p",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Fósforo o P",
     "synonyms": [
-      "fosforo",
-      "fosforo serico",
-      "fosfatemia"
+      "fósforo"
     ],
     "priceUsd": 5.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación del metabolismo fosfocálcico y función renal."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-14",
-    "category": "Química Sanguínea",
-    "name": "Calcio Sérico",
+    "id": "gp_022_calcio_o_ca",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Calcio o Ca",
     "synonyms": [
       "calcio",
-      "calcio serico",
-      "calcemia"
+      "ca"
     ],
     "priceUsd": 5.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Determinación de calcio total en sangre."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-15",
-    "category": "Química Sanguínea",
-    "name": "Magnesio Sérico",
+    "id": "gp_023_magnesio_o_mg",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Magnesio o Mg",
     "synonyms": [
       "magnesio",
-      "magnesio serico",
-      "magnesemia"
+      "mg"
     ],
     "priceUsd": 5.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Electrolito intracelular clave en excitabilidad neuromuscular."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-16",
-    "category": "Química Sanguínea",
-    "name": "Cloro Sérico (Cloruro)",
+    "id": "gp_024_cloro_o_cl",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Cloro o Cl",
     "synonyms": [
       "cloro",
-      "cloro serico",
-      "cloruro"
+      "cl"
     ],
     "priceUsd": 5.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Balance hidroelectrolítico y equilibrio ácido-base."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-17",
-    "category": "Química Sanguínea",
-    "name": "Fosfatasa Alcalina",
+    "id": "gp_025_fosfatasa_alcalina_alp_o_fa",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Fosfatasa alcalina- ALP o FA",
     "synonyms": [
-      "fosfatasa alcalina",
-      "alkp",
+      "fosfatasa alcalina- alp",
       "fa"
     ],
     "priceUsd": 5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Enzima diagnóstica hepatobiliar y del recambio óseo."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-18",
-    "category": "Química Sanguínea",
-    "name": "Bilirrubina Total y Fraccionada",
+    "id": "gp_026_bilirrubina_t_y_f_bilirrubina_total",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Bilirrubina T y F, Bilirrubina total y fraccionada",
     "synonyms": [
-      "bilirrubina",
-      "bilirrubinas",
-      "bilirrubina total y fraccionada",
-      "bilirrubina directa e indirecta"
+      "bilirrubina t y f",
+      "bilirrubina total y fraccionada"
     ],
     "priceUsd": 8.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero protegido de la luz",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Incluye Bilirrubina Total, Directa (conjugada) e Indirecta (libre)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-19",
-    "category": "Química Sanguínea",
-    "name": "Proteínas Totales y Fraccionadas",
+    "id": "gp_027_proteinas_t_y_f_o_proteinas_totales",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Proteínas T y F  o proteínas totales y fraccionadas",
     "synonyms": [
-      "proteinas totales y fraccionadas",
-      "albumina y globulina",
-      "proteinas totales",
-      "proteinograma"
+      "proteínas t y f",
+      "proteínas totales y fraccionadas"
     ],
     "priceUsd": 8.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Incluye Proteínas Totales, Albúmina, Globulinas y Relación A/G."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-20",
-    "category": "Química Sanguínea",
-    "name": "Amilasa Sérica",
+    "id": "gp_028_amilasa",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Amilasa",
     "synonyms": [
-      "amilasa",
-      "amilasa serica",
-      "amilasemia"
+      "amilasa"
     ],
     "priceUsd": 9,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Enzima pancreática y salival de urgencia médica."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-21",
-    "category": "Química Sanguínea",
-    "name": "GGT (Gamma Glutamil Transferasa)",
+    "id": "gp_029_gamma_glutamil_transferasas_o_ggt",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Gamma Glutamil-transferasas o GGT",
     "synonyms": [
-      "ggt",
-      "gamma glutamil transferasa",
-      "gamma gt"
+      "gamma glutamil-transferasas",
+      "ggt"
     ],
     "priceUsd": 6,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador sensible a colestasis, alcoholismo y fármacos inductores."
+    "notes": "Evitar ejercicio físico intenso y alcohol 48h previas.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-22",
-    "category": "Química Sanguínea",
-    "name": "LDH (Lactato Deshidrogenasa)",
+    "id": "gp_030_lactato_deshidrogenasa_o_ldh",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Lactato deshidrogenasa o LDH",
     "synonyms": [
-      "ldh",
       "lactato deshidrogenasa",
-      "deshidrogenasa lactica"
+      "ldh"
     ],
     "priceUsd": 6,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero no hemolizado",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador general de recambio tisular celular y hemólisis."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-23",
-    "category": "Química Sanguínea",
-    "name": "Calcio Iónico (Calcio Libre)",
+    "id": "gp_031_calcio_ionico_o_ca_o_ca2",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Calcio iónico o Ca++ o Ca2+",
     "synonyms": [
-      "calcio ionico",
-      "calcio libre",
-      "calcio ionizado"
+      "calcio iónico",
+      "ca++",
+      "ca2+"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero o plasma con heparina de litio",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Fracción ionizada biológicamente activa independiente de la albúmina."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-24",
-    "category": "Química Sanguínea",
-    "name": "Lipasa Sérica",
+    "id": "gp_032_lipasa",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Lipasa",
     "synonyms": [
-      "lipasa",
-      "lipasa serica",
-      "lipasemia"
+      "lipasa"
     ],
     "priceUsd": 9,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador altamente específico de pancreatitis aguda y patología pancreática."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-25",
-    "category": "Química Sanguínea",
-    "name": "Electrolitos Séricos (Sodio y Potasio)",
+    "id": "gp_033_sodio_y_potasio_o_na_y_k_o_na_y_k",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Sodio y potasio o Na y K o Na+ y K+",
     "synonyms": [
       "sodio y potasio",
-      "electrolitos",
-      "electrolitos sericos",
       "na y k",
-      "ionograma"
+      "na+ y k+"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Cuantificación de Sodio (Na+) y Potasio (K+) séricos."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "qui-26",
-    "category": "Química Sanguínea",
-    "name": "Perfil 20 Completo",
+    "id": "gp_034_perfil_20_completo",
+    "category": "QUÍMICA SANGUÍNEA",
+    "name": "Perfil 20 completo",
     "synonyms": [
-      "perfil 20",
       "perfil 20 completo",
-      "chequeo general perfil 20",
-      "perfil metabolico amplio"
+      "perfil 20",
+      "chequeo general",
+      "perfil de rutina"
     ],
     "priceUsd": 67,
-    "fastingHours": "Ayuno estricto de 12 a 14 horas",
-    "sampleType": "Sangre total EDTA + Suero + Orina + Heces",
-    "turnaround": "6 a 12 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Panel integral: Hematología, Glicemia, Urea, Creatinina, Ácido Úrico, Perfil Lipídico (Colesterol, HDL, LDL, VLDL, Triglicéridos), Transaminasas TGO/TGP, Bilirrubinas T/F, Fosfatasa Alcalina, Calcio, Fósforo, Proteínas T/F, Uroanálisis y Coproanálisis."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "otr-1",
-    "category": "Otros",
-    "name": "Dímero D",
+    "id": "gp_035_dimero_d",
+    "category": "OTROS ESTUDIOS",
+    "name": "Dimero D",
     "synonyms": [
-      "dimero d",
-      "dimer d",
-      "trombosis dimero d"
+      "dimero d"
     ],
     "priceUsd": 18,
-    "fastingHours": "Ayuno de 4 horas",
-    "sampleType": "Plasma citratado (Tubo Tapa Azul)",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador de hipercoagulabilidad y trombosis venosa / TEP."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "otr-2",
-    "category": "Otros",
-    "name": "Procalcitonina (PCT)",
+    "id": "gp_036_procalcitonina_o_pct",
+    "category": "OTROS ESTUDIOS",
+    "name": "Procalcitonina o PCT",
     "synonyms": [
       "procalcitonina",
-      "pct",
-      "sepsis procalcitonina"
+      "pct"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 4 a 6 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Biomarcador específico para orientar sospecha de infección bacteriana sistémica grave y sepsis vs infección viral. Indicar contexto clínico."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "otr-3",
-    "category": "Otros",
-    "name": "Anticuerpos SARS-CoV-2 IgM/IgG",
+    "id": "gp_037_anticuerpos_sars_cov_2_ac_sars_covi",
+    "category": "OTROS ESTUDIOS",
+    "name": "Anticuerpos Sars Cov 2, AC Sars Covid, AC COVID 19, Ig M e Ig G Sars Cov 2, Serología Sars Covid",
     "synonyms": [
-      "covid anticuerpos",
-      "anticuerpos covid",
-      "sars cov 2 anticuerpos",
-      "anticuerpos sars-cov-2 igm/igg"
+      "anticuerpos sars cov 2",
+      "ac sars covid",
+      "ac covid 19",
+      "ig m e ig g sars cov 2",
+      "serología sars covid"
     ],
     "priceUsd": 20,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar fecha de inicio de síntomas o fecha de última exposición sospechosa. Informar historial de vacunas contra COVID-19 (tipo/plataforma y fecha de última dosis recibida)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "otr-4",
-    "category": "Otros",
-    "name": "Calprotectina Fecal Semicuantitativa",
+    "id": "gp_038_calproteotina_semicuantitativa",
+    "category": "OTROS ESTUDIOS",
+    "name": "Calproteotina semicuantitativa",
     "synonyms": [
-      "calprotectina",
-      "calprotectina fecal",
-      "calprotectina semicuantitativa",
-      "calprotectina fecal semicuantitativa"
+      "calproteotina semicuantitativa"
     ],
     "priceUsd": 26,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca en recolector estéril",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador no invasivo de inflamación de la mucosa intestinal."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "otr-5",
-    "category": "Otros",
-    "name": "Panel Respiratorio Rápido",
+    "id": "gp_039_panel_respiratorio_mycoplasma_adeno",
+    "category": "OTROS ESTUDIOS",
+    "name": "Panel respiratorio (Mycoplasma, adenovirus, Influenza A y B, Sars Cov)",
     "synonyms": [
-      "panel respiratorio",
-      "panel respiratorio rapido",
-      "influenza y covid"
+      "panel respiratorio (mycoplasma",
+      "adenovirus",
+      "influenza a y b",
+      "sars cov)"
     ],
     "priceUsd": 42,
-    "fastingHours": "No requiere ayuno (toma en primeros 3 a 5 días de síntomas)",
-    "sampleType": "Hisopado nasofaríngeo estéril",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Muestra por hisopado en los primeros 3 a 5 días de síntomas. No aplicar gotas, lavados nasales ni sprays en las 4 horas previas."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "otr-6",
-    "category": "Otros",
+    "id": "gp_040_mycoplasma_y_ureaplasma",
+    "category": "OTROS ESTUDIOS",
     "name": "Mycoplasma y Ureaplasma",
     "synonyms": [
-      "mycoplasma y ureaplasma",
-      "mycoplasma hominis",
-      "ureaplasma urealyticum",
-      "ureaplasma"
+      "mycoplasma y ureaplasma"
     ],
     "priceUsd": 20,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Exudado uretral/vaginal o primer chorro de orina",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "otr-7",
-    "category": "Otros",
-    "name": "Anticuerpos Treponema pallidum (Sífilis Confirmatoria)",
+    "id": "gp_041_ac_t_pallidum_sifilis_anticuerpos_a",
+    "category": "OTROS ESTUDIOS",
+    "name": "Ac T pallidum (sífilis), Anticuerpos anti Treponema pallidum, Anticuerpos sífilis, Ac sífilis",
     "synonyms": [
-      "ac treponema pallidum",
-      "sifilis confirmatoria",
-      "ftahbs",
-      "anticuerpos sifilis",
-      "treponema pallidum"
+      "ac t pallidum",
+      "sífilis",
+      "anticuerpos anti treponema pallidum",
+      "anticuerpos sífilis",
+      "ac sífilis"
     ],
     "priceUsd": 16,
-    "fastingHours": "Ayuno de 2 a 4 horas (no estricto)",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Prueba treponémica confirmatoria específica. Informar si ha recibido tratamiento antibiótico previo para sífilis (penicilina benzatínica) y fecha de culminación (estos anticuerpos suelen permanecer positivos de por vida como cicatriz serológica). Informar enfermedades autoinmunes (lupus, AR) o sospecha de Lyme."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-1",
-    "category": "Hormonas",
-    "name": "Insulina Basal (en Ayunas)",
+    "id": "gp_042_insulina_basal",
+    "category": "HORMONAS",
+    "name": "Insulina basal",
     "synonyms": [
-      "insulina",
-      "insulina basal",
-      "insulina en ayunas",
-      "insulinemia"
+      "insulina basal"
     ],
     "priceUsd": 14,
-    "fastingHours": "Ayuno estricto de 8 a 10 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evitar ejercicio intenso el día previo. No suspender medicación salvo orden médica."
+    "notes": "Insulina Basal: Ayuno estricto de 8 a 12 horas. Sin ejercicio el día previo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-2",
-    "category": "Hormonas",
-    "name": "Insulina Postprandial (PP)",
+    "id": "gp_043_insulina_pp_o_insulina_postprandial",
+    "category": "HORMONAS",
+    "name": "Insulina PP o insulina postprandial",
     "synonyms": [
-      "insulina postprandial",
-      "insulina pp"
+      "insulina pp",
+      "insulina postprandial"
     ],
-    "priceUsd": 25,
-    "fastingHours": "Toma a las 2 horas de iniciar el desayuno/comida",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "priceUsd": 14,
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Comida pautada por el médico tratante."
+    "notes": "Insulina PP: Desayuno habitual y extracción a las 2 horas exactas con reposo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-3",
-    "category": "Hormonas",
-    "name": "Insulina Postcarga",
+    "id": "gp_044_insulina_postcarga_o_insulina_post",
+    "category": "HORMONAS",
+    "name": "Insulina postcarga o insulina post 75 g de glucosa o insulinas postcarga glucosada",
     "synonyms": [
       "insulina postcarga",
-      "curva de insulina postcarga"
+      "insulina post 75 g de glucosa",
+      "insulinas postcarga glucosada"
     ],
     "priceUsd": 14,
-    "fastingHours": "Ayuno previo + sobrecarga oral con 75g de glucosa",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Permanecer en reposo en sala de espera."
+    "notes": "Insulina Basal: Ayuno estricto de 8 a 12 horas. Sin ejercicio el día previo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-4",
-    "category": "Hormonas",
-    "name": "T3 Libre (Triyodotironina Libre)",
+    "id": "gp_045_t3_libre_o_o_triyodotironina_o_trii",
+    "category": "HORMONAS",
+    "name": "T3 libre o o Triyodotironina o triiodotironina",
     "synonyms": [
       "t3 libre",
-      "t3",
-      "triyodotironina libre"
+      "triyodotironina",
+      "triiodotironina"
     ],
     "priceUsd": 13.5,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Si toma hormona tiroidea (Levotiroxina), tomar la muestra ANTES de la dosis diaria."
+    "notes": "Toma matutina (7:00-9:00 AM). Tomar levotiroxina DESPUÉS de la extracción. Suspender biotina 48-72h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-5",
-    "category": "Hormonas",
-    "name": "TSH Ultrasensible",
+    "id": "gp_046_tsh_o_hormona_estimulante_de_tiroid",
+    "category": "HORMONAS",
+    "name": "TSH o hormona estimulante  de tiroides o tirotropina u hormona tirotrópica u hormona tiroestimulante",
     "synonyms": [
       "tsh",
-      "tsh ultrasensible",
-      "tirotropina",
-      "hormona tiroestimulante"
+      "hormona estimulante  de tiroides",
+      "tirotropina u hormona tirotrópica u hormona tiroestimulante",
+      "tiroides",
+      "hormona tiroidea"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 8 horas. Toma matutina (7:00 am - 9:00 am).",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Tomar la muestra antes de la medicación tiroidea de la mañana."
+    "notes": "Toma matutina (7:00-9:00 AM). Tomar levotiroxina DESPUÉS de la extracción. Suspender biotina 48-72h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-6",
-    "category": "Hormonas",
-    "name": "T4 Libre (Tiroxina Libre)",
+    "id": "gp_047_t4_libre_o_tiroxina",
+    "category": "HORMONAS",
+    "name": "T4 libre o tiroxina",
     "synonyms": [
       "t4 libre",
-      "t4",
-      "tiroxina libre"
+      "tiroxina"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Tomar la muestra antes de ingerir la dosis de Levotiroxina."
+    "notes": "Toma matutina (7:00-9:00 AM). Tomar levotiroxina DESPUÉS de la extracción. Suspender biotina 48-72h antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-7",
-    "category": "Hormonas",
-    "name": "Cortisol Sérico (8:00 AM)",
+    "id": "gp_048_cortisol_8_a_m_u_hormona_del_estres",
+    "category": "HORMONAS",
+    "name": "Cortisol 8 a,m, u hormona del estrés 8:00 a,m,",
     "synonyms": [
-      "cortisol 8 am",
-      "cortisol matutino",
-      "cortisol am",
-      "cortisol"
+      "cortisol 8 a",
+      "u hormona del estrés 8:00 a"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 8 horas. Reposo de 20 min en sala antes de punción.",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "CRÍTICO: Extracción estricta a las 8:00 am (± 30 min). Evitar estrés físico y emocional."
+    "notes": "Cortisol AM: Llegar entre 7:30 y 7:40 AM para 20-30 min de reposo previo absoluto en sala.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-8",
-    "category": "Hormonas",
-    "name": "Cortisol Sérico (4:00 PM)",
+    "id": "gp_049_cortisol_4_p_m_u_hormona_del_estres",
+    "category": "HORMONAS",
+    "name": "Cortisol 4 p,m, u hormona del estrés 4:00 p,m,",
     "synonyms": [
-      "cortisol 4 pm",
-      "cortisol vespertino",
-      "cortisol pm"
+      "cortisol 4 p",
+      "u hormona del estrés 4:00 p"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 2 a 4 horas. Extracción a las 4:00 pm (± 30 min).",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación del ritmo circadiano adrenal. Reposo previo de 20 min."
+    "notes": "Cortisol AM: Llegar entre 7:30 y 7:40 AM para 20-30 min de reposo previo absoluto en sala.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-9",
-    "category": "Hormonas",
-    "name": "Estradiol (E2)",
+    "id": "gp_050_estradiol_o_e2",
+    "category": "HORMONAS",
+    "name": "Estradiol o E2",
     "synonyms": [
       "estradiol",
-      "e2",
-      "17 beta estradiol",
-      "estrogenos"
+      "e2"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar día del ciclo menstrual (fase folicular, ovulatoria, lútea o menopausia)."
+    "notes": "Mujeres: Días 2 a 5 del ciclo menstrual para evaluación basal, o según indicación médica. Indicar FUM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-10",
-    "category": "Hormonas",
-    "name": "FSH (Hormona Folículo Estimulante)",
+    "id": "gp_051_fsh_u_hormona_foliculo_estimulante",
+    "category": "HORMONAS",
+    "name": "FSH u hormona folículo estimulante",
     "synonyms": [
-      "fsh",
-      "foliculo estimulante",
-      "hormona foliculocitoestimulante"
+      "fsh u hormona folículo estimulante"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar fase del ciclo menstrual o si toma terapia hormonal."
+    "notes": "Mujeres: Días 2 a 5 del ciclo menstrual para evaluación basal, o según indicación médica. Indicar FUM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-11",
-    "category": "Hormonas",
-    "name": "LH (Hormona Luteinizante)",
+    "id": "gp_052_lh_u_hormona_luteinizante",
+    "category": "HORMONAS",
+    "name": "LH u hormona luteinizante",
     "synonyms": [
-      "lh",
-      "hormona luteinizante",
-      "luteinizante"
+      "lh u hormona luteinizante"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar día del ciclo menstrual."
+    "notes": "Mujeres: Días 2 a 5 del ciclo menstrual para evaluación basal, o según indicación médica. Indicar FUM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-12",
-    "category": "Hormonas",
-    "name": "Progesterona",
+    "id": "gp_053_progesterona_o_pg_o_prog",
+    "category": "HORMONAS",
+    "name": "Progesterona o PG o PROG",
     "synonyms": [
       "progesterona",
-      "prg",
-      "prog",
-      "pg"
+      "pg",
+      "prog"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Habitualmente tomada el día 21 del ciclo menstrual o según indicación médica."
+    "notes": "Mujeres: Día 21 del ciclo (o 7 días antes de la regla esperada), o según indicación médica.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-13",
-    "category": "Hormonas",
-    "name": "Prolactina",
+    "id": "gp_054_prolactina_o_prl",
+    "category": "HORMONAS",
+    "name": "Prolactina o PRL",
     "synonyms": [
       "prolactina",
       "prl"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas. 2 horas despierto. 20 min de reposo.",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "CRÍTICO: Abstinencia sexual 48h antes. Evitar estímulo o roce de pezones/mamas. Reposo de 20 min en laboratorio antes de punción."
+    "notes": "Toma antes de las 9:00 AM. Reposo obligatorio de 20-30 min en sala antes de punción. 48h sin relaciones sexuales ni estimulación mamaria.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-14",
-    "category": "Hormonas",
-    "name": "Beta HCG Cuantitativa",
+    "id": "gp_055_beta_hcg_cuantitativa_o_beta_hcg_o",
+    "category": "HORMONAS",
+    "name": "Beta HCG cuantitativa o beta-HCG o Gonadotropina coriónica humana",
     "synonyms": [
-      "beta hcg",
-      "subunidad beta",
-      "hcg cuantitativa",
-      "prueba de embarazo cuantitativa"
+      "beta hcg cuantitativa",
+      "beta-hcg",
+      "gonadotropina coriónica humana",
+      "prueba de embarazo en sangre",
+      "embarazo cuantitativa",
+      "subunidad beta"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno ligero de 4 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Cuantificación exacta de niveles de Gonadotropina Coriónica Humana."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-15",
-    "category": "Hormonas",
-    "name": "DHEA-S (Dehidroepiandrosterona Sulfato)",
+    "id": "gp_056_dhea_s_o_dea_sulfato_o_dehidroepian",
+    "category": "HORMONAS",
+    "name": "DHEA S o DEA sulfato o dehidroepiandrosterona",
     "synonyms": [
-      "dhea-s",
-      "dheas",
-      "dehidroepiandrosterona",
-      "sulfato de dhea"
+      "dhea s",
+      "dea sulfato",
+      "dehidroepiandrosterona"
     ],
-    "priceUsd": 17,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "priceUsd": 16,
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Andrógeno suprarrenal. Indicar fase del ciclo menstrual."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-16",
-    "category": "Hormonas",
-    "name": "Testosterona Total",
+    "id": "gp_057_testosterona_total_o_tt",
+    "category": "HORMONAS",
+    "name": "Testosterona Total  o TT",
     "synonyms": [
-      "testosterona",
-      "testosterona total"
+      "testosterona total",
+      "tt"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 horas. Toma matutina recomendada.",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Nivel total de testosterona circulante."
+    "notes": "Extracción matutina ideal. Notificar terapias hormonales.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "hor-17",
-    "category": "Hormonas",
-    "name": "Testosterona Libre",
+    "id": "gp_058_testosterona_libre",
+    "category": "HORMONAS",
+    "name": "Testosterona libre",
     "synonyms": [
-      "testosterona libre",
-      "testo libre"
+      "testosterona libre"
     ],
     "priceUsd": 24,
-    "fastingHours": "Ayuno de 8 horas. Toma matutina.",
-    "sampleType": "Suero",
-    "turnaround": "48 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Fracción biológicamente no unida a proteínas."
+    "notes": "Extracción matutina ideal. Notificar terapias hormonales.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-1",
-    "category": "Inmunología",
-    "name": "Hepatitis A IgM (Anti-VHA IgM)",
+    "id": "gp_059_hep_a_igm_o_anticuerpos_ig_m_de_hep",
+    "category": "INMUNOLOGÍA",
+    "name": "Hep A IgM  o anticuerpos Ig M de hepatitis A, AC Ig M VHA, o AC Ig M virus hepatitis A",
     "synonyms": [
-      "hepatitis a",
-      "anti vha igm",
-      "hepatitis a igm",
-      "vha igm"
+      "hep a igm",
+      "anticuerpos ig m de hepatitis a",
+      "ac ig m vha",
+      "ac ig m virus hepatitis a"
     ],
     "priceUsd": 9.5,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar días de síntomas y cuándo comenzó el malestar. Informar si le colocaron recientemente algún tipo de vacuna."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-2",
-    "category": "Inmunología",
-    "name": "Antígeno de Superficie Hepatitis B (HBsAg / Australia)",
+    "id": "gp_060_hbsag_o_antigeno_de_superficie_vhb",
+    "category": "INMUNOLOGÍA",
+    "name": "HbsAg o antígeno de superficie VHB, AgHbs o antígeno de superficie",
     "synonyms": [
-      "hepatitis b",
       "hbsag",
-      "antigeno de superficie hepatitis b",
-      "antigeno australia"
+      "antígeno de superficie vhb",
+      "aghbs",
+      "antígeno de superficie"
     ],
     "priceUsd": 7.5,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador de infección activa por Hepatitis B. Informar si le colocaron recientemente la vacuna de Hepatitis B (posible reactividad transitoria) o si padece síntomas agudos."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-3",
-    "category": "Inmunología",
-    "name": "Anticuerpo Core Hepatitis B (Anti-HBc Total)",
+    "id": "gp_061_anti_hbc_o_anticore_o_anticuerpo_an",
+    "category": "INMUNOLOGÍA",
+    "name": "Anti Hbc  o Anticore o anticuerpo antiHBc",
     "synonyms": [
       "anti hbc",
-      "core hepatitis b",
-      "anti hbc total",
-      "anticuerpo core hepatitis b"
+      "anticore",
+      "anticuerpo antihbc"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador de contacto/infección previa o aguda por Hepatitis B. Informar días de síntomas y vacunas recientes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-4",
-    "category": "Inmunología",
-    "name": "Anticuerpo Hepatitis C (Anti-VHC)",
+    "id": "gp_062_ac_vhc_o_anticuerpos_virus_hepatiti",
+    "category": "INMUNOLOGÍA",
+    "name": "Ac VHC, o anticuerpos virus hepatitis C",
     "synonyms": [
-      "hepatitis c",
-      "anti vhc",
-      "anticuerpo hepatitis c",
-      "vhc"
+      "ac vhc",
+      "anticuerpos virus hepatitis c"
     ],
     "priceUsd": 8.5,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar obligatoriamente el uso de antivirales de acción directa o terapias inmunomoduladoras. Informar días de síntomas y vacunas recientes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-5",
-    "category": "Inmunología",
-    "name": "Proteína C Reactiva (PCR) Semicuantitativa",
+    "id": "gp_063_proteina_c_reactiva_pcr_semicuantit",
+    "category": "INMUNOLOGÍA",
+    "name": "Proteína C reactiva (PCR) semicuantitativa",
     "synonyms": [
-      "pcr",
-      "proteina c reactiva",
-      "pcr semicuantitativa",
-      "pcr latex"
+      "proteína c reactiva  semicuantitativa",
+      "pcr"
     ],
     "priceUsd": 7.5,
-    "fastingHours": "Ayuno de 4 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar si ha tenido eventos inflamatorios agudos recientes (traumatismos, procedimientos dentales, infecciones virales elevan transitoriamente los valores), enfermedades crónicas, embarazo o ejercicio intenso en las últimas horas."
+    "notes": "Notificar si cursa con infecciones agudas, inflamación o traumatismos recientes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-6",
-    "category": "Inmunología",
-    "name": "Proteína C Reactiva (PCR) Cuantitativa Ultrasensible",
+    "id": "gp_064_proteina_c_reactiva_pcr_cuantitativ",
+    "category": "INMUNOLOGÍA",
+    "name": "Proteína C reactiva (PCR) cuantitativa",
     "synonyms": [
-      "pcr cuantitativa",
-      "pcr ultrasensible",
-      "proteina c reactiva cuantitativa"
+      "proteína c reactiva  cuantitativa",
+      "pcr"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 4 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar si ha tenido eventos inflamatorios agudos recientes (traumatismos, procedimientos dentales, infecciones virales elevan transitoriamente los valores), enfermedades crónicas, embarazo o ejercicio intenso en las últimas horas."
+    "notes": "Notificar si cursa con infecciones agudas, inflamación o traumatismos recientes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-7",
-    "category": "Inmunología",
-    "name": "ASLO (Antiestreptolisina O) Semicuantitativo",
+    "id": "gp_065_aslo_semicuantitativo_o_titulos_de",
+    "category": "INMUNOLOGÍA",
+    "name": "ASLO semicuantitativo o titulos de antiestreptolisina O semicuantitativos o ASO semicuantitativo",
     "synonyms": [
-      "aslo",
-      "antiestreptolisinas",
       "aslo semicuantitativo",
-      "aso"
+      "titulos de antiestreptolisina",
+      "semicuantitativos",
+      "aso semicuantitativo"
     ],
     "priceUsd": 7.5,
-    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar si el paciente está recibiendo tratamiento con antibióticos o corticoesteroides. Informar procesos inflamatorios o infecciosos estreptocócicos recientes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-8",
-    "category": "Inmunología",
-    "name": "ASLO (Antiestreptolisina O) Cuantitativo",
+    "id": "gp_066_aslo_cuantitativo_o_titulos_de_anti",
+    "category": "INMUNOLOGÍA",
+    "name": "ASLO cuantitativo o titulos de antiestreptolisina O cuantitativos o ASO cuantitativo",
     "synonyms": [
       "aslo cuantitativo",
-      "antiestreptolisina o cuantitativo",
+      "titulos de antiestreptolisina",
+      "cuantitativos",
       "aso cuantitativo"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
-    "sampleType": "Suero",
-    "turnaround": "6 a 12 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar si el paciente está recibiendo tratamiento con antibióticos o corticoesteroides. Informar procesos inflamatorios o infecciosos estreptocócicos recientes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-9",
-    "category": "Inmunología",
-    "name": "VIH / HIV 3ra Generación (Anticuerpos)",
+    "id": "gp_067_hiv_3ra_generacion_o_vhi_o_hiv_1_y",
+    "category": "INMUNOLOGÍA",
+    "name": "HIV 3ra generación o VHI o HIV 1 y 2",
     "synonyms": [
+      "hiv 3ra generación",
+      "vhi",
+      "hiv 1 y 2",
       "vih",
       "hiv",
+      "sida",
       "prueba de vih",
-      "hiv 3ra generacion",
-      "elisa vih"
+      "prueba de hiv"
     ],
     "priceUsd": 7,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar si recibe tratamiento antirretroviral, PrEP o PEP. Informar vacunas recientes (influenza, hepatitis B por reactividad cruzada transitoria). Indicar tiempo transcurrido desde la posible exposición (período de ventana)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-10",
-    "category": "Inmunología",
-    "name": "VIH / HIV 4ta Generación (Dúo Ag p24 + Ac)",
+    "id": "gp_068_hiv_4ta_generacion_vhi_4ta_generaci",
+    "category": "INMUNOLOGÍA",
+    "name": "HIV 4ta generación, VHI 4ta generación",
     "synonyms": [
-      "hiv 4ta generacion",
-      "vih 4ta generacion",
-      "hiv combo",
-      "ag p24 vih"
+      "hiv 4ta generación",
+      "vhi 4ta generación",
+      "vih",
+      "hiv",
+      "sida",
+      "prueba de vih",
+      "prueba de hiv"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar si recibe tratamiento antirretroviral, PrEP o PEP. Informar vacunas recientes (influenza, hepatitis B por reactividad cruzada transitoria). Indicar tiempo transcurrido desde la posible exposición (período de ventana)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-11",
-    "category": "Inmunología",
-    "name": "VDRL Semicuantitativo (Serología para Sífilis)",
+    "id": "gp_069_vdrl_semicuantitativo",
+    "category": "INMUNOLOGÍA",
+    "name": "VDRL semicuantitativo",
     "synonyms": [
+      "vdrl semicuantitativo",
       "vdrl",
-      "serologia sifilis",
-      "reaginas plasmaticas",
-      "vdrl semicuantitativo"
+      "sifilis",
+      "serologia luetica",
+      "serologia para sifilis"
     ],
     "priceUsd": 6.5,
-    "fastingHours": "Ayuno de 4 a 8 horas (evitar lipemia)",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Prueba no treponémica semicuantitativa con titulación. No suspender medicamentos habituales pero informar antibióticos (penicilinas/macrólidos). Evitar alcohol 24h previas. Informar procesos infecciosos activos, lupus/autoinmunidad, embarazo o vacunas recientes (causas de falsos positivos biológicos)."
+    "notes": "Ayuno de 4 a 8 horas. Evitar grasas y alcohol 24h antes. Notificar antibióticos o embarazo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-12",
-    "category": "Inmunología",
-    "name": "HCG Cualitativa (Prueba Rápida de Embarazo en Sangre)",
+    "id": "gp_070_hcg_cualitativa_o_prueba_de_embaraz",
+    "category": "INMUNOLOGÍA",
+    "name": "HCG cualitativa  o prueba de embarazo o gonadotropina corionica humana cualitativa",
     "synonyms": [
+      "hcg cualitativa",
       "prueba de embarazo",
-      "hcg rapida",
-      "embarazo en sangre",
-      "hcg cualitativa"
+      "gonadotropina corionica humana cualitativa"
     ],
     "priceUsd": 6,
-    "fastingHours": "Ayuno ligero de 2 a 4 horas",
-    "sampleType": "Suero",
-    "turnaround": "1 a 2 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar Fecha de Última Menstruación (FUM) y regularidad del ciclo. Realizar con al menos 1 a 2 días de retraso menstrual. Informar tratamientos de reproducción asistida o inductores con hCG."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-13",
-    "category": "Inmunología",
-    "name": "Epstein-Barr (VEB) IgM",
+    "id": "gp_071_virus_eptein_barr_igm_o_veb_ig_m_o",
+    "category": "INMUNOLOGÍA",
+    "name": "Virus Eptein Barr IgM o VEB Ig M o anticuerpos virus Eptein Barr IgM o AC Eptein Barr IgM o ac IgM VEB o serología Ig M VEB",
     "synonyms": [
-      "veb igm",
-      "epstein barr igm",
-      "mononucleosis igm"
+      "virus eptein barr igm",
+      "veb ig m",
+      "anticuerpos virus eptein barr igm",
+      "ac eptein barr igm",
+      "ac igm veb",
+      "serología ig m veb"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar días de evolución del cuadro clínico (fiebre, odinofagia, adenopatías). Informar si ha recibido transfusiones sanguíneas o hemoderivados en los últimos 3 a 6 meses."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-14",
-    "category": "Inmunología",
-    "name": "Epstein-Barr (VEB) IgG",
+    "id": "gp_072_virus_eptein_barr_igg_o_veb_igg_o_a",
+    "category": "INMUNOLOGÍA",
+    "name": "Virus Eptein Barr IgG o VEB IgG o anticuerpos virus Eptein Barr IgG o AC Eptein Barr IgG o ac IgG VEB o serología IgG VEB",
     "synonyms": [
+      "virus eptein barr igg",
       "veb igg",
-      "epstein barr igg",
-      "mononucleosis igg"
+      "anticuerpos virus eptein barr igg",
+      "ac eptein barr igg",
+      "ac igg veb",
+      "serología igg veb"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar días de evolución del cuadro clínico (fiebre, odinofagia, adenopatías). Informar si ha recibido transfusiones sanguíneas o hemoderivados en los últimos 3 a 6 meses."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-15",
-    "category": "Inmunología",
-    "name": "Serología Epstein-Barr Completa (IgM + IgG)",
+    "id": "gp_073_serologia_veb_o_serologia_virus_ept",
+    "category": "INMUNOLOGÍA",
+    "name": "Serología VEB o serología Virus Eptein Barr",
     "synonyms": [
-      "serologia veb",
-      "serologia epstein barr completa",
-      "panel veb"
+      "serología veb",
+      "serología virus eptein barr"
     ],
     "priceUsd": 24,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar días de evolución del cuadro clínico (fiebre, odinofagia, adenopatías). Informar si ha recibido transfusiones sanguíneas o hemoderivados en los últimos 3 a 6 meses."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-16",
-    "category": "Inmunología",
-    "name": "Citomegalovirus (CMV) IgM",
+    "id": "gp_074_citomegalovirus_igm_o_cmv_igm_o_ser",
+    "category": "INMUNOLOGÍA",
+    "name": "Citomegalovirus IgM o CMV IgM o serología para citomegalovirus Ig M",
     "synonyms": [
+      "citomegalovirus igm",
       "cmv igm",
-      "citomegalovirus igm"
+      "serología para citomegalovirus ig m"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "En mujeres embarazadas registrar semanas de gestación y si es control de rutina o sospecha ecográfica. Informar terapia inmunosupresora (trasplante, quimioterapia, corticoides) o estado de VIH."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-17",
-    "category": "Inmunología",
-    "name": "Citomegalovirus (CMV) IgG",
+    "id": "gp_075_serologia_cmv",
+    "category": "INMUNOLOGÍA",
+    "name": "Serología CMV",
     "synonyms": [
+      "serología cmv"
+    ],
+    "priceUsd": 22,
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
+    "active": true,
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
+  },
+  {
+    "id": "gp_076_citomegalovirus_igg_o_cmv_igg_o_ser",
+    "category": "INMUNOLOGÍA",
+    "name": "Citomegalovirus IgG o CMV IgG o serología para citomegalovirus Ig G",
+    "synonyms": [
+      "citomegalovirus igg",
       "cmv igg",
-      "citomegalovirus igg"
+      "serología para citomegalovirus ig g"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Primera orina matutina en frasco estéril",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "En mujeres embarazadas registrar semanas de gestación y si es control de rutina o sospecha ecográfica. Informar terapia inmunosupresora (trasplante, quimioterapia, corticoides) o estado de VIH."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-18",
-    "category": "Inmunología",
-    "name": "Serología Citomegalovirus Completa (IgM + IgG)",
+    "id": "gp_077_toxoplasma_gondii_ig_m_o_anticuerpo",
+    "category": "INMUNOLOGÍA",
+    "name": "Toxoplasma gondii Ig M o anticuerpo Ig M Toxoplasma gondii o Toxo Ig M o serología para Toxo Ig M",
     "synonyms": [
-      "serologia cmv",
-      "serologia citomegalovirus completa",
-      "panel cmv"
+      "toxoplasma gondii ig m",
+      "anticuerpo ig m toxoplasma gondii",
+      "toxo ig m",
+      "serología para toxo ig m"
+    ],
+    "priceUsd": 11,
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
+    "active": true,
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
+  },
+  {
+    "id": "gp_078_toxoplasma_gondii_ig_g_o_anticuerpo",
+    "category": "INMUNOLOGÍA",
+    "name": "Toxoplasma gondii Ig G o anticuerpo Ig G Toxoplasma gondii o Toxo Ig G o serología para Toxo Ig G",
+    "synonyms": [
+      "toxoplasma gondii ig g",
+      "anticuerpo ig g toxoplasma gondii",
+      "toxo ig g",
+      "serología para toxo ig g"
+    ],
+    "priceUsd": 11,
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
+    "active": true,
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
+  },
+  {
+    "id": "gp_079_serologia_para_toxo",
+    "category": "INMUNOLOGÍA",
+    "name": "Serología para Toxo",
+    "synonyms": [
+      "serología para toxo"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "En mujeres embarazadas registrar semanas de gestación y si es control de rutina o sospecha ecográfica. Informar terapia inmunosupresora (trasplante, quimioterapia, corticoides) o estado de VIH."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-19",
-    "category": "Inmunología",
-    "name": "Toxoplasmosis IgM",
-    "synonyms": [
-      "toxoplasma igm",
-      "toxoplasmosis igm"
-    ],
-    "priceUsd": 11,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
-    "active": true,
-    "notes": "En pacientes embarazadas indicar obligatoriamente la edad gestacional (semanas) y si existe sospecha de primoinfección. Informar si convive con felinos (gatos), contacto con tierra/jardinería o ingesta de carnes crudas/poco cocidas."
-  },
-  {
-    "id": "inm-20",
-    "category": "Inmunología",
-    "name": "Toxoplasmosis IgG",
-    "synonyms": [
-      "toxoplasma igg",
-      "toxoplasmosis igg"
-    ],
-    "priceUsd": 11,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
-    "active": true,
-    "notes": "En pacientes embarazadas indicar obligatoriamente la edad gestacional (semanas) y si existe sospecha de primoinfección. Informar si convive con felinos (gatos), contacto con tierra/jardinería o ingesta de carnes crudas/poco cocidas."
-  },
-  {
-    "id": "inm-21",
-    "category": "Inmunología",
-    "name": "Serología Toxoplasmosis Completa (IgM + IgG)",
-    "synonyms": [
-      "serologia toxoplasma",
-      "serologia toxoplasmosis completa",
-      "panel toxo"
-    ],
-    "priceUsd": 22,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
-    "active": true,
-    "notes": "En pacientes embarazadas indicar obligatoriamente la edad gestacional (semanas) y si existe sospecha de primoinfección. Informar si convive con felinos (gatos), contacto con tierra/jardinería o ingesta de carnes crudas/poco cocidas."
-  },
-  {
-    "id": "inm-22",
-    "category": "Inmunología",
-    "name": "Chlamydia pneumoniae IgM",
+    "id": "gp_080_chlamydia_pneumoniae_igm_o_anticuer",
+    "category": "INMUNOLOGÍA",
+    "name": "Chlamydia pneumoniae IgM o anticuerpos C, pneumoniae Ig M o Ac C, pneumoniae Ig M o serología Ig M C, pneumoniae",
     "synonyms": [
       "chlamydia pneumoniae igm",
-      "clamidia neumoniae igm"
+      "anticuerpos c",
+      "pneumoniae ig m",
+      "ac c",
+      "serología ig m c",
+      "pneumoniae"
     ],
     "priceUsd": 19,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar uso reciente de antibióticos (macrólidos, tetraciclinas, fluoroquinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-23",
-    "category": "Inmunología",
-    "name": "Chlamydia pneumoniae IgG",
+    "id": "gp_081_chlamydia_pneumoniae_igg_o_anticuer",
+    "category": "INMUNOLOGÍA",
+    "name": "Chlamydia pneumoniae IgG o anticuerpos C, pneumoniae Ig G o Ac C, pneumoniae Ig G o serología Ig G C, pneumoniae",
     "synonyms": [
       "chlamydia pneumoniae igg",
-      "clamidia neumoniae igg"
+      "anticuerpos c",
+      "pneumoniae ig g",
+      "ac c",
+      "serología ig g c",
+      "pneumoniae"
     ],
     "priceUsd": 19,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar uso reciente de antibióticos (macrólidos, tetraciclinas, fluoroquinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-24",
-    "category": "Inmunología",
-    "name": "Serología Chlamydia Completa (IgM + IgG)",
+    "id": "gp_082_serologia_c_pneumonie_o_serologia_c",
+    "category": "INMUNOLOGÍA",
+    "name": "Serologia C, pneumonie o serología Chlamydia pneumoniae",
     "synonyms": [
-      "serologia chlamydia",
-      "serologia chlamydia completa"
+      "serologia c",
+      "pneumonie",
+      "serología chlamydia pneumoniae"
     ],
     "priceUsd": 38,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar uso reciente de antibióticos (macrólidos, tetraciclinas, fluoroquinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-25",
-    "category": "Inmunología",
-    "name": "Mycoplasma pneumoniae IgM",
+    "id": "gp_083_mycoplasma_pneumoniae_igm_o_anticue",
+    "category": "INMUNOLOGÍA",
+    "name": "Mycoplasma pneumoniae IgM o anticuerpos M, pneumoniae Ig M o Ac M, pneumoniae Ig M o serología Ig M de M, pneumoniae",
     "synonyms": [
       "mycoplasma pneumoniae igm",
-      "micoplasma neumoniae igm"
+      "anticuerpos m",
+      "pneumoniae ig m",
+      "ac m",
+      "serología ig m de m",
+      "pneumoniae"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-26",
-    "category": "Inmunología",
-    "name": "Mycoplasma pneumoniae IgG",
+    "id": "gp_084_mycoplasma_pneumoniae_igg_o_anticue",
+    "category": "INMUNOLOGÍA",
+    "name": "Mycoplasma pneumoniae IgG o anticuerpos M, pneumoniae Ig G o Ac M, pneumoniae Ig G o serología Ig G de M, pneumoniae",
     "synonyms": [
       "mycoplasma pneumoniae igg",
-      "micoplasma neumoniae igg"
+      "anticuerpos m",
+      "pneumoniae ig g",
+      "ac m",
+      "serología ig g de m",
+      "pneumoniae"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-27",
-    "category": "Inmunología",
-    "name": "Serología Mycoplasma Completa (IgM + IgG)",
+    "id": "gp_085_serologia_m_pneumonie_o_serologia_m",
+    "category": "INMUNOLOGÍA",
+    "name": "Serologia M, pneumonie o serología Mycoplasma pneumoniae",
     "synonyms": [
-      "serologia mycoplasma",
-      "serologia mycoplasma completa"
+      "serologia m",
+      "pneumonie",
+      "serología mycoplasma pneumoniae"
     ],
     "priceUsd": 36,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar uso reciente de antibióticos (macrólidos, quinolonas). Suspender suplementos con biotina en dosis altas 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-28",
-    "category": "Inmunología",
-    "name": "Helicobacter pylori IgM",
+    "id": "gp_086_helicobacter_pylori_igm_o_anticuerp",
+    "category": "INMUNOLOGÍA",
+    "name": "Helicobacter pylori IgM o anticuerpos H, pylori Ig M o Ac H, pylori  Ig M o serología Ig M H, pylori",
     "synonyms": [
-      "h pylori igm",
       "helicobacter pylori igm",
-      "anticuerpos h pylori igm"
+      "anticuerpos h",
+      "pylori ig m",
+      "ac h",
+      "pylori  ig m",
+      "serología ig m h",
+      "pylori"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Detección serológica en sangre. Informar si ha recibido tratamiento de erradicación previo (los anticuerpos IgG pueden permanecer positivos meses o años post-curación y no discriminan entre infección activa o pasada). Para control activo de erradicación se recomienda el Coproantígeno en Heces ($13.50 USD)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-29",
-    "category": "Inmunología",
-    "name": "Helicobacter pylori IgG",
+    "id": "gp_087_helicobacter_pylori_igg_o_anticuerp",
+    "category": "INMUNOLOGÍA",
+    "name": "Helicobacter pylori IgG o anticuerpos H, pylori Ig G o Ac H, pylori  Ig G o serología Ig G H, pylori",
     "synonyms": [
-      "h pylori igg",
       "helicobacter pylori igg",
-      "anticuerpos h pylori igg"
+      "anticuerpos h",
+      "pylori ig g",
+      "ac h",
+      "pylori  ig g",
+      "serología ig g h",
+      "pylori"
     ],
     "priceUsd": 11,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Detección serológica en sangre. Informar si ha recibido tratamiento de erradicación previo (los anticuerpos IgG pueden permanecer positivos meses o años post-curación y no discriminan entre infección activa o pasada). Para control activo de erradicación se recomienda el Coproantígeno en Heces ($13.50 USD)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-30",
-    "category": "Inmunología",
-    "name": "Serología Helicobacter pylori Completa (IgM + IgG)",
+    "id": "gp_088_serologia_h_pylori_o_serologia_heli",
+    "category": "INMUNOLOGÍA",
+    "name": "Serologia H, pylori o serología Helicobacter pylori",
     "synonyms": [
-      "serologia h pylori",
-      "serologia helicobacter pylori completa"
+      "serologia h",
+      "pylori",
+      "serología helicobacter pylori"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Detección serológica en sangre. Informar si ha recibido tratamiento de erradicación previo (los anticuerpos IgG pueden permanecer positivos meses o años post-curación y no discriminan entre infección activa o pasada). Para control activo de erradicación se recomienda el Coproantígeno en Heces ($13.50 USD)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-31",
-    "category": "Inmunología",
-    "name": "Dengue IgM / IgG",
+    "id": "gp_089_dengue_igm_igg_prueba_rapida_anticu",
+    "category": "INMUNOLOGÍA",
+    "name": "Dengue IgM/IgG (prueba rápida), anticuerpos Dengue IgM/IgG o AC Dengue IgM/IgG",
     "synonyms": [
-      "dengue igm igg",
-      "serologia dengue",
-      "anticuerpos dengue"
+      "dengue igm",
+      "igg",
+      "prueba rápida",
+      "anticuerpos dengue igm",
+      "ac dengue igm"
     ],
     "priceUsd": 16,
-    "fastingHours": "Ayuno de 2 a 4 horas (no estricto)",
-    "sampleType": "Suero",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Mandatorio informar días de evolución de fiebre: Días 1 a 5 de fiebre: Antígeno NS1 (viremia aguda); Día 6 en adelante: Anticuerpos IgM e IgG. Informar vacunas previas contra fiebre amarilla/dengue o flavivirus previos (Zika, Chikungunya)."
+    "notes": "Indicar días de fiebre: Días 1-5 se indica Antígeno NS1; Día 6 en adelante Anticuerpos IgM/IgG.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-32",
-    "category": "Inmunología",
-    "name": "Dengue Combo (NS1 + IgM + IgG)",
+    "id": "gp_090_dengue_ns1_igm_igg_o_dengue_ns1_o_n",
+    "category": "INMUNOLOGÍA",
+    "name": "Dengue NS1/IgM/IgG o Dengue NS1 o NS1",
     "synonyms": [
-      "dengue combo",
       "dengue ns1",
-      "dengue ns1 igm igg",
-      "antigeno ns1 dengue"
+      "igm",
+      "igg",
+      "ns1"
     ],
     "priceUsd": 20,
-    "fastingHours": "Ayuno de 2 a 4 horas (no estricto)",
-    "sampleType": "Suero",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Mandatorio informar días de evolución de fiebre: Días 1 a 5 de fiebre: Antígeno NS1 (viremia aguda); Día 6 en adelante: Anticuerpos IgM e IgG. Informar vacunas previas contra fiebre amarilla/dengue o flavivirus previos (Zika, Chikungunya)."
+    "notes": "Indicar días de fiebre: Días 1-5 se indica Antígeno NS1; Día 6 en adelante Anticuerpos IgM/IgG.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-33",
-    "category": "Inmunología",
-    "name": "Factor Reumatoideo (FR / RA Test) Semicuantitativo",
+    "id": "gp_091_factor_rematoideo_semicuantitativo",
+    "category": "INMUNOLOGÍA",
+    "name": "Factor rematoideo semicuantitativo o RATEST semicuantitativo o FR semicuantitativo",
     "synonyms": [
-      "factor reumatoideo",
-      "fr",
-      "ra test",
-      "factor reumatoideo semicuantitativo"
+      "factor rematoideo semicuantitativo",
+      "ratest semicuantitativo",
+      "fr semicuantitativo"
     ],
     "priceUsd": 7,
-    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
-    "sampleType": "Suero",
-    "turnaround": "4 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar si el paciente recibe corticoesteroides o inmunosupresores. Informar procesos inflamatorios articulares o infecciones recientes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "inm-34",
-    "category": "Inmunología",
-    "name": "Factor Reumatoideo (FR / RA Test) Cuantitativo",
+    "id": "gp_092_factor_reamatoideo_cuantitativo_o_r",
+    "category": "INMUNOLOGÍA",
+    "name": "Factor reamatoideo cuantitativo o RATEST cuantitativo o FR cuantitativo",
     "synonyms": [
-      "factor reumatoideo cuantitativo",
-      "fr cuantitativo",
-      "ra test cuantitativo"
+      "factor reamatoideo cuantitativo",
+      "ratest cuantitativo",
+      "fr cuantitativo"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 4 a 6 horas (no estricto)",
-    "sampleType": "Suero",
-    "turnaround": "6 a 12 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar si el paciente recibe corticoesteroides o inmunosupresores. Informar procesos inflamatorios articulares o infecciones recientes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "ing-1",
-    "category": "Inmunoglobulinas",
-    "name": "Inmunoglobulina E Total (IgE)",
+    "id": "gp_093_ig_e_o_inmunoglobulina_e",
+    "category": "INMUNOGLOBULINAS",
+    "name": "Ig E o inmunoglobulina E",
     "synonyms": [
-      "ige",
-      "ige total",
-      "inmunoglobulina e",
-      "inmunoglobulina e total (ige)"
+      "ig e",
+      "inmunoglobulina e"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar enfermedades atópicas (asma, rinitis alérgica, dermatitis) o sospecha de parasitosis intestinal reciente. Informar si está bajo tratamiento con corticosteroides sistémicos, antihistamínicos o terapia biológica anti-IgE (omalizumab)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "fer-1",
-    "category": "Perfil Ferrocinética",
-    "name": "Ferritina Sérica",
+    "id": "gp_094_ferritina",
+    "category": "PERFIL FERROCINÉTICA",
+    "name": "Ferritina",
     "synonyms": [
-      "ferritina",
-      "ferritina serica"
+      "ferritina"
     ],
     "priceUsd": 13,
-    "fastingHours": "Ayuno de 8 a 12 horas",
-    "sampleType": "Suero no hemolizado",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Principal reserva férrica del organismo y reactante de fase aguda."
+    "notes": "Extracción matutina ideal. Suspender suplementos de hierro 48 a 72 horas antes salvo indicación médica.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "fer-2",
-    "category": "Perfil Ferrocinética",
-    "name": "Hierro Sérico",
+    "id": "gp_095_hierro_o_fe",
+    "category": "PERFIL FERROCINÉTICA",
+    "name": "Hierro o Fe",
     "synonyms": [
       "hierro",
-      "hierro serico",
-      "sideremia"
+      "fe"
     ],
     "priceUsd": 9,
-    "fastingHours": "Ayuno de 8 a 12 horas. Toma matutina estricta.",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "No tomar suplementos de hierro por vía oral 48h antes de la extracción."
+    "notes": "Extracción matutina ideal. Suspender suplementos de hierro 48 a 72 horas antes salvo indicación médica.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "fer-3",
-    "category": "Perfil Ferrocinética",
-    "name": "Capacidad Total de Fijación del Hierro (TIBC / Transferrina)",
+    "id": "gp_096_tibc_o_transferrina",
+    "category": "PERFIL FERROCINÉTICA",
+    "name": "TIBC o Transferrina",
     "synonyms": [
       "tibc",
-      "transferrina",
-      "capacidad de fijacion de hierro",
-      "capacidad total de fijacion del hierro"
+      "transferrina"
     ],
     "priceUsd": 20,
-    "fastingHours": "Ayuno de 8 a 12 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación del transporte férrico e índice de saturación de transferrina."
+    "notes": "Extracción matutina ideal. Suspender suplementos de hierro 48 a 72 horas antes salvo indicación médica.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-1",
-    "category": "Microbiología",
-    "name": "Urocultivo con Antibiograma Automatizado",
+    "id": "gp_097_urocultivo_o_cultivo_de_orina",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Urocultivo o cultivo de orina",
     "synonyms": [
       "urocultivo",
       "cultivo de orina",
-      "infeccion urinaria cultivo",
-      "antibiograma orina",
-      "urocultivo con antibiograma"
+      "cultivo con antibiograma de orina"
     ],
     "priceUsd": 35,
-    "fastingHours": "Primera orina de la mañana o retención de 3 a 4 horas. Suspender antibióticos 48-72h antes",
-    "sampleType": "Orina de chorro medio en frasco estéril de farmacia (traslado en hielo)",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Orina matutina (chorro medio en frasco estéril)",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Aseo riguroso con agua y jabón neutro (PROHIBIDO usar antisépticos o desinfectantes). Descartar primer chorro y recoger chorro medio. Trasladar en cava con hielo. Muestra tomada antes de iniciar antibióticos o 48-72h después de culminados."
+    "notes": "Higiene genital con agua y jabón neutro. Descartar primer chorro. 48-72h sin antibióticos. Traslado con hielo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-2",
-    "category": "Microbiología",
-    "name": "Coprocultivo (Cultivo Bacteriológico Fecal)",
+    "id": "gp_098_coprocultivo_o_cultivo_de_heces",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Coprocultivo o cultivo de heces",
     "synonyms": [
       "coprocultivo",
-      "cultivo de heces",
-      "cultivo fecal",
-      "coprocultivo automatizado"
+      "cultivo de heces"
     ],
     "priceUsd": 42,
-    "fastingHours": "Sin antibióticos 48-72h antes, sin antidiarreicos ni bismuto",
-    "sampleType": "Muestra fecal en frasco estéril (temperatura ambiente)",
-    "turnaround": "72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en frasco estéril",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Cultivo bacteriológico para aislamiento de Salmonella, Shigella, E. coli patógena. NO es el antígeno de Helicobacter. En lactantes colocar pañal al revés (plástico hacia adentro) y recoger con espátula estéril."
+    "notes": "Muestra con moco/sangre si hay diarrea. Sin antibióticos ni antidiarreicos. Traslado inmediato.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-3",
-    "category": "Microbiología",
-    "name": "Exudado Faríngeo con Antibiograma",
+    "id": "gp_099_exudado_faringeo_o_cultivo_de_exuda",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Exudado Faríngeo o cultivo de exudado faríngeo",
     "synonyms": [
-      "exudado faringeo",
-      "cultivo de garganta",
-      "hisopado faringeo",
-      "exudado faringeo con antibiograma"
+      "exudado faríngeo",
+      "cultivo de exudado faríngeo"
     ],
     "priceUsd": 35,
-    "fastingHours": "En ayunas, sin lavarse los dientes ni usar enjuagues bucales",
-    "sampleType": "Hisopado faríngeo directo en el laboratorio",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "Ayuno matutino estricto",
+    "sampleType": "Hisopado faríngeo en sede",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Acudir en ayunas, estricto SIN cepillarse los dientes, sin enjuagues ni colutorios antisépticos. Toma directa por profesional en la sede."
+    "notes": "En ayunas, sin cepillarse los dientes, sin enjuagues ni caramelos antisépticos. Toma directa en sede.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-4",
-    "category": "Microbiología",
-    "name": "Secreción Nasal con Antibiograma",
+    "id": "gp_100_secrecion_nasal_o_cultivo_de_secrec",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Secreción nasal o cultivo de secreción nasal o cultivo nasofaríngeo",
     "synonyms": [
-      "secrecion nasal",
-      "cultivo nasal",
-      "cultivo secrecion nasal",
-      "hisopado nasal cultivo"
+      "secreción nasal",
+      "cultivo de secreción nasal",
+      "cultivo nasofaríngeo"
     ],
     "priceUsd": 35,
-    "fastingHours": "Suspender gotas y sprays nasales 24h antes",
-    "sampleType": "Hisopado de fosas nasales",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "Ayuno matutino estricto",
+    "sampleType": "Hisopado faríngeo en sede",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Incluye aislamiento bacteriano y antibiograma automatizado."
+    "notes": "En ayunas, sin cepillarse los dientes, sin enjuagues ni caramelos antisépticos. Toma directa en sede.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-5",
-    "category": "Microbiología",
-    "name": "Cultivo de Secreción Ocular / Conjuntival",
+    "id": "gp_101_cultivo_de_secrecion_ocular_o_secre",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo de Secreción ocular o secreción ocular",
     "synonyms": [
-      "secrecion ocular",
-      "cultivo ocular",
-      "cultivo conjuntival",
-      "secrecion conjuntival",
-      "cultivo secrecion ocular"
+      "cultivo de secreción ocular",
+      "secreción ocular"
     ],
     "priceUsd": 45,
-    "fastingHours": "Sin colirios ni ungüentos oftálmicos 24h antes",
-    "sampleType": "Hisopado conjuntival en medio de transporte",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Secreción conjuntival / ocular",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Retirar lentes de contacto 12h antes. Sin maquillaje de ojos."
+    "notes": "Sin colirios ni pomadas 12-24h antes. Retirar lentes de contacto 12h antes. Sin maquillaje.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-6",
-    "category": "Microbiología",
-    "name": "Cultivo de Secreción Ótica",
+    "id": "gp_102_secrecion_otica_o_cultivo_de_secrec",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Secreción ótica o cultivo de secreción ótica o de oído",
     "synonyms": [
-      "secrecion otica",
-      "cultivo otico",
-      "cultivo de oido",
-      "secrecion de oido"
+      "secreción ótica",
+      "cultivo de secreción ótica",
+      "de",
+      "ído"
     ],
     "priceUsd": 45,
-    "fastingHours": "Sin gotas óticas 48h antes",
-    "sampleType": "Hisopado de conducto auditivo externo",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Secreción del conducto auditivo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "No realizar lavados de oído previos a la toma."
+    "notes": "Sin gotas óticas 48 horas previas.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-7",
-    "category": "Microbiología",
-    "name": "Cultivo de Secreción de Heridas y Úlceras",
+    "id": "gp_103_secrecion_de_herida_o_cultivo_de_se",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Secreción de herida o cultivo de secreción de herida, cultivo de úlceras",
     "synonyms": [
-      "cultivo de herida",
-      "cultivo de herida y ulceras",
-      "cultivo de ulceras",
-      "secrecion de herida",
-      "secrecion de herida/ulcera",
-      "secrecion de herida / ulcera"
+      "secreción de herida",
+      "cultivo de secreción de herida",
+      "cultivo de úlceras"
     ],
     "priceUsd": 50,
-    "fastingHours": "Sin apósitos con medicamentos, cremas ni antibióticos tópicos 24h antes",
-    "sampleType": "Exudado de lecho ulceroso / hisopado profundo",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Hisopado de secreción de herida en medio de transporte",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Incluye cultivo bacteriológico y micológico. Lavado previo del área con solución fisiológica estéril antes de recolectar la muestra de la base limpia."
+    "notes": "Sin cremas tópicas ni ungüentos 24h antes. Limpieza con solución fisiológica previa.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-8",
-    "category": "Microbiología",
-    "name": "Cultivo de Secreción Uretral",
+    "id": "gp_104_secrecion_uretral_o_cultivo_de_secr",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Secreción uretral o cultivo de secreción uretral",
     "synonyms": [
-      "secrecion uretral",
-      "cultivo uretral",
-      "exudado uretral"
+      "secreción uretral",
+      "cultivo de secreción uretral"
     ],
     "priceUsd": 50,
-    "fastingHours": "Retención urinaria de al menos 4 horas. Abstinencia sexual 48h.",
-    "sampleType": "Hisopado intrauretral fino",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Secreción uretral",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Toma realizada por especialista en el laboratorio."
+    "notes": "Retención urinaria matutina de 4 a 6 horas (no orinar antes). Sin aseo genital inmediato.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-9",
-    "category": "Microbiología",
-    "name": "Cultivo de Secreción Vaginal / Exudado Vaginal",
+    "id": "gp_105_secrecion_vaginal_o_cultivo_de_secr",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Secreción vaginal o cultivo de secreción vaginal",
     "synonyms": [
-      "secrecion vaginal",
-      "cultivo vaginal",
-      "exudado vaginal",
-      "flujo vaginal cultivo"
+      "secreción vaginal",
+      "cultivo de secreción vaginal"
     ],
     "priceUsd": 45,
-    "fastingHours": "Abstinencia sexual 48h. Sin duchas vaginales, óvulos ni cremas por 3 días.",
-    "sampleType": "Hisopado de fondo de saco vaginal",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Secreción vaginal",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "No estar menstruando. Aseo genital externo solo con agua."
+    "notes": "48-72h sin relaciones sexuales, óvulos, cremas ni duchas. No estar menstruando (acudir 2-3 días después).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-10",
-    "category": "Microbiología",
-    "name": "Cultivo de Lavado Broncoalveolar (LBA)",
+    "id": "gp_106_lavado_bronqueoalveolar_o_cultivo_d",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Lavado bronqueoalveolar o cultivo de LBA o cultivo de lavado bronqueoalveolar",
     "synonyms": [
-      "lavado broncoalveolar",
-      "lba",
-      "cultivo lavado broncoalveolar",
-      "lavado broncoalveolar lba"
+      "lavado bronqueoalveolar",
+      "cultivo de lba",
+      "cultivo de lavado bronqueoalveolar"
     ],
     "priceUsd": 51,
-    "fastingHours": "Procedimiento broncoscópico intrahospitalario",
-    "sampleType": "Líquido en trampa estéril de Lukens",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Expectoración matutina profunda / Aspirado bronquial",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Incluye cultivo bacteriológico y micológico. Traslado inmediato en < 2 horas al laboratorio."
+    "notes": "Enjuague bucal solo con agua simple. Tos profunda matutina en recolector estéril (no saliva).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-11",
-    "category": "Microbiología",
-    "name": "Cultivo de Secreción Bronquial",
+    "id": "gp_107_secrecion_bronquial_o_cultivo_de_se",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Secreción bronquial o cultivo de secreción bronquial o aspirado bronquial",
     "synonyms": [
-      "secrecion bronquial",
-      "aspirado bronquial",
-      "cultivo secrecion bronquial"
+      "secreción bronquial",
+      "cultivo de secreción bronquial",
+      "aspirado bronquial"
     ],
     "priceUsd": 50,
-    "fastingHours": "Procedimiento médico",
-    "sampleType": "Aspirado traqueobronquial en frasco estéril sellado",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Expectoración matutina profunda / Aspirado bronquial",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Incluye cultivo bacteriológico y micológico. Mantener a temperatura ambiente y trasladar de inmediato."
+    "notes": "Enjuague bucal solo con agua simple. Tos profunda matutina en recolector estéril (no saliva).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-12",
-    "category": "Microbiología",
-    "name": "Cultivo de Esputo (Expectoración Profunda)",
+    "id": "gp_108_esputo_o_cultivo_de_esputo",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Esputo o cultivo de esputo",
     "synonyms": [
-      "cultivo de esputo",
       "esputo",
-      "expectoracion profunda",
-      "esputo cultivo"
+      "cultivo de esputo"
     ],
     "priceUsd": 50,
-    "fastingHours": "En ayunas matutina",
-    "sampleType": "Desgarro bronquial profundo matutino en frasco estéril (no saliva)",
-    "turnaround": "72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Expectoración matutina profunda / Aspirado bronquial",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Incluye cultivo bacteriológico y micológico. Enjuague bucal únicamente con agua simple. Tos profunda desde los pulmones. Evitar saliva."
+    "notes": "Enjuague bucal solo con agua simple. Tos profunda matutina en recolector estéril (no saliva).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-13",
-    "category": "Microbiología",
-    "name": "Cultivo de Líquido Cefalorraquídeo (LCR)",
+    "id": "gp_109_cultivo_de_lcr_o_cultivo_de_liquido",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo de LCR o cultivo de líquido cefalorraquídeoo cultivo de fluido cerebroespinal",
     "synonyms": [
-      "cultivo lcr",
-      "cultivo de liquido cefalorraquideo",
-      "cultivo liquido lcr"
+      "cultivo de lcr",
+      "cultivo de líquido cefalorraquídeoo cultivo de fluido cerebroespinal"
     ],
     "priceUsd": 43,
-    "fastingHours": "Punción lumbar por médico",
-    "sampleType": "LCR en tubo estéril",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "¡NUNCA REFRIGERAR! Traslado urgente e inmediato a temperatura ambiente (20-25°C)."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-14",
-    "category": "Microbiología",
-    "name": "Cultivo de Líquido Pleural",
+    "id": "gp_110_cultivo_de_liquido_pleural",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo de líquido pleural",
     "synonyms": [
-      "cultivo liquido pleural",
-      "cultivo de liquido pleural",
-      "cultivo pleural"
+      "cultivo de líquido pleural"
     ],
     "priceUsd": 43,
-    "fastingHours": "Toracocentesis médica",
-    "sampleType": "Líquido pleural en frasco estéril",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "¡NUNCA REFRIGERAR! Traslado inmediato a temperatura ambiente."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-15",
-    "category": "Microbiología",
-    "name": "Cultivo de Líquido Sinovial (Articular)",
+    "id": "gp_111_cultivo_de_liquido_sinovial_o_culti",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo de líquido sinovial o cultivo de líquido articular",
     "synonyms": [
-      "cultivo liquido sinovial",
-      "cultivo sinovial",
-      "cultivo de liquido articular"
+      "cultivo de líquido sinovial",
+      "cultivo de líquido articular"
     ],
     "priceUsd": 43,
-    "fastingHours": "Artrocentesis médica",
-    "sampleType": "Líquido sinovial estéril",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "¡NUNCA REFRIGERAR! Traslado inmediato a temperatura ambiente."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-16",
-    "category": "Microbiología",
-    "name": "Cultivo de Líquido Pericárdico",
+    "id": "gp_112_cultivo_de_liquido_pericardico",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo de líquido pericárdico",
     "synonyms": [
-      "cultivo liquido pericardico",
-      "cultivo pericardico"
+      "cultivo de líquido pericárdico"
     ],
     "priceUsd": 43,
-    "fastingHours": "Pericardiocentesis médica",
-    "sampleType": "Líquido pericárdico estéril",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "¡NUNCA REFRIGERAR! Traslado urgente a temperatura ambiente."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-17",
-    "category": "Microbiología",
-    "name": "Cultivo de Líquido Peritoneal / Ascítico",
+    "id": "gp_113_cultivo_de_liquido_peritoneal_o_cul",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo de líquido peritoneal o cultivo de líquido ascítico",
     "synonyms": [
-      "cultivo liquido peritoneal",
-      "cultivo liquido ascitico",
-      "cultivo peritoneal",
-      "cultivo ascitico"
+      "cultivo de líquido peritoneal",
+      "cultivo de líquido ascítico"
     ],
     "priceUsd": 43,
-    "fastingHours": "Paracentesis médica",
-    "sampleType": "Líquido peritoneal/ascítico estéril",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "¡NUNCA REFRIGERAR! Traslado inmediato a temperatura ambiente."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-18",
-    "category": "Microbiología",
-    "name": "Hemocultivo Automatizado",
+    "id": "gp_114_hemocultivo_o_cultivo_de_sangre",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Hemocultivo o cultivo de sangre",
     "synonyms": [
       "hemocultivo",
-      "cultivo de sangre",
-      "hemocultivos",
-      "hemocultivo automatizado"
+      "cultivo de sangre"
     ],
     "priceUsd": 49,
-    "fastingHours": "Sin ayuno ni restricciones dietéticas",
-    "sampleType": "Sangre inoculada en frasco comercial automatizado",
-    "turnaround": "5 a 7 días",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Sangre venosa en frascos comerciales estériles",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Toma venosa periférica rigurosamente aséptica al inicio de picos febriles o escalofríos. Mantener botellas a temperatura ambiente."
+    "notes": "Adquirir frascos en el laboratorio. Punción periférica ideal al inicio de pico febril.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-19",
-    "category": "Microbiología",
-    "name": "Estudio de Disbiosis Intestinal",
+    "id": "gp_115_disbiosis",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Disbiosis",
     "synonyms": [
-      "disbiosis",
-      "disbiosis intestinal",
-      "microbiota disbiosis",
-      "estudio de disbiosis intestinal"
+      "disbiosis"
     ],
     "priceUsd": 53,
-    "fastingHours": "Sin ayuno. CRÍTICO: 15 días sin antibióticos, antimicóticos, probióticos ni consumo de yogurt",
-    "sampleType": "Muestra fecal en recolector estéril (llenar 3/4 partes)",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "REQUISITO CRÍTICO: NO recibir antibióticos, antimicóticos, probióticos ni consumir yogurt durante al menos 15 días previos. Llenar 3/4 partes del envase estéril y trasladar de inmediato a temperatura ambiente."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-20",
-    "category": "Microbiología",
+    "id": "gp_116_coloracion_de_gram",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
     "name": "Coloración de Gram",
     "synonyms": [
-      "coloracion de gram",
-      "tincion de gram",
-      "gram"
+      "coloración de gram"
     ],
     "priceUsd": 6,
-    "fastingHours": "Sin condiciones especiales",
-    "sampleType": "Frotis directo del espécimen en lámina portaobjetos",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra biológica extendida en lámina portaobjeto",
+    "turnaround": "Mismo día",
     "active": true,
-    "notes": "Diferenciación bacteriana Gram positiva vs Gram negativa y respuesta leucocitaria."
+    "notes": "Coloración microscópica directa.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-21",
-    "category": "Microbiología",
-    "name": "Coloración de Ziehl-Neelsen / Baciloscopia (BK)",
+    "id": "gp_117_coloracion_de_zielh_neelsen_o_color",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Coloración de Zielh Neelsen o coloración ZN o  BK",
     "synonyms": [
-      "ziehl neelsen",
-      "bk",
-      "baciloscopia",
-      "baciloscopia bk",
-      "coloracion de ziehl-neelsen / baciloscopia (bk)"
+      "coloración de zielh neelsen",
+      "coloración zn",
+      "bk"
     ],
     "priceUsd": 6,
-    "fastingHours": "En ayunas para esputo matutino",
-    "sampleType": "Esputo / orina / biopsia líquida",
-    "turnaround": "24 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra biológica extendida en lámina portaobjeto",
+    "turnaround": "Mismo día",
     "active": true,
-    "notes": "Búsqueda directa de Bacilos Ácido-Alcohol Resistentes (BAAR / Tuberculosis)."
+    "notes": "Coloración microscópica directa.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-22",
-    "category": "Microbiología",
-    "name": "Examen Directo KOH (Hongos)",
+    "id": "gp_118_koh",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "KOH",
     "synonyms": [
-      "koh",
-      "examen directo koh",
-      "directo koh",
-      "hidroxido de potasio"
+      "koh"
     ],
     "priceUsd": 12,
-    "fastingHours": "Sin cremas ni antimicóticos tópicos 7 días antes",
-    "sampleType": "Raspado de escamas, uñas, pelos o secreciones",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Raspado de uñas / Escamas de piel / Muestra de pelos",
+    "turnaround": "5 a 8 días hábiles",
     "active": true,
-    "notes": "Disolución de queratina para visualización microscópica inmediata de hifas y esporas."
+    "notes": "⚠️ PREVIA CITA OBLIGATORIA con la micóloga. 7 a 15 días sin antimicóticos tópicos ni orales. Sin cosméticos ni cremas 3 días antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-23",
-    "category": "Microbiología",
-    "name": "Examen de Demodex folliculorum",
+    "id": "gp_119_demodex",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Demodex",
     "synonyms": [
       "demodex",
-      "demodex folliculorum",
-      "examen de demodex folliculorum",
-      "acaros pestañas demodex"
+      "acaros demodex",
+      "demodex en pestanas",
+      "demodex facial"
     ],
     "priceUsd": 12,
-    "fastingHours": "Sin maquillaje ni cremas faciales 24h antes",
-    "sampleType": "Depilación de pestañas / raspado de piel facial",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra de pestañas / folículos sebáceos faciales",
+    "turnaround": "Mismo día o 24-48h",
     "active": true,
-    "notes": "Búsqueda microscópica de ácaros en folículos pilosos y pestañas."
+    "notes": "⚠️ PREVIA CITA OBLIGATORIA con la micóloga. La mañana del examen NO lavarse el rostro. Acudir sin maquillaje ni cremas durante 24h.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-24",
-    "category": "Microbiología",
-    "name": "Cultivo Micológico (Hongos en Piel, Uñas, Cabello)",
+    "id": "gp_120_cultivo_micologico",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo micológico",
     "synonyms": [
-      "cultivo micologico",
-      "cultivo de hongos",
-      "cultivo para hongos",
-      "micologico"
+      "cultivo micológico",
+      "estudio de hongos",
+      "cultivo de hongos"
     ],
     "priceUsd": 24,
-    "fastingHours": "7 a 15 días sin antimicóticos tópicos ni orales. 3 días sin cremas, talcos, perfumes ni esmaltes",
-    "sampleType": "Raspado de uñas / escamas de piel / cabello",
-    "turnaround": "15 a 21 días (Examen directo KOH en 24h)",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Raspado de uñas / Escamas de piel / Muestra de pelos",
+    "turnaround": "5 a 8 días hábiles",
     "active": true,
-    "notes": "Suspender tratamientos antimicóticos tópicos y orales 7 a 15 días antes. Uñas: sin cortar 1 semana, cepillado neutro 3 días, sin esmaltes. Piel: evitar ducha justo antes de la toma. Cuero cabelludo: 24h sin lavar. CON PREVIA CITA con la micóloga."
+    "notes": "⚠️ PREVIA CITA OBLIGATORIA con la micóloga. 7 a 15 días sin antimicóticos tópicos ni orales. Sin cosméticos ni cremas 3 días antes.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-25",
-    "category": "Microbiología",
-    "name": "Espermocultivo (Prueba de los 4 Vasos)",
+    "id": "gp_121_espermocultivo_prueba_de_los_4_vaso",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Espermocultivo (prueba de los 4 vasos)",
     "synonyms": [
       "espermocultivo",
-      "prueba de los 4 vasos",
-      "cultivo de semen",
-      "cultivo de liquido seminal",
-      "espermocultivo 4 vasos"
+      "prueba de los 4 vasos"
     ],
     "priceUsd": 50,
-    "fastingHours": "7 a 14 días sin antibióticos, 2-3 días abstinencia sexual, retención urinaria nocturna (o 4h)",
-    "sampleType": "4 frascos estériles numerados (F1, F2, F3, F4)",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Kit de 4 frascos estériles (Meares y Stamey)",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "PRUEBA DE LOS 4 VASOS DE MEARES Y STAMEY: Aseo genital neutro sin antisépticos. 4 frascos estériles: Frasco 1 (primeros 5-10 mL orina), Frasco 2 (chorro medio orina), Frasco 3 (eyaculado completo por masturbación, sin preservativo), Frasco 4 (primeros 5-10 mL orina post-eyaculación). Orinas en hielo y semen a temperatura ambiente (20-25°C)."
+    "notes": "7-14 días sin antibióticos. Abstinencia sexual 2-3 días. Retención de orina 4h. Se recolectan 4 frascos.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-26",
-    "category": "Microbiología",
-    "name": "Cultivo Bacteriológico General",
+    "id": "gp_122_cultivo_bacteriologico",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Cultivo bacteriológico",
     "synonyms": [
-      "cultivo bacteriologico",
-      "cultivo general",
-      "cultivo bacteriologico general"
+      "cultivo bacteriológico"
     ],
     "priceUsd": 40,
-    "fastingHours": "Sin antibióticos 48-72h antes",
-    "sampleType": "Muestra biológica según localización clínica",
-    "turnaround": "48 a 72 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "3 a 8 días hábiles",
     "active": true,
-    "notes": "Cultivo estándar para identificación bacteriana."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-27",
-    "category": "Microbiología",
-    "name": "Antifungigrama 6 Antifúngicos",
+    "id": "gp_123_antifungigrama_6_antifungicos",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Antifungigrama (6 antifúngicos)",
     "synonyms": [
-      "antifungigrama 6",
-      "antifungigrama de 6 antifungicos",
-      "sensibilidad antifungica 6"
+      "antifungigrama",
+      "6 antifúngicos"
     ],
     "priceUsd": 37,
-    "fastingHours": "Aislamiento de levaduras/hongos en cultivo previo",
-    "sampleType": "Cepa fúngica aislada",
-    "turnaround": "48 a 72 horas adicionales",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra biológica extendida en lámina portaobjeto",
+    "turnaround": "Mismo día",
     "active": true,
-    "notes": "Prueba de susceptibilidad antifúngica amplia con 6 fármacos."
+    "notes": "Coloración microscópica directa.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-28",
-    "category": "Microbiología",
-    "name": "Antifungigrama 3 Antifúngicos",
+    "id": "gp_124_antifungigrama_3_antifungicos",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Antifungigrama (3 antifúngicos)",
     "synonyms": [
-      "antifungigrama 3",
-      "antifungigrama de 3 antifungicos",
-      "sensibilidad antifungica 3"
+      "antifungigrama",
+      "3 antifúngicos"
     ],
     "priceUsd": 17,
-    "fastingHours": "Aislamiento de levaduras/hongos en cultivo previo",
-    "sampleType": "Cepa fúngica aislada",
-    "turnaround": "48 a 72 horas adicionales",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra biológica extendida en lámina portaobjeto",
+    "turnaround": "Mismo día",
     "active": true,
-    "notes": "Prueba de susceptibilidad antifúngica estándar con 3 fármacos."
+    "notes": "Coloración microscópica directa.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mic-29",
-    "category": "Microbiología",
-    "name": "Antifungigrama 2 Antifúngicos",
+    "id": "gp_125_antifungigrama_2_antifungicos",
+    "category": "MICROBIOLOGÍA AUTOMATIZADA",
+    "name": "Antifungigrama (2 antifúngicos)",
     "synonyms": [
-      "antifungigrama 2",
-      "antifungigrama de 2 antifungicos",
-      "sensibilidad antifungica 2"
+      "antifungigrama",
+      "2 antifúngicos"
     ],
     "priceUsd": 10,
-    "fastingHours": "Aislamiento de levaduras/hongos en cultivo previo",
-    "sampleType": "Cepa fúngica aislada",
-    "turnaround": "48 a 72 horas adicionales",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra biológica extendida en lámina portaobjeto",
+    "turnaround": "Mismo día",
     "active": true,
-    "notes": "Prueba de susceptibilidad antifúngica reducida con 2 fármacos."
+    "notes": "Coloración microscópica directa.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-1",
-    "category": "Uroanálisis",
-    "name": "Uroanálisis / Examen General de Orina",
+    "id": "gp_126_uroanalisis_o_examen_de_orina",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Uroanálisis o examen de orina",
     "synonyms": [
-      "uroanalisis",
+      "uroanálisis",
       "examen de orina",
-      "examen general de orina",
-      "orina completa",
-      "ego"
+      "orina simple",
+      "parcial de orina"
     ],
     "priceUsd": 6,
-    "fastingHours": "Primera orina de la mañana (chorro medio)",
-    "sampleType": "Orina de primera micción matutina en frasco estéril de farmacia",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno de alimentos",
+    "sampleType": "Primera orina de la mañana (chorro medio)",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Aseo genital previo con agua y jabón neutro (sin antisépticos). Descartar el primer chorro y recolectar el chorro medio en envase estéril con tapa de rosca. Entregar en menos de 1 hora al laboratorio. En lactantes cambiar la bolsa colectora cada 20-30 minutos."
+    "notes": "Aseo genital neutro previo. Envase estéril de farmacia. Entregar en máx 1 hora o refrigerar.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-2",
-    "category": "Uroanálisis",
-    "name": "Depuración de Creatinina en Orina de 24 Horas",
+    "id": "gp_127_depuracion_de_creatinina_24_h_o_cle",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Depuración de creatinina 24 h o clearence de creatinina",
     "synonyms": [
-      "depuracion de creatinina",
-      "clearance de creatinina",
-      "depuracion de creatinina 24h",
-      "aclaramiento de creatinina"
+      "depuración de creatinina 24 h",
+      "clearence de creatinina"
     ],
     "priceUsd": 12,
-    "fastingHours": "Recolección estricta de 24 horas refrigerada a ~8°C + Muestra de sangre en ayunas en el laboratorio",
-    "sampleType": "Totalidad de orina emitida en 24h refrigerada + Suero sanguíneo matutino",
-    "turnaround": "6 a 12 horas",
+    "fastingHours": "Ayuno para la muestra de sangre venosa",
+    "sampleType": "Orina completa de 24 horas + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Protocolo de 24h: Día 1 a las 6:00/7:00 AM orinar en el inodoro (descartar 1ra orina) y anotar la hora exacta. Recolectar todas las micciones diurnas y nocturnas en botella plástica limpia manteniendo en nevera (~8°C, no congelar). Día 2 recoger la primera orina a la misma hora del Día 1 y cerrar la recolección. Acudir de inmediato al laboratorio en ayunas para la toma de sangre."
+    "notes": "Día 1 descartar orina 6:00 AM. Recoger todas las micciones hasta Día 2 6:00 AM refrigerado en botellón limpio. Acudir en ayunas para la toma de sangre.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-3",
-    "category": "Uroanálisis",
-    "name": "Microalbuminuria en Muestra Parcial",
+    "id": "gp_128_microalbuminuria_parcial_o_albuminu",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Microalbuminuria parcial o albuminuria",
     "synonyms": [
-      "microalbuminuria",
-      "microalbumina en orina",
-      "microalbuminuria parcial"
+      "microalbuminuria parcial",
+      "albuminuria"
     ],
     "priceUsd": 12,
-    "fastingHours": "Primera orina de la mañana o según indicación médica",
-    "sampleType": "Orina de chorro medio",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno de alimentos",
+    "sampleType": "Primera orina de la mañana (chorro medio)",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evitar ejercicio físico extenuante 24 horas antes. Posponer en caso de fiebre aguda o infección urinaria sintomática."
+    "notes": "Aseo genital neutro previo. Envase estéril de farmacia. Entregar en máx 1 hora o refrigerar.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-4",
-    "category": "Uroanálisis",
-    "name": "Proteinuria en Muestra Parcial",
+    "id": "gp_129_proteinuria_parcial_o_24_h",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Proteinuria parcial o 24 h",
     "synonyms": [
       "proteinuria parcial",
-      "proteinas en orina parcial",
-      "proteinuria al azar"
+      "24 h"
     ],
     "priceUsd": 13,
-    "fastingHours": "Primera orina de la mañana",
-    "sampleType": "Orina en recolector estéril",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno de alimentos",
+    "sampleType": "Primera orina de la mañana (chorro medio)",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Cuantificación puntual de proteínas urinarias."
+    "notes": "Aseo genital neutro previo. Envase estéril de farmacia. Entregar en máx 1 hora o refrigerar.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-5",
-    "category": "Uroanálisis",
-    "name": "Proteinuria en Orina de 24 Horas",
+    "id": "gp_130_proteinuria_24_h",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Proteinuria 24 h",
     "synonyms": [
-      "proteinuria 24 horas",
-      "proteinuria 24h",
-      "proteinas en orina 24 horas"
+      "proteinuria 24 h"
     ],
     "priceUsd": 13,
-    "fastingHours": "Recolección de 24 horas refrigerada a ~8°C",
-    "sampleType": "Orina de 24 horas refrigerada",
-    "turnaround": "6 a 12 horas",
+    "fastingHours": "Ayuno para la muestra de sangre venosa",
+    "sampleType": "Orina completa de 24 horas + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Mismo protocolo de recolección de 24 horas refrigerada a ~8°C. Evitar ejercicio extenuante 24h antes."
+    "notes": "Día 1 descartar orina 6:00 AM. Recoger todas las micciones hasta Día 2 6:00 AM refrigerado en botellón limpio. Acudir en ayunas para la toma de sangre.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-6",
-    "category": "Uroanálisis",
-    "name": "Relaciones Urinarias (Calcio / Creatinina / Ácido Úrico)",
+    "id": "gp_131_relaciones_urinarias_orina_parcial",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Relaciones urinarias (orina parcial) o índices urinarios o cocientes urinarios o Relaciones AU/Cr, P/Cr, Ca/Cr",
     "synonyms": [
       "relaciones urinarias",
-      "relacion calcio creatinina",
-      "indices urinarios"
+      "orina parcial",
+      "índices urinarios",
+      "cocientes urinarios",
+      "relaciones au",
+      "cr",
+      "ca"
     ],
     "priceUsd": 20,
-    "fastingHours": "Segunda orina de la mañana en ayunas",
-    "sampleType": "Segunda orina de la mañana (descartando la primera al despertar)",
-    "turnaround": "24 horas",
+    "fastingHours": "Ayuno matutino",
+    "sampleType": "Segunda orina de la mañana",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Descartar la primera orina de la mañana al despertar y recolectar la SEGUNDA orina de la mañana en ayunas. Mantener dieta habitual los 3 días previos (sin variar ingesta de lácteos ni carnes). Entregar en <1 hora."
+    "notes": "Descartar la primera orina al levantarse y recolectar la segunda orina de la mañana en ayunas.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-7",
-    "category": "Uroanálisis",
-    "name": "Osmolaridad Urinaria",
+    "id": "gp_132_osmolaridad",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Osmolaridad",
     "synonyms": [
-      "osmolaridad urinaria",
-      "osmolaridad en orina"
+      "osmolaridad"
     ],
     "priceUsd": 6,
-    "fastingHours": "Sin ingesta hídrica forzada previa",
-    "sampleType": "Orina fresca",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno de alimentos",
+    "sampleType": "Primera orina de la mañana (chorro medio)",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación de la capacidad de concentración y dilución renal."
+    "notes": "Aseo genital neutro previo. Envase estéril de farmacia. Entregar en máx 1 hora o refrigerar.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-8",
-    "category": "Uroanálisis",
-    "name": "Concentraciones Urinarias en Orina de 24 Horas",
+    "id": "gp_133_concentraciones_urinarias_24_h_o_au",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Concentraciones urinarias 24 h o  AU 24h, P 24 h, Ca 24 h y creatinina 24 h",
     "synonyms": [
-      "concentraciones urinarias 24h",
-      "panel metabolico urinario 24h",
-      "electrolitos en orina 24h"
+      "concentraciones urinarias 24 h",
+      "au 24h",
+      "p 24 h",
+      "ca 24 h y creatinina 24 h"
     ],
     "priceUsd": 20,
-    "fastingHours": "Recolección de 24 horas refrigerada a ~8°C",
-    "sampleType": "Orina de 24 horas refrigerada",
-    "turnaround": "24 horas",
+    "fastingHours": "Ayuno para la muestra de sangre venosa",
+    "sampleType": "Orina completa de 24 horas + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolección completa de 24 horas refrigerada para cuantificación de analitos urinarios."
+    "notes": "Día 1 descartar orina 6:00 AM. Recoger todas las micciones hasta Día 2 6:00 AM refrigerado en botellón limpio. Acudir en ayunas para la toma de sangre.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "uri-9",
-    "category": "Uroanálisis",
-    "name": "Relación Albúmina / Creatinina Urinaria (RAC)",
+    "id": "gp_134_relacion_albumina_cr_orina_parcial",
+    "category": "UROANÁLISIS Y ORINA",
+    "name": "Relación albúmina/Cr (orina parcial)",
     "synonyms": [
-      "relacion albumina creatinina",
-      "rac",
-      "indice albumina creatinina",
-      "relacion albumina / cr"
+      "relación albúmina",
+      "cr",
+      "orina parcial"
     ],
     "priceUsd": 17,
-    "fastingHours": "Segunda orina de la mañana en ayunas",
-    "sampleType": "Segunda orina de la mañana (descartando la primera al despertar)",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "Ayuno matutino",
+    "sampleType": "Segunda orina de la mañana",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Descartar la primera orina de la mañana al despertar y recolectar la SEGUNDA orina de la mañana en ayunas. Mantener dieta habitual los 3 días previos (sin variar ingesta de lácteos ni carnes). Entregar en <1 hora."
+    "notes": "Descartar la primera orina al levantarse y recolectar la segunda orina de la mañana en ayunas.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-1",
-    "category": "Coproanálisis",
-    "name": "Examen Coproparasitológico Simple",
+    "id": "gp_135_coproparasitologico_o_examen_de_hec",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Coproparasitológico o examen de heces",
     "synonyms": [
-      "coproanalisis",
-      "examen de heces",
-      "heces simple",
-      "parasitologico en heces",
-      "coproparasitologico"
+      "coproparasitológico",
+      "examen de heces"
     ],
     "priceUsd": 6,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca del tamaño de una nuez en frasco estéril",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evitar purgantes, supositorios o antiácidos. Trasladar al laboratorio en menos de 2 horas tras la evacuación."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-2",
-    "category": "Coproanálisis",
-    "name": "Leucograma Fecal (Citología Fecal / Polimorfonucleares)",
+    "id": "gp_136_leucograma_fecal_o_leucocitos_en_he",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Leucograma fecal o leucocitos en heces o polimoufonucleares en heces",
     "synonyms": [
       "leucograma fecal",
-      "citologia fecal",
-      "polimorfonucleares en heces",
-      "leucocitos en heces"
+      "leucocitos en heces",
+      "polimoufonucleares en heces"
     ],
     "priceUsd": 11,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca trasladada en < 1 hora",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Diferenciación de diarrea inflamatoria / invasiva vs no inflamatoria."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-3",
-    "category": "Coproanálisis",
-    "name": "Tinción de Sudán III (Grasas Neutras en Heces)",
+    "id": "gp_137_sudan_iii_o_esteatorrea_en_heces",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Sudan III o esteatorrea en heces",
     "synonyms": [
       "sudan iii",
-      "tincion sudan iii",
-      "grasas en heces sudan"
+      "esteatorrea en heces"
     ],
     "priceUsd": 11,
-    "fastingHours": "Dieta con consumo habitual de grasas los 3 días previos",
-    "sampleType": "Muestra fecal fresca",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Detección microscópica de esteatorrea y malabsorción lipídica."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-4",
-    "category": "Coproanálisis",
-    "name": "Concentrado de Heces (Método de Ritchie / Formol-Éter)",
+    "id": "gp_138_concentrado_de_heces_o_seriado_de_h",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Concentrado de heces o seriado de heces",
     "synonyms": [
       "concentrado de heces",
-      "metodo de ritchie",
-      "concentracion fecal"
+      "seriado de heces"
     ],
     "priceUsd": 20,
-    "fastingHours": "No requiere ayuno. Requiere adquirir kit de 3 frascos con conservante en el laboratorio",
-    "sampleType": "3 muestras fecales recolectadas en el kit especial provisto por el laboratorio",
-    "turnaround": "6 a 12 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "1. Acuda al laboratorio para adquirir el kit de recolección de las 3 muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado. 2. Cuide no derramar el líquido preservante durante el traslado."
+    "notes": "Retirar kit de recolección con conservante en el laboratorio para las 3 muestras.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-5",
-    "category": "Coproanálisis",
-    "name": "Prueba de Absorción Intestinal (D-Xilosa / Azúcares Reductores)",
+    "id": "gp_139_absorcion_intestinal_o_azucares_red",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Absorción intestinal o azúcares reductores o prueba de intolerancia a los azúcares",
     "synonyms": [
-      "absorcion intestinal",
-      "prueba de absorcion intestinal",
-      "azucares reductores en heces"
+      "absorción intestinal",
+      "azúcares reductores",
+      "prueba de intolerancia a los azúcares"
     ],
     "priceUsd": 11,
-    "fastingHours": "Sin ayuno para muestra fecal",
-    "sampleType": "Muestra fecal recién emitida",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Evaluación de intolerancia a carbohidratos y síndrome de malabsorción."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-6",
-    "category": "Coproanálisis",
-    "name": "Test de Graham Masculino (Búsqueda de Oxiuros / Enterobius)",
+    "id": "gp_140_graham_masculino_o_prueba_para_oxiu",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Graham masculino o prueba para oxiurus masculino",
     "synonyms": [
-      "test de graham",
       "graham masculino",
-      "enterobius vermicularis",
-      "cinta engomada oxiuros"
+      "prueba para oxiurus masculino"
     ],
     "priceUsd": 11,
-    "fastingHours": "Al despertar, sin baño ni aseo perianal y antes de evacuar",
-    "sampleType": "Cinta adhesiva transparente aplicada en márgenes perianales adherida a lámina portaobjetos",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Kit de láminas con cinta adhesiva transparente",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Toma matutina rigurosa antes de levantarse o asearse."
+    "notes": "Retirar kit en sede. Toma matutina al despertar antes de levantarse y sin aseo perianal previo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-7",
-    "category": "Coproanálisis",
-    "name": "Test de Graham Femenino",
+    "id": "gp_141_graham_femenino_o_prueba_de_oxiurus",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Graham femenino o prueba de oxiurus  femenino",
     "synonyms": [
       "graham femenino",
-      "test de graham femenino"
+      "prueba de oxiurus  femenino"
     ],
     "priceUsd": 13,
-    "fastingHours": "No requiere ayuno. Requiere adquirir kit de 3 frascos con conservante en el laboratorio",
-    "sampleType": "3 muestras fecales recolectadas en el kit especial provisto por el laboratorio",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Kit de láminas con cinta adhesiva transparente",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "1. Acuda al laboratorio para adquirir el kit de recolección de las 3 muestras. En ese momento se le proporcionará la información necesaria para la recolección y traslado. 2. Cuide no derramar el líquido preservante durante el traslado."
+    "notes": "Retirar kit en sede. Toma matutina al despertar antes de levantarse y sin aseo perianal previo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-8",
-    "category": "Coproanálisis",
-    "name": "Coproantígenos de Helicobacter pylori en Heces",
+    "id": "gp_142_coproantigenos_helicobacter_pylori",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Coproantígenos Helicobacter pylori o Helicobacter pylori en heces o H, pylori en heces o Antígenos fecales de H, pylori",
     "synonyms": [
-      "coproantigenos h pylori",
-      "coproantigeno helicobacter",
-      "coproantigeno de helicobacter",
-      "coproantigenos helicobacter",
-      "coproantigenos de helicobacter",
-      "coproantigeno de helicobacter pylori",
-      "antigeno de helicobacter",
-      "antigeno de helicobacter en heces",
-      "antigeno helicobacter pylori",
-      "antigeno h pylori en heces",
-      "helicobacter en heces",
-      "helicobacter heces",
-      "h pylori en heces"
+      "coproantígenos helicobacter pylori",
+      "helicobacter pylori en heces",
+      "pylori en heces",
+      "antígenos fecales de h",
+      "pylori"
     ],
-    "priceUsd": 13,
-    "fastingHours": "Sin ayuno. Suspender antibióticos y bismuto 4 semanas antes, e inhibidores de bomba de protones (IBP) 2 semanas antes",
-    "sampleType": "Muestra de heces fresca en frasco estéril de farmacia",
-    "turnaround": "4 a 6 horas",
+    "priceUsd": 13.5,
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Prueba no invasiva de elección para detección de antígeno y confirmación de erradicación de Helicobacter pylori en heces. Entregar en <3 horas al laboratorio."
+    "notes": "Muestra fecal fresca (<3 horas). Notificar si toma IBP (omeprazol), antibióticos o bismuto.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-9",
-    "category": "Coproanálisis",
-    "name": "Esteatocrito Ácido (Cuantificación de Grasa Fecal)",
+    "id": "gp_143_esteatocrito_acido",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Esteatocrito ácido",
     "synonyms": [
-      "esteatocrito acido",
-      "esteatocrito",
-      "grasa fecal acida"
+      "esteatocrito ácido"
     ],
     "priceUsd": 10,
-    "fastingHours": "Sin ayuno. CRÍTICO: 15 días sin antibióticos, antimicóticos, probióticos ni consumo de yogurt",
-    "sampleType": "Muestra fecal en recolector estéril (llenar 3/4 partes)",
-    "turnaround": "6 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "REQUISITO CRÍTICO: NO recibir antibióticos, antimicóticos, probióticos ni consumir yogurt durante al menos 15 días previos. Llenar 3/4 partes del envase estéril y trasladar de inmediato a temperatura ambiente."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-10",
-    "category": "Coproanálisis",
-    "name": "Técnica de Kato-Katz (Recuento de Huevos de Helmintos)",
+    "id": "gp_144_kato_katz",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Kato-Katz",
     "synonyms": [
-      "kato katz",
-      "tecnica de kato katz",
-      "kato-katz",
-      "recuento de huevos helmintos"
+      "kato-katz"
     ],
     "priceUsd": 10,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca",
-    "turnaround": "6 a 12 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Cuantificación de intensidad de carga parasitaria helmíntica (Ascaris, Trichuris, Schistosoma)."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-11",
-    "category": "Coproanálisis",
-    "name": "Tinción de Quensel (Trofozoítos de Protozoarios)",
+    "id": "gp_145_quensel",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Quensel",
     "synonyms": [
-      "tincion de quensel",
-      "quensel",
-      "protozoarios quensel"
+      "quensel"
     ],
     "priceUsd": 10,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca líquida / pastosa trasladada de inmediato",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Tinción supravital rápida para identificación de trofozoítos de amebas móviles."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-12",
-    "category": "Coproanálisis",
-    "name": "Tinción de Nair (Amebas y Flagelados)",
+    "id": "gp_146_nair",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Nair",
     "synonyms": [
-      "tincion de nair",
-      "nair",
-      "coloracion nair"
+      "nair"
     ],
     "priceUsd": 10,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca inmediata",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Tinción con azul de metileno tamponado para citomorfología protozoaria."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-13",
-    "category": "Coproanálisis",
-    "name": "Ziehl-Neelsen Modificado / Tinción de Kinyoun (Coccidios)",
+    "id": "gp_147_coloracion_zielh_neelsen_modificado",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Coloración Zielh Neelsen modificado o coloración de Kinyoun",
     "synonyms": [
-      "kinyoun",
-      "ziehl neelsen modificado",
-      "coccidios heces",
-      "cryptosporidium tincion"
+      "coloración zielh neelsen modificado",
+      "coloración de kinyoun"
     ],
     "priceUsd": 7,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Frotis de heces en lámina",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Búsqueda específica de ooquistes de Cryptosporidium, Cyclospora e Isospora / Cystoisospora."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-14",
-    "category": "Coproanálisis",
-    "name": "Sangre Oculta en Heces (FIT Inmunoquímica Específica)",
+    "id": "gp_148_sangre_oculta_cuantificada_o_prueba",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Sangre oculta Cuantificada o prueba Fit o inmunohistoquímica fecal",
     "synonyms": [
-      "sangre oculta en heces",
-      "sangre oculta",
-      "sangre oculta fit",
-      "thevenon",
-      "hemoglobina humana heces"
+      "sangre oculta cuantificada",
+      "prueba fit",
+      "inmunohistoquímica fecal"
     ],
     "priceUsd": 25,
-    "fastingHours": "Sin ayuno. No requiere dieta restrictiva de carnes rojas (anticuerpo monoclonal anti-Hb humana).",
-    "sampleType": "Muestra fecal en frasco estéril",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Tamizaje colorrectal de alta especificidad. Evitar contaminación con sangrado menstrual o hemorroidal activo."
+    "notes": "Método inmunoquímico (no requiere restricción de carnes). Evitar alcohol, aspirina o sangrado hemorroidal.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-15",
-    "category": "Coproanálisis",
-    "name": "Sangre Oculta + Transferrina en Heces",
+    "id": "gp_149_sangre_oculta_transferrina",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Sangre oculta+transferrina",
     "synonyms": [
-      "sangre oculta y transferrina",
-      "sangre oculta + transferrina",
-      "transferrina en heces"
+      "sangre oculta+transferrina"
     ],
     "priceUsd": 15,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Doble marcador para hemorragias tanto del tracto digestivo superior (Transferrina) como inferior (Hemoglobina)."
+    "notes": "Método inmunoquímico (no requiere restricción de carnes). Evitar alcohol, aspirina o sangrado hemorroidal.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-16",
-    "category": "Coproanálisis",
-    "name": "Coproantígeno Entamoeba histolytica",
+    "id": "gp_150_ag_entamoeba_histolytica_coproantig",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Ag Entamoeba histolytica, coproantígenos de Entamoeba histolytica o antígenos de Entamoeba histolytica",
     "synonyms": [
-      "antigeno entamoeba histolytica",
-      "coproantigeno entamoeba histolytica",
-      "ag entamoeba histolytica"
+      "ag entamoeba histolytica",
+      "coproantígenos de entamoeba histolytica",
+      "antígenos de entamoeba histolytica"
     ],
     "priceUsd": 26,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal en frasco estéril entregada en < 2 horas",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Diferenciación antigénica específica de Entamoeba histolytica patógena vs Entamoeba dispar no patógena."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cop-17",
-    "category": "Coproanálisis",
-    "name": "Panel Triple Coproantígenos (E. histolytica + Giardia + Cryptosporidium)",
+    "id": "gp_151_ag_e_histolytica_giardia_crypto_cop",
+    "category": "COPROANÁLISIS Y HECES",
+    "name": "Ag E, histolytica/Giardia/Crypto, coproantígeno E, histolytica/Giardia/Crypto, Antígeno E, histolytica/Giardia/Cryptosporidium",
     "synonyms": [
-      "panel triple coproantigenos",
-      "coproantigenos triple",
-      "antigenos giardia entamoeba crypto",
-      "panel ag triple"
+      "ag e",
+      "histolytica",
+      "giardia",
+      "crypto",
+      "coproantígeno e",
+      "antígeno e",
+      "cryptosporidium"
     ],
     "priceUsd": 40,
-    "fastingHours": "Sin ayuno",
-    "sampleType": "Muestra fecal fresca",
-    "turnaround": "6 horas",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra fecal fresca en recolector estéril",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Detección inmunocromatográfica rápida simultánea de los 3 principales parásitos entéricos."
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-1",
-    "category": "Marcadores",
-    "name": "PSA Total (Antígeno Prostático Específico)",
+    "id": "gp_152_psa_total_o_antigeno_prostatico_esp",
+    "category": "MARCADORES TUMORALES",
+    "name": "PSA Total, o antígeno prostático específico total",
     "synonyms": [
-      "psa",
       "psa total",
-      "antigeno prostatico total",
-      "antigeno prostatico especifico"
+      "antígeno prostático específico total"
     ],
     "priceUsd": 14,
-    "fastingHours": "Ayuno de 4 a 8 horas",
-    "sampleType": "Suero no hemolizado",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "CRÍTICO: Abstinencia sexual y eyaculación estricta de 48 horas previas. No montar bicicleta, moto ni realizar ejercicio pélvico 48h antes. Esperar 48-72h post-tacto rectal, 1-2 semanas post-sonda/cistoscopia, 4-6 semanas post-biopsia prostática o RTUP."
+    "notes": "48h de abstinencia sexual (sin eyaculación). Sin bicicleta/moto 48h antes. 48-72h tras tacto rectal; 4-6 semanas tras biopsia.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-2",
-    "category": "Marcadores",
-    "name": "PSA Libre",
+    "id": "gp_153_psa_libre_o_antigeno_prostatico_esp",
+    "category": "MARCADORES TUMORALES",
+    "name": "PSA libre o antígeno prostático específico libre",
     "synonyms": [
       "psa libre",
-      "antigeno prostatico libre"
+      "antígeno prostático específico libre"
     ],
     "priceUsd": 14,
-    "fastingHours": "Ayuno de 4 a 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "CRÍTICO: Abstinencia sexual y eyaculación estricta de 48 horas previas. No montar bicicleta, moto ni realizar ejercicio pélvico 48h antes. Esperar 48-72h post-tacto rectal, 1-2 semanas post-sonda/cistoscopia, 4-6 semanas post-biopsia prostática o RTUP."
+    "notes": "48h de abstinencia sexual (sin eyaculación). Sin bicicleta/moto 48h antes. 48-72h tras tacto rectal; 4-6 semanas tras biopsia.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-3",
-    "category": "Marcadores",
-    "name": "AFP (Alfa-fetoproteína)",
+    "id": "gp_154_alfafetoproteina_o_afp",
+    "category": "MARCADORES TUMORALES",
+    "name": "Alfafetoproteína  o AFP",
     "synonyms": [
-      "afp",
-      "alfafetoproteina",
-      "alfa fetoproteina"
+      "alfafetoproteína",
+      "afp"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador tumoral gonadal y hepático. En control prenatal registrar edad gestacional ecográfica y peso materno."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-4",
-    "category": "Marcadores",
-    "name": "CEA (Antígeno Carcinoembrionario)",
+    "id": "gp_155_cea_o_antigeno_carcinoembrionario",
+    "category": "MARCADORES TUMORALES",
+    "name": "CEA o antígeno carcinoembrionario",
     "synonyms": [
       "cea",
-      "antigeno carcinoembrionario"
+      "antígeno carcinoembrionario"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 4 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador tumoral colorrectal y digestivo. Indicar obligatoriamente si el paciente es fumador activo (los niveles basales son mayores en fumadores)."
+    "notes": "Indicar obligatoriamente si el paciente es fumador activo.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-5",
-    "category": "Marcadores",
-    "name": "CA 125 (Marcador de Ovario)",
+    "id": "gp_156_ca125",
+    "category": "MARCADORES TUMORALES",
+    "name": "CA125",
     "synonyms": [
-      "ca 125",
-      "ca125",
-      "marcador ovario"
+      "ca125"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 a 12 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Tomar la muestra al menos 5 días después de culminada la menstruación. Informar si está embarazada o padece endometriosis."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-6",
-    "category": "Marcadores",
-    "name": "CA 15-3 (Marcador de Mama)",
+    "id": "gp_157_ca_15_3",
+    "category": "MARCADORES TUMORALES",
+    "name": "CA 15-3",
     "synonyms": [
-      "ca 15-3",
-      "ca15-3",
-      "ca 15 3",
-      "marcador mama"
+      "ca 15-3"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 a 12 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Monitoreo de patología y neoplasia mamaria. Ayuno habitual de 8 a 12 horas."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-7",
-    "category": "Marcadores",
-    "name": "CA 19-9 (Marcador Gastrointestinal / Pancreático)",
+    "id": "gp_158_ca_19_9",
+    "category": "MARCADORES TUMORALES",
+    "name": "CA 19-9",
     "synonyms": [
-      "ca 19-9",
-      "ca19-9",
-      "ca 19 9",
-      "marcador pancreas"
+      "ca 19-9"
     ],
     "priceUsd": 12,
-    "fastingHours": "Ayuno de 8 a 12 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Monitoreo de neoplasias pancreáticas y de vía biliar. Ayuno habitual de 8 a 12 horas."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-8",
-    "category": "Marcadores",
-    "name": "Anti-CCP (Anticuerpos Antipéptido Cíclico Citrulinado)",
+    "id": "gp_159_anti_ccp_o_anticuerpo_antipeptido_c",
+    "category": "MARCADORES TUMORALES",
+    "name": "Anti -CCP o anticuerpo antipéptido ciclíco citrulinado",
     "synonyms": [
-      "anti ccp",
-      "anti-ccp",
-      "peptido ciclico citrulinado",
-      "anticuerpos anti ccp"
+      "anti -ccp",
+      "anticuerpo antipéptido ciclíco citrulinado"
     ],
     "priceUsd": 22,
-    "fastingHours": "Ayuno de 4 a 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador altamente específico para diagnóstico temprano de Artritis Reumatoide. Suspender suplementos con Biotina 48 horas antes."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-9",
-    "category": "Marcadores",
-    "name": "Anti-Tiroglobulina (Anti-TG)",
+    "id": "gp_160_anti_tg_o_anticuerpos_antitiroglobu",
+    "category": "MARCADORES TUMORALES",
+    "name": "Anti TG  o anticuerpos Antitiroglobulina",
     "synonyms": [
-      "anti tiroglobulina",
-      "anti-tg",
-      "anticuerpos anti tiroglobulina"
+      "anti tg",
+      "anticuerpos antitiroglobulina"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Autoanticuerpos tiroideos en tiroiditis de Hashimoto."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "mar-10",
-    "category": "Marcadores",
-    "name": "Anti-TPO (Antiperoxidasa Tiroidea / Microsomales)",
+    "id": "gp_161_anti_tpo_o_antiperoxidasa_tiroidea",
+    "category": "MARCADORES TUMORALES",
+    "name": "Anti TPO o antiperoxidasa tiroidea",
     "synonyms": [
       "anti tpo",
-      "anti-tpo",
-      "antiperoxidasa tiroidea",
-      "anticuerpos microsomales"
+      "antiperoxidasa tiroidea"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
+    "fastingHours": "4 - 8 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Marcador de autoinmunidad tiroidea."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-1",
-    "category": "Pruebas Especiales",
-    "name": "Gases Venosos",
+    "id": "gp_162_gases_venosos",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Gases venosos",
     "synonyms": [
-      "gases venosos",
-      "gasometria venosa"
+      "gases venosos"
     ],
     "priceUsd": 68,
-    "fastingHours": "Sin ayuno estricto (según indicación médica). Para Gases Venosos Postprandiales: 1 hora post-desayuno (el paciente debe estar 20 minutos antes en el laboratorio para reposo)",
-    "sampleType": "Sangre venosa en jeringa heparinizada anaeróbica (traslado en hielo)",
-    "turnaround": "1 a 2 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Toma anaeróbica estricta. Para gases postprandiales, acudir 20 minutos antes para reposo previo."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-2",
-    "category": "Pruebas Especiales",
-    "name": "Gases Arteriales",
+    "id": "gp_163_gases_arteriales",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Gases arteriales",
     "synonyms": [
-      "gases arteriales",
-      "gasometria arterial"
+      "gases arteriales"
     ],
     "priceUsd": 68,
-    "fastingHours": "Sin ayuno estricto (reposo obligatorio de 15 minutos en el laboratorio previo a la punción)",
-    "sampleType": "Sangre arterial en jeringa heparinizada (traslado en hielo)",
-    "turnaround": "1 a 2 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Punción de arteria radial / humeral / femoral con prueba de Allen previa. Reposo de 15 min en sala antes de la toma."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-3",
-    "category": "Pruebas Especiales",
-    "name": "Hemoglobina Glicosilada (HbA1c)",
+    "id": "gp_164_hemoglobina_glicada_o_hba1c",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Hemoglobina glicada o HbA1c",
     "synonyms": [
-      "hba1c",
-      "hemoglobina glicosilada",
-      "glicosilada",
-      "a1c"
+      "hemoglobina glicada",
+      "hba1c"
     ],
     "priceUsd": 18,
-    "fastingHours": "No requiere ayuno estricto",
-    "sampleType": "Sangre total (Tubo EDTA)",
-    "turnaround": "4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Informar si padece anemias hemolíticas, hemoglobinopatías, si recibió transfusiones sanguíneas en los últimos 3 meses o si consume megadosis de vitamina C o E."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-4",
-    "category": "Pruebas Especiales",
-    "name": "Estudio de Ehrlichia en Capa Blanca",
+    "id": "gp_165_estudio_de_erlichias_o_capa_blanca",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Estudio de Erlichias o capa blanca",
     "synonyms": [
-      "ehrlichia",
-      "erlichia",
-      "capa blanca ehrlichia",
-      "estudio de ehrlichia en capa blanca"
+      "estudio de erlichias",
+      "capa blanca"
     ],
     "priceUsd": 13,
-    "fastingHours": "Sin ayuno estricto (toma ideal durante el pico febril / fase aguda)",
-    "sampleType": "Sangre total EDTA centrifugada (Capa leucocitaria / Buffy coat)",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Búsqueda microscópica directa de mórulas de Ehrlichia en leucocitos. Muestra ideal tomada durante el pico febril."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-5",
-    "category": "Pruebas Especiales",
-    "name": "Reacciones Febriles / Antígenos Febriles (Test de Widal)",
+    "id": "gp_166_antigenos_febriles_o_reaccion_widal",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Antígenos febriles o reacción widal",
     "synonyms": [
-      "reacciones febriles",
-      "antigenos febriles",
-      "widal",
-      "test de widal",
-      "febriles"
+      "antígenos febriles",
+      "reacción widal"
     ],
     "priceUsd": 15,
-    "fastingHours": "Ayuno de 8 a 12 horas",
-    "sampleType": "Suero",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Indicar obligatoriamente el día de inicio de la fiebre y tratamientos antibióticos previos. Incluye Tífico O y H, Paratífico A y B, Brucella y Proteus OX19."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-6",
-    "category": "Pruebas Especiales",
-    "name": "Citología Ginecológica (Papanicolaou / Citología Cervical)",
+    "id": "gp_167_citologia_ginecologica",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Citología ginecológica",
     "synonyms": [
-      "citologia",
-      "papanicolaou",
-      "citologia ginecologica",
-      "citologia cervical",
-      "pap"
+      "citología ginecológica"
     ],
     "priceUsd": 9,
-    "fastingHours": "No requiere ayuno (toma en los primeros 3 a 5 días de síntomas respiratorios)",
-    "sampleType": "Hisopado nasofaríngeo estéril",
-    "turnaround": "3 a 5 días hábiles",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Muestra por hisopado en los primeros 3-5 días de síntomas. No aplicar gotas, lavados nasales ni sprays en las 4 horas previas."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-7",
-    "category": "Pruebas Especiales",
-    "name": "Citología de Líquido Cefalorraquídeo (LCR)",
+    "id": "gp_168_citologia_de_lcr_o_citologia_de_liq",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Citología de LCR o citología de líquido cefalorraquídeo o citología de fluido cerebroespinal",
     "synonyms": [
-      "citologia lcr",
-      "citologia de lcr",
-      "citologia liquido cefalorraquideo"
+      "citología de lcr",
+      "citología de líquido cefalorraquídeo",
+      "citología de fluido cerebroespinal"
     ],
     "priceUsd": 21,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "LCR fresco en tubo EDTA",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-8",
-    "category": "Pruebas Especiales",
-    "name": "Citología Urinaria en 3 Muestras Seriadas",
+    "id": "gp_169_citologia_urinaria_3_muestras",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Citología urinaria (3 muestras)",
     "synonyms": [
-      "citologia urinaria",
-      "citologia de orina",
-      "citologia urinaria 3 muestras",
-      "citologia urinaria en 3 muestras seriadas"
+      "citología urinaria",
+      "3 muestras"
     ],
     "priceUsd": 63,
-    "fastingHours": "Segunda orina matutina recolectada durante 3 días consecutivos",
-    "sampleType": "3 frascos de orina con fijador alcohólico 50%",
-    "turnaround": "3 a 5 días hábiles",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Descartar la 1era orina, beber 2 vasos de agua y recoger la orina siguiente. Repetir 3 días consecutivos."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-9",
-    "category": "Pruebas Especiales",
-    "name": "Citología de Líquido Sinovial (Articular)",
+    "id": "gp_170_citologia_de_liquido_sinovial_o_cit",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Citología de líquido sinovial o citología de líquido articular",
     "synonyms": [
-      "citologia sinovial",
-      "citologia de liquido sinovial"
+      "citología de líquido sinovial",
+      "citología de líquido articular"
     ],
     "priceUsd": 21,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido sinovial fresco en tubo con EDTA",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-10",
-    "category": "Pruebas Especiales",
-    "name": "Citología de Líquido Pleural",
+    "id": "gp_171_citologia_de_liquido_pleural",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Citología de líquido pleural",
     "synonyms": [
-      "citologia pleural",
-      "citologia de liquido pleural"
+      "citología de líquido pleural"
     ],
     "priceUsd": 21,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido pleural en tubo con EDTA",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-11",
-    "category": "Pruebas Especiales",
-    "name": "Citología de Líquido Pericárdico",
+    "id": "gp_172_citologia_de_liquido_pericardico",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Citología de líquido pericardico",
     "synonyms": [
-      "citologia pericardica",
-      "citologia de liquido pericardico"
+      "citología de líquido pericardico"
     ],
     "priceUsd": 21,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido pericárdico en tubo con EDTA",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-12",
-    "category": "Pruebas Especiales",
-    "name": "Citología de Líquido Peritoneal / Ascítico",
+    "id": "gp_173_citologia_de_liquido_peritoneal_o_l",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Citología de líquido peritoneal o líquido ascístico",
     "synonyms": [
-      "citologia peritoneal",
-      "citologia ascitica",
-      "citologia de liquido peritoneal"
+      "citología de líquido peritoneal",
+      "líquido ascístico"
     ],
     "priceUsd": 21,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido ascítico/peritoneal en tubo con EDTA",
-    "turnaround": "24 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-13",
-    "category": "Pruebas Especiales",
-    "name": "Gota Gruesa para Paludismo / Malaria",
+    "id": "gp_174_gota_gruesa_o_hemoparasitos",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Gota gruesa o hemoparásitos",
     "synonyms": [
       "gota gruesa",
-      "malaria",
-      "paludismo",
-      "plasmodium",
-      "gota gruesa paludismo"
+      "hemoparásitos"
     ],
     "priceUsd": 13,
-    "fastingHours": "Sin ayuno estricto (toma obligatoria al momento del acceso febril / escalofríos)",
-    "sampleType": "Sangre capilar o venosa al momento de los accesos febriles",
-    "turnaround": "2 a 4 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Toma inmediata al presentarse el pico febril o escalofríos antes de iniciar fármacos antimaláricos."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "esp-14",
-    "category": "Pruebas Especiales",
-    "name": "Vitamina B12 (Cobalamina)",
+    "id": "gp_175_vitamina_b12_o_cobalamina_serica",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Vitamina B12 o cobalamina sérica",
     "synonyms": [
       "vitamina b12",
-      "b12",
-      "cobalamina",
-      "cianocobalamina"
-    ],
-    "priceUsd": 20,
-    "fastingHours": "Ayuno estricto de 8 a 12 horas",
-    "sampleType": "Suero protegido de la luz",
-    "turnaround": "24 a 48 horas",
-    "active": true,
-    "notes": "Suspender suplementos vitamínicos de complejo B / B12 de 48 a 72 horas antes. Proteger muestra de la luz. Informar uso prolongado de metformina o protectores gástricos (IBP)."
-  },
-  {
-    "id": "esp-15",
-    "category": "Pruebas Especiales",
-    "name": "Vitamina D (25-OH Vitamina D)",
-    "synonyms": [
-      "vitamina d",
-      "25-oh vitamina d",
-      "25 hidroxi vitamina d",
-      "vitamina d total"
-    ],
-    "priceUsd": 20,
-    "fastingHours": "Ayuno de 8 horas o más",
-    "sampleType": "Suero",
-    "turnaround": "24 horas",
-    "active": true,
-    "notes": "Tomar la muestra de sangre ANTES de ingerir la dosis diaria del suplemento de Vitamina D."
-  },
-  {
-    "id": "esp-16",
-    "category": "Pruebas Especiales",
-    "name": "Ácido Fólico Sérico (Folatos)",
-    "synonyms": [
-      "acido folico",
-      "folatos",
-      "vitamina b9",
-      "folato serico"
+      "cobalamina sérica"
     ],
     "priceUsd": 23,
-    "fastingHours": "Ayuno estricto de 8 a 12 horas",
-    "sampleType": "Suero protegido de la luz",
-    "turnaround": "24 a 48 horas",
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "PROHIBICIÓN ABSOLUTA DE ALCOHOL durante las 24 horas previas. Suspender suplementos multivitamínicos 24 horas antes. Proteger muestra de la luz."
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-1",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Cefalorraquídeo (LCR)",
+    "id": "gp_176_vitamina_d_o_25_hidroxivitamina_d_o",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Vitamina D o 25 hidroxivitamina D o 25(OH)D",
     "synonyms": [
-      "citoquimico lcr",
-      "citoquimico de lcr",
-      "citoquimico liquido cefalorraquideo"
+      "vitamina d",
+      "25 hidroxivitamina d",
+      "25d",
+      "oh"
+    ],
+    "priceUsd": 20,
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
+    "active": true,
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
+  },
+  {
+    "id": "gp_177_acido_folico_o_folato",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Ácido fólico o folato",
+    "synonyms": [
+      "ácido fólico",
+      "folato"
+    ],
+    "priceUsd": 23,
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Suero sanguíneo",
+    "turnaround": "Mismo día (tarde)",
+    "active": true,
+    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "isCaracasConvenio": false
+  },
+  {
+    "id": "gp_178_estudio_citoquimico_lcr_o_citoquimi",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Estudio citoquímico LCR o Citoquímico de líquido cefalorraquídeo o citoquímico de fluido cerebro espinal",
+    "synonyms": [
+      "estudio citoquímico lcr",
+      "citoquímico de líquido cefalorraquídeo",
+      "citoquímico de fluido cerebro espinal"
     ],
     "priceUsd": 25,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "LCR en 3 tubos + Sangre paralela",
-    "turnaround": "4 a 6 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-2",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de LCR + Coloración de Gram",
+    "id": "gp_179_estudio_citoquimico_lcr_o_citoquimi",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Estudio citoquímico LCR o Citoquímico de líquido cefalorraquídeo o citoquímico de fluido cerebro espinal + coloración de Gram",
     "synonyms": [
-      "citoquimico lcr mas gram",
-      "citoquimico lcr gram",
-      "citoquimico de lcr + coloracion de gram"
+      "estudio citoquímico lcr",
+      "citoquímico de líquido cefalorraquídeo",
+      "citoquímico de fluido cerebro espinal + coloración de gram"
     ],
     "priceUsd": 31,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "LCR en tubos estériles",
-    "turnaround": "4 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-3",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Sinovial (Articular)",
+    "id": "gp_180_citoquimico_de_liquido_sinovial_o_c",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico de Liquido sinovial o citoquímico de líquido articular",
     "synonyms": [
-      "citoquimico sinovial",
-      "citoquimico liquido sinovial"
+      "citoquímico de liquido sinovial",
+      "citoquímico de líquido articular"
     ],
     "priceUsd": 35,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido sinovial en tubo con heparina y tubo seco",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-4",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Sinovial + Coloración de Gram",
+    "id": "gp_181_citoquimico_de_liquido_sinovial_o_c",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico de Liquido sinovial o citoquímico de líquido articular + coloración de Gram",
     "synonyms": [
-      "citoquimico sinovial gram",
-      "citoquimico sinovial mas gram"
+      "citoquímico de liquido sinovial",
+      "citoquímico de líquido articular + coloración de gram"
     ],
     "priceUsd": 41,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido articular en tubos estériles",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-5",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Pleural",
+    "id": "gp_182_citoquimico_de_liquido_pleural",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico de Liquido pleural",
     "synonyms": [
-      "citoquimico pleural",
-      "citoquimico liquido pleural",
-      "citoquimico de liquido pleural"
+      "citoquímico de liquido pleural"
     ],
     "priceUsd": 27,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido pleural + Muestra de sangre en suero",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-6",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Pleural + Coloración de Gram",
+    "id": "gp_183_citoquimico_liquido_pleural_colorac",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico Liquido pleural + coloración de Gram",
     "synonyms": [
-      "citoquimico pleural gram",
-      "citoquimico pleural mas gram",
-      "citoquimico de liquido pleural + coloracion de gram"
+      "citoquímico liquido pleural + coloración de gram"
     ],
     "priceUsd": 32,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido pleural en 3 tubos + Sangre",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-7",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Pericárdico",
+    "id": "gp_184_citoquimico_de_liquido_pericardico",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico de Líquido pericárdico",
     "synonyms": [
-      "citoquimico pericardico",
-      "citoquimico liquido pericardico"
+      "citoquímico de líquido pericárdico"
     ],
     "priceUsd": 36,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido pericárdico en tubos estériles + Suero",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-8",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Pericárdico + Coloración de Gram",
+    "id": "gp_185_citoquimico_de_liquido_pericardico",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico de Líquido pericárdico + coloración de Gram",
     "synonyms": [
-      "citoquimico pericardico gram",
-      "citoquimico pericardico mas gram"
+      "citoquímico de líquido pericárdico + coloración de gram"
     ],
     "priceUsd": 42,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido pericárdico estéril + Suero",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-9",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Peritoneal / Ascítico",
+    "id": "gp_186_citoquimico_de_liquido_peritoneal_o",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico de Líquido peritoneal o líquido ascitico",
     "synonyms": [
-      "citoquimico peritoneal",
-      "citoquimico liquido peritoneal",
-      "citoquimico ascitico"
+      "citoquímico de líquido peritoneal",
+      "líquido ascitico"
     ],
     "priceUsd": 32,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido ascítico en tubos estériles + Suero",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   },
   {
-    "id": "cit-10",
-    "category": "Citoquímicos y Perfiles",
-    "name": "Citoquímico de Líquido Peritoneal + Coloración de Gram",
+    "id": "gp_187_citoquimico_de_liquido_peritoneal_o",
+    "category": "CITOQUÍMICOS Y PERFILES",
+    "name": "Citoquímico de Líquido peritoneal o líquido ascitico + coloración de Gram",
     "synonyms": [
-      "citoquimico peritoneal gram",
-      "citoquimico peritoneal mas gram"
+      "citoquímico de líquido peritoneal",
+      "líquido ascitico + coloración de gram"
     ],
     "priceUsd": 41,
-    "fastingHours": "Punción médica asistida. Acompañar de muestra de sangre simultánea en ayunas",
-    "sampleType": "Líquido ascítico estéril + Suero",
-    "turnaround": "12 a 24 horas",
+    "fastingHours": "No requiere ayuno para el líquido",
+    "sampleType": "Líquido biológico obtenido por punción médica + Sangre venosa",
+    "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Siempre acompañar la toma del líquido (pleural, sinovial, ascítico, pericárdico, LCR) de una muestra sanguínea simultánea para cálculo de coeficientes (Criterios de Light, GASA, etc.). Traslado inmediato en <30-60 min a temperatura ambiente. ¡NUNCA REFRIGERAR para microbiología!"
-  },
-  {
-    "id": "caracas-1",
-    "category": "Convenio Torre Caracas",
-    "name": "Panel RAST Alimentos (20 / 60 / 90 / 120 Alimentos IgE)",
-    "synonyms": [
-      "rast 120 alimentos",
-      "rast 20 alimentos",
-      "rast 60 alimentos",
-      "rast 90 alimentos",
-      "rast alimentos",
-      "panel rast alimentos"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas. Coordinación especial con secretaría.",
-    "sampleType": "Suero / Muestra para envío a Caracas",
-    "turnaround": "7 a 10 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Gonzalez Prato Laboratorio actúa como enlace de recolección y envío. Requiere cotización por secretaría."
-  },
-  {
-    "id": "caracas-2",
-    "category": "Convenio Torre Caracas",
-    "name": "Panel RAST Inhalantes & Alimentos Completo (58 Alérgenos IgE)",
-    "synonyms": [
-      "rast alim e inhal completo",
-      "rast 58 alergenos",
-      "rast inhalantes",
-      "panel de alergias inhalantes"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas. Remisión a Caracas.",
-    "sampleType": "Suero",
-    "turnaround": "7 a 10 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Enlace de recolección y envío a Caracas."
-  },
-  {
-    "id": "caracas-3",
-    "category": "Convenio Torre Caracas",
-    "name": "Perfil Celíaco (Pauta Mundial / Con Genética)",
-    "synonyms": [
-      "perfil celiaco",
-      "perfil celiaco pauta mundial",
-      "perfil celiaco con genetica",
-      "test genetico para gluten",
-      "celiaquia"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas. Remisión a Caracas.",
-    "sampleType": "Suero / Sangre total EDTA para genética",
-    "turnaround": "10 a 15 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Incluye anti-transglutaminasa IgA, anti-gliadina e HLA-DQ2/DQ8."
-  },
-  {
-    "id": "caracas-4",
-    "category": "Convenio Torre Caracas",
-    "name": "Anticuerpos Anti-Gliadina / Anti-Transglutaminasa (IgA / IgG)",
-    "synonyms": [
-      "anti gliadina",
-      "anti-gliadina",
-      "anti transglutaminasa",
-      "anti-transglutaminasa",
-      "gluten ige",
-      "gluten igg"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "7 a 10 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Remisión a Caracas. Contactar a secretaría."
-  },
-  {
-    "id": "caracas-5",
-    "category": "Convenio Torre Caracas",
-    "name": "Zonulina Fecal / Sérica",
-    "synonyms": [
-      "zonulina",
-      "zonulina fecal",
-      "zonulina serica",
-      "hiperpermeabilidad intestinal"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas para suero / muestra fecal para heces",
-    "sampleType": "Suero o heces",
-    "turnaround": "10 a 15 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Marcador de hiperpermeabilidad intestinal. Remisión a Caracas."
-  },
-  {
-    "id": "caracas-6",
-    "category": "Convenio Torre Caracas",
-    "name": "Serología de Infecciones Vectoriales (Borrelia / Lyme, Babesia, Rickettsia, Anaplasma, PCR Ehrlichia)",
-    "synonyms": [
-      "borrelia",
-      "lyme",
-      "borrelia burgdorferi",
-      "babesia",
-      "rickettsia",
-      "anaplasma",
-      "pcr erlichia"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 4 horas",
-    "sampleType": "Suero / Sangre total",
-    "turnaround": "10 a 15 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "Informar si ha tenido eventos inflamatorios agudos recientes (traumatismos, procedimientos dentales, infecciones virales elevan transitoriamente los valores), enfermedades crónicas, embarazo o ejercicio intenso en las últimas horas."
-  },
-  {
-    "id": "caracas-7",
-    "category": "Convenio Torre Caracas",
-    "name": "Subclases de Inmunoglobulinas (IgG1, IgG2, IgG3, IgG4, IgA, IgM, IgG)",
-    "synonyms": [
-      "subclases igg",
-      "subclase ig g1",
-      "subclase ig g2",
-      "subclase ig g3",
-      "subclase ig g4",
-      "subclases de inmunoglobulinas"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "7 a 10 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Estudio de inmunodeficiencias y enfermedades relacionadas con IgG4. Remisión a Caracas."
-  },
-  {
-    "id": "caracas-8",
-    "category": "Convenio Torre Caracas",
-    "name": "Ácido Valproico (Drogas Terapéuticas / IgE)",
-    "synonyms": [
-      "acido valproico",
-      "valproato",
-      "drog terap acido valproico",
-      "acido valproico ige"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Toma previa a la siguiente dosis del medicamento (nivel valle)",
-    "sampleType": "Suero",
-    "turnaround": "5 a 7 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Monitoreo de niveles terapéuticos. Remisión a Caracas."
-  },
-  {
-    "id": "caracas-9",
-    "category": "Convenio Torre Caracas",
-    "name": "Homocisteína en Sangre",
-    "synonyms": [
-      "homocisteina",
-      "homocisteina en sangre",
-      "riesgo cardiovascular homocisteina"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno estricto de 10 a 12 horas",
-    "sampleType": "Plasma desproteinizado / centrifugado de inmediato",
-    "turnaround": "7 a 10 días hábiles",
-    "active": true,
-    "notes": "CONVENIO TORRE CARACAS: Evaluación de trombofilia y riesgo cardiovascular."
-  },
-  {
-    "id": "caracas-10",
-    "category": "Convenio Torre Caracas",
-    "name": "IgA Secretora en Saliva",
-    "synonyms": [
-      "iga secretora",
-      "iga secretora en saliva",
-      "iga saliva"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "En ayunas, sin comer ni cepillarse los dientes 1h antes",
-    "sampleType": "Saliva estéril",
-    "turnaround": "10 a 15 días hábiles",
-    "active": true,
-    "notes": "CONVENIO TORRE CARACAS: Evaluación de inmunidad de mucosas. Remisión a Caracas."
-  },
-  {
-    "id": "caracas-11",
-    "category": "Convenio Torre Caracas",
-    "name": "Paneles de Alérgenos Específicos (Caseína, Leches, Huevo, Ácaros, Venenos)",
-    "synonyms": [
-      "caseina ige",
-      "leche de vaca ige",
-      "leche de bufala ige",
-      "leche de cabra ige",
-      "huevo y componentes ige",
-      "mezcla de acaros ige"
-    ],
-    "priceUsd": 0,
-    "fastingHours": "Ayuno de 8 horas",
-    "sampleType": "Suero",
-    "turnaround": "7 a 10 días hábiles",
-    "active": true,
-    "isCaracasConvenio": true,
-    "notes": "CONVENIO TORRE CARACAS: Determinación de anticuerpos específicos IgE/IgG/IgG4. Remisión a Caracas."
+    "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.",
+    "isCaracasConvenio": false
   }
 ];
