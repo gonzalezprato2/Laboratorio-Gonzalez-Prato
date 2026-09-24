@@ -388,8 +388,8 @@ export function processPatientMessage(
     });
     if (totalUsd > 0) {
       reply += '──────────────────────────\n';
-      reply += '💰 *TOTAL ESTIMADO:* **$' + totalUsd.toFixed(2) + ' USD**\n\n';
-      reply += '🔔 *Para validar formalmente esta cotización y suministrarle los datos bancarios para realizar su pago (Transferencia en Bolívares a tasa oficial BCV), estoy transfiriendo su comunicación a nuestra secretaría.*\n\n';
+      reply += '💰 *TOTAL ESTIMADO:* **$' + totalUsd.toFixed(2) + ' USD**\n';
+      reply += '*(Puede cancelar directamente en recepción al momento de su toma: Efectivo USD/Bs, Punto de Venta o Transferencia BCV).*\n\n';
     }
   }
 
@@ -413,11 +413,13 @@ export function processPatientMessage(
   }
 
   if (isOutOfHours) {
-    reply += '📍 *Próxima Apertura de Sede:* ' + scheduleStatus.nextOpening + '.\n';
-    reply += 'Le esperamos en nuestra sede. Si desea dejar una orden agendada, puede indicarlo por aquí.';
+    reply += '📍 *Sede:* Urb. El Encanto, Clínica del Niño, Sótano 2.\n';
+    reply += '⏰ *Próxima Apertura de Sede:* ' + scheduleStatus.nextOpening + ' (Atención por orden de llegada).\n';
+    reply += '¡Le esperamos!';
   } else {
-    reply += '📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n';
-    reply += '¿Desea agendar su turno o requiere alguna orientación adicional?';
+    reply += '📍 *Sede:* Urb. El Encanto, Clínica del Niño, Sótano 2.\n';
+    reply += '⏰ *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM (Atención por orden de llegada).\n';
+    reply += '¡Estamos a su orden en nuestra sede!';
   }
 
   return {
