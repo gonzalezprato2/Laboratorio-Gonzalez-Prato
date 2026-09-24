@@ -2276,7 +2276,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. 💡 Nota: Ya viene incluido sin costo adicional al solicitar cualquiera de los 7 estudios coprológicos especializados (Coproantígeno H. pylori, Absorción intestinal, Ag E. histolytica/Giardia/Crypto, Ag Entamoeba histolytica, Sudan III, Leucograma fecal o Esteatocrito ácido).",
     "isCaracasConvenio": false
   },
   {
@@ -2293,7 +2293,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {
@@ -2309,7 +2309,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {
@@ -2342,7 +2342,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {
@@ -2393,7 +2393,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Muestra fecal fresca (<3 horas). Notificar si toma antibióticos, bismuto, antiácidos o inhibidores de bomba de protones (Omeprazol, Pantoprazol, etc.).",
+    "notes": "Muestra fecal fresca (<3 horas). Notificar si toma antibióticos, bismuto, antiácidos o inhibidores de bomba de protones (Omeprazol, Pantoprazol, etc.). 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {
@@ -2408,7 +2408,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {
@@ -2518,7 +2518,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {
@@ -2539,7 +2539,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {

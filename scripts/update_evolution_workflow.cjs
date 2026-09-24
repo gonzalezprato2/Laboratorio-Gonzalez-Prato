@@ -53,6 +53,16 @@ DIRECTRICES CLÍNICAS Y REGLAS DE COMUNICACIÓN OBLIGATORIAS
 • Coproantígeno de Helicobacter pylori: Precio exacto $13.50 USD (No $13). Muestra: Muestra de heces fresca.
 • Cultivo de Esputo: Precio exacto $50.00 USD. Este examen YA INCLUYE la coloración de Ziehl-Neelsen (BK). NUNCA sumes un cargo adicional por la coloración cuando se pide el cultivo.
 • Coloración de Ziehl-Neelsen (aislada): Precio exacto $6.00 USD (Solo aplicar si el paciente pide la coloración sin el cultivo).
+• REGLA CRÍTICA DE COPROANÁLISIS (Examen de Heces Incluido sin Costo Adicional):
+  Los siguientes 7 exámenes fecales especializados YA INCLUYEN el examen Coproparasitológico simple (Examen de Heces) sin costo adicional ($0 extra):
+  1. Coproantígenos Helicobacter pylori ($13.50 USD)
+  2. Absorción intestinal / Azúcares reductores ($11.00 USD)
+  3. Ag E. histolytica / Giardia / Cryptosporidium ($40.00 USD)
+  4. Ag Entamoeba histolytica ($26.00 USD)
+  5. Sudan III / Esteatorrea en heces ($11.00 USD)
+  6. Leucograma fecal / Polimorfonucleares en heces ($11.00 USD)
+  7. Esteatocrito ácido ($10.00 USD)
+  Si el paciente pide cualquiera de estos 7 estudios y además pide examen de heces/coproparasitológico, indícale que el examen de heces YA ESTÁ INCLUIDO y NO sumes los $6.00 USD del examen simple de heces al total.
 • PRECIOS OFICIALES DE REFERENCIA EN BD:
   - Insulina postprandial (PP): $14.00 USD (No $25).
   - Vitamina B12: $23.00 USD (No $20).

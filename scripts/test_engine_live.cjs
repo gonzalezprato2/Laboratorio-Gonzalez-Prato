@@ -55,6 +55,16 @@ function findMatchingExams(query) {
   return matched;
 }
 
+const SPECIAL_FECAL_IDS = [
+  'gp_142_coproantigenos_helicobacter_pylori',
+  'gp_139_absorcion_intestinal_o_azucares_red',
+  'gp_151_ag_e_histolytica_giardia_crypto_cop',
+  'gp_150_ag_entamoeba_histolytica_coproantig',
+  'gp_137_sudan_iii_o_esteatorrea_en_heces',
+  'gp_136_leucograma_fecal_o_leucocitos_en_he',
+  'gp_143_esteatocrito_acido'
+];
+
 const testQueries = [
   'Hola, quiero saber el precio de una hematologia completa',
   'Buenas tardes, necesito hacerme glicemia en ayunas y perfil lipidico',
@@ -63,15 +73,22 @@ const testQueries = [
   'Cuanto cuesta el VDRL y el examen de VIH?',
   'Quisiera saber el costo de TSH y T4 libre',
   'Hacen coprocultivo y examen de orina?',
-  'Costo de vitamina D y vitamina B12'
+  'Costo de vitamina D y vitamina B12',
+  'Precio de Coproantígenos Helicobacter pylori y examen de heces',
+  'Cuánto cuesta el examen de heces y sudan iii?'
 ];
 
 testQueries.forEach((q, idx) => {
   const matches = findMatchingExams(q);
-  const totalUsd = matches.reduce((acc, curr) => acc + curr.priceUsd, 0);
+  const hasSpecial = matches.some(e => SPECIAL_FECAL_IDS.includes(e.id));
+  const isCopro = (e) => e.id === 'gp_135_coproparasitologico_o_examen_de_hec';
+  const totalUsd = matches.reduce((acc, curr) => (hasSpecial && isCopro(curr)) ? acc : acc + curr.priceUsd, 0);
   console.log(`\n[Consulta ${idx + 1}]: "${q}"`);
   console.log(`-> Coincidencias encontradas (${matches.length}):`);
-  matches.forEach(m => console.log(`   • ${m.name} | $${m.priceUsd} USD | Ayuno: ${m.fastingHours}`));
+  matches.forEach(m => {
+    const isFree = hasSpecial && isCopro(m);
+    console.log(`   • ${m.name} | ${isFree ? '$0.00 USD (INCLUIDO)' : '$' + m.priceUsd + ' USD'} | Ayuno: ${m.fastingHours}`);
+  });
   console.log(`   TOTAL: $${totalUsd.toFixed(2)} USD`);
 });
 

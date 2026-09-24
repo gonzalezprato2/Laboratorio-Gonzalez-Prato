@@ -235,13 +235,24 @@ Fecha de Actualización: Septiembre 2026 | Versión 2.0 (Consolidada con Ajustes
 ·  Orinas transportadas en hielo; semen a temperatura ambiente (20-25°C). 
 
 11. COPROANÁLISIS Y ESTUDIOS GASTROINTESTINALES
+11.0 Regla Crítica de Inclusión de Coproparasitológico Simple:
+· Los siguientes 7 exámenes fecales especializados YA INCLUYEN el examen Coproparasitológico simple (Examen de Heces) sin costo adicional:
+  1. Coproantígenos Helicobacter pylori ($13.5 USD)
+  2. Absorción intestinal / Azúcares reductores ($11 USD)
+  3. Ag E. histolytica / Giardia / Cryptosporidium ($40 USD)
+  4. Ag Entamoeba histolytica ($26 USD)
+  5. Sudan III / Esteatorrea en heces ($11 USD)
+  6. Leucograma fecal / Leucocitos en heces ($11 USD)
+  7. Esteatocrito ácido ($10 USD)
+· Si el paciente solicita cualquiera de estos 7 estudios y además solicita examen de heces/coproparasitológico, NO se le cobra el coproparasitológico simple ($6 USD) ya que forma parte integral del estudio.
+
 11.1 Coproparasitológico Simple, Leucograma Fecal, Sudan III, Esteatocrito
-·  Recolectar en recipiente estéril limpio sin contacto con orina ni agua del inodoro. Sin antidiarreicos ni laxantes. Traslado a temperatura ambiente antes de 1 a 2 horas. 
+· Recolectar en recipiente estéril limpio sin contacto con orina ni agua del inodoro. Sin antidiarreicos ni laxantes. Traslado a temperatura ambiente antes de 1 a 2 horas. 
 11.2 Coproantígeno de Helicobacter pylori en Heces
-·  Muestra: Muestra fecal fresca (traslado en < 3 horas). 
-·  Indicar si está recibiendo antibióticos, compuestos de bismuto, inhibidores de bomba de protones (IBP: Omeprazol, Pantoprazol, Esomeprazol, Lansoprazol) ni antiácidos fuertes. La suspensión de los mismos queda a criterio del médico tratante. 
+· Muestra: Muestra fecal fresca (traslado en < 3 horas). 
+· Indicar si está recibiendo antibióticos, compuestos de bismuto, inhibidores de bomba de protones (IBP: Omeprazol, Pantoprazol, Esomeprazol, Lansoprazol) ni antiácidos fuertes. La suspensión de los mismos queda a criterio del médico tratante. 
 11.3 Coproantígenos (Entamoeba histolytica, Giardia lamblia, Cryptosporidium) y Calprotectina Fecal
-·  Recolectar porción representativa en frasco estéril (adquirido en la farmacia). Traslado antes de 2 horas. 
+· Recolectar porción representativa en frasco estéril (adquirido en la farmacia). Traslado antes de 2 horas. 
 11.4 Sangre Oculta en Heces 
 ·  Técnica inmunoquímica específica para hemoglobina humana: No requiere restricciones dietéticas de carnes. Evitar ingesta de alcohol, aspirina o sangrado por hemorroides activas / menstruación. 
 11.5 Concentrado Seriado de Heces (3 Muestras)
