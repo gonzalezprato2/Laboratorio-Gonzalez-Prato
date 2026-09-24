@@ -170,24 +170,30 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
             const isOutOfHours = lead.status === 'ESCALADO_FUERA_HORARIO';
             const isLeadFinalized = lead.status === 'FINALIZADO';
 
+            let baseBg = 'hover:bg-slate-50 border-transparent';
+            if (isUrgent) {
+              baseBg = isSelected ? 'bg-rose-100/90 border-rose-600 ring-2 ring-rose-500/40' : 'bg-rose-50/70 border-rose-500 hover:bg-rose-100/60';
+            } else if (isOutOfHours) {
+              baseBg = isSelected ? 'bg-indigo-100/90 border-indigo-600 ring-2 ring-indigo-500/40' : 'bg-indigo-50/60 border-indigo-500 hover:bg-indigo-100/60';
+            } else if (isLeadFinalized) {
+              baseBg = isSelected ? 'bg-slate-200 border-slate-500 opacity-90' : 'bg-slate-50/70 border-slate-300 opacity-75 hover:bg-slate-100';
+            } else {
+              baseBg = isSelected ? 'bg-teal-50/90 border-[#00A8B5] ring-2 ring-[#00A8B5]/30' : 'border-transparent hover:bg-slate-50';
+            }
+
             return (
               <div 
                 key={lead.id} 
                 onClick={() => setActiveLeadId(lead.id)} 
-                className={"group p-3.5 cursor-pointer transition-all border-l-4 relative " + (
-                  isUrgent 
-                    ? 'bg-rose-50/70 border-rose-500 hover:bg-rose-50' 
-                    : isOutOfHours
-                      ? 'bg-indigo-50/60 border-indigo-500 hover:bg-indigo-50'
-                      : isLeadFinalized
-                        ? 'bg-slate-50/70 border-slate-300 opacity-75 hover:bg-slate-100'
-                        : isSelected 
-                          ? 'bg-teal-50/50 border-[#00A8B5]' 
-                          : 'border-transparent hover:bg-slate-50'
-                )}
+                className={`group p-3.5 cursor-pointer transition-all border-l-4 relative rounded-r-lg ${baseBg}`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-1.5">{lead.name}</span>
+                  <span className="font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-1.5">
+                    {lead.name}
+                    {isSelected && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00A8B5]" title="Chat activo en visor"></span>
+                    )}
+                  </span>
                   <div className="flex items-center gap-1.5">
                     <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1"><Clock className="w-3 h-3" /> {lead.timestamp}</span>
                     {onDeleteLead && (
@@ -355,29 +361,42 @@ export const LiveInbox: React.FC<LiveInboxProps> = ({
 
             {/* Mensajes del Chat */}
             <div className="flex-1 p-4 bg-slate-50/40 overflow-y-auto space-y-3">
-              {activeLead.messages.map(msg => {
-                const isPatient = msg.sender === 'PACIENTE';
-                const isBot = msg.sender === 'BOT';
-                const isSecretary = msg.sender === 'SECRETARIA';
+              {activeLead.messages && activeLead.messages.length > 0 ? (
+                activeLead.messages.map(msg => {
+                  const isPatient = msg.sender === 'PACIENTE';
+                  const isBot = msg.sender === 'BOT';
+                  const isSecretary = msg.sender === 'SECRETARIA';
 
-                return (
-                  <div key={msg.id} className={"flex " + (isPatient ? 'justify-start' : 'justify-end')}>
-                    <div className={"max-w-[82%] rounded-2xl p-3.5 shadow-sm text-xs space-y-1.5 " + (
-                      isPatient 
-                        ? 'bg-white border border-slate-200 text-slate-800 rounded-tl-none' 
-                        : isSecretary 
-                          ? 'bg-[#0E4D58] text-white rounded-tr-none' 
-                          : 'bg-teal-50 border border-teal-200 text-teal-950 rounded-tr-none'
-                    )}>
-                      <div className="flex items-center justify-between gap-2 text-[10px] opacity-75 font-semibold">
-                        <span>{isPatient && '👤 Paciente'}{isBot && '🤖 Asistente Clínico IA'}{isSecretary && '👩‍💼 Secretaría / Recepción Oficial'}</span>
-                        <span className="font-mono">{msg.timestamp}</span>
+                  return (
+                    <div key={msg.id} className={"flex " + (isPatient ? 'justify-start' : 'justify-end')}>
+                      <div className={"max-w-[82%] rounded-2xl p-3.5 shadow-sm text-xs space-y-1.5 " + (
+                        isPatient 
+                          ? 'bg-white border border-slate-200 text-slate-800 rounded-tl-none' 
+                          : isSecretary 
+                            ? 'bg-[#0E4D58] text-white rounded-tr-none' 
+                            : 'bg-teal-50 border border-teal-200 text-teal-950 rounded-tr-none'
+                      )}>
+                        <div className="flex items-center justify-between gap-2 text-[10px] opacity-75 font-semibold">
+                          <span>{isPatient && '👤 Paciente'}{isBot && '🤖 Asistente Clínico IA'}{isSecretary && '👩‍💼 Secretaría / Recepción Oficial'}</span>
+                          <span className="font-mono">{msg.timestamp}</span>
+                        </div>
+                        <div className="whitespace-pre-line leading-relaxed">{msg.text}</div>
                       </div>
-                      <div className="whitespace-pre-line leading-relaxed">{msg.text}</div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-slate-400 text-xs p-6 text-center">
+                  <Clock className="w-8 h-8 mb-2 text-slate-300" />
+                  <p className="font-semibold text-slate-600">No hay mensajes previos en este historial</p>
+                  {activeLead.lastMessage && (
+                    <div className="mt-2 bg-white border border-slate-200 p-3 rounded-xl max-w-sm text-left">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Último mensaje registrado</span>
+                      <p className="text-xs text-slate-700">{activeLead.lastMessage}</p>
+                    </div>
+                  )}
+                </div>
+              )}
               <div ref={messagesEndRef} />
             </div>
 
