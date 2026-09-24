@@ -99,8 +99,11 @@ function extractSynonyms(rawName) {
     syns.add('grasas en sangre');
   }
   if (lower.includes('tsh')) {
+    syns.add('tsh normal');
     syns.add('tiroides');
     syns.add('hormona tiroidea');
+    syns.add('hormona tiroestimulante');
+    syns.add('tirotropina');
   }
   if (lower.includes('urocultivo')) {
     syns.add('cultivo de orina');
@@ -151,6 +154,14 @@ function extractSynonyms(rawName) {
     syns.add('estudio de hongos');
     syns.add('cultivo de hongos');
   }
+  if (lower.includes('esputo')) {
+    syns.add('cultivo de esputo');
+    syns.add('bk');
+    syns.add('ziehl neelsen');
+  }
+
+  // Remove any prohibited terms from synonyms
+  syns.delete('tsh ultrasensible');
 
   return Array.from(syns);
 }
@@ -161,7 +172,7 @@ function determinePreanalytics(cat, rawName) {
   const lower = rawName.toLowerCase();
   
   let fastingHours = '8 - 12 horas';
-  let sampleType = 'Suero sanguíneo';
+  let sampleType = 'Muestra de sangre';
   let turnaround = 'Mismo día (tarde)';
   let isCaracasConvenio = false;
   let notes = 'Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).';
@@ -185,7 +196,7 @@ function determinePreanalytics(cat, rawName) {
 
   // HEMATOLOGÍA
   if (normCat === 'HEMATOLOGÍA') {
-    sampleType = 'Sangre total con EDTA';
+    sampleType = 'Muestra de sangre';
     if (lower.includes('completa') || lower.includes('hemograma')) {
       fastingHours = '4 - 8 horas';
       notes = 'Evitar ejercicio intenso y alcohol 24h antes. Notificar fármacos activos.';
@@ -194,21 +205,20 @@ function determinePreanalytics(cat, rawName) {
       notes = 'Se procesa en cualquier momento. Para gota gruesa o ehrlichia, ideal durante pico febril.';
     } else if (lower.includes('tiempo') || lower.includes('tp') || lower.includes('tpt') || lower.includes('inr') || lower.includes('fibrinogeno')) {
       fastingHours = '3 - 4 horas';
-      sampleType = 'Plasma citratado';
       notes = 'Notificar si toma anticoagulantes (Warfarina, Heparina, Rivaroxabán) o aspirina.';
     } else if (lower.includes('grupo') || lower.includes('factor rh')) {
       fastingHours = 'No requiere ayuno estricto';
       notes = 'Indicar transfusiones previas en los últimos 3 meses o RhoGAM en embarazadas.';
     } else if (lower.includes('moco nasal') || lower.includes('eosinofilo')) {
       fastingHours = 'No requiere ayuno';
-      sampleType = 'Secreción nasal en lámina portaobjeto';
+      sampleType = 'Secreción nasal en lámina';
       notes = 'Sin lavados nasales ni medicamentos tópicos 4 horas antes.';
     }
   }
 
   // QUÍMICA SANGUÍNEA
   else if (normCat === 'QUÍMICA SANGUÍNEA') {
-    sampleType = 'Suero sanguíneo';
+    sampleType = 'Muestra de sangre';
     if (lower.includes('glicemia en ayunas') || lower.includes('basal') || lower.includes('glucosa')) {
       fastingHours = '8 - 12 horas';
       notes = 'Ayuno estricto. Prohibido café, chicles o caramelos. Consultar toma de hipoglucemiantes.';
@@ -232,22 +242,21 @@ function determinePreanalytics(cat, rawName) {
       notes = 'Evitar ejercicio físico intenso y alcohol 48h previas.';
     } else if (lower.includes('hba1c') || lower.includes('hemoglobina glicada')) {
       fastingHours = 'No requiere ayuno';
-      sampleType = 'Sangre total con EDTA';
       notes = 'No requiere ayuno. Notificar transfusiones recientes o anemias hemolíticas.';
     } else if (lower.includes('gases arterial')) {
       fastingHours = 'No requiere ayuno';
-      sampleType = 'Sangre arterial en jeringa heparinizada';
+      sampleType = 'Muestra de sangre arterial';
       notes = 'Punción arterial estricta. Transporte inmediato en baño de hielo (<30 min).';
     } else if (lower.includes('gases venos')) {
       fastingHours = lower.includes('postprandial') ? '1 hora post-desayuno' : 'No requiere ayuno';
-      sampleType = 'Sangre venosa heparinizada';
+      sampleType = 'Muestra de sangre venosa';
       notes = lower.includes('postprandial') ? 'Extracción exacta a 1 hora de finalizar el desayuno.' : 'Recolección según orden médica.';
     }
   }
 
   // HORMONAS
   else if (normCat === 'HORMONAS') {
-    sampleType = 'Suero sanguíneo';
+    sampleType = 'Muestra de sangre';
     fastingHours = '8 - 12 horas';
     if (lower.includes('tsh') || lower.includes('t3') || lower.includes('t4')) {
       notes = 'Toma matutina (7:00-9:00 AM). Tomar levotiroxina DESPUÉS de la extracción. Suspender biotina 48-72h antes.';
@@ -264,9 +273,13 @@ function determinePreanalytics(cat, rawName) {
         ? 'Cortisol PM: Llegar a las 3:30 PM para 20 min de reposo previo (ayuno ligero 2-4h).'
         : 'Cortisol AM: Llegar entre 7:30 y 7:40 AM para 20-30 min de reposo previo absoluto en sala.';
     } else if (lower.includes('insulina')) {
-      notes = lower.includes('postprandial') 
-        ? 'Insulina PP: Desayuno habitual y extracción a las 2 horas exactas con reposo.'
-        : 'Insulina Basal: Ayuno estricto de 8 a 12 horas. Sin ejercicio el día previo.';
+      if (lower.includes('postprandial') || lower.includes('pp')) {
+        fastingHours = 'Protocolo especial (2h post-desayuno)';
+        notes = 'Insulina PP: Desayuno habitual y extracción a las 2 horas exactas con reposo.';
+      } else {
+        fastingHours = '8 - 12 horas';
+        notes = 'Insulina Basal: Ayuno estricto de 8 a 12 horas. Sin ejercicio el día previo.';
+      }
     } else if (lower.includes('anti-tpo') || lower.includes('anti-tg')) {
       notes = 'Suspender suplementos con Biotina (Vit B7/B8) 48 a 72 horas antes.';
     }
@@ -274,7 +287,7 @@ function determinePreanalytics(cat, rawName) {
 
   // INMUNOLOGÍA & SEROLOGÍA
   else if (normCat === 'INMUNOLOGÍA' || normCat === 'INMUNOGLOBULINAS') {
-    sampleType = 'Suero sanguíneo';
+    sampleType = 'Muestra de sangre';
     fastingHours = '4 - 8 horas';
     if (lower.includes('vdrl')) {
       notes = 'Ayuno de 4 a 8 horas. Evitar grasas y alcohol 24h antes. Notificar antibióticos o embarazo.';
@@ -299,7 +312,7 @@ function determinePreanalytics(cat, rawName) {
       sampleType = 'Orina matutina (chorro medio en frasco estéril)';
       notes = 'Higiene genital con agua y jabón neutro. Descartar primer chorro. 48-72h sin antibióticos. Traslado con hielo.';
     } else if (lower.includes('coprocultivo')) {
-      sampleType = 'Muestra fecal fresca en frasco estéril';
+      sampleType = 'Muestra de heces fresca en frasco estéril';
       notes = 'Muestra con moco/sangre si hay diarrea. Sin antibióticos ni antidiarreicos. Traslado inmediato.';
     } else if (lower.includes('exudado faringeo') || lower.includes('faringeo') || lower.includes('faríngeo')) {
       fastingHours = 'Ayuno matutino estricto';
@@ -307,7 +320,7 @@ function determinePreanalytics(cat, rawName) {
       notes = 'En ayunas, sin cepillarse los dientes, sin enjuagues ni caramelos antisépticos. Toma directa en sede.';
     } else if (lower.includes('esputo') || lower.includes('bronquial') || lower.includes('lavado bronqueoalveolar') || lower.includes('lba')) {
       sampleType = 'Expectoración matutina profunda / Aspirado bronquial';
-      notes = 'Enjuague bucal solo con agua simple. Tos profunda matutina en recolector estéril (no saliva).';
+      notes = 'Cultivo microbiológico de esputo (incluye coloración de Ziehl-Neelsen / BK sin cargo adicional). Enjuague bucal solo con agua simple. Tos profunda matutina en recolector estéril (no saliva).';
     } else if (lower.includes('vaginal')) {
       sampleType = 'Secreción vaginal';
       notes = '48-72h sin relaciones sexuales, óvulos, cremas ni duchas. No estar menstruando (acudir 2-3 días después).';
@@ -324,23 +337,45 @@ function determinePreanalytics(cat, rawName) {
       sampleType = 'Secreción del conducto auditivo';
       notes = 'Sin gotas óticas 48 horas previas.';
     } else if (lower.includes('hemocultivo')) {
-      sampleType = 'Sangre venosa en frascos comerciales estériles';
+      sampleType = 'Muestra de sangre (frascos de hemocultivo)';
       notes = 'Adquirir frascos en el laboratorio. Punción periférica ideal al inicio de pico febril.';
     } else if (lower.includes('espermocultivo') || lower.includes('meares')) {
-      sampleType = 'Kit de 4 frascos estériles (Meares y Stamey)';
+      sampleType = 'Kit de recolección de 4 frascos estériles (Meares y Stamey)';
       notes = '7-14 días sin antibióticos. Abstinencia sexual 2-3 días. Retención de orina 4h. Se recolectan 4 frascos.';
     } else if (lower.includes('demodex')) {
       turnaround = 'Mismo día o 24-48h';
-      sampleType = 'Muestra de pestañas / folículos sebáceos faciales';
+      sampleType = 'Muestra de pestañas / folículos sebáceos';
       notes = '⚠️ PREVIA CITA OBLIGATORIA con la micóloga. La mañana del examen NO lavarse el rostro. Acudir sin maquillaje ni cremas durante 24h.';
     } else if (lower.includes('koh') || lower.includes('micol') || lower.includes('hongo')) {
       turnaround = '5 a 8 días hábiles';
-      sampleType = 'Raspado de uñas / Escamas de piel / Muestra de pelos';
+      sampleType = 'Raspado de uñas / Escamas de piel / Muestra de cabellos';
       notes = '⚠️ PREVIA CITA OBLIGATORIA con la micóloga. 7 a 15 días sin antimicóticos tópicos ni orales. Sin cosméticos ni cremas 3 días antes.';
-    } else if (lower.includes('gram') || lower.includes('zielh') || lower.includes('zn') || lower.includes('bk')) {
-      sampleType = 'Muestra biológica extendida en lámina portaobjeto';
+    } else if (lower.includes('gram')) {
+      sampleType = 'Muestra biológica extendida en lámina';
       turnaround = 'Mismo día';
       notes = 'Coloración microscópica directa.';
+    } else if (lower.includes('zielh') || lower.includes('zn') || lower.includes('bk')) {
+      sampleType = 'Muestra biológica extendida en lámina';
+      turnaround = 'Mismo día';
+      notes = 'Coloración de Ziehl-Neelsen / BK aislada ($6 USD). Nota: Si se solicita el Cultivo de Esputo ($50 USD), este ya incluye la coloración sin costo adicional.';
+    } else if (lower.includes('lcr') || lower.includes('cefalorraquideo') || lower.includes('cerebroespinal')) {
+      sampleType = 'Líquido cefalorraquídeo (LCR) obtenido por punción médica';
+      notes = 'Punción lumbar efectuada exclusivamente por médico especialista.';
+    } else if (lower.includes('pleural')) {
+      sampleType = 'Líquido pleural obtenido por punción médica';
+      notes = 'Toracocentesis efectuada exclusivamente por médico especialista.';
+    } else if (lower.includes('sinovial') || lower.includes('articular')) {
+      sampleType = 'Líquido sinovial articular obtenido por punción médica';
+      notes = 'Artrocentesis efectuada exclusivamente por médico especialista.';
+    } else if (lower.includes('pericardico') || lower.includes('pericárdico')) {
+      sampleType = 'Líquido pericárdico obtenido por punción médica';
+      notes = 'Pericardiocentesis efectuada exclusivamente por médico especialista.';
+    } else if (lower.includes('peritoneal') || lower.includes('ascitico') || lower.includes('ascítico')) {
+      sampleType = 'Líquido peritoneal/ascítico obtenido por punción médica';
+      notes = 'Paracentesis efectuada exclusivamente por médico especialista.';
+    } else if (lower.includes('disbiosis')) {
+      sampleType = 'Muestra de heces fresca en frasco estéril';
+      notes = '15 días continuos sin antibióticos, antimicóticos, probióticos ni consumo de yogurt.';
     } else if (lower.includes('antifungigrama')) {
       sampleType = 'Aislamiento fúngico puro en cultivo';
       turnaround = '5 a 8 días hábiles';
@@ -352,27 +387,28 @@ function determinePreanalytics(cat, rawName) {
   else if (normCat === 'UROANÁLISIS Y ORINA') {
     if (lower.includes('24 horas') || lower.includes('24h') || lower.includes('depuracion') || lower.includes('depuración') || lower.includes('proteinuria 24')) {
       fastingHours = 'Ayuno para la muestra de sangre venosa';
-      sampleType = 'Orina completa de 24 horas + Sangre venosa';
+      sampleType = 'Orina completa de 24 horas + Muestra de sangre';
       notes = 'Día 1 descartar orina 6:00 AM. Recoger todas las micciones hasta Día 2 6:00 AM refrigerado en botellón limpio. Acudir en ayunas para la toma de sangre.';
     } else if (lower.includes('segunda orina') || lower.includes('relacion') || lower.includes('relación')) {
-      fastingHours = 'Ayuno matutino';
-      sampleType = 'Segunda orina de la mañana';
-      notes = 'Descartar la primera orina al levantarse y recolectar la segunda orina de la mañana en ayunas.';
-    } else {
       fastingHours = 'No requiere ayuno de alimentos';
-      sampleType = 'Primera orina de la mañana (chorro medio)';
+      sampleType = 'Muestra de orina (segunda orina de la mañana)';
+      notes = 'Descartar la primera orina al levantarse y recolectar la segunda orina de la mañana.';
+    } else {
+      fastingHours = 'No requiere ayuno';
+      sampleType = 'Muestra de orina (primera orina de la mañana, chorro medio)';
       notes = 'Aseo genital neutro previo. Envase estéril de farmacia. Entregar en máx 1 hora o refrigerar.';
     }
   }
 
   // HECES
   else if (normCat === 'COPROANÁLISIS Y HECES') {
-    sampleType = 'Muestra fecal fresca en recolector estéril';
+    sampleType = 'Muestra de heces fresca en recolector estéril';
     fastingHours = 'No requiere ayuno';
     if (lower.includes('sangre oculta')) {
       notes = 'Método inmunoquímico (no requiere restricción de carnes). Evitar alcohol, aspirina o sangrado hemorroidal.';
     } else if (lower.includes('helicobacter') || lower.includes('coproantigeno')) {
-      notes = 'Muestra fecal fresca (<3 horas). Notificar si toma IBP (omeprazol), antibióticos o bismuto.';
+      sampleType = 'Muestra de heces fresca en recolector estéril';
+      notes = 'Muestra fecal fresca (<3 horas). Notificar si toma antibióticos, bismuto, antiácidos o inhibidores de bomba de protones (Omeprazol, Pantoprazol, etc.).';
     } else if (lower.includes('graham')) {
       sampleType = 'Kit de láminas con cinta adhesiva transparente';
       notes = 'Retirar kit en sede. Toma matutina al despertar antes de levantarse y sin aseo perianal previo.';
@@ -387,12 +423,12 @@ function determinePreanalytics(cat, rawName) {
 
   // MARCADORES TUMORALES
   else if (normCat === 'MARCADORES TUMORALES') {
-    sampleType = 'Suero sanguíneo';
+    sampleType = 'Muestra de sangre';
     fastingHours = '4 - 8 horas';
     if (lower.includes('psa')) {
       notes = '48h de abstinencia sexual (sin eyaculación). Sin bicicleta/moto 48h antes. 48-72h tras tacto rectal; 4-6 semanas tras biopsia.';
     } else if (lower.includes('beta') && lower.includes('hcg')) {
-      notes = 'Muestra en suero sanguíneo. Ayuno ligero de 4h. Indicar fecha de última menstruación (FUM).';
+      notes = 'Muestra de sangre. Ayuno ligero de 4h. Indicar fecha de última menstruación (FUM).';
     } else if (lower.includes('ca 125')) {
       notes = 'Evitar toma durante menstruación (acudir al menos 5 días después de culminar el sangrado).';
     } else if (lower.includes('cea')) {
@@ -403,21 +439,94 @@ function determinePreanalytics(cat, rawName) {
   // CITOQUÍMICOS Y PERFILES
   else if (normCat === 'CITOQUÍMICOS Y PERFILES') {
     if (lower.includes('liquido') || lower.includes('líquido') || lower.includes('lcr') || lower.includes('pleural') || lower.includes('ascitico') || lower.includes('sinovial')) {
-      sampleType = 'Líquido biológico obtenido por punción médica + Sangre venosa';
+      sampleType = 'Líquido biológico obtenido por punción médica + Muestra de sangre';
       fastingHours = 'No requiere ayuno para el líquido';
-      notes = 'Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre venosa simultánea.';
+      notes = 'Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre simultánea.';
     } else if (lower.includes('perfil 20')) {
       fastingHours = '10 - 12 horas';
-      sampleType = 'Suero sanguíneo + Sangre EDTA + Orina y Heces';
+      sampleType = 'Muestra de sangre + Muestra de orina y Muestra de heces';
       notes = 'Perfil de chequeo integral. Ayuno de 10-12h, cenar ligero sin grasas la noche previa. Traer orina matutina y heces frescas.';
     }
   }
 
   // PERFIL FERROCINÉTICA
   else if (normCat === 'PERFIL FERROCINÉTICA') {
-    sampleType = 'Suero sanguíneo';
+    sampleType = 'Muestra de sangre';
     fastingHours = '8 - 12 horas';
     notes = 'Extracción matutina ideal. Suspender suplementos de hierro 48 a 72 horas antes salvo indicación médica.';
+  }
+
+  // PRUEBAS ESPECIALES Y OTROS ESTUDIOS
+  else if (normCat === 'PRUEBAS ESPECIALES' || normCat === 'OTROS ESTUDIOS') {
+    if (lower.includes('citologia urinaria') || lower.includes('citología urinaria')) {
+      sampleType = 'Muestra de orina (3 muestras matutinas)';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Segunda orina matutina recolectada durante 3 días consecutivos.';
+    } else if (lower.includes('citologia ginecologica') || lower.includes('citología ginecológica') || lower.includes('papanicolaou') || lower.includes('pap')) {
+      sampleType = 'Muestra ginecológica (frotis en lámina)';
+      fastingHours = 'No requiere ayuno';
+      notes = '48h de abstinencia sexual, sin duchas vaginales ni óvulos previos. No estar en período menstrual.';
+    } else if (lower.includes('lcr') || lower.includes('cefalorraquideo')) {
+      sampleType = 'Líquido cefalorraquídeo (LCR) obtenido por punción médica';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Punción asistida por médico especialista.';
+    } else if (lower.includes('sinovial') || lower.includes('articular')) {
+      sampleType = 'Líquido sinovial articular obtenido por punción médica';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Punción asistida por médico especialista.';
+    } else if (lower.includes('pleural')) {
+      sampleType = 'Líquido pleural obtenido por punción médica';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Punción asistida por médico especialista.';
+    } else if (lower.includes('pericardico') || lower.includes('pericárdico')) {
+      sampleType = 'Líquido pericárdico obtenido por punción médica';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Punción asistida por médico especialista.';
+    } else if (lower.includes('peritoneal') || lower.includes('ascitico') || lower.includes('ascítico')) {
+      sampleType = 'Líquido peritoneal/ascítico obtenido por punción médica';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Punción asistida por médico especialista.';
+    } else if (lower.includes('gota gruesa') || lower.includes('hemoparasitos') || lower.includes('malaria')) {
+      sampleType = 'Muestra de sangre';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Idealmente tomar la muestra durante el pico febril.';
+    } else if (lower.includes('erlichia') || lower.includes('ehrlichia') || lower.includes('capa blanca')) {
+      sampleType = 'Muestra de sangre (capa blanca / frotis)';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Idealmente tomar la muestra durante el pico febril.';
+    } else if (lower.includes('gases venos')) {
+      sampleType = 'Muestra de sangre venosa';
+      fastingHours = lower.includes('postprandial') ? '1 hora post-desayuno' : 'No requiere ayuno';
+      notes = 'Gasometría venosa.';
+    } else if (lower.includes('gases arterial')) {
+      sampleType = 'Muestra de sangre arterial';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Punción arterial estricta con reposo previo de 15 minutos.';
+    } else if (lower.includes('vitamina b12') || lower.includes('cobalamina')) {
+      sampleType = 'Muestra de sangre';
+      fastingHours = '8 - 12 horas';
+      notes = 'Ayuno de 8 a 12 horas. Suspender suplementos de complejo B o vitamina B12 de 48 a 72 horas antes.';
+    } else if (lower.includes('vitamina d')) {
+      sampleType = 'Muestra de sangre';
+      fastingHours = '8 - 12 horas';
+      notes = 'Ayuno de 8 a 12 horas.';
+    } else if (lower.includes('folico') || lower.includes('fólico') || lower.includes('folato')) {
+      sampleType = 'Muestra de sangre';
+      fastingHours = '8 - 12 horas';
+      notes = 'Ayuno de 8 a 12 horas.';
+    } else if (lower.includes('hba1c') || lower.includes('hemoglobina glicada') || lower.includes('glicosilada')) {
+      sampleType = 'Muestra de sangre';
+      fastingHours = 'No requiere ayuno';
+      notes = 'No requiere ayuno obligatorio. Informar si ha recibido transfusiones recientes.';
+    } else if (lower.includes('antigenos febriles') || lower.includes('widal')) {
+      sampleType = 'Muestra de sangre';
+      fastingHours = 'No requiere ayuno';
+      notes = 'Prueba serológica febril.';
+    } else {
+      sampleType = 'Muestra de sangre';
+      fastingHours = '8 - 12 horas';
+      notes = 'Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).';
+    }
   }
 
   return {
@@ -432,7 +541,7 @@ function determinePreanalytics(cat, rawName) {
 // Format canonical clean name
 function cleanExamName(rawName) {
   let name = rawName.trim();
-  // If starts with lower case, capitalize first letter
+  // Ensure capital start
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 

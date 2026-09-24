@@ -10,6 +10,7 @@ const quotedList = [
   { name: 'Lipidograma / Perfil Lipídico', quotedPrice: 17.0, term: 'lipidograma' },
   { name: 'Glicemia en ayunas (Glicemia basal)', quotedPrice: 4.5, term: 'glicemia en ayunas' },
   { name: 'Insulina Basal (en Ayunas)', quotedPrice: 14.0, term: 'insulina basal' },
+  { name: 'Insulina Postprandial (PP)', quotedPrice: 14.0, term: 'insulina pp' },
   { name: 'TGO/AST y TGP/ALT (Transaminasas)', quotedPrice: 11.0, term: 'tgo/ast' },
   { name: 'GGT (Gamma Glutamil Transferasa)', quotedPrice: 6.0, term: 'gamma glutamil transferasa' },
   { name: 'Bilirrubina Total y Fraccionada', quotedPrice: 8.5, term: 'bilirrubina' },
@@ -17,16 +18,19 @@ const quotedList = [
   { name: 'Creatinina Sérica', quotedPrice: 4.5, term: 'cretinina' },
   { name: 'Urea / BUN', quotedPrice: 4.5, term: 'urea o bun' },
   { name: 'Ácido Úrico', quotedPrice: 4.5, term: 'acido urico' },
-  { name: 'TSH Ultrasensible', quotedPrice: 13.0, term: 'tsh' },
+  { name: 'TSH (Hormona Tiroestimulante)', quotedPrice: 13.0, term: 'tsh' },
   { name: 'T4 Libre', quotedPrice: 13.0, term: 't4 libre' },
   { name: 'FSH (Hormona Folículo Estimulante)', quotedPrice: 12.0, term: 'fsh' },
   { name: 'LH (Hormona Luteinizante)', quotedPrice: 12.0, term: 'lh' },
   { name: 'Prolactina', quotedPrice: 12.0, term: 'prolactina' },
   { name: 'Estradiol (E2)', quotedPrice: 13.0, term: 'estradiol' },
-  { name: 'Uroanálisis General', quotedPrice: 5.0, term: 'uroanalisis' },
+  { name: 'Uroanálisis o Examen de Orina', quotedPrice: 6.0, term: 'uroanalisis' },
   { name: 'Vitamina D (25-OH)', quotedPrice: 20.0, term: 'vitamina d' },
-  { name: 'Vitamina B12 (Cobalamina)', quotedPrice: 20.0, term: 'vitamina b12' },
-  { name: 'Ferritina Sérica', quotedPrice: 13.0, term: 'ferritina' }
+  { name: 'Vitamina B12 (Cobalamina)', quotedPrice: 23.0, term: 'vitamina b12' },
+  { name: 'Ferritina Sérica', quotedPrice: 13.0, term: 'ferritina' },
+  { name: 'Coproantígeno de Helicobacter pylori', quotedPrice: 13.5, term: 'coproantigenos helicobacter' },
+  { name: 'Cultivo de Esputo', quotedPrice: 50.0, term: 'esputo' },
+  { name: 'Coloración de Ziehl-Neelsen (BK)', quotedPrice: 6.0, term: 'zielh neelsen' }
 ];
 
 console.log('=== AUDITORÍA CLÍNICA Y FINANCIERA DEL CHAT ===\n');

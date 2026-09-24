@@ -162,10 +162,14 @@ export function processPatientMessage(
     if (normUser.includes('coprocultivo') && !normUser.includes('helicobacter') && exam.id === 'cop-8') {
       return false;
     }
+    // Si solicitó cultivo de esputo, NO incluir la coloración de Ziehl-Neelsen/BK por separado (ya está incluida en el cultivo)
+    if (normUser.includes('esputo') && (normalizeText(exam.name).includes('zielh') || normalizeText(exam.name).includes('zn') || normalizeText(exam.name).includes('bk'))) {
+      return false;
+    }
     return true;
   });
 
-  // 2.1. Detección de exámenes NO realizados (Anti-alucinación explícita)
+  // 2.1. Detección de exámenes NO realizados o aclaratorias de nomenclatura
   if (normUser.includes('espermograma') || normUser.includes('espermatograma') || normUser.includes('seminograma') || normUser.includes('espermiograma')) {
     return {
       replyText: 'Estimado paciente, le informamos que actualmente en *GONZALEZ-PRATO Laboratorio* **NO realizamos el examen de Espermograma / Seminograma**.\n\n*(Nota clínica: Disponemos de Espermocultivo para diagnóstico microbiológico de infecciones bacterianas, pero no de análisis morfológico o recuento espermático).*',
@@ -177,6 +181,13 @@ export function processPatientMessage(
     };
   }
 
+  // Aclaratoria obligatoria si el paciente solicita explícitamente "TSH ultrasensible"
+  const askedUltrasensitive = normUser.includes('ultrasensible') && (normUser.includes('tsh') || normUser.includes('tiroides') || normUser.includes('tirotropina'));
+  let tshClarification = '';
+  if (askedUltrasensitive) {
+    tshClarification = '📌 *Aclaratoria Institucional:* En *GONZALEZ-PRATO Laboratorio* procesamos **TSH normal** ($13.00 USD). No se realiza TSH ultrasensible.\n\n';
+  }
+
   // 2.1.1. Desambiguación de consultas genéricas de "CULTIVO"
   const isGenericCultivo = (normUser === 'cultivo' || normUser === 'cultivos' || normUser === 'precio de cultivo' || normUser === 'precio de los cultivos' || normUser === 'cuanto cuesta un cultivo' || (normUser.includes('cultivo') && !normUser.includes('orina') && !normUser.includes('urocultivo') && !normUser.includes('heces') && !normUser.includes('coprocultivo') && !normUser.includes('faringeo') && !normUser.includes('garganta') && !normUser.includes('esputo') && !normUser.includes('secrecion') && !normUser.includes('herida') && !normUser.includes('absceso') && !normUser.includes('sangre') && !normUser.includes('hemocultivo') && !normUser.includes('semen') && !normUser.includes('espermocultivo') && !normUser.includes('micologico') && !normUser.includes('una') && !normUser.includes('unas') && !normUser.includes('piel') && !normUser.includes('hongo')));
 
@@ -186,11 +197,11 @@ export function processPatientMessage(
     cultivoReply += '• **Urocultivo con Antibiograma (Orina):** **$35.00 USD** (Primera orina matutina o retención 3-4h, frasco estéril, en hielo).\n';
     cultivoReply += '• **Coprocultivo (Heces):** **$42.00 USD** (Muestra fecal fresca sin antibióticos 48-72h).\n';
     cultivoReply += '• **Exudado Faríngeo con Antibiograma (Garganta):** **$35.00 USD** (En ayunas, sin cepillarse los dientes ni enjuagues).\n';
-    cultivoReply += '• **Cultivo de Esputo (Expectoración profunda):** **$50.00 USD**.\n';
+    cultivoReply += '• **Cultivo de Esputo (Expectoración profunda):** **$50.00 USD** *(Ya incluye coloración de Ziehl-Neelsen / BK sin costo adicional)*.\n';
     cultivoReply += '• **Cultivo de Secreciones (Óticas, Oculares, Nasales):** **$45.00 USD**.\n';
     cultivoReply += '• **Cultivo de Heridas, Úlceras y Abscesos:** **$50.00 USD**.\n';
-    cultivoReply += '• **Hemocultivo Automatizado (Sangre):** **$49.00 USD** por botella.\n';
-    cultivoReply += '• **Espermocultivo (Prueba de 4 vasos):** **$50.00 USD**.\n';
+    cultivoReply += '• **Hemocultivo Automatizado (Sangre):** **$48.00 USD** por botella.\n';
+    cultivoReply += '• **Espermocultivo (Prueba de 4 vasos):** **$45.00 USD**.\n';
     cultivoReply += '• **Cultivo Micológico (Uñas, Piel, Cuero cabelludo):** **$24.00 USD** (Con previa cita con micóloga).\n\n';
     cultivoReply += '📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n';
     cultivoReply += '¿Cuál de estos cultivos requiere realizarse o qué muestra le indicó su médico?';
@@ -217,7 +228,7 @@ export function processPatientMessage(
         category: 'HEMATOLOGIA',
         costUsd: 13.00,
         fastingHours: 'Sin ayuno estricto',
-        sampleType: 'Sangre periférica / Capa leucocitaria (EDTA)',
+        sampleType: 'Muestra de sangre (capa blanca / frotis)',
         deliveryTime: 'Mismo día',
         notes: 'Idealmente tomar la muestra durante la fase febril aguda (pico febril) o con sintomatología activa.',
         synonyms: ['erlichia', 'erlichias', 'frotis capa blanca', 'ehrlichia'],
@@ -228,7 +239,7 @@ export function processPatientMessage(
       ehrlichiaReply += 'Para el diagnóstico de **Ehrlichia (Erlichia)** disponemos de las siguientes modalidades:\n\n';
       ehrlichiaReply += '1️⃣ *EN NUESTRA SEDE FÍSICA (MÉRIDA):*\n';
       ehrlichiaReply += '• **Estudio de Ehrlichias (Capa Blanca / Frotis Sanguíneo)**: **$13.00 USD**\n';
-      ehrlichiaReply += '• *Muestra:* Sangre periférica / Capa leucocitaria.\n';
+      ehrlichiaReply += '• *Muestra:* Muestra de sangre (capa blanca / frotis).\n';
       ehrlichiaReply += '• *Requisitos:* Sin ayuno estricto. Se recomienda tomar la muestra idealmente durante el pico o fase febril aguda para mayor sensibilidad diagnóstica.\n\n';
       ehrlichiaReply += '2️⃣ *POR CONVENIO TORRE CARACAS (ESTUDIO MOLECULAR / SEROLOGÍA):*\n';
       ehrlichiaReply += '• **PCR Molecular de Ehrlichia / Serología de Ehrlichia**\n';
@@ -293,24 +304,22 @@ export function processPatientMessage(
     }
   }
 
-  // 4. Preguntas Generales y Medios de Pago
+  // 4. Preguntas Generales y Medios de Pago (Transferir a Secretaría para validar cotización y datos de pago)
   const isPaymentQuery = normUser.includes('pago') || normUser.includes('precio dolar') || normUser.includes('tasa') || normUser.includes('bcv') || normUser.includes('pago movil') || normUser.includes('zelle') || normUser.includes('efectivo') || normUser.includes('transferencia') || normUser.includes('punto de venta') || normUser.includes('metodos de pago') || normUser.includes('formas de pago');
   if (matchedExams.length === 0 && isPaymentQuery) {
-    let paymentReply = '💳 *MODALIDADES DE PAGO — GONZALEZ-PRATO LABORATORIO*\n\n';
-    paymentReply += 'Nuestros precios de catálogo están expresados en **Dólares ($ USD)** y aceptamos los siguientes métodos:\n\n';
-    paymentReply += '• 💵 **Dólares en efectivo:** Billetes en buen estado.\n';
-    paymentReply += '• 🇻🇪 **Bolívares (Bs.):** Aceptamos **Pago Móvil**, **Punto de Venta**, **Transferencia bancaria** y **Efectivo en Bs.**, calculados a la **tasa oficial del Banco Central de Venezuela (BCV)** del día de su atención.\n';
-    paymentReply += '• 🌐 **Pagos electrónicos internacionales:** Zelle y Binance Pay.\n\n';
-    paymentReply += '📍 *Horario de Atención:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n';
-    paymentReply += '¿Desea cotizar algún examen o perfil en específico?';
+    let paymentReply = '💳 *VALIDACIÓN DE COTIZACIÓN Y DATOS DE PAGO*\n\n';
+    paymentReply += 'Estimado paciente, para validar formalmente la cotización de sus exámenes y que le sean suministrados los datos para el pago, estoy transfiriendo esta comunicación a nuestra secretaría 🔔.\n\n';
+    paymentReply += '📍 *Horario de Atención en Sede:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n';
+    paymentReply += '¿Desea cotizar algún examen antes de que la secretaría tome su caso?';
 
     return {
       replyText: paymentReply,
       matchedExams: [],
       totalUsd: 0,
-      shouldEscalate: false,
+      shouldEscalate: true,
       isOutOfHours,
-      escalationStatus: 'BOT_ACTIVO'
+      escalationStatus: isOutOfHours ? 'ESCALADO_FUERA_HORARIO' : 'ESCALADO_HUMANO',
+      escalationReason: 'Consulta de validación de pago / datos bancarios (Transferido a secretaría)'
     };
   }
 
@@ -322,11 +331,11 @@ export function processPatientMessage(
     if (!greetingReply) {
       const labName = systemConfig?.laboratoryName || 'GONZALEZ-PRATO Laboratorio';
       const director = systemConfig?.directorName || 'Luisa Carolina González Ramírez';
-      greetingReply = '¡Hola! Bienvenido a *' + labName + '* 🧪 (Dirección Técnica: ' + director + ').\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones instantáneas de exámenes en USD ($).\n• ⏱️ Requisitos de ayuno y preparación preanalítica oficial.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Información del Convenio Torre Caracas (pruebas especializadas).\n• 📋 Formas de pago (Dólares, Bolívares a tasa oficial BCV por Pago Móvil, Punto de Venta, Transferencia y Efectivo, además de Zelle y Binance).\n\n';
+      greetingReply = '¡Hola! Bienvenido a *' + labName + '* 🧪 (Dirección Técnica: ' + director + ').\n\nSoy su Asistente Clínico Virtual disponible 24/7 para brindarle:\n• 💰 Cotizaciones oficiales de exámenes en USD ($).\n• ⏱️ Requisitos de ayuno y preparación preanalítica oficial.\n• 🔬 Protocolos de Microbiología, Coproanálisis, Uroanálisis y Estudios Micológicos.\n• 🏛️ Orientación del Convenio Torre Caracas (pruebas especializadas).\n\n';
       if (isOutOfHours) {
         greetingReply += '*(Nota: Nuestra sede física se encuentra en receso fuera de horario, pero puedo cotizarle y orientarle de inmediato).*\\n\\n¿Qué prueba médica desea consultar hoy?';
       } else {
-        greetingReply += '¿Qué prueba médica o perfil desea consultar hoy?\n*(En cualquier momento puede escribir "secretaria" para hablar con nuestro equipo).*';
+        greetingReply += '¿Qué prueba médica o perfil desea consultar hoy?\n*(En cualquier momento puede escribir "secretaria" para validar cotizaciones o agendar citas).*';
       }
     }
 
@@ -355,7 +364,7 @@ export function processPatientMessage(
   // Calcular totales (excluyendo exámenes de convenio con precio 0 que cotiza secretaría)
   const totalUsd = matchedExams.reduce((acc, curr) => acc + curr.priceUsd, 0);
 
-  let reply = 'Con gusto le presento la información oficial de *GONZALEZ-PRATO Laboratorio* 🧪:\n\n';
+  let reply = tshClarification + 'Con gusto le presento la información oficial de *GONZALEZ-PRATO Laboratorio* 🧪:\n\n';
   if (matchedExams.length > 0) {
     reply += '📋 *COTIZACIÓN OFICIAL Y PREPARACIÓN:*\n';
     matchedExams.forEach((exam, idx) => {
@@ -374,7 +383,8 @@ export function processPatientMessage(
     });
     if (totalUsd > 0) {
       reply += '──────────────────────────\n';
-      reply += '💰 *TOTAL A CANCELAR:* **$' + totalUsd.toFixed(2) + ' USD**\n\n';
+      reply += '💰 *TOTAL ESTIMADO:* **$' + totalUsd.toFixed(2) + ' USD**\n\n';
+      reply += '🔔 *Para validar formalmente esta cotización y que le sean suministrados los datos para el pago, estoy transfiriendo la comunicación a la secretaría.*\n\n';
     }
   }
 
