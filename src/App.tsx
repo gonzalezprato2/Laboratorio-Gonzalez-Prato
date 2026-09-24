@@ -62,6 +62,35 @@ export default function App() {
     setTimeout(() => setIsRefreshing(false), 500);
   };
 
+  const handleSelectLead = async (id: string) => {
+    setActiveLeadId(id);
+    const targetLead = leads.find(l => l.id === id);
+    if (targetLead) {
+      try {
+        const msgs = await supabaseService.getMessagesForLead(targetLead.id, targetLead.whatsapp);
+        if (msgs && msgs.length > 0) {
+          setLeads(prevLeads => prevLeads.map(l => l.id === id ? { ...l, messages: msgs } : l));
+        }
+      } catch (e) {
+        console.error('Error fetching on-demand messages for lead:', e);
+      }
+    }
+  };
+
+  // Cargar historial completo bajo demanda para el lead activo si esta vacio
+  useEffect(() => {
+    if (activeLeadId && leads.length > 0) {
+      const targetLead = leads.find(l => l.id === activeLeadId);
+      if (targetLead && (!targetLead.messages || targetLead.messages.length === 0)) {
+        supabaseService.getMessagesForLead(targetLead.id, targetLead.whatsapp).then(msgs => {
+          if (msgs && msgs.length > 0) {
+            setLeads(prevLeads => prevLeads.map(l => l.id === activeLeadId ? { ...l, messages: msgs } : l));
+          }
+        });
+      }
+    }
+  }, [activeLeadId, leads.length]);
+
   // Carga inicial, polling de respaldo y suscripción Realtime a Supabase
   useEffect(() => {
     loadExams();
@@ -232,7 +261,7 @@ export default function App() {
           <LiveInbox 
             leads={leads} 
             activeLeadId={activeLeadId} 
-            setActiveLeadId={setActiveLeadId} 
+            setActiveLeadId={handleSelectLead} 
             onSendMessage={handleSendMessage} 
             onResolveHandover={handleResolveHandover} 
             onUpdateLeadStatus={handleUpdateLeadStatus}
@@ -250,7 +279,7 @@ export default function App() {
         {activeTab === "patients" && (
           <PatientsCRM 
             leads={leads} 
-            onSelectLead={(id) => { setActiveLeadId(id); setActiveTab("inbox"); }} 
+            onSelectLead={(id) => { handleSelectLead(id); setActiveTab("inbox"); }} 
             onDeleteLead={handleDeleteLead}
           />
         )}

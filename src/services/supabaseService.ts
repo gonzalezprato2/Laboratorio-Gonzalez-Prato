@@ -14,11 +14,14 @@ export const supabaseService = {
         return [];
       }
 
+      // Optimizacion Free Tier: Cargar unicamente mensajes de los ultimos 7 dias para el mapa inicial
+      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
       const { data: messagesData, error: msgError } = await supabase
         .from('mensajes_chat')
         .select('id, lead_id, whatsapp_id, emisor, contenido, created_at')
+        .gte('created_at', sevenDaysAgo)
         .order('created_at', { ascending: true })
-        .limit(1500);
+        .limit(2000);
 
       if (msgError) {
         console.error('Error fetching messages from Supabase:', msgError);
@@ -54,6 +57,42 @@ export const supabaseService = {
       }));
     } catch (err) {
       console.error('Exception in supabaseService.getLeads:', err);
+      return [];
+    }
+  },
+
+  async getMessagesForLead(leadId: string, whatsappId?: string): Promise<ChatMessage[]> {
+    try {
+      let query = supabase
+        .from('mensajes_chat')
+        .select('id, lead_id, whatsapp_id, emisor, contenido, created_at')
+        .order('created_at', { ascending: true })
+        .limit(500);
+
+      if (leadId && whatsappId) {
+        query = query.or(`lead_id.eq.${leadId},whatsapp_id.eq.${whatsappId}`);
+      } else if (leadId) {
+        query = query.eq('lead_id', leadId);
+      } else if (whatsappId) {
+        query = query.eq('whatsapp_id', whatsappId);
+      } else {
+        return [];
+      }
+
+      const { data, error } = await query;
+      if (error || !data) {
+        console.error('Error fetching messages for lead:', error);
+        return [];
+      }
+
+      return data.map(msg => ({
+        id: msg.id,
+        sender: (msg.emisor as 'PACIENTE' | 'BOT' | 'SECRETARIA') || 'PACIENTE',
+        text: msg.contenido,
+        timestamp: new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }));
+    } catch (err) {
+      console.error('Exception in getMessagesForLead:', err);
       return [];
     }
   },
