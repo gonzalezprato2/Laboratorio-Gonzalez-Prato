@@ -304,11 +304,16 @@ export function processPatientMessage(
     }
   }
 
-  // 4. Preguntas Generales y Medios de Pago (Transferir a Secretaría para validar cotización y datos de pago)
+  // 4. Preguntas Generales y Medios de Pago (Transferir a Secretaría para validar cotización y datos de transferencia)
   const isPaymentQuery = normUser.includes('pago') || normUser.includes('precio dolar') || normUser.includes('tasa') || normUser.includes('bcv') || normUser.includes('pago movil') || normUser.includes('zelle') || normUser.includes('efectivo') || normUser.includes('transferencia') || normUser.includes('punto de venta') || normUser.includes('metodos de pago') || normUser.includes('formas de pago');
   if (matchedExams.length === 0 && isPaymentQuery) {
-    let paymentReply = '💳 *VALIDACIÓN DE COTIZACIÓN Y DATOS DE PAGO*\n\n';
-    paymentReply += 'Estimado paciente, para validar formalmente la cotización de sus exámenes y que le sean suministrados los datos para el pago, estoy transfiriendo esta comunicación a nuestra secretaría 🔔.\n\n';
+    let paymentReply = '💳 *FORMAS DE PAGO Y VALIDACIÓN*\n\n';
+    paymentReply += 'En *GONZALEZ-PRATO Laboratorio* aceptamos:\n';
+    paymentReply += '• Efectivo en Dólares ($ USD) y Bolívares (Bs.).\n';
+    paymentReply += '• Punto de Venta en nuestra sede.\n';
+    paymentReply += '• Transferencia bancaria en Bolívares a tasa oficial BCV.\n';
+    paymentReply += '*(Nota: No disponemos de Pago Móvil).*\n\n';
+    paymentReply += '🔔 *Para validar formalmente la cotización y suministrarle los datos bancarios para realizar su pago (Transferencia en Bolívares a tasa oficial BCV), estoy transfiriendo su comunicación a nuestra secretaría.*\n\n';
     paymentReply += '📍 *Horario de Atención en Sede:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM.\n\n';
     paymentReply += '¿Desea cotizar algún examen antes de que la secretaría tome su caso?';
 
@@ -384,7 +389,7 @@ export function processPatientMessage(
     if (totalUsd > 0) {
       reply += '──────────────────────────\n';
       reply += '💰 *TOTAL ESTIMADO:* **$' + totalUsd.toFixed(2) + ' USD**\n\n';
-      reply += '🔔 *Para validar formalmente esta cotización y que le sean suministrados los datos para el pago, estoy transfiriendo la comunicación a la secretaría.*\n\n';
+      reply += '🔔 *Para validar formalmente esta cotización y suministrarle los datos bancarios para realizar su pago (Transferencia en Bolívares a tasa oficial BCV), estoy transfiriendo su comunicación a nuestra secretaría.*\n\n';
     }
   }
 
