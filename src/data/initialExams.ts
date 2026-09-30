@@ -5,7 +5,7 @@ import { LabExam } from '../types/lab';
  * GONZALEZ-PRATO Laboratorio Clínico
  * 
  * Fuente: Lista de precios IA 20-09-2026.xlsx & Manual de Condicionamiento Preanalítico v2.0
- * Total de pruebas registradas: 187
+ * Total de pruebas registradas: 190
  * Moneda oficial de referencia: USD ($)
  */
 export const INITIAL_EXAMS: LabExam[] = [
@@ -16,6 +16,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "hematología completa",
       "hematologia",
+      "hematologia completa",
       "hemograma",
       "biometria hematica",
       "cbp",
@@ -96,8 +97,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "HEMATOLOGÍA",
     "name": "Tiempo de protrombina (TP) e INR",
     "synonyms": [
-      "tiempo de protrombina  e inr",
-      "tp"
+      "tiempo de protrombina  e inr"
     ],
     "priceUsd": 7,
     "fastingHours": "3 - 4 horas",
@@ -128,7 +128,11 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "HEMATOLOGÍA",
     "name": "Eosinofilos moco nasal",
     "synonyms": [
-      "eosinofilos moco nasal"
+      "eosinofilos moco nasal",
+      "eosinofilos en moco nasal",
+      "moco nasal",
+      "citologia nasal",
+      "citologia moco nasal"
     ],
     "priceUsd": 6,
     "fastingHours": "No requiere ayuno",
@@ -211,7 +215,8 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Urea o BUN",
     "synonyms": [
       "urea",
-      "bun"
+      "bun",
+      "urea serica"
     ],
     "priceUsd": 4.5,
     "fastingHours": "8 - 12 horas",
@@ -227,7 +232,9 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Cretinina o cr",
     "synonyms": [
       "cretinina",
-      "cr"
+      "creatinina",
+      "creatinina serica",
+      "creatinina en sangre"
     ],
     "priceUsd": 4.5,
     "fastingHours": "8 - 12 horas",
@@ -242,8 +249,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "QUÍMICA SANGUÍNEA",
     "name": "Ácido úrico o AU",
     "synonyms": [
-      "ácido úrico",
-      "au"
+      "ácido úrico"
     ],
     "priceUsd": 4.5,
     "fastingHours": "8 - 12 horas",
@@ -327,7 +333,12 @@ export const INITIAL_EXAMS: LabExam[] = [
       "ast (transaminasas glutamico-oxalacética",
       "aspartato aminotransferasa) y tgp",
       "alt (transaminasa glutámico pirúvica",
-      "alanino transferasa)"
+      "alanino transferasa)",
+      "tgp",
+      "transaminasas",
+      "ast",
+      "alt",
+      "tgo y tgp"
     ],
     "priceUsd": 11,
     "fastingHours": "8 - 12 horas",
@@ -357,8 +368,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "QUÍMICA SANGUÍNEA",
     "name": "Calcio o Ca",
     "synonyms": [
-      "calcio",
-      "ca"
+      "calcio"
     ],
     "priceUsd": 5.5,
     "fastingHours": "8 - 12 horas",
@@ -373,8 +383,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "QUÍMICA SANGUÍNEA",
     "name": "Magnesio o Mg",
     "synonyms": [
-      "magnesio",
-      "mg"
+      "magnesio"
     ],
     "priceUsd": 5.5,
     "fastingHours": "8 - 12 horas",
@@ -389,8 +398,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "QUÍMICA SANGUÍNEA",
     "name": "Cloro o Cl",
     "synonyms": [
-      "cloro",
-      "cl"
+      "cloro"
     ],
     "priceUsd": 5.5,
     "fastingHours": "8 - 12 horas",
@@ -405,8 +413,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "QUÍMICA SANGUÍNEA",
     "name": "Fosfatasa alcalina- ALP o FA",
     "synonyms": [
-      "fosfatasa alcalina- alp",
-      "fa"
+      "fosfatasa alcalina- alp"
     ],
     "priceUsd": 5,
     "fastingHours": "8 - 12 horas",
@@ -534,7 +541,11 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "sodio y potasio",
       "na y k",
-      "na+ y k+"
+      "na+ y k+",
+      "sodio",
+      "potasio",
+      "electrolitos",
+      "electrolitos sodio y potasio"
     ],
     "priceUsd": 12,
     "fastingHours": "8 - 12 horas",
@@ -602,7 +613,10 @@ export const INITIAL_EXAMS: LabExam[] = [
       "ac sars covid",
       "ac covid 19",
       "ig m e ig g sars cov 2",
-      "serología sars covid"
+      "serología sars covid",
+      "panel respiratorio",
+      "panel viral respiratorio",
+      "panel respiratorio viral"
     ],
     "priceUsd": 20,
     "fastingHours": "8 - 12 horas",
@@ -632,21 +646,20 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "OTROS ESTUDIOS",
     "name": "Panel respiratorio (Mycoplasma, adenovirus, Influenza A y B, Sars Cov)",
     "synonyms": [
-      "panel respiratorio",
-      "hisopado respiratorio",
-      "panel respiratorio viral",
-      "influenza a y b",
+      "panel respiratorio (mycoplasma",
       "adenovirus",
-      "mycoplasma respiratorio",
-      "sars cov",
-      "covid e influenza"
+      "influenza a y b",
+      "sars cov)",
+      "panel respiratorio",
+      "panel viral respiratorio",
+      "panel respiratorio viral"
     ],
     "priceUsd": 42,
     "fastingHours": "No requiere ayuno",
     "sampleType": "Hisopado nasal / nasofaríngeo",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Toma de muestra por hisopado nasal/nasofaríngeo. No requiere ayuno de alimentos. Evitar aplicar gotas, sprays o soluciones nasales 4 a 6 horas antes de la toma de muestra.",
+    "notes": "No aplicar gotas, sprays ni lavados nasales 4 a 6 horas previas a la toma.",
     "isCaracasConvenio": false
   },
   {
@@ -654,7 +667,10 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "OTROS ESTUDIOS",
     "name": "Mycoplasma y Ureaplasma",
     "synonyms": [
-      "mycoplasma y ureaplasma"
+      "mycoplasma y ureaplasma",
+      "urea",
+      "bun",
+      "urea serica"
     ],
     "priceUsd": 20,
     "fastingHours": "8 - 12 horas",
@@ -737,7 +753,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "T3 libre o o Triyodotironina o triiodotironina",
     "synonyms": [
       "t3 libre",
-      "triyodotironina",
+      "o triyodotironina",
       "triiodotironina"
     ],
     "priceUsd": 13.5,
@@ -776,7 +792,9 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "T4 libre o tiroxina",
     "synonyms": [
       "t4 libre",
-      "tiroxina"
+      "tiroxina",
+      "tiroxina libre",
+      "t4"
     ],
     "priceUsd": 13,
     "fastingHours": "8 - 12 horas",
@@ -823,8 +841,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "HORMONAS",
     "name": "Estradiol o E2",
     "synonyms": [
-      "estradiol",
-      "e2"
+      "estradiol"
     ],
     "priceUsd": 13,
     "fastingHours": "8 - 12 horas",
@@ -870,7 +887,6 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Progesterona o PG o PROG",
     "synonyms": [
       "progesterona",
-      "pg",
       "prog"
     ],
     "priceUsd": 12,
@@ -904,10 +920,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "beta hcg cuantitativa",
       "beta-hcg",
-      "gonadotropina coriónica humana",
-      "prueba de embarazo en sangre",
-      "embarazo cuantitativa",
-      "subunidad beta"
+      "gonadotropina coriónica humana"
     ],
     "priceUsd": 12,
     "fastingHours": "8 - 12 horas",
@@ -939,8 +952,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "HORMONAS",
     "name": "Testosterona Total  o TT",
     "synonyms": [
-      "testosterona total",
-      "tt"
+      "testosterona total"
     ],
     "priceUsd": 12,
     "fastingHours": "8 - 12 horas",
@@ -1617,8 +1629,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "PERFIL FERROCINÉTICA",
     "name": "Hierro o Fe",
     "synonyms": [
-      "hierro",
-      "fe"
+      "hierro"
     ],
     "priceUsd": 9,
     "fastingHours": "8 - 12 horas",
@@ -1733,8 +1744,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "secreción ótica",
       "cultivo de secreción ótica",
-      "de",
-      "ído"
+      "de oído"
     ],
     "priceUsd": 45,
     "fastingHours": "No requiere ayuno",
@@ -1834,8 +1844,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "esputo",
       "cultivo de esputo",
-      "bk",
-      "ziehl neelsen"
+      "cultivo esputo"
     ],
     "priceUsd": 50,
     "fastingHours": "No requiere ayuno",
@@ -1976,6 +1985,10 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "coloración de zielh neelsen",
       "coloración zn",
+      "ziehl neelsen",
+      "coloracion de ziehl neelsen",
+      "coloracion de ziehl",
+      "baciloscopia",
       "bk"
     ],
     "priceUsd": 6,
@@ -2024,9 +2037,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "category": "MICROBIOLOGÍA AUTOMATIZADA",
     "name": "Cultivo micológico",
     "synonyms": [
-      "cultivo micológico",
-      "estudio de hongos",
-      "cultivo de hongos"
+      "cultivo micológico"
     ],
     "priceUsd": 24,
     "fastingHours": "No requiere ayuno",
@@ -2122,6 +2133,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "uroanálisis",
       "examen de orina",
+      "uroanalisis",
       "orina simple",
       "parcial de orina"
     ],
@@ -2139,7 +2151,10 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Depuración de creatinina 24 h o clearence de creatinina",
     "synonyms": [
       "depuración de creatinina 24 h",
-      "clearence de creatinina"
+      "clearence de creatinina",
+      "creatinina",
+      "creatinina serica",
+      "creatinina en sangre"
     ],
     "priceUsd": 12,
     "fastingHours": "Ayuno para la muestra de sangre venosa",
@@ -2205,9 +2220,7 @@ export const INITIAL_EXAMS: LabExam[] = [
       "orina parcial",
       "índices urinarios",
       "cocientes urinarios",
-      "relaciones au",
-      "cr",
-      "ca"
+      "relaciones au"
     ],
     "priceUsd": 20,
     "fastingHours": "No requiere ayuno de alimentos",
@@ -2240,7 +2253,10 @@ export const INITIAL_EXAMS: LabExam[] = [
       "concentraciones urinarias 24 h",
       "au 24h",
       "p 24 h",
-      "ca 24 h y creatinina 24 h"
+      "ca 24 h y creatinina 24 h",
+      "creatinina",
+      "creatinina serica",
+      "creatinina en sangre"
     ],
     "priceUsd": 20,
     "fastingHours": "Ayuno para la muestra de sangre venosa",
@@ -2256,7 +2272,6 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Relación albúmina/Cr (orina parcial)",
     "synonyms": [
       "relación albúmina",
-      "cr",
       "orina parcial"
     ],
     "priceUsd": 17,
@@ -2273,14 +2288,19 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Coproparasitológico o examen de heces",
     "synonyms": [
       "coproparasitológico",
-      "examen de heces"
+      "examen de heces",
+      "coproanalisis",
+      "coproanálisis",
+      "coproparasitologico",
+      "heces simple",
+      "parasitologico"
     ],
     "priceUsd": 6,
     "fastingHours": "No requiere ayuno",
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. 💡 Nota: Ya viene incluido sin costo adicional al solicitar cualquiera de los 7 estudios coprológicos especializados (Coproantígeno H. pylori, Absorción intestinal, Ag E. histolytica/Giardia/Crypto, Ag Entamoeba histolytica, Sudan III, Leucograma fecal o Esteatocrito ácido).",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
     "isCaracasConvenio": false
   },
   {
@@ -2297,7 +2317,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
     "isCaracasConvenio": false
   },
   {
@@ -2306,14 +2326,15 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Sudan III o esteatorrea en heces",
     "synonyms": [
       "sudan iii",
-      "esteatorrea en heces"
+      "esteatorrea en heces",
+      "sudan 3"
     ],
     "priceUsd": 11,
     "fastingHours": "No requiere ayuno",
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
     "isCaracasConvenio": false
   },
   {
@@ -2346,7 +2367,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
     "isCaracasConvenio": false
   },
   {
@@ -2390,14 +2411,20 @@ export const INITIAL_EXAMS: LabExam[] = [
       "helicobacter pylori en heces",
       "pylori en heces",
       "antígenos fecales de h",
-      "pylori"
+      "pylori",
+      "coproantigenos helicobacter pylori",
+      "coproantigeno helicobacter pylori",
+      "coproantigeno helicobacter",
+      "helicobacter en heces",
+      "antigeno de helicobacter en heces",
+      "h pylori en heces"
     ],
     "priceUsd": 13.5,
     "fastingHours": "No requiere ayuno",
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Muestra fecal fresca (<3 horas). Notificar si toma antibióticos, bismuto, antiácidos o inhibidores de bomba de protones (Omeprazol, Pantoprazol, etc.). 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
+    "notes": "Muestra fecal fresca (<3 horas). Notificar si toma antibióticos, bismuto, antiácidos o inhibidores de bomba de protones (Omeprazol, Pantoprazol, etc.).",
     "isCaracasConvenio": false
   },
   {
@@ -2412,7 +2439,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
     "isCaracasConvenio": false
   },
   {
@@ -2466,7 +2493,12 @@ export const INITIAL_EXAMS: LabExam[] = [
     "name": "Coloración Zielh Neelsen modificado o coloración de Kinyoun",
     "synonyms": [
       "coloración zielh neelsen modificado",
-      "coloración de kinyoun"
+      "coloración de kinyoun",
+      "ziehl neelsen",
+      "coloracion de ziehl neelsen",
+      "coloracion de ziehl",
+      "baciloscopia",
+      "bk"
     ],
     "priceUsd": 7,
     "fastingHours": "No requiere ayuno",
@@ -2522,7 +2554,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
     "isCaracasConvenio": false
   },
   {
@@ -2543,7 +2575,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM. 🎁 Nota: Incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
+    "notes": "Recolectar porción del tamaño de una nuez. Entregar en menos de 2 horas. Horario de recepción: Lun-Vie hasta 2:30 PM | Sáb hasta 12:30 PM.",
     "isCaracasConvenio": false
   },
   {
@@ -2930,8 +2962,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "vitamina d",
       "25 hidroxivitamina d",
-      "25d",
-      "oh"
+      "25d"
     ],
     "priceUsd": 20,
     "fastingHours": "8 - 12 horas",
@@ -3114,5 +3145,60 @@ export const INITIAL_EXAMS: LabExam[] = [
     "active": true,
     "notes": "Punción invasiva efectuada exclusivamente por médico especialista. Se requiere muestra de sangre simultánea.",
     "isCaracasConvenio": false
+  },
+  {
+    "id": "gp_188_panel_de_alergias_rast_alimentos_o_res",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Panel de alergias RAST (Alimentos o Respiratorio) - Convenio Caracas",
+    "synonyms": [
+      "panel rast",
+      "rast",
+      "panel rast de alimentos",
+      "panel rast respiratorio",
+      "alergias alimentos",
+      "panel de alergias rast"
+    ],
+    "priceUsd": 0,
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Muestra de sangre",
+    "turnaround": "Remitido a Caracas (3 a 8 días hábiles)",
+    "active": true,
+    "notes": "Prueba procesada bajo Convenio Torre Caracas. El laboratorio actúa como enlace de toma y remisión.",
+    "isCaracasConvenio": true
+  },
+  {
+    "id": "gp_189_zonulina_serica_o_fecal",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Zonulina sérica o fecal - Convenio Caracas",
+    "synonyms": [
+      "zonulina",
+      "zonulina serica",
+      "zonulina fecal"
+    ],
+    "priceUsd": 0,
+    "fastingHours": "8 - 12 horas (si es sangre) / Sin ayuno (si es heces)",
+    "sampleType": "Muestra de sangre o heces",
+    "turnaround": "Remitido a Caracas (3 a 8 días hábiles)",
+    "active": true,
+    "notes": "Prueba procesada bajo Convenio Torre Caracas.",
+    "isCaracasConvenio": true
+  },
+  {
+    "id": "gp_190_borrelia_burgdorferi_enfermedad_de_ly",
+    "category": "PRUEBAS ESPECIALES",
+    "name": "Borrelia burgdorferi (Enfermedad de Lyme) - Convenio Caracas",
+    "synonyms": [
+      "borrelia",
+      "lyme",
+      "enfermedad de lyme",
+      "serologia borrelia"
+    ],
+    "priceUsd": 0,
+    "fastingHours": "8 - 12 horas",
+    "sampleType": "Muestra de sangre",
+    "turnaround": "Remitido a Caracas (3 a 8 días hábiles)",
+    "active": true,
+    "notes": "Prueba procesada bajo Convenio Torre Caracas.",
+    "isCaracasConvenio": true
   }
 ];

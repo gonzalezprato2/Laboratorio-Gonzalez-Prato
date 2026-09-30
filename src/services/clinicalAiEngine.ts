@@ -357,7 +357,7 @@ export function processPatientMessage(
   // Sin coincidencia
   if (matchedExams.length === 0) {
     return {
-      replyText: 'Disculpe, no logré identificar con exactitud el examen o procedimiento en su mensaje.\n\nEn *GONZALEZ-PRATO Laboratorio* disponemos de áreas de Hematología, Química Sanguínea, Hormonas, Microbiología Automatizada, Uroanálisis, Coproanálisis, Estudios Micológicos, Marcadores Tumorales y Convenio Torre Caracas para pruebas especiales.\n\nPor favor indíqueme el nombre exacto de la prueba médica o envíenos una foto de su orden médica.\n' + (isOutOfHours ? '*(Nuestra sede abrirá el ' + scheduleStatus.nextOpening + ' para atención humana y toma de muestras).*' : '*(O si lo prefiere, escriba "secretaria" para hablar con un asesor).*'),
+      replyText: '🤖 Disculpe, no logré identificar con exactitud el examen o procedimiento en su mensaje.\n\nEn *GONZALEZ-PRATO Laboratorio* disponemos de áreas de Hematología, Química Sanguínea, Hormonas, Microbiología Automatizada, Uroanálisis, Coproanálisis, Estudios Micológicos, Marcadores Tumorales y Convenio Torre Caracas para pruebas especiales.\n\nPor favor indíqueme el nombre exacto de la prueba médica o envíenos una foto de su orden médica.\n' + (isOutOfHours ? '*(Nuestra sede abrirá el ' + scheduleStatus.nextOpening + ' para atención humana y toma de muestras).*' : '*(O si lo prefiere, escriba "secretaria" para hablar con un asesor).*'),
       matchedExams: [],
       totalUsd: 0,
       shouldEscalate: false,
@@ -404,7 +404,7 @@ export function processPatientMessage(
     return acc + curr.priceUsd;
   }, 0);
 
-  let reply = tshClarification + 'Con gusto le presento la información oficial de *GONZALEZ-PRATO Laboratorio* 🧪:\n\n';
+  let reply = tshClarification + '🤖 Con gusto le presento la cotización oficial y preparación en *GONZALEZ-PRATO Laboratorio* 🧪:\n\n';
   if (matchedExams.length > 0) {
     reply += '📋 *COTIZACIÓN OFICIAL Y PREPARACIÓN:*\n';
     matchedExams.forEach((exam, idx) => {

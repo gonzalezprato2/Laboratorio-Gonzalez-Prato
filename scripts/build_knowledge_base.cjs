@@ -54,35 +54,48 @@ function normalizeCategory(cat) {
   return cat;
 }
 
+const STOPWORDS = new Set(['de', 'en', 'o', 'y', 'el', 'la', 'los', 'las', 'un', 'una', 'con', 'por', 'para', 'sin', 'al', 'del', 'se', 'su', 'mi', 'tu', 'le', 'les', 'que', 'ido', 'e', 'u', 'a', 'del']);
+
 // Generate synonyms from raw name
 function extractSynonyms(rawName) {
   const syns = new Set();
   const lower = rawName.toLowerCase();
   
-  // Split by ' o ', ';', '/', ','
-  const parts = rawName.split(/;|\bo\b|\/|,/i).map(p => p.trim()).filter(p => p.length > 1);
+  // Split by ' o ', ';', '/', ',' safely without breaking single words like 'oído'
+  const parts = rawName.split(/;|\s+\bo\b\s+|\/|,/i).map(p => p.trim()).filter(p => p.length > 1);
   parts.forEach(p => {
     // remove parentheses content and add both
-    const cleanP = p.replace(/\(.*?\)/g, '').trim();
-    if (cleanP.length > 1) syns.add(cleanP.toLowerCase());
+    const cleanP = p.replace(/\(.*?\)/g, '').trim().toLowerCase();
+    if (cleanP.length > 2 && !STOPWORDS.has(cleanP)) syns.add(cleanP);
     
     // extract inside parentheses
     const matches = p.match(/\((.*?)\)/g);
     if (matches) {
       matches.forEach(m => {
         const inner = m.replace(/[()]/g, '').trim().toLowerCase();
-        if (inner.length > 1) syns.add(inner);
+        if (inner.length > 2 && !STOPWORDS.has(inner)) syns.add(inner);
       });
     }
   });
 
-  // Specific common aliases
+  // Specific common aliases & typo corrections
   if (lower.includes('hematologia') || lower.includes('hematología')) {
     syns.add('hematologia');
+    syns.add('hematologia completa');
     syns.add('hemograma');
     syns.add('biometria hematica');
     syns.add('cbp');
     syns.add('cuadro hematico');
+  }
+  if (lower.includes('cretinina') || lower.includes('creatinina')) {
+    syns.add('creatinina');
+    syns.add('creatinina serica');
+    syns.add('creatinina en sangre');
+  }
+  if (lower.includes('urea') || lower.includes('bun')) {
+    syns.add('urea');
+    syns.add('bun');
+    syns.add('urea serica');
   }
   if (lower.includes('glicemia en ayunas') || lower.includes('glucosa en ayunas') || lower.includes('glicemia basal')) {
     syns.add('azucar');
@@ -95,21 +108,51 @@ function extractSynonyms(rawName) {
   }
   if (lower.includes('lipidograma') || lower.includes('perfil lipidico') || lower.includes('perfil lipídico')) {
     syns.add('perfil lipidico');
+    syns.add('perfil lipídico');
+    syns.add('lipidograma');
     syns.add('colesterol y trigliceridos');
     syns.add('grasas en sangre');
   }
+  if (lower.includes('tgo') || lower.includes('tgp') || lower.includes('transaminas')) {
+    syns.add('tgo');
+    syns.add('tgp');
+    syns.add('transaminasas');
+    syns.add('ast');
+    syns.add('alt');
+    syns.add('tgo y tgp');
+  }
+  if (lower.includes('sodio') || lower.includes('potasio')) {
+    syns.add('sodio');
+    syns.add('potasio');
+    syns.add('sodio y potasio');
+    syns.add('electrolitos');
+    syns.add('electrolitos sodio y potasio');
+  }
+  if (lower.includes('panel respiratorio') || lower.includes('influenza') || lower.includes('sars cov')) {
+    syns.add('panel respiratorio');
+    syns.add('panel viral respiratorio');
+    syns.add('panel respiratorio viral');
+  }
   if (lower.includes('tsh')) {
+    syns.add('tsh');
     syns.add('tsh normal');
     syns.add('tiroides');
     syns.add('hormona tiroidea');
     syns.add('hormona tiroestimulante');
     syns.add('tirotropina');
   }
+  if (lower.includes('t4 libre') || lower.includes('tiroxina')) {
+    syns.add('t4 libre');
+    syns.add('tiroxina libre');
+    syns.add('t4');
+  }
   if (lower.includes('urocultivo')) {
+    syns.add('urocultivo');
     syns.add('cultivo de orina');
     syns.add('cultivo con antibiograma de orina');
   }
   if (lower.includes('coprocultivo')) {
+    syns.add('coprocultivo');
     syns.add('cultivo de heces');
   }
   if (lower.includes('vdrl')) {
@@ -125,43 +168,80 @@ function extractSynonyms(rawName) {
     syns.add('prueba de vih');
     syns.add('prueba de hiv');
   }
-  if (lower.includes('beta') && lower.includes('hcg')) {
-    syns.add('prueba de embarazo en sangre');
-    syns.add('embarazo cuantitativa');
-    syns.add('subunidad beta');
-  }
   if (lower.includes('orina') && (lower.includes('general') || lower.includes('simple') || lower.includes('uroanalisis') || lower.includes('uroanálisis'))) {
+    syns.add('uroanalisis');
+    syns.add('uroanálisis');
     syns.add('examen de orina');
     syns.add('orina simple');
     syns.add('parcial de orina');
   }
-  if (lower.includes('heces') && (lower.includes('simple') || lower.includes('coproanalisis') || lower.includes('coproanálisis'))) {
+  if (lower.includes('heces') && (lower.includes('simple') || lower.includes('coproanalisis') || lower.includes('coproanálisis') || lower.includes('coproparasitologico') || lower.includes('coproparasitológico'))) {
+    syns.add('coproanalisis');
+    syns.add('coproanálisis');
+    syns.add('coproparasitologico');
+    syns.add('coproparasitológico');
     syns.add('examen de heces');
     syns.add('heces simple');
     syns.add('parasitologico');
   }
+  if (lower.includes('coproantigenos helicobacter') || (lower.includes('helicobacter') && lower.includes('heces'))) {
+    syns.add('coproantigenos helicobacter pylori');
+    syns.add('coproantigeno helicobacter pylori');
+    syns.add('coproantigeno helicobacter');
+    syns.add('helicobacter en heces');
+    syns.add('antigeno de helicobacter en heces');
+    syns.add('h pylori en heces');
+  }
+  if (lower.includes('eosinofilos moco nasal') || lower.includes('moco nasal')) {
+    syns.add('eosinofilos en moco nasal');
+    syns.add('moco nasal');
+    syns.add('citologia nasal');
+    syns.add('citologia moco nasal');
+  }
+  if (lower.includes('esputo') && lower.includes('cultivo')) {
+    syns.add('cultivo de esputo');
+    syns.add('cultivo esputo');
+  }
+  if (lower.includes('ziehl') || lower.includes('zielh') || (lower.includes('coloracion') && lower.includes('bk'))) {
+    syns.add('ziehl neelsen');
+    syns.add('coloracion de ziehl neelsen');
+    syns.add('coloracion de ziehl');
+    syns.add('baciloscopia');
+    syns.add('bk');
+  }
   if (lower.includes('perfil 20')) {
     syns.add('perfil 20');
+    syns.add('perfil 20 completo');
     syns.add('chequeo general');
     syns.add('perfil de rutina');
   }
   if (lower.includes('demodex')) {
+    syns.add('demodex');
     syns.add('acaros demodex');
     syns.add('demodex en pestanas');
     syns.add('demodex facial');
   }
-  if (lower.includes('micol') || lower.includes('hongo')) {
-    syns.add('estudio de hongos');
-    syns.add('cultivo de hongos');
+  if (lower.includes('rast') || lower.includes('alergias alimentos')) {
+    syns.add('panel rast');
+    syns.add('rast');
+    syns.add('panel rast alimentos');
+    syns.add('alergias alimentos');
+    syns.add('panel de alergias rast');
   }
-  if (lower.includes('esputo')) {
-    syns.add('cultivo de esputo');
-    syns.add('bk');
-    syns.add('ziehl neelsen');
+  if (lower.includes('absorcion intestinal') || lower.includes('azucares reductores')) {
+    syns.add('absorcion intestinal');
+    syns.add('azucares reductores');
+    syns.add('azúcares reductores');
+  }
+  if (lower.includes('sudan iii') || lower.includes('esteatorrea')) {
+    syns.add('sudan iii');
+    syns.add('esteatorrea en heces');
+    syns.add('sudan 3');
   }
 
-  // Remove any prohibited terms from synonyms
+  // Remove any prohibited terms or stopwords from synonyms
   syns.delete('tsh ultrasensible');
+  STOPWORDS.forEach(sw => syns.delete(sw));
 
   return Array.from(syns);
 }
@@ -176,6 +256,15 @@ function determinePreanalytics(cat, rawName) {
   let turnaround = 'Mismo día (tarde)';
   let isCaracasConvenio = false;
   let notes = 'Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).';
+
+  // PANEL RESPIRATORIO
+  if (lower.includes('panel respiratorio')) {
+    sampleType = 'Hisopado nasal / nasofaríngeo';
+    fastingHours = 'No requiere ayuno';
+    turnaround = 'Mismo día (tarde)';
+    notes = 'No aplicar gotas, sprays ni lavados nasales 4 a 6 horas previas a la toma.';
+    return { fastingHours, sampleType, turnaround, isCaracasConvenio, notes };
+  }
 
   // CARACAS CONVENIO
   if (
@@ -574,6 +663,51 @@ const finalExams = rawItems.map((item, idx) => {
     isCaracasConvenio: preanalytics.isCaracasConvenio
   };
 });
+
+const caracasExams = [
+  {
+    id: 'gp_188_panel_de_alergias_rast_alimentos_o_res',
+    category: 'PRUEBAS ESPECIALES',
+    name: 'Panel de alergias RAST (Alimentos o Respiratorio) - Convenio Caracas',
+    synonyms: ['panel rast', 'rast', 'panel rast de alimentos', 'panel rast respiratorio', 'alergias alimentos', 'panel de alergias rast'],
+    priceUsd: 0,
+    fastingHours: '8 - 12 horas',
+    sampleType: 'Muestra de sangre',
+    turnaround: 'Remitido a Caracas (3 a 8 días hábiles)',
+    active: true,
+    notes: 'Prueba procesada bajo Convenio Torre Caracas. El laboratorio actúa como enlace de toma y remisión.',
+    isCaracasConvenio: true
+  },
+  {
+    id: 'gp_189_zonulina_serica_o_fecal',
+    category: 'PRUEBAS ESPECIALES',
+    name: 'Zonulina sérica o fecal - Convenio Caracas',
+    synonyms: ['zonulina', 'zonulina serica', 'zonulina fecal'],
+    priceUsd: 0,
+    fastingHours: '8 - 12 horas (si es sangre) / Sin ayuno (si es heces)',
+    sampleType: 'Muestra de sangre o heces',
+    turnaround: 'Remitido a Caracas (3 a 8 días hábiles)',
+    active: true,
+    notes: 'Prueba procesada bajo Convenio Torre Caracas.',
+    isCaracasConvenio: true
+  },
+  {
+    id: 'gp_190_borrelia_burgdorferi_enfermedad_de_ly',
+    category: 'PRUEBAS ESPECIALES',
+    name: 'Borrelia burgdorferi (Enfermedad de Lyme) - Convenio Caracas',
+    synonyms: ['borrelia', 'lyme', 'enfermedad de lyme', 'serologia borrelia'],
+    priceUsd: 0,
+    fastingHours: '8 - 12 horas',
+    sampleType: 'Muestra de sangre',
+    turnaround: 'Remitido a Caracas (3 a 8 días hábiles)',
+    active: true,
+    notes: 'Prueba procesada bajo Convenio Torre Caracas.',
+    isCaracasConvenio: true
+  }
+];
+
+caracasExams.forEach(ce => finalExams.push(ce));
+
 
 console.log(`\nSuccessfully processed ${finalExams.length} exams.`);
 console.log('Sample exam 1:', JSON.stringify(finalExams[0], null, 2));
