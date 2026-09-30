@@ -1,5 +1,4 @@
 {
-  "name": "GONZALEZ-PRATO — Agente Clínico Evolution API + Supabase en Vivo",
   "nodes": [
     {
       "parameters": {
@@ -8,13 +7,13 @@
         "responseMode": "responseNode",
         "options": {}
       },
-      "id": "e7ae02a2-78b7-4e76-9e34-83e5bc5b46f7",
+      "id": "182348d2-832f-48ca-99c0-4e65166026a6",
       "name": "Webhook Evolution API",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        2688,
-        240
+        7360,
+        704
       ],
       "webhookId": "whatsapp-evolution-gonzalez-prato"
     },
@@ -24,26 +23,26 @@
         "responseBody": "={{ { \"status\": \"success\", \"received\": true } }}",
         "options": {}
       },
-      "id": "83782164-5fe5-48d0-836c-13d7f7b80bbb",
+      "id": "7ddc7718-b0c4-41a0-8d1a-5a2d36fd2340",
       "name": "Responder 200 OK a Evolution",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        2928,
-        48
+        7600,
+        512
       ]
     },
     {
       "parameters": {
         "jsCode": "// Parser de mensajes entrantes de Evolution API\nconst item = $input.first();\nif (!item || !item.json) return [];\nconst body = item.json.body || item.json;\nconst data = body.data || body;\nif (!data) return [];\n\nconst SUPABASE_URL = 'https://petcqaixzetwsduscvtx.supabase.co';\nconst SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM';\n\nasync function httpReq(url, options = {}) {\n  const method = options.method || 'GET';\n  const headers = options.headers || {};\n  const reqBody = options.body;\n  if (typeof $httpRequest === 'function') {\n    return await $httpRequest({ method, url, headers, body: reqBody, json: true });\n  }\n  if (typeof fetch !== 'undefined') {\n    const res = await fetch(url, { method, headers, body: reqBody ? JSON.stringify(reqBody) : undefined });\n    try { return await res.json(); } catch { return null; }\n  }\n  return null;\n}\n\n// BLOQUE 1: Mensajes salientes de la Secretaría (fromMe = true)\nif (data.key && data.key.fromMe) {\n  const remoteJid = data.key.remoteJid || '';\n  if (remoteJid && !remoteJid.includes('@g.us') && !remoteJid.includes('status@broadcast')) {\n    const patientPhone = remoteJid.replace('@s.whatsapp.net', '');\n    let msgObj = data.message || {};\n    if (msgObj.viewOnceMessage && msgObj.viewOnceMessage.message) msgObj = msgObj.viewOnceMessage.message;\n    if (msgObj.ephemeralMessage && msgObj.ephemeralMessage.message) msgObj = msgObj.ephemeralMessage.message;\n    let secText = msgObj.conversation || (msgObj.extendedTextMessage && msgObj.extendedTextMessage.text) || '';\n    if (secText) {\n      try {\n        await httpReq(SUPABASE_URL + '/rest/v1/mensajes_chat', {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },\n          body: { whatsapp_id: patientPhone, emisor: 'SECRETARIA', contenido: secText }\n        });\n        await httpReq(SUPABASE_URL + '/rest/v1/pacientes_leads?whatsapp_id=eq.' + patientPhone, {\n          method: 'PATCH',\n          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },\n          body: { estado_atencion: 'ESCALADO_HUMANO', ultimo_mensaje: secText, updated_at: new Date().toISOString() }\n        });\n      } catch (err) {}\n    }\n  }\n  return [];\n}\n\n// BLOQUE 2: Parsear remitente\nconst senderRemoteJid = (data.key && data.key.remoteJid) || '';\nif (!senderRemoteJid || senderRemoteJid.includes('@g.us') || senderRemoteJid.includes('status@broadcast')) return [];\n\nconst senderPhone = senderRemoteJid.replace('@s.whatsapp.net', '');\nconst senderName = data.pushName || 'Paciente';\nconst instanceName = body.instance || 'gonzalez-prato';\n\n// BLOQUE 3: Extraer texto del mensaje\nlet msgObj = data.message || {};\nif (msgObj.viewOnceMessage && msgObj.viewOnceMessage.message) msgObj = msgObj.viewOnceMessage.message;\nif (msgObj.viewOnceMessageV2 && msgObj.viewOnceMessageV2.message) msgObj = msgObj.viewOnceMessageV2.message;\nif (msgObj.ephemeralMessage && msgObj.ephemeralMessage.message) msgObj = msgObj.ephemeralMessage.message;\nif (msgObj.documentWithCaptionMessage && msgObj.documentWithCaptionMessage.message) msgObj = msgObj.documentWithCaptionMessage.message;\n\nlet userText = '';\nif (msgObj.conversation) userText = msgObj.conversation;\nelse if (msgObj.extendedTextMessage && msgObj.extendedTextMessage.text) userText = msgObj.extendedTextMessage.text;\nelse if (msgObj.imageMessage) userText = msgObj.imageMessage.caption || '[Foto de orden médica adjunta]';\nelse if (msgObj.audioMessage) userText = '[Nota de voz del paciente]';\n\nif (!userText) return [];\n\n// BLOQUE 4: Estado del lead (¿bot activo o escalado?)\nlet leadStatus = 'BOT_ACTIVO';\ntry {\n  const leadRows = await httpReq(\n    SUPABASE_URL + '/rest/v1/pacientes_leads?whatsapp_id=eq.' + senderPhone + '&select=estado_atencion',\n    { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } }\n  );\n  if (Array.isArray(leadRows) && leadRows.length > 0 && leadRows[0].estado_atencion) {\n    leadStatus = leadRows[0].estado_atencion;\n  }\n} catch(e) {}\n\nconst botActive = (leadStatus !== 'ESCALADO_HUMANO' && leadStatus !== 'FINALIZADO');\n\n// BLOQUE 5: Horario laboral Venezuela (UTC-4)\nconst now = new Date();\nconst vzlaDate = new Date(now.toLocaleString('en-US', { timeZone: 'America/Caracas' }));\nconst dayOfWeek = vzlaDate.getDay();\nconst totalMinutes = vzlaDate.getHours() * 60 + vzlaDate.getMinutes();\n\nlet isOpen = false;\nlet nextOpening = 'Mañana a las 7:00 AM';\nif (dayOfWeek >= 1 && dayOfWeek <= 5) {\n  isOpen = totalMinutes >= 420 && totalMinutes < 900;\n  if (!isOpen) nextOpening = totalMinutes < 420 ? 'Hoy a las 7:00 AM' : (dayOfWeek === 5 ? 'Sábado a las 8:00 AM' : 'Mañana a las 7:00 AM');\n} else if (dayOfWeek === 6) {\n  isOpen = totalMinutes >= 480 && totalMinutes < 780;\n  if (!isOpen) nextOpening = totalMinutes < 480 ? 'Hoy a las 8:00 AM' : 'Lunes a las 7:00 AM';\n} else {\n  nextOpening = 'Lunes a las 7:00 AM';\n}\n\nconst dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];\nconst currentFormattedTime = vzlaDate.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit', hour12: true });\nconst scheduleContext = 'Hoy es ' + dayNames[dayOfWeek] + ', hora actual: ' + currentFormattedTime + '. Sede: ' + (isOpen ? 'ABIERTA' : 'CERRADA (próxima apertura: ' + nextOpening + ')');\n\nreturn [{\n  json: {\n    senderRemoteJid: senderRemoteJid,\n    senderPhone: senderPhone,\n    senderName: senderName,\n    userText: userText,\n    instance: instanceName,\n    leadStatus: leadStatus,\n    botActive: botActive,\n    scheduleContext: scheduleContext\n  }\n}];"
       },
-      "id": "784a99fb-070b-44af-9417-94076406239b",
+      "id": "7c06a913-9add-47b3-9679-256f6422db8f",
       "name": "Parsear Mensaje Evolution API",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2928,
-        320
+        7600,
+        784
       ]
     },
     {
@@ -71,13 +70,13 @@
         },
         "options": {}
       },
-      "id": "bcdb2faa-29a4-425e-8d2c-d14251599d16",
+      "id": "f6ad1370-314e-4809-8fc8-962c9840f1ac",
       "name": "¿Bot Activo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        3152,
-        320
+        7824,
+        784
       ]
     },
     {
@@ -85,32 +84,32 @@
         "promptType": "define",
         "text": "={{ $json.userText || $(\"Parsear Mensaje Evolution API\").first().json.userText }}",
         "options": {
-          "systemMessage": "Eres el Asistente Clínico Virtual Oficial 24/7 de GONZALEZ-PRATO Laboratorio (Directora Técnica: Lic. Luisa Carolina González Ramírez, Mérida, Venezuela).\n\nESTADO TEMPORAL ACTUAL:\n{{ $json.scheduleContext || $(\"Parsear Mensaje Evolution API\").first().json.scheduleContext }}\n\nDATOS DEL PACIENTE:\n- Nombre: {{ $json.senderName || $(\"Parsear Mensaje Evolution API\").first().json.senderName }}\n- Teléfono: {{ $json.senderPhone || $(\"Parsear Mensaje Evolution API\").first().json.senderPhone }}\n\n══════════════════════════════════════════════════════════════\nDIRECTRICES CLÍNICAS Y REGLAS DE COMUNICACIÓN OBLIGATORIAS\n══════════════════════════════════════════════════════════════\n\n1. REGLAS DE INFORMACIÓN SOBRE MUESTRAS:\n• NUNCA proporciones detalles técnicos internos sobre los recipientes o anticoagulantes (ej. \"tubo tapa morada\", \"tubo tapa roja\", \"EDTA\", \"plasma citratado\") a menos que el paciente lo pregunte explícitamente. Indica siempre tipos de muestra amigables al paciente (\"Muestra de sangre\", \"Muestra de orina\", \"Muestra de heces\", \"Hisopado nasal / nasofaríngeo\").\n• CORRECCIÓN CRÍTICA — PANEL RESPIRATORIO: Para el \"Panel respiratorio (Mycoplasma, adenovirus, Influenza A y B, Sars Cov)\", la muestra es ÚNICAMENTE \"Hisopado nasal / nasofaríngeo\". NO es muestra de sangre ni requiere ayuno de alimentos. (Requisito: no aplicar gotas o sprays nasales 4-6h antes).\n• CORRECCIÓN CRÍTICA — UROANÁLISIS: Para el \"Uroanálisis\" y cualquier \"Examen de Orina\", el tipo de muestra es ÚNICAMENTE \"Orina\". Jamás menciones \"sangre\" o \"suero\".\n• CORRECCIÓN CRÍTICA — COPROANÁLISIS: Para el \"Coproanálisis\" o \"Coproantígeno\", el tipo de muestra es ÚNICAMENTE \"Heces\". Jamás menciones \"sangre\" o \"suero\".\n\n2. SOLICITUD DE ÓRDENES MÉDICAS Y TEXTO VS. IMAGEN:\n• Si el paciente no ha especificado qué exámenes necesita o menciona que tiene una orden médica:\n  \"Por favor escriba aquí en texto los nombres de los exámenes que le han indicado para prepararle de inmediato su presupuesto oficial. (Si prefiere enviar una foto de la orden médica, nuestro equipo de recepción la revisará manualmente en horario de atención).\"\n• NUNCA prometas que el bot leerá imágenes de forma autónoma.\n\n3. MANEJO DE TEXTOS MÉDICOS LARGOS O COMPLEJOS (EXTRACCIÓN DIRECTA):\n• Si el mensaje contiene explicaciones clínicas, discusiones de síntomas, o notas médicas largas con una lista de estudios sugeridos, ignora las valoraciones clínicas y extrae de inmediato todos los exámenes de laboratorio mencionados (ej. Hematología, Glicemia, ASLO, Inmunoglobulina E, Eosinófilos en moco nasal, Concentrado de heces), cotizándolos con su precio, tipo de muestra y ayuno individual.\n• Si piden \"valores de referencia según la edad\", aclara amablemente que el informe emitido por el laboratorio incluye los rangos de referencia validados según la edad y sexo del paciente.\n\n4. REGLA ANTI-BUCLE (EVITAR SALUDOS REPETITIVOS O RESPUESTAS VACÍAS):\n• Si el paciente ya saludó o si el mensaje entrante contiene nombres de exámenes, síntomas o solicitud de precios, NUNCA respondas con el saludo de bienvenida estándar. Responde siempre con la cotización directa o solicitando aclaración sobre el examen específico.\n\n5. REGLAS DE PRECIOS Y FACTURACIÓN:\n• Precios cotizados estrictamente en Dólares ($ USD).\n• Coproantígeno de Helicobacter pylori: Precio exacto $13.50 USD (No $13). Muestra: Muestra de heces fresca.\n• Cultivo de Esputo: Precio exacto $50.00 USD (YA incluye coloración de Ziehl-Neelsen / BK).\n• Coloración de Ziehl-Neelsen (aislada): Precio exacto $6.00 USD.\n• REGLA CRÍTICA DE COPROANÁLISIS (Examen de Heces Incluido sin Costo Adicional):\n  Los siguientes 7 exámenes fecales especializados YA INCLUYEN el examen Coproparasitológico simple sin costo adicional ($0 extra):\n  1. Coproantígenos Helicobacter pylori ($13.50 USD)\n  2. Absorción intestinal / Azúcares reductores ($11.00 USD)\n  3. Ag E. histolytica / Giardia / Cryptosporidium ($40.00 USD)\n  4. Ag Entamoeba histolytica ($26.00 USD)\n  5. Sudan III / Esteatorrea en heces ($11.00 USD)\n  6. Leucograma fecal / Polimorfonucleares en heces ($11.00 USD)\n  7. Esteatocrito ácido ($10.00 USD)\n  Si el paciente pide cualquiera de estos 7 estudios y además examen de heces/coproparasitológico, indícale que el examen de heces YA ESTÁ INCLUIDO y NO sumes los $6.00 USD al total.\n• Precios oficiales de referencia: Insulina postprandial (PP): $14.00 USD | Vitamina B12: $23.00 USD.\n\n6. REQUISITOS DE PREPARACIÓN PREANALÍTICA:\n• Solo indica ayuno (ej. 8 a 12 horas) para los exámenes en sangre que estrictamente lo requieran (Glicemia, Perfil Lipídico, Hormonas tiroideas, etc.). NO indiques ayuno para orina, heces ni hisopados.\n• Coproantígeno de Helicobacter pylori: Muestra fecal fresca (<3 horas). No requiere ayuno. Notificar si toma antibióticos, bismuto, antiácidos o IBP (Omeprazol, Pantoprazol).\n\n7. MENSAJES ADMINISTRATIVOS Y MÉTODOS DE PAGO:\n• Medios de pago aceptados en sede: Efectivo (USD / Bolívares), Punto de Venta en sede física y Transferencia bancaria en Bolívares a tasa oficial BCV.\n• REGLA CRÍTICA SOBRE PAGO MÓVIL: El laboratorio NO dispone de Pago Móvil. NUNCA ofrezcas Pago Móvil ni inventes plantillas de pago móvil.\n• No transfieras las cotizaciones estándar a secretaría. El paciente cancela directamente al acudir a su toma en sede.\n\n8. CONVENIO TORRE CARACAS:\nSi el paciente consulta por pruebas remitidas a Caracas (Paneles RAST, Zonulina, Borrelia/Lyme, etc.), incluye textualmente el mensaje:\n\"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad.\"\n\n9. FORMATO DE COTIZACIÓN OBLIGATORIO:\nCon gusto le presento la cotización oficial y preparación en *GONZALEZ-PRATO Laboratorio* 🧪:\n\n• [Nombre del Examen]\n  - Precio: $[Monto] USD\n  - Muestra: [Muestra de sangre / Muestra de orina / Muestra de heces / Hisopado nasal]\n  - Requisitos: [Ayuno solo si aplica / Preparación preanalítica]\n\n──────────────────────────\n💰 *TOTAL ESTIMADO:* **$[Total] USD**\n*(Puede cancelar directamente en recepción al momento de su toma: Efectivo USD/Bs, Punto de Venta o Transferencia BCV).*\n\n📍 *Sede:* Urb. El Encanto, Clínica del Niño, Sótano 2 (detrás de la Contraloría del Estado Mérida).\n⏰ *Horario:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM (Atención por orden de llegada)."
+          "systemMessage": "=Eres el Asistente Clínico Virtual Oficial 24/7 de GONZALEZ-PRATO Laboratorio (Directora Técnica: Lic. Luisa Carolina González Ramírez, Mérida, Venezuela).\n\nESTADO TEMPORAL ACTUAL:\n{{ $json.scheduleContext || $(\"Parsear Mensaje Evolution API\").first().json.scheduleContext }}\n\nDATOS DEL PACIENTE:\n- Nombre: {{ $json.senderName || $(\"Parsear Mensaje Evolution API\").first().json.senderName }}\n- Teléfono: {{ $json.senderPhone || $(\"Parsear Mensaje Evolution API\").first().json.senderPhone }}\n\n══════════════════════════════════════════════════════════════\nDIRECTRICES CLÍNICAS Y REGLAS DE COMUNICACIÓN OBLIGATORIAS\n══════════════════════════════════════════════════════════════\n\n1. REGLAS DE INFORMACIÓN SOBRE MUESTRAS:\n• NUNCA proporciones detalles técnicos internos sobre los recipientes o anticoagulantes (ej. \"tubo tapa morada\", \"tubo tapa roja\", \"EDTA\", \"plasma citratado\") a menos que el paciente lo pregunte explícitamente. Indica siempre tipos de muestra amigables al paciente (\"Muestra de sangre\", \"Muestra de orina\", \"Muestra de heces\", \"Hisopado nasal / nasofaríngeo\").\n• CORRECCIÓN CRÍTICA — PANEL RESPIRATORIO: Para el \"Panel respiratorio (Mycoplasma, adenovirus, Influenza A y B, Sars Cov)\", la muestra es ÚNICAMENTE \"Hisopado nasal / nasofaríngeo\". NO es muestra de sangre ni requiere ayuno de alimentos. (Requisito: no aplicar gotas o sprays nasales 4-6h antes).\n• CORRECCIÓN CRÍTICA — UROANÁLISIS: Para el \"Uroanálisis\" y cualquier \"Examen de Orina\", el tipo de muestra es ÚNICAMENTE \"Orina\". Jamás menciones \"sangre\" o \"suero\".\n• CORRECCIÓN CRÍTICA — COPROANÁLISIS: Para el \"Coproanálisis\" o \"Coproantígeno\", el tipo de muestra es ÚNICAMENTE \"Heces\". Jamás menciones \"sangre\" o \"suero\".\n\n2. SOLICITUD DE ÓRDENES MÉDICAS Y TEXTO VS. IMAGEN:\n• Si el paciente no ha especificado qué exámenes necesita o menciona que tiene una orden médica:\n  \"Por favor escriba aquí en texto los nombres de los exámenes que le han indicado para prepararle de inmediato su presupuesto oficial. (Si prefiere enviar una foto de la orden médica, nuestro equipo de recepción la revisará manualmente en horario de atención).\"\n• NUNCA prometas que el bot leerá imágenes de forma autónoma.\n\n3. MANEJO DE TEXTOS MÉDICOS LARGOS O COMPLEJOS (EXTRACCIÓN DIRECTA):\n• Si el mensaje contiene explicaciones clínicas, discusiones de síntomas, o notas médicas largas con una lista de estudios sugeridos, ignora las valoraciones clínicas y extrae de inmediato todos los exámenes de laboratorio mencionados (ej. Hematología, Glicemia, ASLO, Inmunoglobulina E, Eosinófilos en moco nasal, Concentrado de heces), cotizándolos con su precio, tipo de muestra y ayuno individual.\n• Si piden \"valores de referencia según la edad\", aclara amablemente que el informe emitido por el laboratorio incluye los rangos de referencia validados según la edad y sexo del paciente.\n\n4. REGLA ANTI-BUCLE (EVITAR SALUDOS REPETITIVOS O RESPUESTAS VACÍAS):\n• Si el paciente ya saludó o si el mensaje entrante contiene nombres de exámenes, síntomas o solicitud de precios, NUNCA respondas con el saludo de bienvenida estándar. Responde siempre con la cotización directa o solicitando aclaración sobre el examen específico.\n\n5. REGLAS DE PRECIOS Y FACTURACIÓN:\n• Precios cotizados estrictamente en Dólares ($ USD).\n• Coproantígeno de Helicobacter pylori: Precio exacto $13.50 USD (No $13). Muestra: Muestra de heces fresca.\n• Cultivo de Esputo: Precio exacto $50.00 USD (YA incluye coloración de Ziehl-Neelsen / BK).\n• Coloración de Ziehl-Neelsen (aislada): Precio exacto $6.00 USD.\n• REGLA CRÍTICA DE COPROANÁLISIS (Examen de Heces Incluido sin Costo Adicional):\n  Los siguientes 7 exámenes fecales especializados YA INCLUYEN el examen Coproparasitológico simple sin costo adicional ($0 extra):\n  1. Coproantígenos Helicobacter pylori ($13.50 USD)\n  2. Absorción intestinal / Azúcares reductores ($11.00 USD)\n  3. Ag E. histolytica / Giardia / Cryptosporidium ($40.00 USD)\n  4. Ag Entamoeba histolytica ($26.00 USD)\n  5. Sudan III / Esteatorrea en heces ($11.00 USD)\n  6. Leucograma fecal / Polimorfonucleares en heces ($11.00 USD)\n  7. Esteatocrito ácido ($10.00 USD)\n  Si el paciente pide cualquiera de estos 7 estudios y además examen de heces/coproparasitológico, indícale que el examen de heces YA ESTÁ INCLUIDO y NO sumes los $6.00 USD al total.\n• Precios oficiales de referencia: Insulina postprandial (PP): $14.00 USD | Vitamina B12: $23.00 USD.\n\n6. REQUISITOS DE PREPARACIÓN PREANALÍTICA:\n• Solo indica ayuno (ej. 8 a 12 horas) para los exámenes en sangre que estrictamente lo requieran (Glicemia, Perfil Lipídico, Hormonas tiroideas, etc.). NO indiques ayuno para orina, heces ni hisopados.\n• Coproantígeno de Helicobacter pylori: Muestra fecal fresca (<3 horas). No requiere ayuno. Notificar si toma antibióticos, bismuto, antiácidos o IBP (Omeprazol, Pantoprazol).\n\n7. MENSAJES ADMINISTRATIVOS Y MÉTODOS DE PAGO:\n• Medios de pago aceptados en sede: Efectivo (USD / Bolívares), Punto de Venta en sede física y Transferencia bancaria en Bolívares a tasa oficial BCV.\n• REGLA CRÍTICA SOBRE PAGO MÓVIL: El laboratorio NO dispone de Pago Móvil. NUNCA ofrezcas Pago Móvil ni inventes plantillas de pago móvil.\n• No transfieras las cotizaciones estándar a secretaría. El paciente cancela directamente al acudir a su toma en sede.\n\n8. CONVENIO TORRE CARACAS:\nSi el paciente consulta por pruebas remitidas a Caracas (Paneles RAST, Zonulina, Borrelia/Lyme, etc.), incluye textualmente el mensaje:\n\"Estos exámenes son remitidos a un laboratorio en Caracas, por lo tanto, Gonzalez Prato Laboratorio actúa como enlace para la recolección y envío de las muestras. En consecuencia, el resultado llega vía correo electrónico y se le remite al paciente usando esa misma modalidad.\"\n\n9. FORMATO DE COTIZACIÓN OBLIGATORIO:\nCon gusto le presento la cotización oficial y preparación en *GONZALEZ-PRATO Laboratorio* 🧪:\n\n• [Nombre del Examen]\n  - Precio: $[Monto] USD\n  - Muestra: [Muestra de sangre / Muestra de orina / Muestra de heces / Hisopado nasal]\n  - Requisitos: [Ayuno solo si aplica / Preparación preanalítica]\n\n──────────────────────────\n💰 *TOTAL ESTIMADO:* **$[Total] USD**\n*(Puede cancelar directamente en recepción al momento de su toma: Efectivo USD/Bs, Punto de Venta o Transferencia BCV).*\n\n📍 *Sede:* Urb. El Encanto, Clínica del Niño, Sótano 2 (detrás de la Contraloría del Estado Mérida).\n⏰ *Horario:* Lunes a Viernes de 7:00 AM a 3:00 PM | Sábados de 8:00 AM a 1:00 PM (Atención por orden de llegada)."
         }
       },
-      "id": "61e1ca13-8760-4cba-bae3-8043c0816b88",
+      "id": "0fb21653-724f-486b-a117-1f84917d3613",
       "name": "Agente Clínico Inteligente 24/7",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        3408,
-        320
+        8080,
+        784
       ]
     },
     {
       "parameters": {
-        "modelName": "models/gemini-1.5-flash",
+        "modelName": "models/gemini-3.1-flash-lite",
         "options": {
           "temperature": 0
         }
       },
-      "id": "ad6ecafe-1708-4446-8ce7-bb4800fe89de",
+      "id": "de4e21b2-f176-4949-a450-2581e788ff10",
       "name": "Google Gemini Chat Model",
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        3408,
-        512
+        8080,
+        976
       ],
       "credentials": {
         "googlePalmApi": {
@@ -125,13 +124,13 @@
         "sessionKey": "={{ $(\"Parsear Mensaje Evolution API\").first().json.senderRemoteJid || $json.senderRemoteJid }}",
         "contextWindowLength": 4
       },
-      "id": "c2383703-7fe5-4223-9d3f-570e60a9aa7b",
+      "id": "8e8d106a-99e4-40a4-a6df-913813607aab",
       "name": "Memoria Conversacional por Teléfono",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        3552,
-        512
+        8224,
+        976
       ]
     },
     {
@@ -140,13 +139,13 @@
         "description": "Activa la alarma en recepción ÚNICAMENTE cuando el paciente pide explícitamente hablar con una persona/secretaria, hace un reclamo, pide domicilio o agenda cita de micología. PROHIBIDO ejecutar si el paciente solo pregunta precios o exámenes.",
         "jsCode": "const senderPhone = $('Parsear Mensaje Evolution API').first().json.senderPhone || $json.senderPhone;\nconst scheduleCtx = $('Parsear Mensaje Evolution API').first().json.scheduleContext || {};\nconst estadoAtencion = (scheduleCtx && scheduleCtx.isOpen) ? 'ESCALADO_HUMANO' : 'ESCALADO_FUERA_HORARIO';\nconst KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBldGNxYWl4emV0d3NkdXNjdnR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTAxNjMsImV4cCI6MjEwNTE2NjE2M30.4vDNJ3nBMi0TQg71KZUpyJdcBWr5zyTDKR92xA4obgM';\ntry {\n  await $httpRequest({\n    method: 'PATCH',\n    url: 'https://petcqaixzetwsduscvtx.supabase.co/rest/v1/pacientes_leads?whatsapp_id=eq.' + senderPhone,\n    headers: { 'Content-Type': 'application/json', 'apikey': KEY, 'Authorization': 'Bearer ' + KEY },\n    body: { estado_atencion: estadoAtencion, updated_at: new Date().toISOString() },\n    json: true\n  });\n} catch (err) {}\nreturn JSON.stringify({\n  status: 'handover_triggered',\n  estado_registrado: estadoAtencion,\n  mensaje: estadoAtencion === 'ESCALADO_HUMANO' ? 'Alarma activada en recepción.' : 'Registrado. Atención a primera hora hábil.'\n});"
       },
-      "id": "ef41ef18-ed3e-4917-b476-08339a134eb2",
+      "id": "f34bbe45-9a06-4ddf-b85a-a39a16b1a33c",
       "name": "Tool: Alarma Handover Recepción",
       "type": "@n8n/n8n-nodes-langchain.toolCode",
       "typeVersion": 1.1,
       "position": [
-        3696,
-        512
+        8368,
+        976
       ]
     },
     {
@@ -167,13 +166,13 @@
         "jsonBody": "={{ JSON.stringify({ number: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone || $json.senderPhone, text: $(\"Agente Clínico Inteligente 24/7\").first().json.output || $json.output || $json.text || \"\" }) }}",
         "options": {}
       },
-      "id": "1495241c-76f8-449a-9824-e582a9cd762d",
+      "id": "d8d69499-e0f4-4ccf-a70f-dc31e4a6bc8f",
       "name": "Enviar Respuesta WhatsApp (Evolution API)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3856,
-        320
+        8528,
+        784
       ]
     },
     {
@@ -202,13 +201,13 @@
         "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, nombre_completo: $(\"Parsear Mensaje Evolution API\").first().json.senderName, ultimo_mensaje: $(\"Parsear Mensaje Evolution API\").first().json.userText, updated_at: new Date().toISOString() }) }}",
         "options": {}
       },
-      "id": "546abee9-dd71-49fe-a811-434a0e382b52",
+      "id": "bfdc9910-735f-4833-b5a4-0998ac5c602c",
       "name": "Guardar Lead Paciente en Supabase",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3408,
-        128
+        8080,
+        592
       ]
     },
     {
@@ -233,13 +232,13 @@
         "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, emisor: \"PACIENTE\", contenido: $(\"Parsear Mensaje Evolution API\").first().json.userText }) }}",
         "options": {}
       },
-      "id": "e0cadbac-2810-4243-99a2-f838fad68ef8",
+      "id": "685721d7-bbf6-4502-bc64-6e30df039f2c",
       "name": "Guardar Mensaje Paciente en Supabase",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3632,
-        128
+        8304,
+        592
       ]
     },
     {
@@ -264,13 +263,13 @@
         "jsonBody": "={{ JSON.stringify({ whatsapp_id: $(\"Parsear Mensaje Evolution API\").first().json.senderPhone, emisor: \"BOT\", contenido: $(\"Agente Clínico Inteligente 24/7\").first().json.output || $(\"Agente Clínico Inteligente 24/7\").first().json.text || $json.output || $json.text || \"[Mensaje enviado]\" }) }}",
         "options": {}
       },
-      "id": "7eaa5390-acdb-4ef3-84f0-155877aab537",
+      "id": "37fa1202-d20d-4bb7-a757-ace79cf42b8f",
       "name": "Guardar Respuesta Bot en Supabase",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        4080,
-        320
+        8752,
+        784
       ]
     }
   ],
