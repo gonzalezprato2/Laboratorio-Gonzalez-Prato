@@ -14,8 +14,8 @@ import {
 } from 'lucide-react';
 
 interface HeaderProps {
-  activeTab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator';
-  onSelectTab: (tab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator') => void;
+  activeTab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings';
+  onSelectTab: (tab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings') => void;
   hasEscalated: boolean;
   soundEnabled: boolean;
   toggleSound: () => void;
@@ -34,7 +34,6 @@ export const Header: React.FC<HeaderProps> = ({
     { id: "patients", label: "Pacientes & CRM", icon: Users },
     { id: "metrics", label: "Analítica", icon: Activity },
     { id: "settings", label: "Configuración", icon: Settings },
-    { id: "simulator", label: "Simulador WhatsApp", icon: Smartphone },
   ];
 
   return (

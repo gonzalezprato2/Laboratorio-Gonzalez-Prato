@@ -5,15 +5,13 @@ import { PricingManager } from './components/PricingManager';
 import { PatientsCRM } from './components/PatientsCRM';
 import { MetricsDashboard } from './components/MetricsDashboard';
 import { SettingsView } from './components/SettingsView';
-import { WhatsAppSimulator } from './components/WhatsAppSimulator';
 import { storageService } from './services/storageService';
 import { supabaseService } from './services/supabaseService';
 import { audioAlarm } from './services/audioAlarmService';
-import { processPatientMessage } from './services/clinicalAiEngine';
 import { LabExam, PatientLead, SystemConfig, AttentionStatus } from './types/lab';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator'>('inbox');
+  const [activeTab, setActiveTab] = useState<'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings'>('inbox');
   const [exams, setExams] = useState<LabExam[]>([]);
   const [leads, setLeads] = useState<PatientLead[]>([]);
   const [config, setConfig] = useState<SystemConfig>(storageService.getConfig());
@@ -149,7 +147,7 @@ export default function App() {
     storageService.saveConfig(newConfig);
   };
 
-  const handleSelectTab = (tab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings' | 'simulator') => {
+  const handleSelectTab = (tab: 'inbox' | 'pricing' | 'patients' | 'metrics' | 'settings') => {
     setActiveTab(tab);
   };
 
@@ -203,50 +201,6 @@ export default function App() {
     }
   };
 
-  const handleNewPatientMessage = (messageText: string, isWeekendSimulated?: boolean) => {
-    const analysis = processPatientMessage(messageText, exams, undefined, config.scheduleConfig, isWeekendSimulated, config);
-    const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-    const targetLeadId = activeLeadId || 'lead-1';
-
-    const updatedLeads = leads.map(lead => {
-      if (lead.id === targetLeadId) {
-        const userMsg = {
-          id: 'msg-user-' + Date.now(),
-          sender: 'PACIENTE' as const,
-          text: messageText,
-          timestamp: timeNow
-        };
-        const botMsg = {
-          id: 'msg-bot-' + Date.now(),
-          sender: 'BOT' as const,
-          text: analysis.replyText,
-          timestamp: timeNow,
-          quotedExams: analysis.matchedExams.map(e => e.name),
-          totalUsd: analysis.totalUsd,
-          isOutOfHours: analysis.isOutOfHours
-        };
-
-        const newExams = Array.from(new Set([...lead.examsRequested, ...analysis.matchedExams.map(e => e.name)]));
-
-        return {
-          ...lead,
-          lastMessage: messageText,
-          status: analysis.shouldEscalate ? analysis.escalationStatus : lead.status,
-          timestamp: timeNow,
-          examsRequested: newExams,
-          totalQuotedUsd: (lead.totalQuotedUsd || 0) + analysis.totalUsd,
-          messages: [...lead.messages, userMsg, botMsg],
-          isWeekendLead: isWeekendSimulated
-        };
-      }
-      return lead;
-    });
-
-    setLeads(updatedLeads);
-    storageService.saveLeads(updatedLeads);
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col">
       <Header 
@@ -293,14 +247,6 @@ export default function App() {
           <SettingsView 
             config={config} 
             onSaveConfig={handleSaveConfig} 
-          />
-        )}
-        {activeTab === "simulator" && (
-          <WhatsAppSimulator 
-            catalog={exams} 
-            config={config}
-            scheduleConfig={config.scheduleConfig} 
-            onNewPatientMessage={handleNewPatientMessage} 
           />
         )}
       </main>
