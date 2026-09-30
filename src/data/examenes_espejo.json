@@ -622,17 +622,21 @@
     "category": "OTROS ESTUDIOS",
     "name": "Panel respiratorio (Mycoplasma, adenovirus, Influenza A y B, Sars Cov)",
     "synonyms": [
-      "panel respiratorio (mycoplasma",
-      "adenovirus",
+      "panel respiratorio",
+      "hisopado respiratorio",
+      "panel respiratorio viral",
       "influenza a y b",
-      "sars cov)"
+      "adenovirus",
+      "mycoplasma respiratorio",
+      "sars cov",
+      "covid e influenza"
     ],
     "priceUsd": 42,
-    "fastingHours": "8 - 12 horas",
-    "sampleType": "Muestra de sangre",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Hisopado nasal / nasofaríngeo",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "notes": "Toma de muestra por hisopado nasal/nasofaríngeo. No requiere ayuno de alimentos. Evitar aplicar gotas, sprays o soluciones nasales 4 a 6 horas antes de la toma de muestra.",
     "isCaracasConvenio": false
   },
   {
