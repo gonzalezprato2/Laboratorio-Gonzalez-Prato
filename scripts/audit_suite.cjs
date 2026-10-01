@@ -99,11 +99,12 @@ const SPECIAL_FECAL_IDS = [
   'gp_150_ag_entamoeba_histolytica_coproantig',
   'gp_137_sudan_iii_o_esteatorrea_en_heces',
   'gp_136_leucograma_fecal_o_leucocitos_en_he',
-  'gp_143_esteatocrito_acido'
+  'gp_143_esteatocrito_acido',
+  'gp_038_calprotectina_semicuantitativa'
 ];
 
 function calculateQuote(matched) {
-  const hasSpecial = matched.some(e => SPECIAL_FECAL_IDS.includes(e.id));
+  const hasSpecial = matched.some(e => SPECIAL_FECAL_IDS.includes(e.id) || normalizeText(e.name).includes('calprotectina'));
   const isCopro = (e) => e.id === 'gp_135_coproparasitologico_o_examen_de_hec' || normalizeText(e.name).includes('coproparasitologico') || normalizeText(e.name) === 'examen de heces';
   
   let total = 0;
@@ -344,6 +345,28 @@ const testCases = [
       const ex = res.matched.find(e => e.id.includes('perfil_20'));
       return ex && (ex.priceUsd === 67 || ex.priceUsd === 42);
     }
+  },
+  {
+    id: 31,
+    name: 'Calprotectina Semicuantitativa (Muestra: Heces, Sin ayuno, $26.00)',
+    query: 'Precio de calprotectina fecal',
+    validate: (res) => {
+      const ex = res.matched.find(e => e.id.includes('calprotectina') || normalizeText(e.name).includes('calprotectina'));
+      return ex && ex.priceUsd === 26 && ex.sampleType.toLowerCase().includes('heces') && !ex.sampleType.toLowerCase().includes('sangre') && res.total === 26;
+    }
+  },
+  {
+    id: 32,
+    name: 'Combo Paciente Real (Panel Respiratorio + Uroanálisis + Calprotectina + Coproparasitológico = $74.00)',
+    query: 'Panel respiratorio, uroanalisis, calprotectina y examen de heces',
+    validate: (res) => {
+      const hasResp = res.matched.some(e => e.id.includes('panel_respiratorio')); // 42
+      const hasUro = res.matched.some(e => e.id.includes('uroanalisis')); // 6
+      const hasCalpro = res.matched.some(e => e.id.includes('calprotectina') || normalizeText(e.name).includes('calprotectina')); // 26
+      const hasCopro = res.matched.some(e => e.id.includes('coproparasitologico')); // 0 (incluido)
+      // 42 + 6 + 26 + 0 = 74.00
+      return hasResp && hasUro && hasCalpro && hasCopro && res.total === 74.0;
+    }
   }
 ];
 
@@ -358,10 +381,10 @@ testCases.forEach(tc => {
 
   if (ok) {
     passed++;
-    console.log(`✅ [TEST ${String(tc.id).padStart(2, '0')}/30] PASSED: ${tc.name}`);
+    console.log(`✅ [TEST ${String(tc.id).padStart(2, '0')}/${testCases.length}] PASSED: ${tc.name}`);
   } else {
     failed++;
-    console.error(`❌ [TEST ${String(tc.id).padStart(2, '0')}/30] FAILED: ${tc.name}`);
+    console.error(`❌ [TEST ${String(tc.id).padStart(2, '0')}/${testCases.length}] FAILED: ${tc.name}`);
     console.error(`   Query: "${tc.query}"`);
     console.error(`   Matches (${matched.length}):`, matched.map(m => `${m.name} ($${m.priceUsd})`));
     console.error(`   Total calculado: $${total.toFixed(2)} USD`);
@@ -370,9 +393,9 @@ testCases.forEach(tc => {
 
 console.log('\n═══════════════════════════════════════════════════════════════════');
 console.log(`📊 RESULTADO FINAL DE LA SUITE DE REGRESIÓN:`);
-console.log(`   Total pruebas: 30`);
-console.log(`   Exitosas:      ${passed} / 30 (${Math.round((passed/30)*100)}%)`);
-console.log(`   Fallidas:      ${failed} / 30`);
+console.log(`   Total pruebas: ${testCases.length}`);
+console.log(`   Exitosas:      ${passed} / ${testCases.length} (${Math.round((passed/testCases.length)*100)}%)`);
+console.log(`   Fallidas:      ${failed} / ${testCases.length}`);
 console.log('═══════════════════════════════════════════════════════════════════\n');
 
 if (failed > 0) {

@@ -241,10 +241,11 @@ const SPECIAL_FECAL_IDS = [
   'gp_150_ag_entamoeba_histolytica_coproantig',
   'gp_137_sudan_iii_o_esteatorrea_en_heces',
   'gp_136_leucograma_fecal_o_leucocitos_en_he',
-  'gp_143_esteatocrito_acido'
+  'gp_143_esteatocrito_acido',
+  'gp_038_calprotectina_semicuantitativa'
 ];
 
-const hasSpecialFecal = filteredMatches.some(e => SPECIAL_FECAL_IDS.includes(e.id));
+const hasSpecialFecal = filteredMatches.some(e => SPECIAL_FECAL_IDS.includes(e.id) || normText(e.name).includes('calprotectina'));
 const isCoproSimple = (e) => e.id === 'gp_135_coproparasitologico_o_examen_de_hec' || normText(e.name).includes('coproparasitologico') || normText(e.name) === 'examen de heces';
 
 let calculatedTotalUsd = 0;
@@ -329,13 +330,14 @@ DIRECTRICES CLÍNICAS Y REGLAS DE COMUNICACIÓN OBLIGATORIAS
 
 3. REGLAS CLÍNICAS SOBRE MUESTRAS Y PREANALÍTICA:
 • NUNCA proporciones detalles técnicos internos de recipientes o tubos (ej. "tubo tapa morada", "tubo tapa roja", "EDTA") a menos que lo pregunten explícitamente. Usa siempre términos amigables: "Muestra de sangre", "Muestra de orina", "Muestra de heces", "Hisopado nasal / nasofaríngeo".
+• CORRECCIÓN CRÍTICA — CALPROTECTINA: Para la "Calprotectina semicuantitativa" o "Calprotectina fecal", la muestra es ÚNICAMENTE "Muestra de heces fresca en recolector estéril". NO es muestra de sangre ni requiere ayuno de alimentos. (Requisito: entregar en menos de 2 horas al laboratorio).
 • CORRECCIÓN CRÍTICA — PANEL RESPIRATORIO: Para el "Panel respiratorio (Mycoplasma, adenovirus, Influenza A y B, Sars Cov)", la muestra es ÚNICAMENTE "Hisopado nasal / nasofaríngeo". NO es muestra de sangre ni requiere ayuno de alimentos. (Requisito: no aplicar gotas o sprays nasales 4-6h antes).
 • CORRECCIÓN CRÍTICA — UROANÁLISIS: Para el "Uroanálisis" y cualquier examen de orina, la muestra es ÚNICAMENTE "Orina". Jamás menciones sangre ni suero.
 • CORRECCIÓN CRÍTICA — COPROANÁLISIS: Para el "Coproanálisis" o "Coproantígeno", la muestra es ÚNICAMENTE "Heces". Jamás menciones sangre ni suero.
 • Solo indica ayuno (8 a 12 horas) para los exámenes en sangre que lo requieran (Glicemia, Perfil Lipídico, Hormonas, etc.). NO indiques ayuno para orina, heces ni hisopados.
 
 4. REGLA CRÍTICA DE COPROANÁLISIS (Examen de Heces Incluido sin Costo Adicional):
-Los siguientes 7 exámenes fecales especializados YA INCLUYEN el examen Coproparasitológico simple sin costo adicional ($0 extra):
+Los siguientes 8 exámenes fecales especializados YA INCLUYEN el examen Coproparasitológico simple sin costo adicional ($0 extra):
 1. Coproantígenos Helicobacter pylori ($13.50 USD)
 2. Absorción intestinal / Azúcares reductores ($11.00 USD)
 3. Ag E. histolytica / Giardia / Cryptosporidium ($40.00 USD)
@@ -343,7 +345,8 @@ Los siguientes 7 exámenes fecales especializados YA INCLUYEN el examen Copropar
 5. Sudan III / Esteatorrea en heces ($11.00 USD)
 6. Leucograma fecal / Polimorfonucleares en heces ($11.00 USD)
 7. Esteatocrito ácido ($10.00 USD)
-Si el paciente pide cualquiera de estos 7 estudios y además examen de heces/coproparasitológico, indícale claramente que el examen de heces YA ESTÁ INCLUIDO ($0.00 USD) y NO se cobra extra.
+8. Calprotectina semicuantitativa ($26.00 USD)
+Si el paciente pide cualquiera de estos 8 estudios y además examen de heces/coproparasitológico, indícale claramente que el examen de heces YA ESTÁ INCLUIDO ($0.00 USD) y NO se cobra extra.
 
 5. SOLICITUD DE ÓRDENES MÉDICAS Y TEXTO VS. IMAGEN:
 • Si el paciente no ha especificado qué exámenes necesita o menciona que tiene una orden médica:

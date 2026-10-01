@@ -366,7 +366,7 @@ export function processPatientMessage(
     };
   }
 
-  // Regla Clínica Especial: 7 Exámenes Fecales que YA INCLUYEN el Coproparasitológico Simple ($0 adicional)
+  // Regla Clínica Especial: 8 Exámenes Fecales que YA INCLUYEN el Coproparasitológico Simple ($0 adicional)
   const SPECIAL_FECAL_IDS = [
     'gp_142_coproantigenos_helicobacter_pylori',
     'gp_139_absorcion_intestinal_o_azucares_red',
@@ -374,11 +374,13 @@ export function processPatientMessage(
     'gp_150_ag_entamoeba_histolytica_coproantig',
     'gp_137_sudan_iii_o_esteatorrea_en_heces',
     'gp_136_leucograma_fecal_o_leucocitos_en_he',
-    'gp_143_esteatocrito_acido'
+    'gp_143_esteatocrito_acido',
+    'gp_038_calprotectina_semicuantitativa'
   ];
 
   const hasSpecialFecalExam = matchedExams.some(e => 
     SPECIAL_FECAL_IDS.includes(e.id) ||
+    normalizeText(e.name).includes('calprotectina') ||
     normalizeText(e.name).includes('helicobacter') && normalizeText(e.name).includes('heces') ||
     normalizeText(e.name).includes('coproantigenos helicobacter') ||
     normalizeText(e.name).includes('absorcion intestinal') ||

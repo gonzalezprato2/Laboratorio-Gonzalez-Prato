@@ -627,18 +627,22 @@ export const INITIAL_EXAMS: LabExam[] = [
     "isCaracasConvenio": false
   },
   {
-    "id": "gp_038_calproteotina_semicuantitativa",
+    "id": "gp_038_calprotectina_semicuantitativa",
     "category": "OTROS ESTUDIOS",
-    "name": "Calproteotina semicuantitativa",
+    "name": "Calprotectina semicuantitativa",
     "synonyms": [
-      "calproteotina semicuantitativa"
+      "calproteotina semicuantitativa",
+      "calprotectina",
+      "calprotectina fecal",
+      "calprotectina semicuantitativa",
+      "calprotectina en heces"
     ],
     "priceUsd": 26,
-    "fastingHours": "8 - 12 horas",
-    "sampleType": "Muestra de sangre",
+    "fastingHours": "No requiere ayuno",
+    "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "notes": "Muestra fecal fresca (entregar en menos de 2 horas al laboratorio). No requiere ayuno.",
     "isCaracasConvenio": false
   },
   {

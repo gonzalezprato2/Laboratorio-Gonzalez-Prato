@@ -238,6 +238,13 @@ function extractSynonyms(rawName) {
     syns.add('esteatorrea en heces');
     syns.add('sudan 3');
   }
+  if (lower.includes('calprotectina') || lower.includes('calproteotina')) {
+    syns.add('calprotectina');
+    syns.add('calprotectina fecal');
+    syns.add('calprotectina semicuantitativa');
+    syns.add('calprotectina en heces');
+    syns.add('calproteotina semicuantitativa');
+  }
 
   // Remove any prohibited terms or stopwords from synonyms
   syns.delete('tsh ultrasensible');
@@ -256,6 +263,15 @@ function determinePreanalytics(cat, rawName) {
   let turnaround = 'Mismo día (tarde)';
   let isCaracasConvenio = false;
   let notes = 'Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).';
+
+  // CALPROTECTINA FECAL
+  if (lower.includes('calprotectina') || lower.includes('calproteotina')) {
+    sampleType = 'Muestra de heces fresca en recolector estéril';
+    fastingHours = 'No requiere ayuno';
+    turnaround = 'Mismo día (tarde)';
+    notes = 'Muestra fecal fresca (entregar en menos de 2 horas al laboratorio). No requiere ayuno.';
+    return { fastingHours, sampleType, turnaround, isCaracasConvenio, notes };
+  }
 
   // PANEL RESPIRATORIO
   if (lower.includes('panel respiratorio')) {
@@ -630,6 +646,9 @@ function determinePreanalytics(cat, rawName) {
 // Format canonical clean name
 function cleanExamName(rawName) {
   let name = rawName.trim();
+  if (name.toLowerCase().includes('calproteotina')) {
+    name = name.replace(/calproteotina/gi, 'Calprotectina');
+  }
   // Ensure capital start
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
