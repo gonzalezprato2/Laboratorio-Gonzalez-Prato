@@ -17,6 +17,17 @@ const ESCALATION_TRIGGERS = [
   'transferir', 'doctora', 'luisa', 'gonzalez'
 ];
 
+export const SPECIAL_FECAL_IDS = [
+  'gp_142_coproantigenos_helicobacter_pylori',
+  'gp_139_absorcion_intestinal_o_azucares_red',
+  'gp_151_ag_e_histolytica_giardia_crypto_cop',
+  'gp_150_ag_entamoeba_histolytica_coproantig',
+  'gp_137_sudan_iii_o_esteatorrea_en_heces',
+  'gp_136_leucograma_fecal_o_leucocitos_en_he',
+  'gp_143_esteatocrito_acido',
+  'gp_038_calprotectina_semicuantitativa'
+];
+
 function normalizeText(text: string): string {
   return text
     .toLowerCase()
@@ -166,8 +177,32 @@ export function processPatientMessage(
     if (normUser.includes('esputo') && (normalizeText(exam.name).includes('zielh') || normalizeText(exam.name).includes('zn') || normalizeText(exam.name).includes('bk'))) {
       return false;
     }
+    // ASLO: Cuantitativo ($15 USD) vs Semicuantitativo ($7.50 USD)
+    if (normUser.includes('aslo') || normUser.includes('antiestreptolisina') || normUser.includes('aso')) {
+      const wantsSemicuant = normUser.includes('semicuantitativ');
+      if (wantsSemicuant && exam.id === 'gp_066_aslo_cuantitativo_o_titulos_de_anti') {
+        return false;
+      }
+      if (!wantsSemicuant && exam.id === 'gp_065_aslo_semicuantitativo_o_titulos_de') {
+        return false; // Por defecto oficial de cotización, brindar ASLO cuantitativo ($15 USD)
+      }
+    }
     return true;
   });
+
+  // Expansión inteligente de combos si el usuario pide 'testosterona total y libre'
+  if (normUser.includes('testosterona') && normUser.includes('libre') && (normUser.includes('total') || normUser.includes('y libre') || normUser.includes('ambas') || normUser.includes('las dos'))) {
+    const tTotal = catalog.find(e => e.id === 'gp_057_testosterona_total_o_tt');
+    const tLibre = catalog.find(e => e.id === 'gp_058_testosterona_libre');
+    if (tTotal && !matchedExams.some(e => e.id === tTotal.id)) matchedExams.push(tTotal);
+    if (tLibre && !matchedExams.some(e => e.id === tLibre.id)) matchedExams.push(tLibre);
+  }
+
+  // Auto-inclusión de examen de heces si pide Calprotectina o examen fecal especial + heces
+  if ((normUser.includes('calprotectina') || SPECIAL_FECAL_IDS.some(id => matchedExams.some(e => e.id === id))) && (normUser.includes('heces') || normUser.includes('coproanalisis') || normUser.includes('coproparasitologico'))) {
+    const coproSimple = catalog.find(e => e.id === 'gp_135_coproparasitologico_o_examen_de_hec');
+    if (coproSimple && !matchedExams.some(e => e.id === coproSimple.id)) matchedExams.push(coproSimple);
+  }
 
   // 2.1. Detección de exámenes NO realizados o aclaratorias de nomenclatura
   if (normUser.includes('espermograma') || normUser.includes('espermatograma') || normUser.includes('seminograma') || normUser.includes('espermiograma')) {
@@ -367,25 +402,14 @@ export function processPatientMessage(
   }
 
   // Regla Clínica Especial: 8 Exámenes Fecales que YA INCLUYEN el Coproparasitológico Simple ($0 adicional)
-  const SPECIAL_FECAL_IDS = [
-    'gp_142_coproantigenos_helicobacter_pylori',
-    'gp_139_absorcion_intestinal_o_azucares_red',
-    'gp_151_ag_e_histolytica_giardia_crypto_cop',
-    'gp_150_ag_entamoeba_histolytica_coproantig',
-    'gp_137_sudan_iii_o_esteatorrea_en_heces',
-    'gp_136_leucograma_fecal_o_leucocitos_en_he',
-    'gp_143_esteatocrito_acido',
-    'gp_038_calprotectina_semicuantitativa'
-  ];
-
   const hasSpecialFecalExam = matchedExams.some(e => 
     SPECIAL_FECAL_IDS.includes(e.id) ||
     normalizeText(e.name).includes('calprotectina') ||
-    normalizeText(e.name).includes('helicobacter') && normalizeText(e.name).includes('heces') ||
+    (normalizeText(e.name).includes('helicobacter') && normalizeText(e.name).includes('heces')) ||
     normalizeText(e.name).includes('coproantigenos helicobacter') ||
     normalizeText(e.name).includes('absorcion intestinal') ||
     normalizeText(e.name).includes('azucares reductores') ||
-    normalizeText(e.name).includes('giardia') && normalizeText(e.name).includes('crypto') ||
+    (normalizeText(e.name).includes('giardia') && normalizeText(e.name).includes('crypto')) ||
     normalizeText(e.name).includes('entamoeba histolytica') ||
     normalizeText(e.name).includes('sudan iii') ||
     normalizeText(e.name).includes('esteatorrea') ||
@@ -396,12 +420,22 @@ export function processPatientMessage(
   const isCoproSimple = (e: LabExam) => 
     e.id === 'gp_135_coproparasitologico_o_examen_de_hec' ||
     normalizeText(e.name).includes('coproparasitologico') ||
-    normalizeText(e.name) === 'examen de heces';
+    normalizeText(e.name).includes('examen de heces') ||
+    normalizeText(e.name) === 'heces';
 
-  // Calcular totales (excluyendo exámenes de convenio con precio 0 y aplicando la bonificación del coproparasitológico)
+  // Regla Clínica Especial: Testosterona Libre incluye Testosterona Total ($24 USD total)
+  const hasTestoTotal = matchedExams.some(e => e.id === 'gp_057_testosterona_total_o_tt' || normalizeText(e.name).includes('testosterona total'));
+  const hasTestoLibre = matchedExams.some(e => e.id === 'gp_058_testosterona_libre' || normalizeText(e.name).includes('testosterona libre'));
+  const isTestoCombo = hasTestoTotal && hasTestoLibre;
+  const isTestoTotalExam = (e: LabExam) => e.id === 'gp_057_testosterona_total_o_tt' || normalizeText(e.name).includes('testosterona total');
+
+  // Calcular totales (excluyendo exámenes de convenio con precio 0 y aplicando bonificaciones deterministas)
   const totalUsd = matchedExams.reduce((acc, curr) => {
     if (hasSpecialFecalExam && isCoproSimple(curr)) {
       return acc; // $0 USD por estar incluido
+    }
+    if (isTestoCombo && isTestoTotalExam(curr)) {
+      return acc; // $0 USD porque la Testosterona Libre ya incluye la Total ($24 USD en total)
     }
     return acc + curr.priceUsd;
   }, 0);
@@ -414,6 +448,8 @@ export function processPatientMessage(
       
       if (hasSpecialFecalExam && isCoproSimple(exam)) {
         reply += '   💵 *Precio:* $0.00 USD (¡INCLUIDO SIN COSTO ADICIONAL en su estudio coprológico especializado!)\n';
+      } else if (isTestoCombo && isTestoTotalExam(exam)) {
+        reply += '   💵 *Precio:* $0.00 USD (¡INCLUIDA / PROCESADA CONJUNTAMENTE en el estudio de Testosterona Libre por $24.00 USD total!)\n';
       } else if (exam.priceUsd > 0) {
         reply += '   💵 *Precio:* $' + exam.priceUsd.toFixed(2) + ' USD\n';
       } else {
@@ -432,6 +468,12 @@ export function processPatientMessage(
       reply += '💰 *TOTAL ESTIMADO:* **$' + totalUsd.toFixed(2) + ' USD**\n';
       reply += '*(Puede cancelar directamente en recepción al momento de su toma: Efectivo USD/Bs, Punto de Venta o Transferencia BCV).*\n\n';
     }
+  }
+
+  // Notificación de Gases en Sede
+  const hasGases = matchedExams.some(e => e.id === 'gp_162_gases_venosos' || e.id === 'gp_163_gases_arteriales' || normalizeText(e.name).includes('gases venosos') || normalizeText(e.name).includes('gases arteriales'));
+  if (hasGases) {
+    reply += '⚠️ *HORARIO ESPECIAL PARA GASES EN SEDE:* La toma de muestra para gases se realiza exclusivamente de **Lunes a Viernes de 7:00 AM a 11:30 AM** (1 hora después del desayuno o reposo de 15 a 20 min en sede). No requiere traslado en hielo si se toma en nuestra sede física.\n\n';
   }
 
   const hasMycology = matchedExams.some(e => 

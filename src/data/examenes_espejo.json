@@ -632,7 +632,7 @@
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Muestra fecal fresca (entregar en menos de 2 horas al laboratorio). No requiere ayuno.",
+    "notes": "Muestra fecal fresca (entregar en menos de 2 horas al laboratorio). No requiere ayuno. Ya incluye examen coproparasitológico simple (examen de heces) sin costo adicional.",
     "isCaracasConvenio": false
   },
   {
@@ -946,14 +946,16 @@
     "category": "HORMONAS",
     "name": "Testosterona Total  o TT",
     "synonyms": [
-      "testosterona total"
+      "testosterona total",
+      "testosterona tt",
+      "tt"
     ],
     "priceUsd": 12,
     "fastingHours": "8 - 12 horas",
     "sampleType": "Muestra de sangre",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Extracción matutina ideal. Notificar terapias hormonales.",
+    "notes": "Extracción matutina ideal. Notificar terapias hormonales. Si se solicita junto con Testosterona Libre, la determinación total está incluida en el estudio de Testosterona Libre por $24.00 USD total.",
     "isCaracasConvenio": false
   },
   {
@@ -961,14 +963,17 @@
     "category": "HORMONAS",
     "name": "Testosterona libre",
     "synonyms": [
-      "testosterona libre"
+      "testosterona libre",
+      "testosterona total y libre",
+      "testosterona libre y total",
+      "testosterona libre y testosterona total"
     ],
     "priceUsd": 24,
     "fastingHours": "8 - 12 horas",
     "sampleType": "Muestra de sangre",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Extracción matutina ideal. Notificar terapias hormonales.",
+    "notes": "Extracción matutina ideal. Notificar terapias hormonales. Requiere el procesamiento de Testosterona Total (ambos estudios procesados conjuntamente por $24.00 USD).",
     "isCaracasConvenio": false
   },
   {
@@ -1078,16 +1083,16 @@
     "name": "ASLO semicuantitativo o titulos de antiestreptolisina O semicuantitativos o ASO semicuantitativo",
     "synonyms": [
       "aslo semicuantitativo",
-      "titulos de antiestreptolisina",
-      "semicuantitativos",
-      "aso semicuantitativo"
+      "aso semicuantitativo",
+      "antiestreptolisina semicuantitativa",
+      "titulos de antiestreptolisina semicuantitativos"
     ],
     "priceUsd": 7.5,
     "fastingHours": "4 - 8 horas",
     "sampleType": "Muestra de sangre",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "notes": "ASLO semicuantitativo ($7.50 USD). Muestra de sangre en ayunas de 4 a 8 horas. (Nota: Para cuantificación exacta se procesa ASLO cuantitativo por $15.00 USD).",
     "isCaracasConvenio": false
   },
   {
@@ -1096,16 +1101,20 @@
     "name": "ASLO cuantitativo o titulos de antiestreptolisina O cuantitativos o ASO cuantitativo",
     "synonyms": [
       "aslo cuantitativo",
+      "aslo",
+      "antiestreptolisina",
+      "aso",
       "titulos de antiestreptolisina",
-      "cuantitativos",
-      "aso cuantitativo"
+      "aso cuantitativo",
+      "antiestreptolisina o",
+      "antiestreptolisinas"
     ],
     "priceUsd": 15,
     "fastingHours": "4 - 8 horas",
     "sampleType": "Muestra de sangre",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
+    "notes": "ASLO cuantitativo ($15.00 USD). Muestra de sangre en ayunas de 4 a 8 horas. Atención general por orden de llegada a partir de las 7:00 AM (Lun-Vie) o 8:00 AM (Sáb).",
     "isCaracasConvenio": false
   },
   {
@@ -2287,7 +2296,9 @@
       "coproanálisis",
       "coproparasitologico",
       "heces simple",
-      "parasitologico"
+      "parasitologico",
+      "heces",
+      "heces fecales"
     ],
     "priceUsd": 6,
     "fastingHours": "No requiere ayuno",
@@ -2734,14 +2745,17 @@
     "category": "PRUEBAS ESPECIALES",
     "name": "Gases venosos",
     "synonyms": [
-      "gases venosos"
+      "gases venosos",
+      "gasometria venosa",
+      "gasometría venosa",
+      "gases en sangre venosa"
     ],
     "priceUsd": 68,
-    "fastingHours": "No requiere ayuno",
-    "sampleType": "Muestra de sangre venosa",
+    "fastingHours": "1 hora postprandial o reposo de 15 a 20 min",
+    "sampleType": "Muestra de sangre venosa heparinizada",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Gasometría venosa.",
+    "notes": "Horario exclusivo de toma en sede: Lunes a Viernes de 7:00 AM a 11:30 AM. Debe tomarse 1 hora después del desayuno (postprandial) o tras un reposo de 15 a 20 minutos. (Si la toma es en nuestra sede física, no requiere traslado en hielo; si es remitida de centro externo, debe transportarse en hielo).",
     "isCaracasConvenio": false
   },
   {
@@ -2749,14 +2763,16 @@
     "category": "PRUEBAS ESPECIALES",
     "name": "Gases arteriales",
     "synonyms": [
-      "gases arteriales"
+      "gases arteriales",
+      "gasometria arterial",
+      "gasometría arterial"
     ],
     "priceUsd": 68,
-    "fastingHours": "No requiere ayuno",
-    "sampleType": "Muestra de sangre arterial",
+    "fastingHours": "1 hora postprandial o reposo de 15 a 20 min",
+    "sampleType": "Muestra de sangre arterial heparinizada",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Punción arterial estricta con reposo previo de 15 minutos.",
+    "notes": "Horario exclusivo de toma en sede: Lunes a Viernes de 7:00 AM a 11:30 AM. Punción arterial estricta con reposo previo de 15 a 20 minutos.",
     "isCaracasConvenio": false
   },
   {
