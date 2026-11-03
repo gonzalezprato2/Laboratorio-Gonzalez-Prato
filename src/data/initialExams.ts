@@ -1968,7 +1968,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "synonyms": [
       "disbiosis"
     ],
-    "priceUsd": 53,
+    "priceUsd": 55,
     "fastingHours": "No requiere ayuno",
     "sampleType": "Muestra de heces fresca en frasco estéril",
     "turnaround": "3 a 8 días hábiles",
