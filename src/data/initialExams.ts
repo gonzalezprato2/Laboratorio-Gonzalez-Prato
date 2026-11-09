@@ -2365,7 +2365,7 @@ export const INITIAL_EXAMS: LabExam[] = [
     "sampleType": "Muestra de heces fresca en recolector estéril",
     "turnaround": "Mismo día (tarde)",
     "active": true,
-    "notes": "Retirar kit de recolección con conservante en el laboratorio para las 3 muestras.",
+    "notes": "Retirar kit con líquido conservante en el laboratorio para las 3 muestras. Mantener todo el tiempo a temperatura ambiente / medio ambiente (NO refrigerar ni congelar).",
     "isCaracasConvenio": false
   },
   {

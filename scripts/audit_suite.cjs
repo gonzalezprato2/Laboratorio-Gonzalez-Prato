@@ -88,6 +88,11 @@ function matchExams(query) {
       return false;
     }
 
+    // 9. Seriado de heces / Concentrado de heces vs Coproparasitológico simple
+    if (ex.id === 'gp_135_coproparasitologico_o_examen_de_hec' && (normU.includes('seriado') || normU.includes('concentrado de heces')) && !normU.includes('coproparasitologico') && !normU.includes('coproanalisis') && !normU.includes('heces simple')) {
+      return false;
+    }
+
     return true;
   });
 }
@@ -366,6 +371,19 @@ const testCases = [
       const hasCopro = res.matched.some(e => e.id.includes('coproparasitologico')); // 0 (incluido)
       // 42 + 6 + 26 + 0 = 74.00
       return hasResp && hasUro && hasCalpro && hasCopro && res.total === 74.0;
+    }
+  }
+,
+  {
+    id: 33,
+    name: 'Seriado de heces (3 Muestras, $20.00 USD, Todo el tiempo a temperatura ambiente / NO refrigerar)',
+    query: 'Buenas tardes, precio y preparación para seriado de heces',
+    validate: (res) => {
+      const exam = res.matched.find(m => m.id === 'gp_138_concentrado_de_heces_o_seriado_de_h');
+      return !!exam &&
+        res.total === 20.0 &&
+        exam.notes.includes('temperatura ambiente') &&
+        exam.notes.includes('NO refrigerar');
     }
   }
 ];

@@ -293,7 +293,19 @@ const TEST_CASES = [
         res.matchedExamsSummary.includes('$15.00 USD') &&
         res.matchedExamsSummary.includes('ASLO cuantitativo');
     }
-  }
+  },
+  {
+    id: 23,
+    name: 'Seriado de Heces (3 Muestras, $20.00 USD, Todo el tiempo a temperatura ambiente / NO refrigerar)',
+    query: 'Buenas tardes, precio y preparación para seriado de heces',
+    assert: (res) => {
+      return res.hasMatchedExams &&
+        res.calculatedTotalUsd === 20.0 &&
+        res.matchedExamsSummary.toLowerCase().includes('seriado') &&
+        res.matchedExamsSummary.toLowerCase().includes('temperatura ambiente') &&
+        res.matchedExamsSummary.toLowerCase().includes('no refrigerar');
+    }
+  },
 ];
 
 async function runSuite() {
