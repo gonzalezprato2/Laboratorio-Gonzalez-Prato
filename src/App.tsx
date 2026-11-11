@@ -94,10 +94,10 @@ export default function App() {
     loadExams();
     loadLeads();
 
-    // Polling de respaldo cada 15 segundos para garantizar actualización constante ante fluctuaciones de red
+    // Polling de respaldo cada 60 segundos (respaldo secundario ante caidas de WebSocket)
     const pollInterval = setInterval(() => {
       loadLeads();
-    }, 15000);
+    }, 60000);
 
     // Suscripción Realtime por WebSockets a Supabase optimizada y desacoplada
     const unsubscribe = supabaseService.subscribeToLiveUpdates(

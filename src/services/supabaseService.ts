@@ -4,10 +4,13 @@ import { PatientLead, ChatMessage, AttentionStatus, LabExam } from '../types/lab
 export const supabaseService = {
   async getLeads(): Promise<PatientLead[]> {
     try {
+      // Optimizacion Free Tier & Alta Velocidad: Limitar a los 100 pacientes mas recientes
+      // Evita saturacion de memoria, consumo de cuota mensual y el corte artificial de 1000 registros
       const { data: leadsData, error: leadsError } = await supabase
         .from('pacientes_leads')
         .select('*')
-        .order('updated_at', { ascending: false });
+        .order('updated_at', { ascending: false })
+        .limit(100);
 
       if (leadsError || !leadsData) {
         console.error('Error fetching leads from Supabase:', leadsError);
