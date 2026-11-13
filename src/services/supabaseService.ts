@@ -129,19 +129,20 @@ export const supabaseService = {
         updated_at: new Date().toISOString()
       }).eq('id', lead.id);
 
-      // 2. Enviar por Evolution API al WhatsApp del paciente
+      // 2. Enviar por WAHA (GOWS) al WhatsApp del paciente
       const cleanPhone = lead.whatsapp.replace(/[^0-9]/g, '');
-      fetch(`http://86.48.20.190:8080/message/sendText/gonzalez-prato`, {
+      fetch(`http://86.48.20.190:8081/api/sendText`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': 'GonzalezPratoSecret2026'
+          'X-Api-Key': 'GonzalezPratoSecret2026'
         },
         body: JSON.stringify({
-          number: cleanPhone,
+          session: 'default',
+          chatId: `${cleanPhone}@c.us`,
           text: text
         })
-      }).catch(e => console.warn('Evolution API dispatch non-blocking notice:', e));
+      }).catch(e => console.warn('WAHA dispatch non-blocking notice:', e));
 
       return true;
     } catch (err) {
